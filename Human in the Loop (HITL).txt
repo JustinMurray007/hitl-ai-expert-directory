@@ -1,0 +1,65 @@
+Human in the Loop (HITL)
+The verified directory of AI specialists who build systems with real human accountability.
+Quick start (demo mode)
+npm install
+npm run dev
+
+Open http://localhost:3000. With no Supabase env vars set, the app runs in demo mode against
+clearly-labeled fictional seed data. You can browse the directory, filter by category/tool/budget,
+view profile pages with case studies, submit an application, submit a matchmaking request, and
+exercise the admin review workflow — all locally.
+A yellow "Demo mode" banner appears in the header whenever demo data is in use.
+Connect Supabase (real data)
+1. Create a project at supabase.com.
+2. Run the migration in db/schema.sql (SQL Editor → paste → run). This creates tables, RLS policies,
+and seeds the five categories and tool taxonomy.
+3. Copy .env.example to .env.local and fill in:
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...   # server-side only, never exposed to the browser
+ADMIN_REVIEW_TOKEN=...          # shared secret for /admin in Phase 1
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+
+4. Restart npm run dev. The demo banner disappears and all reads/writes hit Supabase.
+Access model: anonymous visitors can only read published rows via RLS. Applications, match
+requests, and review notes are service-role-only — they never appear in any public read path.
+Routes
+Route
+Purpose
+/
+Home — positioning, categories, verified experts
+/experts
+Directory with category / tool / budget / verified filters
+/experts/[slug]
+Expert profile with case studies + HITL mechanism
+/categories/[slug]
+Category hub (one per taxonomy entry)
+/apply
+Expert application intake (multi-section, validated server-side)
+/match
+Founder matchmaking intake (private)
+/admin
+Review queue — publish / verify / reject / archive
+/about
+Vetting standards + pricing hypothesis
+/sitemap.xml, /robots.txt
+SEO plumbing (demo profiles excluded)
+
+Design decisions worth knowing
+Publication, verification, and sponsorship are separate dimensions. A profile can be published
+without being verified; a verified profile can also be sponsored. Payment never confers verification.
+Verification requires two reviewed case studies. The application form accepts one to start;
+the admin queue shows verified_case_study_count so you can see who's short.
+No fake ratings. There is no review system, so no rating is displayed anywhere.
+Demo data is excluded from SEO. robots.ts and sitemap.ts filter out is_demo rows, and demo
+profile pages set robots: noindex.
+Max 3 categories per expert — enforced in the application form and validation schema.
+Programmatic long-tail pages are intentionally not built yet. Category hubs exist; industry ×
+location × tool fan-out waits until real inventory and substantive copy exist (see STRATEGY.md).
+Next steps
+See STRATEGY.md for the full launch plan, taxonomy, monetization phases, and risks.
+Deploy (Vercel)
+npm run build
+
+Push to GitHub, import into Vercel, add the env vars above in Project Settings → Environment
+Variables. Set NEXT_PUBLIC_SITE_URL to your production domain before launch.
