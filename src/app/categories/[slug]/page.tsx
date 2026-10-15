@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { getCategoryBySlug, getCategories, getExperts } from '@/lib/store';
+import { getCategoryBySlug, getExperts } from '@/lib/store';
 import ExpertCard from '@/components/ExpertCard';
 import {
   Workflow,
@@ -97,7 +97,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <div className="mb-6">
         <Link
           href="/#categories"
-          className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5e6d55] hover:text-[#001e00] transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           Back to Categories
@@ -105,20 +105,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       </div>
 
       {/* Category Hero Banner */}
-      <div className="glass-panel rounded-3xl p-8 sm:p-12 border border-white/[0.08] bg-[#11131c]/90 mb-10 shadow-2xl relative overflow-hidden">
+      <div className="rounded-3xl p-8 sm:p-12 border border-[#e4ebe4] bg-white mb-10 shadow-xs relative overflow-hidden">
         <div className="flex flex-col md:flex-row gap-6 items-start justify-between">
           <div className="flex items-start gap-5">
-            <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
-              <Icon className="w-7 h-7 text-emerald-400" />
+            <div className="w-16 h-16 rounded-2xl bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center shrink-0">
+              <Icon className="w-8 h-8 text-[#108a00]" />
             </div>
             <div>
-              <span className="text-xs uppercase font-mono tracking-wider text-emerald-400 font-semibold">
+              <span className="text-xs uppercase font-mono tracking-wider text-[#108a00] font-bold">
                 Category Hub
               </span>
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-white mt-1">
+              <h1 className="text-3xl sm:text-4xl font-black text-[#001e00] mt-1">
                 {category.name}
               </h1>
-              <p className="text-sm text-zinc-300 mt-2 max-w-2xl leading-relaxed">
+              <p className="text-sm text-[#5e6d55] mt-2 max-w-2xl leading-relaxed font-medium">
                 {category.description}
               </p>
             </div>
@@ -126,7 +126,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
           <Link
             href={`/match?category=${category.slug}`}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-lg shadow-emerald-500/25 transition-all shrink-0"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-xs shadow-sm transition-all shrink-0"
           >
             <Sparkles className="w-4 h-4" />
             Match in this Category
@@ -134,33 +134,33 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </div>
 
         {/* Taxonomy Metadata Strip */}
-        <div className="mt-8 pt-6 border-t border-white/[0.08] grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
-          <div>
-            <h4 className="font-semibold text-zinc-300 mb-1 flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+        <div className="mt-8 pt-6 border-t border-[#f0f3f0] grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+          <div className="p-4 rounded-xl bg-[#f9faf9] border border-[#e4ebe4]">
+            <h4 className="font-bold text-[#001e00] mb-1 flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#108a00]" />
               Core Buyer Problem
             </h4>
-            <p className="text-zinc-400 leading-relaxed">
+            <p className="text-[#5e6d55] leading-relaxed">
               {taxonomyInfo.buyerProblem}
             </p>
           </div>
 
-          <div>
-            <h4 className="font-semibold text-zinc-300 mb-1 flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-cyan-400" />
+          <div className="p-4 rounded-xl bg-[#f9faf9] border border-[#e4ebe4]">
+            <h4 className="font-bold text-[#001e00] mb-1 flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-[#108a00]" />
               Typical Tech Stack
             </h4>
-            <p className="text-zinc-400 leading-relaxed font-mono">
+            <p className="text-[#5e6d55] leading-relaxed font-mono">
               {taxonomyInfo.typicalStack}
             </p>
           </div>
 
-          <div>
-            <h4 className="font-semibold text-zinc-300 mb-1 flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-amber-400" />
+          <div className="p-4 rounded-xl bg-[#fffbeb] border border-[#fef3c7]">
+            <h4 className="font-bold text-[#92400e] mb-1 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#d97706]" />
               Required HITL Safeguard Focus
             </h4>
-            <p className="text-zinc-400 leading-relaxed">
+            <p className="text-[#78350f] leading-relaxed">
               {taxonomyInfo.commonSafeguards}
             </p>
           </div>
@@ -168,11 +168,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       </div>
 
       {/* Specialists List */}
-      <div className="mb-6 flex items-center justify-between text-xs text-zinc-400">
+      <div className="mb-6 flex items-center justify-between text-xs text-[#5e6d55]">
         <div>
-          Showing <span className="font-bold text-white">{experts.length}</span> listed specialist{experts.length === 1 ? '' : 's'} in {category.name}
+          Showing <span className="font-bold text-[#001e00]">{experts.length}</span> listed specialist{experts.length === 1 ? '' : 's'} in {category.name}
         </div>
-        <Link href="/experts" className="text-emerald-400 hover:underline">
+        <Link href="/experts" className="text-[#108a00] font-bold hover:underline">
           View all categories
         </Link>
       </div>

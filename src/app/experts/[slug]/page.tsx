@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { getExpertBySlug, getExperts } from '@/lib/store';
+import { getExpertBySlug } from '@/lib/store';
 import { VerifiedBadge, SponsorBadge, ToolBadge, BudgetBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
 import CaseStudyCard from '@/components/CaseStudyCard';
 import {
@@ -11,9 +11,7 @@ import {
   Calendar,
   ShieldCheck,
   Building,
-  CheckCircle2,
   ArrowLeft,
-  Share2,
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/Icons';
 
@@ -57,19 +55,19 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
       <div className="mb-6">
         <Link
           href="/experts"
-          className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5e6d55] hover:text-[#001e00] transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          Back to Directory
+          Back to Specialists
         </Link>
       </div>
 
       {/* Main Profile Header Card */}
-      <div className="glass-panel rounded-3xl p-6 sm:p-10 border border-white/[0.08] bg-[#11131c]/90 mb-10 shadow-2xl">
+      <div className="rounded-3xl p-6 sm:p-10 border border-[#e4ebe4] bg-white mb-10 shadow-xs">
         <div className="flex flex-col md:flex-row gap-8 items-start justify-between">
           <div className="flex flex-col sm:flex-row gap-6 items-start">
             {/* Avatar */}
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-zinc-800 border-2 border-white/10 shrink-0 shadow-lg">
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-[#f4f6f4] border border-[#e4ebe4] shrink-0 shadow-xs">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={expert.avatar_url}
@@ -81,37 +79,37 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
             {/* Info */}
             <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
+                <h1 className="text-2xl sm:text-3xl font-black text-[#001e00]">
                   {expert.full_name}
                 </h1>
                 {expert.is_verified ? (
                   <VerifiedBadge count={expert.verified_case_study_count} />
                 ) : (
-                  <span className="text-xs text-zinc-500 font-mono bg-zinc-900 px-2 py-0.5 rounded border border-zinc-800">
+                  <span className="text-xs text-[#5e6d55] font-mono bg-[#f4f6f4] px-2.5 py-0.5 rounded-full border border-[#dbe3db]">
                     Community Member
                   </span>
                 )}
                 {expert.sponsor_rank > 0 && <SponsorBadge />}
               </div>
 
-              <p className="text-sm font-medium text-emerald-400">
+              <p className="text-sm font-bold text-[#108a00]">
                 {expert.professional_title}
               </p>
 
               {expert.agency_name && (
-                <p className="text-xs text-zinc-400 flex items-center gap-1.5">
-                  <Building className="w-3.5 h-3.5 text-zinc-500" />
+                <p className="text-xs text-[#5e6d55] flex items-center gap-1.5 font-medium">
+                  <Building className="w-3.5 h-3.5 text-[#889888]" />
                   <span>{expert.agency_name}</span>
                 </p>
               )}
 
-              <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-400 pt-1">
+              <div className="flex flex-wrap items-center gap-4 text-xs text-[#5e6d55] pt-1">
                 <span className="flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-zinc-500" />
+                  <MapPin className="w-3.5 h-3.5 text-[#889888]" />
                   {expert.city}{expert.state_region ? `, ${expert.state_region}` : ''}, {expert.country}
                 </span>
                 <span className="flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5 text-zinc-500" />
+                  <Clock className="w-3.5 h-3.5 text-[#889888]" />
                   {expert.timezone}
                 </span>
               </div>
@@ -125,7 +123,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
                 href={expert.booking_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-lg shadow-emerald-500/25 transition-all text-center"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-xs shadow-sm transition-all text-center"
               >
                 <Calendar className="w-4 h-4" />
                 Book Discovery Call
@@ -133,7 +131,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
             ) : (
               <Link
                 href="/match"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-lg shadow-emerald-500/25 transition-all text-center"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-xs shadow-sm transition-all text-center"
               >
                 Inquire via Matchmaking
               </Link>
@@ -146,7 +144,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
                   href={expert.website_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white border border-white/10 transition-colors"
+                  className="p-2.5 rounded-full bg-[#f4f6f4] hover:bg-[#e4f7e6] text-[#001e00] hover:text-[#108a00] border border-[#dbe3db] transition-colors"
                   title="Visit Website"
                 >
                   <Globe className="w-4 h-4" />
@@ -157,7 +155,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
                   href={expert.linkedin_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white border border-white/10 transition-colors"
+                  className="p-2.5 rounded-full bg-[#f4f6f4] hover:bg-[#e4f7e6] text-[#001e00] hover:text-[#108a00] border border-[#dbe3db] transition-colors"
                   title="LinkedIn Profile"
                 >
                   <LinkedinIcon className="w-4 h-4" />
@@ -168,7 +166,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
                   href={expert.github_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white border border-white/10 transition-colors"
+                  className="p-2.5 rounded-full bg-[#f4f6f4] hover:bg-[#e4f7e6] text-[#001e00] hover:text-[#108a00] border border-[#dbe3db] transition-colors"
                   title="GitHub Profile"
                 >
                   <GithubIcon className="w-4 h-4" />
@@ -179,26 +177,26 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
         </div>
 
         {/* Tagline & Bio */}
-        <div className="mt-8 pt-6 border-t border-white/[0.08] space-y-4">
-          <p className="text-sm sm:text-base font-semibold text-zinc-200 italic">
+        <div className="mt-8 pt-6 border-t border-[#f0f3f0] space-y-4">
+          <p className="text-sm sm:text-base font-bold text-[#001e00] italic">
             &quot;{expert.tagline}&quot;
           </p>
-          <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed whitespace-pre-line">
+          <p className="text-xs sm:text-sm text-[#4b554b] leading-relaxed whitespace-pre-line font-medium">
             {expert.bio}
           </p>
         </div>
 
         {/* Pricing & Engagement Badges */}
-        <div className="mt-6 pt-6 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-4 text-xs">
+        <div className="mt-6 pt-6 border-t border-[#f0f3f0] flex flex-wrap items-center justify-between gap-4 text-xs">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="text-zinc-500">Starting Budget:</span>
+            <span className="text-[#5e6d55] font-medium">Starting Budget:</span>
             <BudgetBadge tier={expert.starting_budget} />
-            <span className="text-zinc-500 ml-2">Engagement:</span>
+            <span className="text-[#5e6d55] ml-2 font-medium">Engagement:</span>
             <EngagementBadge model={expert.primary_engagement} />
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-zinc-500">Categories:</span>
+            <span className="text-[#5e6d55] font-medium">Categories:</span>
             {expert.categories.map((c) => (
               <CategoryBadge key={c.id} name={c.name} />
             ))}
@@ -206,8 +204,8 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
         </div>
 
         {/* Tools Stack */}
-        <div className="mt-4 pt-4 border-t border-white/[0.06] flex flex-wrap items-center gap-2 text-xs">
-          <span className="text-zinc-500 mr-1">Verified Stack:</span>
+        <div className="mt-4 pt-4 border-t border-[#f0f3f0] flex flex-wrap items-center gap-2 text-xs">
+          <span className="text-[#5e6d55] mr-1 font-medium">Verified Stack:</span>
           {expert.tools.map((t) => (
             <ToolBadge key={t.id} name={t.name} />
           ))}
@@ -220,18 +218,18 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold text-emerald-400 mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-xs font-bold text-[#108a00] mb-2">
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>The HITL Proof Engine</span>
             </div>
-            <h2 className="text-2xl font-extrabold text-white">
+            <h2 className="text-2xl font-black text-[#001e00]">
               Production Implementations & Guardrails
             </h2>
-            <p className="text-xs text-zinc-400 mt-1">
+            <p className="text-xs text-[#5e6d55] mt-1 font-medium">
               Every case study below requires explicit proof of human oversight, failure safeguards, and measurable ROI.
             </p>
           </div>
-          <div className="text-xs font-mono text-zinc-400">
+          <div className="text-xs font-mono font-bold text-[#108a00]">
             {expert.case_studies.length} Documented Case {expert.case_studies.length === 1 ? 'Study' : 'Studies'}
           </div>
         </div>

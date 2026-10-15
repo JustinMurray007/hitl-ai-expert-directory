@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { submitMatchRequestAction } from '@/app/actions';
-import { Sparkles, CheckCircle2, ShieldCheck, AlertCircle, ArrowRight, Lock } from 'lucide-react';
+import { Sparkles, CheckCircle2, AlertCircle, ArrowRight, Lock } from 'lucide-react';
 
 const CATEGORIES = [
   { slug: 'operations-workflow-automation', label: 'Operations & Workflow Automation' },
@@ -51,108 +51,108 @@ export default function MatchPage() {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
       <div className="text-center max-w-xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-semibold text-cyan-400 mb-3">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-xs font-bold text-[#108a00] mb-3">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Founder Concierge Service</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-black text-[#001e00] tracking-tight">
           Request AI Specialist Matchmaking
         </h1>
-        <p className="text-sm text-zinc-400 mt-2 leading-relaxed">
+        <p className="text-sm text-[#5e6d55] mt-2 leading-relaxed font-medium">
           Tell us about your business process, stack, and budget. We will review your request privately and introduce two verified specialists with demonstrable domain case studies.
         </p>
       </div>
 
       {submittedId ? (
-        <div className="glass-panel rounded-3xl p-8 sm:p-12 border border-cyan-500/40 bg-cyan-950/20 text-center space-y-6">
-          <div className="w-16 h-16 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center mx-auto text-cyan-400">
+        <div className="rounded-3xl p-8 sm:p-12 border border-[#b2e8b8] bg-[#edf7ee] text-center space-y-6 shadow-sm">
+          <div className="w-16 h-16 rounded-2xl bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center mx-auto text-[#108a00]">
             <CheckCircle2 className="w-8 h-8" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-white">Match Request Received</h2>
-            <p className="text-sm text-zinc-300 mt-2 max-w-md mx-auto">
+            <h2 className="text-2xl font-black text-[#001e00]">Match Request Received</h2>
+            <p className="text-sm text-[#465a46] mt-2 max-w-md mx-auto font-medium">
               Thank you! Our review team has logged your inquiry. We will curate two verified specialists whose past production case studies match your workflow requirements.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-zinc-900 border border-white/10 max-w-sm mx-auto text-xs text-zinc-400 font-mono">
-            Reference ID: <span className="text-cyan-400 font-bold">{submittedId}</span>
+          <div className="p-4 rounded-xl bg-white border border-[#cbd5cb] max-w-sm mx-auto text-xs text-[#5e6d55] font-mono shadow-xs">
+            Reference ID: <span className="text-[#108a00] font-bold">{submittedId}</span>
           </div>
 
           <div className="pt-4 flex items-center justify-center gap-4">
             <Link
               href="/experts"
-              className="px-6 py-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold transition-colors"
+              className="px-6 py-3 rounded-full bg-white hover:bg-[#f4f6f4] text-[#001e00] font-bold text-xs border border-[#cbd5cb] transition-colors"
             >
               Browse Directory
             </Link>
             <Link
               href="/admin"
-              className="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-zinc-950 text-xs font-bold transition-colors"
+              className="px-6 py-3 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white text-xs font-bold shadow-xs transition-colors"
             >
               View in Admin Queue
             </Link>
           </div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="glass-panel rounded-3xl p-6 sm:p-10 border border-white/[0.08] bg-[#11131c]/90 space-y-6 shadow-2xl">
+        <form onSubmit={handleSubmit} className="rounded-3xl p-6 sm:p-10 border border-[#e4ebe4] bg-white space-y-6 shadow-xs">
           {errorMessage && (
-            <div className="p-4 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+            <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
               <span>{errorMessage}</span>
             </div>
           )}
 
-          <div className="flex items-center gap-2 text-xs text-zinc-400 border-b border-white/[0.06] pb-4">
-            <Lock className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="flex items-center gap-2 text-xs text-[#5e6d55] border-b border-[#f0f3f0] pb-4 font-medium">
+            <Lock className="w-3.5 h-3.5 text-[#108a00]" />
             <span>All inquiries are confidential and accessible only by the HITL matchmaking team.</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                Your Name <span className="text-rose-400">*</span>
+              <label className="block text-xs font-bold text-[#001e00] mb-1">
+                Your Name <span className="text-rose-500">*</span>
               </label>
               <input
                 type="text"
                 name="requesterName"
                 required
                 placeholder="e.g. Rachel Sterling"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white focus:outline-none focus:border-cyan-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                Work Email <span className="text-rose-400">*</span>
+              <label className="block text-xs font-bold text-[#001e00] mb-1">
+                Work Email <span className="text-rose-500">*</span>
               </label>
               <input
                 type="email"
                 name="requesterEmail"
                 required
                 placeholder="rachel@company.com"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white focus:outline-none focus:border-cyan-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1">
+            <label className="block text-xs font-bold text-[#001e00] mb-1">
               Company or Organization Name
             </label>
             <input
               type="text"
               name="company"
               placeholder="e.g. Summit Logistics Group"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white focus:outline-none focus:border-cyan-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1">
-              Describe Your Operational Bottleneck or AI Need <span className="text-rose-400">*</span>
+            <label className="block text-xs font-bold text-[#001e00] mb-1">
+              Describe Your Operational Bottleneck or AI Need <span className="text-rose-500">*</span>
             </label>
-            <p className="text-[11px] text-zinc-400 mb-1.5">
+            <p className="text-[11px] text-[#5e6d55] mb-1.5">
               Explain what process you want to automate, what software you use, and what failure risks worry you most.
             </p>
             <textarea
@@ -160,19 +160,19 @@ export default function MatchPage() {
               required
               rows={4}
               placeholder="e.g. We receive 300+ invoices and bill of ladings weekly. We want an automated OCR and classification pipeline, but we cannot afford incorrect entries in QuickBooks without human triage."
-              className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white focus:outline-none focus:border-cyan-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1">
+              <label className="block text-xs font-bold text-[#001e00] mb-1">
                 Approximate Budget Range
               </label>
               <select
                 name="budgetRange"
                 defaultValue="5000_to_15000"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white focus:outline-none focus:border-cyan-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
               >
                 <option value="under_2500">Under $2,500 (Small sprint or audit)</option>
                 <option value="2500_to_5000">$2,500 – $5,000 (Standard workflow)</option>
@@ -182,8 +182,8 @@ export default function MatchPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1">
-                Target Timeline <span className="text-rose-400">*</span>
+              <label className="block text-xs font-bold text-[#001e00] mb-1">
+                Target Timeline <span className="text-rose-500">*</span>
               </label>
               <input
                 type="text"
@@ -191,13 +191,13 @@ export default function MatchPage() {
                 required
                 defaultValue="Within 2-3 weeks"
                 placeholder="e.g. Immediate / Next 30 days"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-xs text-white focus:outline-none focus:border-cyan-500"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-2">
+            <label className="block text-xs font-bold text-[#001e00] mb-2">
               Relevant Operational Categories
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -208,14 +208,14 @@ export default function MatchPage() {
                     type="button"
                     key={cat.slug}
                     onClick={() => toggleCategory(cat.slug)}
-                    className={`p-2.5 rounded-xl text-xs text-left border flex items-center justify-between transition-all cursor-pointer ${
+                    className={`p-3 rounded-xl text-xs text-left border flex items-center justify-between transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-cyan-500/15 border-cyan-500/40 text-cyan-200'
-                        : 'bg-zinc-900 border-white/5 text-zinc-400 hover:border-white/20'
+                        ? 'bg-[#e4f7e6] border-[#108a00] text-[#0f3d17] font-bold shadow-xs'
+                        : 'bg-[#f9faf9] border-[#e4ebe4] text-[#4b554b] hover:border-[#cbd5cb]'
                     }`}
                   >
                     <span>{cat.label}</span>
-                    {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />}
+                    {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-[#108a00]" />}
                   </button>
                 );
               })}
@@ -226,7 +226,7 @@ export default function MatchPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold text-xs shadow-xl shadow-cyan-500/25 transition-all disabled:opacity-50 cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-xs shadow-md transition-all disabled:opacity-50 cursor-pointer"
             >
               {isSubmitting ? 'Submitting Inquiry...' : 'Submit Matchmaking Request'}
               <ArrowRight className="w-4 h-4" />

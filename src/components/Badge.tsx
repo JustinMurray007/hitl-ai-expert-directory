@@ -3,13 +3,13 @@ import React from 'react';
 export function VerifiedBadge({ count }: { count?: number }) {
   return (
     <span
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shadow-sm shadow-emerald-500/10"
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8]"
       title="Verified: Identity confirmed and at least 2 reviewed production case studies"
     >
-      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+      <span className="w-1.5 h-1.5 rounded-full bg-[#108a00] animate-pulse" />
       Verified Specialist
       {typeof count === 'number' && count > 0 && (
-        <span className="text-[10px] text-emerald-300 font-mono bg-emerald-950/60 px-1.5 py-0.2 rounded-full border border-emerald-500/20">
+        <span className="text-[10px] text-[#108a00] font-mono bg-white px-1.5 py-0.2 rounded-full border border-[#b2e8b8]">
           {count} studies
         </span>
       )}
@@ -19,7 +19,7 @@ export function VerifiedBadge({ count }: { count?: number }) {
 
 export function SponsorBadge() {
   return (
-    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">
+    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#fef9c3] text-[#854d0e] border border-[#fde047]">
       ★ Featured
     </span>
   );
@@ -27,7 +27,7 @@ export function SponsorBadge() {
 
 export function ToolBadge({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-zinc-800/80 text-zinc-300 border border-zinc-700/60 hover:border-zinc-500 transition-colors">
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs bg-[#f4f6f4] text-[#2d3a2d] border border-[#dbe3db] font-medium">
       {name}
     </span>
   );
@@ -35,7 +35,7 @@ export function ToolBadge({ name }: { name: string }) {
 
 export function CategoryBadge({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-zinc-800/60 text-zinc-300 border border-zinc-700/50">
+    <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-[#f0f5f0] text-[#1e2a1e] border border-[#d2ded2]">
       {name}
     </span>
   );
@@ -43,16 +43,16 @@ export function CategoryBadge({ name }: { name: string }) {
 
 export function BudgetBadge({ tier }: { tier: string }) {
   const map: Record<string, { label: string; color: string }> = {
-    under_2500: { label: '< $2.5k start', color: 'text-zinc-300 bg-zinc-800/70 border-zinc-700' },
-    '2500_to_5000': { label: '$2.5k – $5k', color: 'text-zinc-200 bg-zinc-800 border-zinc-600' },
-    '5000_to_15000': { label: '$5k – $15k', color: 'text-emerald-300 bg-emerald-950/40 border-emerald-800/60' },
-    '15000_plus': { label: '$15k+ enterprise', color: 'text-cyan-300 bg-cyan-950/40 border-cyan-800/60' },
+    under_2500: { label: '< $2.5k start', color: 'text-[#475569] bg-[#f8fafc] border-[#e2e8f0]' },
+    '2500_to_5000': { label: '$2.5k – $5k', color: 'text-[#1e293b] bg-[#f1f5f9] border-[#cbd5e1]' },
+    '5000_to_15000': { label: '$5k – $15k', color: 'text-[#166534] bg-[#f0fdf4] border-[#bbf7d0]' },
+    '15000_plus': { label: '$15k+ enterprise', color: 'text-[#1e3a8a] bg-[#eff6ff] border-[#bfdbfe]' },
   };
 
-  const item = map[tier] || { label: tier, color: 'text-zinc-300 bg-zinc-800 border-zinc-700' };
+  const item = map[tier] || { label: tier, color: 'text-[#334155] bg-[#f8fafc] border-[#e2e8f0]' };
 
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs border ${item.color}`}>
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold border ${item.color}`}>
       {item.label}
     </span>
   );
@@ -67,7 +67,7 @@ export function EngagementBadge({ model }: { model: string }) {
   };
 
   return (
-    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-zinc-900 text-zinc-400 border border-zinc-800">
+    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-[#f1f5f1] text-[#4b554b] border border-[#dbe3db]">
       {map[model] || model}
     </span>
   );

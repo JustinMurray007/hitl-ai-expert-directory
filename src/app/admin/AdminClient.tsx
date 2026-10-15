@@ -6,14 +6,8 @@ import { executeAdminReviewAction, adminLogoutAction } from '@/app/actions';
 import {
   ShieldCheck,
   CheckCircle2,
-  AlertCircle,
-  Clock,
-  User,
-  Building,
   Mail,
-  Lock,
   Layers,
-  Sparkles,
   LogOut,
   ChevronDown,
   ChevronUp,
@@ -132,25 +126,25 @@ export default function AdminClient({
   return (
     <div className="space-y-8">
       {/* Admin Top Bar */}
-      <div className="glass-panel rounded-2xl p-6 border border-white/[0.08] bg-[#11131c]/90 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="rounded-2xl p-6 border border-[#e4ebe4] bg-white shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-xs font-mono uppercase text-emerald-400 font-semibold tracking-wider">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#108a00] animate-pulse" />
+            <span className="text-xs font-mono uppercase text-[#108a00] font-bold tracking-wider">
               Administrative Control Session
             </span>
           </div>
-          <h1 className="text-2xl font-bold text-white mt-1">
+          <h1 className="text-2xl font-black text-[#001e00] mt-1">
             HITL Review Queue & Verification Gate
           </h1>
-          <p className="text-xs text-zinc-400 mt-0.5">
+          <p className="text-xs text-[#5e6d55] mt-0.5 font-medium">
             Strict verification threshold: Requires ≥2 reviewer-confirmed production case studies with explicit human fallback mechanisms.
           </p>
         </div>
 
         <button
           onClick={handleLogout}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-semibold text-zinc-300 hover:text-white transition-colors cursor-pointer"
+          className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#f4f6f4] hover:bg-[#e4ebe4] text-xs font-bold text-[#001e00] transition-colors cursor-pointer"
         >
           <LogOut className="w-3.5 h-3.5" />
           End Session
@@ -159,32 +153,32 @@ export default function AdminClient({
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="glass-panel rounded-xl p-4 border border-white/[0.06] bg-[#11131c]/60">
-          <span className="text-[11px] text-zinc-400 uppercase font-mono">Total Submissions</span>
-          <p className="text-2xl font-bold text-white mt-1">{applications.length}</p>
+        <div className="rounded-xl p-4 border border-[#e4ebe4] bg-white shadow-xs">
+          <span className="text-[11px] text-[#5e6d55] uppercase font-mono font-bold">Total Submissions</span>
+          <p className="text-2xl font-black text-[#001e00] mt-1">{applications.length}</p>
         </div>
-        <div className="glass-panel rounded-xl p-4 border border-amber-500/20 bg-amber-950/10">
-          <span className="text-[11px] text-amber-300 uppercase font-mono">Pending Review</span>
-          <p className="text-2xl font-bold text-amber-400 mt-1">{pendingCount}</p>
+        <div className="rounded-xl p-4 border border-[#fef08a] bg-[#fffbeb] shadow-xs">
+          <span className="text-[11px] text-[#92400e] uppercase font-mono font-bold">Pending Review</span>
+          <p className="text-2xl font-black text-[#b45309] mt-1">{pendingCount}</p>
         </div>
-        <div className="glass-panel rounded-xl p-4 border border-emerald-500/20 bg-emerald-950/10">
-          <span className="text-[11px] text-emerald-300 uppercase font-mono">Verified Specialists</span>
-          <p className="text-2xl font-bold text-emerald-400 mt-1">{verifiedCount}</p>
+        <div className="rounded-xl p-4 border border-[#b2e8b8] bg-[#edf7ee] shadow-xs">
+          <span className="text-[11px] text-[#166534] uppercase font-mono font-bold">Verified Specialists</span>
+          <p className="text-2xl font-black text-[#108a00] mt-1">{verifiedCount}</p>
         </div>
-        <div className="glass-panel rounded-xl p-4 border border-cyan-500/20 bg-cyan-950/10">
-          <span className="text-[11px] text-cyan-300 uppercase font-mono">Match Inquiries</span>
-          <p className="text-2xl font-bold text-cyan-400 mt-1">{matchRequests.length}</p>
+        <div className="rounded-xl p-4 border border-[#bfdbfe] bg-[#eff6ff] shadow-xs">
+          <span className="text-[11px] text-[#1e40af] uppercase font-mono font-bold">Match Inquiries</span>
+          <p className="text-2xl font-black text-[#2563eb] mt-1">{matchRequests.length}</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-3 border-b border-white/[0.08] pb-3 text-xs font-semibold">
+      <div className="flex items-center gap-3 border-b border-[#e4ebe4] pb-3 text-xs font-bold">
         <button
           onClick={() => setActiveTab('applications')}
           className={`pb-2 px-3 border-b-2 transition-all cursor-pointer ${
             activeTab === 'applications'
-              ? 'border-emerald-400 text-emerald-400'
-              : 'border-transparent text-zinc-400 hover:text-white'
+              ? 'border-[#108a00] text-[#108a00]'
+              : 'border-transparent text-[#5e6d55] hover:text-[#001e00]'
           }`}
         >
           Applications Queue ({applications.length})
@@ -193,8 +187,8 @@ export default function AdminClient({
           onClick={() => setActiveTab('matches')}
           className={`pb-2 px-3 border-b-2 transition-all cursor-pointer ${
             activeTab === 'matches'
-              ? 'border-cyan-400 text-cyan-400'
-              : 'border-transparent text-zinc-400 hover:text-white'
+              ? 'border-[#108a00] text-[#108a00]'
+              : 'border-transparent text-[#5e6d55] hover:text-[#001e00]'
           }`}
         >
           Founder Match Inquiries ({matchRequests.length})
@@ -222,15 +216,15 @@ export default function AdminClient({
             return (
               <div
                 key={app.id}
-                className="glass-panel rounded-2xl border border-white/[0.08] bg-[#11131c]/90 overflow-hidden shadow-lg transition-all"
+                className="rounded-2xl border border-[#e4ebe4] bg-white overflow-hidden shadow-xs transition-all"
               >
                 {/* Accordion Summary Header */}
                 <div
                   onClick={() => setExpandedAppId(isExpanded ? null : app.id)}
-                  className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer hover:bg-white/[0.02]"
+                  className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer hover:bg-[#fafbfa]"
                 >
                   <div className="flex items-start sm:items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-white/10 overflow-hidden shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#f4f6f4] border border-[#e4ebe4] overflow-hidden shrink-0">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={exp?.avatar_url || `https://api.dicebear.com/7.x/initials/svg?seed=user`}
@@ -240,19 +234,19 @@ export default function AdminClient({
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="text-sm font-bold text-white">
+                        <h3 className="text-sm font-bold text-[#001e00]">
                           {exp?.full_name || 'Applicant'}
                         </h3>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#f4f6f4] text-[#4b554b] border border-[#dbe3db] font-semibold">
                           {app.legal_entity_type || 'Entity Unspecified'}
                         </span>
                         {exp?.is_verified && (
-                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8]">
                             Verified
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-zinc-400">
+                      <p className="text-xs text-[#5e6d55] font-medium">
                         {exp?.professional_title} {exp?.agency_name ? `• ${exp.agency_name}` : ''}
                       </p>
                     </div>
@@ -260,42 +254,42 @@ export default function AdminClient({
 
                   <div className="flex items-center gap-4 text-xs">
                     <div className="flex flex-col items-end">
-                      <span className="font-mono text-zinc-400 text-[11px]">
-                        Status: <strong className="text-white capitalize">{current.status.replace('_', ' ')}</strong>
+                      <span className="font-mono text-[#5e6d55] text-[11px]">
+                        Status: <strong className="text-[#001e00] capitalize">{current.status.replace('_', ' ')}</strong>
                       </span>
-                      <span className="font-mono text-[11px] text-emerald-400">
+                      <span className="font-mono text-[11px] text-[#108a00] font-bold">
                         {confirmedCount} confirmed case study(ies)
                       </span>
                     </div>
                     {isExpanded ? (
-                      <ChevronUp className="w-4 h-4 text-zinc-500" />
+                      <ChevronUp className="w-4 h-4 text-[#889888]" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-zinc-500" />
+                      <ChevronDown className="w-4 h-4 text-[#889888]" />
                     )}
                   </div>
                 </div>
 
                 {/* Expanded Review Drawer */}
                 {isExpanded && (
-                  <div className="p-6 border-t border-white/[0.08] bg-[#0a0c13] space-y-6">
+                  <div className="p-6 border-t border-[#f0f3f0] bg-[#fbfcfb] space-y-6">
                     {/* Private Info Strip */}
-                    <div className="p-4 rounded-xl bg-purple-950/20 border border-purple-500/20 text-xs grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="p-4 rounded-xl bg-[#f3e8ff] border border-[#e9d5ff] text-xs grid grid-cols-1 sm:grid-cols-3 gap-3">
                       <div>
-                        <span className="text-zinc-500 block">Private Contact Email:</span>
-                        <span className="text-white font-medium flex items-center gap-1.5 mt-0.5">
-                          <Mail className="w-3.5 h-3.5 text-purple-400" />
+                        <span className="text-[#6b21a8] block font-semibold">Private Contact Email:</span>
+                        <span className="text-[#3b0764] font-bold flex items-center gap-1.5 mt-0.5">
+                          <Mail className="w-3.5 h-3.5 text-[#7e22ce]" />
                           {app.contact_email}
                         </span>
                       </div>
                       <div>
-                        <span className="text-zinc-500 block">Legal Entity:</span>
-                        <span className="text-white font-medium mt-0.5 block">
+                        <span className="text-[#6b21a8] block font-semibold">Legal Entity:</span>
+                        <span className="text-[#3b0764] font-bold mt-0.5 block">
                           {app.legal_entity_type || 'None'}
                         </span>
                       </div>
                       <div>
-                        <span className="text-zinc-500 block">Submitted At:</span>
-                        <span className="text-zinc-300 font-mono mt-0.5 block">
+                        <span className="text-[#6b21a8] block font-semibold">Submitted At:</span>
+                        <span className="text-[#3b0764] font-mono mt-0.5 block font-bold">
                           {new Date(app.created_at || Date.now()).toLocaleDateString()}
                         </span>
                       </div>
@@ -304,12 +298,12 @@ export default function AdminClient({
                     {/* Case Studies Inspection with Reviewer Confirmation Gate */}
                     <div>
                       <div className="flex items-center justify-between mb-3">
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
-                          <Layers className="w-3.5 h-3.5 text-cyan-400" />
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-[#001e00] flex items-center gap-1.5">
+                          <Layers className="w-3.5 h-3.5 text-[#108a00]" />
                           <span>Submitted Production Case Studies & Human Guardrails</span>
                         </h4>
-                        <div className="text-[11px] font-mono text-zinc-400">
-                          Threshold: <strong className={isVerificationEligible ? 'text-emerald-400' : 'text-amber-400'}>
+                        <div className="text-[11px] font-mono font-bold">
+                          Threshold: <strong className={isVerificationEligible ? 'text-[#108a00]' : 'text-[#d97706]'}>
                             {confirmedCount} / 2 confirmed
                           </strong>
                         </div>
@@ -323,24 +317,24 @@ export default function AdminClient({
                               key={cs.id}
                               className={`p-4 rounded-xl border transition-all text-xs space-y-3 ${
                                 isConfirmed
-                                  ? 'bg-emerald-950/20 border-emerald-500/40'
-                                  : 'bg-zinc-900/80 border-white/5'
+                                  ? 'bg-[#edf7ee] border-[#b2e8b8]'
+                                  : 'bg-white border-[#e4ebe4]'
                               }`}
                             >
                               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                 <div>
-                                  <span className="font-mono text-cyan-400 text-[10px] uppercase">
+                                  <span className="font-mono text-[#108a00] text-[10px] uppercase font-bold">
                                     Case Study #{idx + 1} • {cs.client_industry}
                                   </span>
-                                  <h5 className="font-bold text-white text-sm mt-0.5">{cs.title}</h5>
+                                  <h5 className="font-black text-[#001e00] text-sm mt-0.5">{cs.title}</h5>
                                 </div>
                                 <button
                                   type="button"
                                   onClick={() => toggleConfirmCaseStudy(app.id, cs.id)}
-                                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold border flex items-center gap-1.5 transition-all cursor-pointer ${
+                                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold border flex items-center gap-1.5 transition-all cursor-pointer ${
                                     isConfirmed
-                                      ? 'bg-emerald-500 text-zinc-950 border-emerald-400 shadow-sm'
-                                      : 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:border-zinc-500'
+                                      ? 'bg-[#108a00] text-white border-[#108a00] shadow-xs'
+                                      : 'bg-white text-[#001e00] border-[#cbd5cb] hover:border-[#108a00]'
                                   }`}
                                 >
                                   <CheckCircle2 className="w-3.5 h-3.5" />
@@ -348,21 +342,21 @@ export default function AdminClient({
                                 </button>
                               </div>
 
-                              <p className="text-zinc-400 text-xs">
-                                <strong>Problem:</strong> {cs.problem_statement}
+                              <p className="text-[#4b554b] text-xs">
+                                <strong className="text-[#001e00]">Problem:</strong> {cs.problem_statement}
                               </p>
 
                               {/* HITL MECHANISM REVIEW BOX */}
-                              <div className="p-3 rounded-lg bg-emerald-950/30 border border-emerald-500/30">
-                                <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block mb-1">
+                              <div className="p-3.5 rounded-lg bg-[#f2faf3] border border-[#b2e8b8]">
+                                <span className="text-[10px] font-bold text-[#108a00] uppercase tracking-wider block mb-1">
                                   Audited Human-in-the-Loop Mechanism:
                                 </span>
-                                <p className="text-zinc-200 italic">&quot;{cs.hitl_oversight_mechanism}&quot;</p>
+                                <p className="text-[#0f3d17] font-semibold italic">&quot;{cs.hitl_oversight_mechanism}&quot;</p>
                               </div>
 
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-zinc-400">
-                                <p><strong>Safeguards:</strong> {cs.failure_safeguards}</p>
-                                <p><strong>ROI / Outcomes:</strong> {cs.outcomes_roi}</p>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-[#4b554b]">
+                                <p><strong className="text-[#001e00]">Safeguards:</strong> {cs.failure_safeguards}</p>
+                                <p><strong className="text-[#001e00]">ROI / Outcomes:</strong> {cs.outcomes_roi}</p>
                               </div>
 
                               {cs.demo_video_url && (
@@ -370,7 +364,7 @@ export default function AdminClient({
                                   href={cs.demo_video_url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1 text-[11px] text-cyan-400 hover:underline"
+                                  className="inline-flex items-center gap-1 text-[11px] text-[#108a00] font-bold hover:underline"
                                 >
                                   Inspect Video Walkthrough <ExternalLink className="w-3 h-3" />
                                 </a>
@@ -382,15 +376,15 @@ export default function AdminClient({
                     </div>
 
                     {/* Review Form & Decision Panel */}
-                    <div className="p-5 rounded-2xl bg-zinc-900 border border-white/10 space-y-4">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+                    <div className="p-5 rounded-2xl bg-white border border-[#e4ebe4] space-y-4 shadow-xs">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#001e00]">
                         Reviewer Decision & Audit Trail
                       </h4>
 
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                         {/* Listing Status */}
                         <div>
-                          <label className="block text-zinc-400 mb-1 font-semibold">
+                          <label className="block text-[#001e00] mb-1 font-bold">
                             Listing Status
                           </label>
                           <select
@@ -401,7 +395,7 @@ export default function AdminClient({
                                 [app.id]: { ...current, status: e.target.value },
                               }))
                             }
-                            className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs text-white"
+                            className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] font-medium"
                           >
                             <option value="pending_review">Pending Review</option>
                             <option value="published">Published</option>
@@ -412,7 +406,7 @@ export default function AdminClient({
 
                         {/* Verification Status */}
                         <div>
-                          <label className="block text-zinc-400 mb-1 font-semibold">
+                          <label className="block text-[#001e00] mb-1 font-bold">
                             Verification Tier
                           </label>
                           <select
@@ -423,7 +417,7 @@ export default function AdminClient({
                                 [app.id]: { ...current, verificationStatus: e.target.value },
                               }))
                             }
-                            className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs text-white"
+                            className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] font-medium"
                           >
                             <option value="unverified">Unverified (Community Tier)</option>
                             <option value="in_review">In Review (Awaiting 2nd Study)</option>
@@ -434,7 +428,7 @@ export default function AdminClient({
 
                         {/* Sponsor Rank */}
                         <div>
-                          <label className="block text-zinc-400 mb-1 font-semibold">
+                          <label className="block text-[#001e00] mb-1 font-bold">
                             Sponsor Rank (0 = Normal)
                           </label>
                           <input
@@ -447,7 +441,7 @@ export default function AdminClient({
                                 [app.id]: { ...current, sponsorRank: parseInt(e.target.value) || 0 },
                               }))
                             }
-                            className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs text-white"
+                            className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] font-medium"
                           />
                         </div>
                       </div>
@@ -455,7 +449,7 @@ export default function AdminClient({
                       {/* Reviewer Name & Notes */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                         <div>
-                          <label className="block text-zinc-400 mb-1 font-semibold">
+                          <label className="block text-[#001e00] mb-1 font-bold">
                             Reviewed By (Identifier)
                           </label>
                           <input
@@ -467,12 +461,12 @@ export default function AdminClient({
                                 [app.id]: { ...current, reviewedBy: e.target.value },
                               }))
                             }
-                            className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs text-white"
+                            className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00]"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-zinc-400 mb-1 font-semibold">
+                          <label className="block text-[#001e00] mb-1 font-bold">
                             Audit Notes (Private evidence record)
                           </label>
                           <input
@@ -485,7 +479,7 @@ export default function AdminClient({
                               }))
                             }
                             placeholder="e.g. Identity confirmed via LinkedIn, verified n8n webhook Slack queue..."
-                            className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-white/10 text-xs text-white"
+                            className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00]"
                           />
                         </div>
                       </div>
@@ -493,18 +487,18 @@ export default function AdminClient({
                       {/* Feedback banner */}
                       {actionMessage && actionMessage.id === app.id && (
                         <div
-                          className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
+                          className={`p-3.5 rounded-xl text-xs flex items-center gap-2 ${
                             actionMessage.error
-                              ? 'bg-rose-500/15 border border-rose-500/30 text-rose-300'
-                              : 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300'
+                              ? 'bg-rose-50 border border-rose-200 text-rose-800'
+                              : 'bg-[#edf7ee] border border-[#b2e8b8] text-[#166534]'
                           }`}
                         >
                           {actionMessage.error ? (
-                            <AlertTriangle className="w-4 h-4 shrink-0 text-rose-400" />
+                            <AlertTriangle className="w-4 h-4 shrink-0 text-rose-600" />
                           ) : (
-                            <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+                            <CheckCircle2 className="w-4 h-4 shrink-0 text-[#108a00]" />
                           )}
-                          <span>{actionMessage.error || actionMessage.success}</span>
+                          <span className="font-bold">{actionMessage.error || actionMessage.success}</span>
                         </div>
                       )}
 
@@ -514,7 +508,7 @@ export default function AdminClient({
                           <Link
                             href={`/experts/${exp.slug}`}
                             target="_blank"
-                            className="text-xs text-cyan-400 hover:underline flex items-center gap-1"
+                            className="text-xs text-[#108a00] font-bold hover:underline flex items-center gap-1"
                           >
                             Preview Profile Page <ExternalLink className="w-3 h-3" />
                           </Link>
@@ -524,7 +518,7 @@ export default function AdminClient({
                           type="button"
                           disabled={savingAppId === app.id}
                           onClick={() => handleSaveReview(app)}
-                          className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs shadow-md transition-all disabled:opacity-50 cursor-pointer"
+                          className="px-8 py-3 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-xs shadow-sm transition-all disabled:opacity-50 cursor-pointer"
                         >
                           {savingAppId === app.id ? 'Saving Decision...' : 'Save Review Decision'}
                         </button>
@@ -544,47 +538,47 @@ export default function AdminClient({
           {matchRequests.map((req) => (
             <div
               key={req.id}
-              className="glass-panel rounded-2xl p-6 border border-white/[0.08] bg-[#11131c]/90 text-xs space-y-3"
+              className="rounded-2xl p-6 border border-[#e4ebe4] bg-white text-xs space-y-3 shadow-xs"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.06] pb-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#f0f3f0] pb-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-bold text-white">{req.requester_name}</h3>
+                    <h3 className="text-sm font-bold text-[#001e00]">{req.requester_name}</h3>
                     {req.company && (
-                      <span className="text-zinc-400 font-mono text-[11px]">({req.company})</span>
+                      <span className="text-[#5e6d55] font-medium text-[11px]">({req.company})</span>
                     )}
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800">
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[#eff6ff] text-[#1e40af] border border-[#bfdbfe] font-bold">
                       {req.status}
                     </span>
                   </div>
-                  <p className="text-zinc-400 flex items-center gap-1 mt-0.5">
-                    <Mail className="w-3 h-3 text-zinc-500" />
+                  <p className="text-[#5e6d55] flex items-center gap-1 mt-0.5">
+                    <Mail className="w-3 h-3 text-[#889888]" />
                     {req.requester_email}
                   </p>
                 </div>
-                <span className="text-zinc-500 font-mono text-[11px]">
+                <span className="text-[#738273] font-mono text-[11px]">
                   {new Date(req.created_at || Date.now()).toLocaleDateString()}
                 </span>
               </div>
 
               <div>
-                <span className="font-semibold text-zinc-300 block mb-1">Operational Need:</span>
-                <p className="text-zinc-200 leading-relaxed bg-zinc-900/80 p-3 rounded-xl border border-white/5">
+                <span className="font-bold text-[#001e00] block mb-1">Operational Need:</span>
+                <p className="text-[#223022] leading-relaxed bg-[#f9faf9] p-3.5 rounded-xl border border-[#e4ebe4]">
                   {req.need_description}
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-zinc-400 text-[11px] pt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[#5e6d55] text-[11px] pt-1">
                 <p>
-                  <strong>Budget:</strong> {req.budget_range ? req.budget_range.replace('_', ' ') : 'Flexible'}
+                  <strong className="text-[#001e00]">Budget:</strong> {req.budget_range ? req.budget_range.replace('_', ' ') : 'Flexible'}
                 </p>
                 <p>
-                  <strong>Timeline:</strong> {req.timeline || 'Immediate'}
+                  <strong className="text-[#001e00]">Timeline:</strong> {req.timeline || 'Immediate'}
                 </p>
               </div>
 
               {req.internal_notes && (
-                <div className="p-2.5 rounded-lg bg-amber-950/20 border border-amber-500/20 text-[11px] text-amber-300">
+                <div className="p-3 rounded-lg bg-[#fffbeb] border border-[#fef3c7] text-[11px] text-[#92400e]">
                   <strong>Internal Match Note:</strong> {req.internal_notes}
                 </div>
               )}

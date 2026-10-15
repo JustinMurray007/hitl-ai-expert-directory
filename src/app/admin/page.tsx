@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { getAdminQueue, verifyAdminToken } from '@/lib/store';
 import AdminClient from './AdminClient';
 import AdminLoginForm from './AdminLoginForm';
-import { ShieldCheck, Lock } from 'lucide-react';
+import { Lock } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,14 +20,14 @@ export default async function AdminPage() {
   if (!isAuthorized) {
     return (
       <div className="max-w-md mx-auto px-4 py-24">
-        <div className="glass-panel rounded-3xl p-8 border border-white/[0.08] bg-[#11131c]/90 text-center shadow-2xl space-y-6">
-          <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto text-emerald-400">
-            <Lock className="w-7 h-7" />
+        <div className="rounded-3xl p-8 border border-[#e4ebe4] bg-white text-center shadow-xs space-y-6">
+          <div className="w-16 h-16 rounded-2xl bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center mx-auto text-[#108a00]">
+            <Lock className="w-8 h-8" />
           </div>
 
           <div>
-            <h1 className="text-2xl font-bold text-white">Admin Review Login</h1>
-            <p className="text-xs text-zinc-400 mt-1">
+            <h1 className="text-2xl font-black text-[#001e00]">Admin Review Login</h1>
+            <p className="text-xs text-[#5e6d55] mt-1 font-medium">
               Authenticate with your administrative review secret to access the verification queue.
             </p>
           </div>
