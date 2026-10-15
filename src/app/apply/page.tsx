@@ -124,14 +124,14 @@ export default function ApplyPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-xs font-bold text-[#108a00] mb-3">
-          <ShieldCheck className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] mb-3">
+          <ShieldCheck className="w-4 h-4" />
           <span>Strict Vetting Application</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-[#001e00] tracking-tight">
           Apply to the Human in the Loop Directory
         </h1>
-        <p className="text-sm text-[#5e6d55] mt-2 leading-relaxed font-medium">
+        <p className="text-base sm:text-lg text-[#5e6d55] mt-3 leading-relaxed font-normal">
           We only list specialists who build systems with verifiable human oversight. Free public community listing on approval; Verified badge requires two reviewed production case studies.
         </p>
       </div>
@@ -143,13 +143,13 @@ export default function ApplyPage() {
             <CheckCircle2 className="w-8 h-8" />
           </div>
           <div>
-            <h2 className="text-2xl font-black text-[#001e00]">Application Received</h2>
-            <p className="text-sm text-[#465a46] mt-2 max-w-lg mx-auto font-medium">
+            <h2 className="text-2xl sm:text-3xl font-black text-[#001e00]">Application Received</h2>
+            <p className="text-base text-[#465a46] mt-3 max-w-lg mx-auto font-medium leading-relaxed">
               Your profile and case study have been submitted to the private review queue with status <code className="text-[#108a00] font-mono font-bold">pending_review</code>.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-white border border-[#cbd5cb] max-w-md mx-auto text-xs text-[#5e6d55] font-mono text-left space-y-1 shadow-xs">
+          <div className="p-5 rounded-2xl bg-white border border-[#cbd5cb] max-w-md mx-auto text-sm sm:text-base text-[#5e6d55] font-mono text-left space-y-1.5 shadow-xs">
             <p>Expert ID: <span className="text-[#001e00] font-bold">{successData.expertId}</span></p>
             <p>Application ID: <span className="text-[#001e00] font-bold">{successData.applicationId}</span></p>
             <p>Status: <span className="text-[#d97706] font-bold">pending_review</span></p>
@@ -158,13 +158,13 @@ export default function ApplyPage() {
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/admin"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-xs shadow-sm transition-all"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-base shadow-sm transition-all"
             >
               Open Admin Review Queue <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/experts"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white hover:bg-[#f4f6f4] text-[#001e00] font-bold text-xs border border-[#cbd5cb] transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white hover:bg-[#f4f6f4] text-[#001e00] font-bold text-base border border-[#cbd5cb] transition-colors"
             >
               Back to Directory
             </Link>
@@ -173,7 +173,7 @@ export default function ApplyPage() {
       ) : (
         <form onSubmit={handleSubmit} className="space-y-10">
           {errorMessage && (
-            <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2">
+            <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
               <span>{errorMessage}</span>
             </div>
@@ -182,20 +182,20 @@ export default function ApplyPage() {
           {/* SECTION 1: PUBLIC PROFILE */}
           <div className="rounded-2xl p-6 sm:p-8 border border-[#e4ebe4] bg-white shadow-xs space-y-6">
             <div className="border-b border-[#f0f3f0] pb-4">
-              <span className="text-xs uppercase font-mono tracking-wider text-[#108a00] font-bold">
+              <span className="text-sm uppercase font-mono tracking-wider text-[#108a00] font-bold">
                 Section 1 of 4
               </span>
-              <h2 className="text-xl font-black text-[#001e00] mt-1">
+              <h2 className="text-xl sm:text-2xl font-black text-[#001e00] mt-1">
                 Public Specialist Profile
               </h2>
-              <p className="text-xs text-[#5e6d55] mt-1">
+              <p className="text-sm sm:text-base text-[#5e6d55] mt-1 leading-relaxed">
                 This information will appear on your public directory card and profile page.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                   Full Name <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -203,12 +203,12 @@ export default function ApplyPage() {
                   name="fullName"
                   required
                   placeholder="e.g. Marcus Vance"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                   Professional Title <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -216,29 +216,29 @@ export default function ApplyPage() {
                   name="professionalTitle"
                   required
                   placeholder="e.g. Senior Automation Architect"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#001e00] mb-1">
+              <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                 Agency or Firm Name (Optional)
               </label>
               <input
                 type="text"
                 name="agencyName"
                 placeholder="e.g. Loopguard Systems"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
               />
             </div>
 
             <div>
-              <div className="flex justify-between items-center mb-1">
-                <label className="text-xs font-bold text-[#001e00]">
+              <div className="flex justify-between items-center mb-1.5">
+                <label className="text-sm font-bold text-[#001e00]">
                   Tagline (Max 120 chars) <span className="text-rose-500">*</span>
                 </label>
-                <span className={`text-[10px] font-mono ${tagline.length > 120 ? 'text-rose-600 font-bold' : 'text-[#738273]'}`}>
+                <span className={`text-xs font-mono ${tagline.length > 120 ? 'text-rose-600 font-bold' : 'text-[#738273]'}`}>
                   {tagline.length} / 120
                 </span>
               </div>
@@ -250,12 +250,12 @@ export default function ApplyPage() {
                 value={tagline}
                 onChange={(e) => setTagline(e.target.value)}
                 placeholder="e.g. Deterministic ops pipelines with Slack-first human exception queues."
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#001e00] mb-1">
+              <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                 Bio & Background (Min 50 chars) <span className="text-rose-500">*</span>
               </label>
               <textarea
@@ -263,103 +263,103 @@ export default function ApplyPage() {
                 required
                 rows={3}
                 placeholder="Describe your technical background, industry specialties, and approach to client automation..."
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium leading-relaxed"
               />
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">City *</label>
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">City *</label>
                 <input
                   type="text"
                   name="city"
                   required
                   placeholder="Austin"
-                  className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">State / Region</label>
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">State / Region</label>
                 <input
                   type="text"
                   name="stateRegion"
                   placeholder="TX"
-                  className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">Country *</label>
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">Country *</label>
                 <input
                   type="text"
                   name="country"
                   required
                   defaultValue="United States"
-                  className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">Timezone *</label>
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">Timezone *</label>
                 <input
                   type="text"
                   name="timezone"
                   required
                   placeholder="CST (UTC-6)"
-                  className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
             </div>
 
             {/* Links and Booking */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">Website URL</label>
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">Website URL</label>
                 <input
                   type="url"
                   name="websiteUrl"
                   placeholder="https://youragency.com"
-                  className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">Booking URL (Calendly, Cal.com)</label>
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">Booking URL (Calendly, Cal.com)</label>
                 <input
                   type="url"
                   name="bookingUrl"
                   placeholder="https://cal.com/your-name"
-                  className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">LinkedIn Profile</label>
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">LinkedIn Profile</label>
                 <input
                   type="url"
                   name="linkedinUrl"
                   placeholder="https://linkedin.com/in/username"
-                  className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">GitHub / Code Profile</label>
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">GitHub / Code Profile</label>
                 <input
                   type="url"
                   name="githubUrl"
                   placeholder="https://github.com/username"
-                  className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
             </div>
 
             {/* Engagement & Budget Tier */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                   Primary Engagement Model *
                 </label>
                 <select
                   name="primaryEngagement"
                   required
                   defaultValue="fixed_sprint"
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-semibold"
                 >
                   <option value="fixed_sprint">Fixed Sprint (Deliverable-based)</option>
                   <option value="monthly_retainer">Monthly Retainer (Fractional Ops)</option>
@@ -369,14 +369,14 @@ export default function ApplyPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                   Starting Project Budget *
                 </label>
                 <select
                   name="startingBudget"
                   required
                   defaultValue="2500_to_5000"
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-semibold"
                 >
                   <option value="under_2500">Under $2,500</option>
                   <option value="2500_to_5000">$2,500 to $5,000</option>
@@ -390,29 +390,29 @@ export default function ApplyPage() {
           {/* SECTION 2: CATEGORY & TOOLS TAXONOMY */}
           <div className="rounded-2xl p-6 sm:p-8 border border-[#e4ebe4] bg-white shadow-xs space-y-6">
             <div className="border-b border-[#f0f3f0] pb-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
-                  <span className="text-xs uppercase font-mono tracking-wider text-[#108a00] font-bold">
+                  <span className="text-sm uppercase font-mono tracking-wider text-[#108a00] font-bold">
                     Section 2 of 4
                   </span>
-                  <h2 className="text-xl font-black text-[#001e00] mt-1">
+                  <h2 className="text-xl sm:text-2xl font-black text-[#001e00] mt-1">
                     Specialist Categories & Tools
                   </h2>
                 </div>
-                <div className="text-xs font-mono font-bold text-[#108a00] bg-[#e4f7e6] px-3 py-1 rounded-full border border-[#b2e8b8]">
+                <div className="text-sm font-mono font-bold text-[#108a00] bg-[#e4f7e6] px-3.5 py-1.5 rounded-full border border-[#b2e8b8] self-start sm:self-auto">
                   {selectedCategories.length} / 3 Categories Selected
                 </div>
               </div>
-              <p className="text-xs text-[#5e6d55] mt-1">
+              <p className="text-sm sm:text-base text-[#5e6d55] mt-1.5 leading-relaxed">
                 Rule: Specialists may select at most 3 core categories to avoid diluted positioning.
               </p>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#001e00] mb-3">
+              <label className="block text-sm font-bold text-[#001e00] mb-3">
                 Select 1 to 3 Primary Categories <span className="text-rose-500">*</span>
               </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {CATEGORY_OPTIONS.map((c) => {
                   const isChecked = selectedCategories.includes(c.slug);
                   return (
@@ -420,14 +420,14 @@ export default function ApplyPage() {
                       type="button"
                       key={c.slug}
                       onClick={() => toggleCategory(c.slug)}
-                      className={`p-3.5 rounded-xl text-xs text-left border flex items-center justify-between transition-all cursor-pointer ${
+                      className={`p-4 rounded-xl text-sm sm:text-base text-left border flex items-center justify-between transition-all cursor-pointer ${
                         isChecked
                           ? 'bg-[#e4f7e6] border-[#108a00] text-[#0f3d17] font-bold shadow-xs'
-                          : 'bg-[#f9faf9] border-[#e4ebe4] text-[#4b554b] hover:border-[#cbd5cb]'
+                          : 'bg-[#f9faf9] border-[#e4ebe4] text-[#334133] hover:border-[#cbd5cb] font-medium'
                       }`}
                     >
                       <span>{c.label}</span>
-                      {isChecked && <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />}
+                      {isChecked && <CheckCircle2 className="w-5 h-5 text-[#108a00] shrink-0" />}
                     </button>
                   );
                 })}
@@ -435,10 +435,10 @@ export default function ApplyPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#001e00] mb-2">
+              <label className="block text-sm font-bold text-[#001e00] mb-2.5">
                 Core Tool Stack (Select all that apply) <span className="text-rose-500">*</span>
               </label>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2.5">
                 {TOOL_OPTIONS.map((tool) => {
                   const slug = toolSlugMap[tool] || tool.toLowerCase();
                   const isChecked = selectedTools.includes(slug);
@@ -447,10 +447,10 @@ export default function ApplyPage() {
                       type="button"
                       key={tool}
                       onClick={() => toggleTool(tool)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                      className={`px-3.5 py-2 rounded-xl text-sm font-semibold border transition-all cursor-pointer ${
                         isChecked
                           ? 'bg-[#108a00] text-white border-[#108a00] shadow-xs'
-                          : 'bg-[#f4f6f4] text-[#4b554b] border-[#dbe3db] hover:border-[#108a00]'
+                          : 'bg-[#f4f6f4] text-[#334133] border-[#dbe3db] hover:border-[#108a00]'
                       }`}
                     >
                       {tool}
@@ -463,24 +463,24 @@ export default function ApplyPage() {
 
           {/* SECTION 3: PRIVATE INTAKE & VERIFICATION DATA */}
           <div className="rounded-2xl p-6 sm:p-8 border border-[#e4ebe4] bg-white shadow-xs space-y-6">
-            <div className="border-b border-[#f0f3f0] pb-4 flex items-center justify-between">
+            <div className="border-b border-[#f0f3f0] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <span className="text-xs uppercase font-mono tracking-wider text-[#7e22ce] font-bold">
+                <span className="text-sm uppercase font-mono tracking-wider text-[#7e22ce] font-bold">
                   Section 3 of 4
                 </span>
-                <h2 className="text-xl font-black text-[#001e00] mt-1">
+                <h2 className="text-xl sm:text-2xl font-black text-[#001e00] mt-1">
                   Private Entity & Intake Data
                 </h2>
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-[#7e22ce] bg-[#f3e8ff] px-3 py-1 rounded-full border border-[#e9d5ff] font-semibold">
-                <Lock className="w-3.5 h-3.5" />
+              <div className="flex items-center gap-1.5 text-sm text-[#7e22ce] bg-[#f3e8ff] px-3.5 py-1.5 rounded-full border border-[#e9d5ff] font-semibold self-start sm:self-auto">
+                <Lock className="w-4 h-4" />
                 <span>Service-Role Only (Never Public)</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                   Business Contact Email <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -488,19 +488,19 @@ export default function ApplyPage() {
                   name="contactEmail"
                   required
                   placeholder="you@yourcompany.com"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                   Legal Entity Type *
                 </label>
                 <select
                   name="legalEntityType"
                   required
                   defaultValue="LLC"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-semibold"
                 >
                   <option value="LLC">LLC</option>
                   <option value="S-Corp">S-Corporation</option>
@@ -511,18 +511,18 @@ export default function ApplyPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#001e00] mb-1">
+              <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                 Private Portfolio or Code Repo URLs (One per line)
               </label>
               <textarea
                 name="portfolioUrls"
                 rows={2}
                 placeholder="https://github.com/private-org/repo-demo&#10;https://drive.google.com/..."
-                className="w-full px-3.5 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium leading-relaxed"
               />
             </div>
 
-            <label className="flex items-center gap-2.5 text-xs text-[#334133] cursor-pointer">
+            <label className="flex items-center gap-3 text-sm sm:text-base text-[#334133] cursor-pointer">
               <input
                 type="checkbox"
                 name="referencesProvided"
@@ -535,21 +535,21 @@ export default function ApplyPage() {
           {/* SECTION 4: PRIMARY PRODUCTION CASE STUDY */}
           <div className="rounded-2xl p-6 sm:p-8 border border-[#e4ebe4] bg-white shadow-xs space-y-6">
             <div className="border-b border-[#f0f3f0] pb-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-xs font-bold text-[#108a00] mb-1">
-                <Sparkles className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] mb-2">
+                <Sparkles className="w-4 h-4" />
                 <span>The HITL Proof Engine</span>
               </div>
-              <h2 className="text-xl font-black text-[#001e00] mt-1">
+              <h2 className="text-xl sm:text-2xl font-black text-[#001e00] mt-1">
                 Primary Production Case Study
               </h2>
-              <p className="text-xs text-[#5e6d55] mt-1">
+              <p className="text-sm sm:text-base text-[#5e6d55] mt-1.5 leading-relaxed">
                 Verification requires two reviewed case studies. Submit your strongest production workflow here. You can submit your second study via the reviewer portal.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                   Case Study Title <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -557,12 +557,12 @@ export default function ApplyPage() {
                   name="caseStudyTitle"
                   required
                   placeholder="e.g. Automated Freight Bill Extraction with Slack Quarantine"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                   Client Industry <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -570,13 +570,13 @@ export default function ApplyPage() {
                   name="clientIndustry"
                   required
                   placeholder="e.g. Regional Freight Logistics (50 Vehicles)"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#001e00] mb-1">
+              <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                 Client Bottleneck / Problem Statement (Min 30 chars) <span className="text-rose-500">*</span>
               </label>
               <textarea
@@ -584,12 +584,12 @@ export default function ApplyPage() {
                 required
                 rows={2}
                 placeholder="What was broken? (e.g. 800 invoices received weekly across 12 carrier formats causing 4-day backlogs...)"
-                className="w-full px-3.5 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium leading-relaxed"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#001e00] mb-1">
+              <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                 Solution Architecture & Flow (Min 30 chars) <span className="text-rose-500">*</span>
               </label>
               <textarea
@@ -597,20 +597,20 @@ export default function ApplyPage() {
                 required
                 rows={2}
                 placeholder="What did you build? (e.g. Claude 3.5 Sonnet extraction on n8n with Supabase hash deduplication...)"
-                className="w-full px-3.5 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium leading-relaxed"
               />
             </div>
 
             {/* THE CRITICAL DIFFERENTIATOR FIELD */}
-            <div className="rounded-xl bg-[#f2faf3] border-2 border-[#b2e8b8] p-5 space-y-2">
-              <div className="flex items-center gap-2 text-[#108a00] font-bold text-xs uppercase tracking-wider">
-                <ShieldCheck className="w-4 h-4 text-[#108a00]" />
+            <div className="rounded-2xl bg-[#f2faf3] border-2 border-[#b2e8b8] p-6 space-y-3">
+              <div className="flex items-center gap-2 text-[#108a00] font-bold text-sm uppercase tracking-wider">
+                <ShieldCheck className="w-5 h-5 text-[#108a00]" />
                 <span>The Core HITL Question (Mandatory Filter)</span>
               </div>
-              <label className="block text-xs font-bold text-[#001e00]">
+              <label className="block text-base sm:text-lg font-bold text-[#001e00] leading-snug">
                 What is the exact mechanism deployed when your AI system is uncertain, wrong, or encounters an edge case? <span className="text-rose-500">*</span>
               </label>
-              <p className="text-[11px] text-[#5e6d55] leading-relaxed">
+              <p className="text-sm text-[#3b663b] leading-relaxed">
                 Be specific. Do you route to a Slack webhook? A quarantine queue? Trigger an automated SIP warm transfer? &quot;100% autonomous / zero-touch&quot; submissions are automatically rejected.
               </p>
               <textarea
@@ -618,13 +618,13 @@ export default function ApplyPage() {
                 required
                 rows={3}
                 placeholder="e.g. Any line-item math variance > $0.05 or OCR confidence < 92% freezes database insertion and pushes a side-by-side PDF preview to the #freight-triage Slack channel with 1-click Approve / Adjust buttons."
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#b2e8b8] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] font-medium"
+                className="w-full px-4 py-3 rounded-xl bg-white border border-[#b2e8b8] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] font-medium leading-relaxed"
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                   Failure Safeguards & Circuit Breakers (Min 25 chars) <span className="text-rose-500">*</span>
                 </label>
                 <textarea
@@ -632,12 +632,12 @@ export default function ApplyPage() {
                   required
                   rows={2}
                   placeholder="e.g. Postgres DLQ queue on API rejection, auto-retry caps, PagerDuty alert."
-                  className="w-full px-3.5 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium leading-relaxed"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#001e00] mb-1">
+                <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                   Quantified ROI & Business Outcome (Min 20 chars) <span className="text-rose-500">*</span>
                 </label>
                 <textarea
@@ -645,20 +645,20 @@ export default function ApplyPage() {
                   required
                   rows={2}
                   placeholder="e.g. 91% invoice processing time reduction, saving $38,000/month."
-                  className="w-full px-3.5 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium leading-relaxed"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#001e00] mb-1">
+              <label className="block text-sm font-bold text-[#001e00] mb-1.5">
                 Loom Walkthrough or Demo Video URL (Recommended)
               </label>
               <input
                 type="url"
                 name="demoVideoUrl"
                 placeholder="https://loom.com/share/..."
-                className="w-full px-3.5 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
               />
             </div>
           </div>
@@ -668,12 +668,12 @@ export default function ApplyPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-sm shadow-md transition-all disabled:opacity-50 cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-12 py-4 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-base shadow-md transition-all disabled:opacity-50 cursor-pointer"
             >
               {isSubmitting ? 'Validating & Submitting...' : 'Submit Application for Review'}
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-5 h-5" />
             </button>
-            <p className="text-[11px] text-[#738273] mt-3">
+            <p className="text-xs sm:text-sm text-[#738273] mt-3">
               By submitting, you agree to our vetting checklist and human accountability disclosure standards.
             </p>
           </div>

@@ -73,8 +73,8 @@ export default async function HomePage() {
       <section className="relative pt-20 pb-16 overflow-hidden radial-glow border-b border-[#e4ebe4] bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-xs font-bold text-[#108a00] mb-6 shadow-xs">
-            <ShieldCheck className="w-4 h-4 text-[#108a00]" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] mb-6 shadow-xs">
+            <ShieldCheck className="w-5 h-5 text-[#108a00]" />
             <span>The Trust Standard in AI Automation</span>
           </div>
 
@@ -88,7 +88,7 @@ export default async function HomePage() {
           </h1>
 
           {/* Subheading */}
-          <p className="mt-6 text-base sm:text-lg text-[#5e6d55] max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="mt-6 text-lg sm:text-xl text-[#334133] max-w-3xl mx-auto leading-relaxed font-normal">
             Prompt wrappers hallucinate. Black-box agencies abandon you after go-live. We vet applied AI architects through two reviewed production case studies and mandatory human fallback guardrails.
           </p>
 
@@ -96,49 +96,49 @@ export default async function HomePage() {
           <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/experts"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-sm shadow-md transition-all hover:scale-[1.02]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-base shadow-md transition-all hover:scale-[1.02]"
             >
               Browse Verified Specialists
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
               href="/match"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white hover:bg-[#f4f6f4] text-[#001e00] font-bold text-sm border border-[#cbd5cb] shadow-xs transition-all"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full bg-white hover:bg-[#f4f6f4] text-[#001e00] font-bold text-base border border-[#cbd5cb] shadow-xs transition-all"
             >
-              <Sparkles className="w-4 h-4 text-[#2563eb]" />
+              <Sparkles className="w-5 h-5 text-[#2563eb]" />
               Request Founder Matchmaking
             </Link>
           </div>
 
           {/* Trust points: Three distinct color pillars */}
           <div className="mt-14 pt-8 border-t border-[#e4ebe4] max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center shrink-0 mt-0.5">
-                <CheckCircle2 className="w-4 h-4 text-[#108a00]" />
+            <div className="flex items-start gap-3.5">
+              <div className="w-9 h-9 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center shrink-0 mt-0.5">
+                <CheckCircle2 className="w-5 h-5 text-[#108a00]" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-[#001e00]">2 Case Studies Required</h4>
-                <p className="text-[11px] text-[#5e6d55] mt-0.5 font-medium">Every verified specialist proves real production ROI.</p>
+                <h4 className="text-base font-black text-[#001e00]">2 Case Studies Required</h4>
+                <p className="text-sm text-[#475569] mt-1 font-normal leading-relaxed">Every verified specialist proves real production ROI.</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#eff6ff] border border-[#bfdbfe] flex items-center justify-center shrink-0 mt-0.5">
-                <ShieldCheck className="w-4 h-4 text-[#2563eb]" />
+            <div className="flex items-start gap-3.5">
+              <div className="w-9 h-9 rounded-full bg-[#eff6ff] border border-[#bfdbfe] flex items-center justify-center shrink-0 mt-0.5">
+                <ShieldCheck className="w-5 h-5 text-[#2563eb]" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-[#001e00]">Audited Guardrails</h4>
-                <p className="text-[11px] text-[#5e6d55] mt-0.5 font-medium">Mandatory human exception queues on uncertainty.</p>
+                <h4 className="text-base font-black text-[#001e00]">Audited Guardrails</h4>
+                <p className="text-sm text-[#475569] mt-1 font-normal leading-relaxed">Mandatory human exception queues on uncertainty.</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#fffbeb] border border-[#fde68a] flex items-center justify-center shrink-0 mt-0.5">
-                <Lock className="w-4 h-4 text-[#d97706]" />
+            <div className="flex items-start gap-3.5">
+              <div className="w-9 h-9 rounded-full bg-[#fffbeb] border border-[#fde68a] flex items-center justify-center shrink-0 mt-0.5">
+                <Lock className="w-5 h-5 text-[#d97706]" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-[#001e00]">Zero Fake 5-Star Reviews</h4>
-                <p className="text-[11px] text-[#5e6d55] mt-0.5 font-medium">Vetted by code & workflow demos, not bought stars.</p>
+                <h4 className="text-base font-black text-[#001e00]">Zero Fake 5-Star Reviews</h4>
+                <p className="text-sm text-[#475569] mt-1 font-normal leading-relaxed">Vetted by code & workflow demos, not bought stars.</p>
               </div>
             </div>
           </div>
@@ -150,14 +150,14 @@ export default async function HomePage() {
       ====================================================================== */}
       <section id="ai-recommender" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#eff6ff] border border-[#bfdbfe] text-xs font-bold text-[#1d4ed8] mb-2 shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#2563eb]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#eff6ff] border border-[#bfdbfe] text-sm font-bold text-[#1d4ed8] mb-3 shadow-xs">
+            <Sparkles className="w-4 h-4 text-[#2563eb]" />
             <span>Interactive SMB Solution Finder</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#001e00]">
+          <h2 className="text-2xl sm:text-4xl font-black text-[#001e00] tracking-tight">
             Select Your Business Type to See AI Recommendations & Specialists
           </h2>
-          <p className="text-xs sm:text-sm text-[#5e6d55] mt-1 font-medium max-w-2xl">
+          <p className="text-base sm:text-lg text-[#475569] mt-2 font-normal max-w-3xl leading-relaxed">
             Choose your industry and operational bottleneck below. We’ll generate a high-ROI AI workflow, outline the exact human guardrails required, and connect you with verified specialists who can build it.
           </p>
         </div>
@@ -171,25 +171,25 @@ export default async function HomePage() {
       <section id="categories" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
-            <span className="text-xs uppercase font-mono tracking-wider text-[#1d4ed8] font-bold">
+            <span className="text-sm uppercase font-mono tracking-wider text-[#1d4ed8] font-bold">
               Operational Taxonomy
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#001e00] mt-1">
               Browse by Business Bottleneck
             </h2>
-            <p className="text-xs sm:text-sm text-[#5e6d55] mt-1 max-w-xl font-medium">
+            <p className="text-base text-[#475569] mt-2 max-w-xl font-normal leading-relaxed">
               Search the exact operational problem you need resolved — from automated invoice ingestion to 24/7 emergency dispatch.
             </p>
           </div>
           <Link
             href="/experts"
-            className="text-xs font-bold text-[#108a00] hover:text-[#14a800] inline-flex items-center gap-1 shrink-0"
+            className="text-sm font-bold text-[#108a00] hover:text-[#14a800] inline-flex items-center gap-1.5 shrink-0"
           >
-            All 5 Hubs <ArrowRight className="w-3.5 h-3.5" />
+            All 5 Hubs <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category) => {
             const Icon = categoryIcons[category.icon_name] || Workflow;
             const theme = categoryThemes[category.slug] || {
@@ -202,24 +202,24 @@ export default async function HomePage() {
               <Link
                 key={category.id}
                 href={`/categories/${category.slug}`}
-                className={`rounded-2xl p-6 group flex flex-col justify-between border border-[#e4ebe4] bg-white shadow-xs hover:shadow-md ${theme.hoverBorder} transition-all`}
+                className={`rounded-2xl p-7 group flex flex-col justify-between border border-[#e4ebe4] bg-white shadow-xs hover:shadow-md ${theme.hoverBorder} transition-all`}
               >
                 <div>
-                  <div className={`w-12 h-12 rounded-xl ${theme.bg} border ${theme.border} flex items-center justify-center mb-4 group-hover:scale-105 transition-transform`}>
-                    <Icon className={`w-6 h-6 ${theme.text}`} />
+                  <div className={`w-14 h-14 rounded-2xl ${theme.bg} border ${theme.border} flex items-center justify-center mb-5 group-hover:scale-105 transition-transform`}>
+                    <Icon className={`w-7 h-7 ${theme.text}`} />
                   </div>
-                  <h3 className="text-base font-bold text-[#001e00] group-hover:text-[#108a00] transition-colors">
+                  <h3 className="text-lg sm:text-xl font-black text-[#001e00] group-hover:text-[#108a00] transition-colors">
                     {category.name}
                   </h3>
-                  <p className="text-xs text-[#5e6d55] mt-2 leading-relaxed">
+                  <p className="text-base text-[#475569] mt-3 leading-relaxed font-normal">
                     {category.description}
                   </p>
                 </div>
-                <div className="mt-5 pt-4 border-t border-[#f0f3f0] flex items-center justify-between text-xs text-[#738273]">
+                <div className="mt-6 pt-4 border-t border-[#f0f3f0] flex items-center justify-between text-sm text-[#738273]">
                   <span className={`font-mono font-bold ${theme.text}`}>
                     {category.expert_count ?? 0} Listed Specialist{category.expert_count === 1 ? '' : 's'}
                   </span>
-                  <span className="text-[#5e6d55] font-semibold group-hover:text-[#108a00] group-hover:translate-x-1 transition-all">
+                  <span className="text-[#334133] font-bold group-hover:text-[#108a00] group-hover:translate-x-1 transition-all">
                     Explore Hub →
                   </span>
                 </div>
@@ -235,22 +235,22 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-xs font-bold text-[#108a00] mb-2">
-              <ShieldCheck className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] mb-2">
+              <ShieldCheck className="w-4 h-4" />
               <span>HITL Certified Vetting</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#001e00]">
               Featured Verified Specialists
             </h2>
-            <p className="text-xs sm:text-sm text-[#5e6d55] mt-1 font-medium">
+            <p className="text-base text-[#475569] mt-2 font-normal">
               Architects who have documented at least 2 reviewed production case studies with explicit human fallback mechanisms.
             </p>
           </div>
           <Link
             href="/experts?verified=true"
-            className="text-xs font-bold text-[#108a00] hover:text-[#14a800] inline-flex items-center gap-1 shrink-0"
+            className="text-sm font-bold text-[#108a00] hover:text-[#14a800] inline-flex items-center gap-1.5 shrink-0"
           >
-            View All Verified <ArrowRight className="w-3.5 h-3.5" />
+            View All Verified <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
@@ -267,35 +267,35 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="rounded-3xl p-8 sm:p-12 border border-[#e4ebe4] bg-white shadow-xs">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="text-xs uppercase font-mono tracking-wider text-[#108a00] font-bold">
+            <span className="text-sm uppercase font-mono tracking-wider text-[#108a00] font-bold">
               The Accountability Difference
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#001e00] mt-1">
               Why Generic Platforms Fail for AI Systems
             </h2>
-            <p className="text-xs sm:text-sm text-[#5e6d55] mt-2 font-medium">
+            <p className="text-base text-[#475569] mt-2 font-normal leading-relaxed">
               Unlike Upwork, Fiverr, or legacy directories, we do not rank people by self-reported claims or paid star reviews.
             </p>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs sm:text-sm">
+            <table className="w-full text-left text-sm sm:text-base">
               <thead>
-                <tr className="border-b border-[#e4ebe4] text-[#5e6d55] uppercase font-mono text-[11px]">
+                <tr className="border-b border-[#e4ebe4] text-[#5e6d55] uppercase font-mono text-sm sm:text-base">
                   <th className="pb-4 font-bold">Vetting Dimension</th>
                   <th className="pb-4 font-bold text-[#889888]">Generic Freelance Sites</th>
                   <th className="pb-4 font-bold text-[#108a00]">HITL Verified Directory</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#f0f3f0] text-[#223022]">
+              <tbody className="divide-y divide-[#f0f3f0] text-[#1e2a1e]">
                 <tr>
                   <td className="py-4 font-bold text-[#001e00]">Exception Handling Requirement</td>
-                  <td className="py-4 text-[#738273] flex items-center gap-1.5">
+                  <td className="py-4 text-[#5e6d55] flex items-center gap-2">
                     <XCircle className="w-4 h-4 text-rose-500 shrink-0" />
                     None (assumes 100% autonomous)
                   </td>
                   <td className="py-4 text-[#108a00] font-bold">
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
                       Mandatory human fallback protocol
                     </div>
@@ -303,12 +303,12 @@ export default async function HomePage() {
                 </tr>
                 <tr>
                   <td className="py-4 font-bold text-[#001e00]">Case Study Verification</td>
-                  <td className="py-4 text-[#738273] flex items-center gap-1.5">
+                  <td className="py-4 text-[#5e6d55] flex items-center gap-2">
                     <XCircle className="w-4 h-4 text-rose-500 shrink-0" />
                     Self-reported screenshots
                   </td>
                   <td className="py-4 text-[#108a00] font-bold">
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
                       ≥2 reviewed production case studies
                     </div>
@@ -316,12 +316,12 @@ export default async function HomePage() {
                 </tr>
                 <tr>
                   <td className="py-4 font-bold text-[#001e00]">Review System Integrity</td>
-                  <td className="py-4 text-[#738273] flex items-center gap-1.5">
+                  <td className="py-4 text-[#5e6d55] flex items-center gap-2">
                     <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" />
                     Fake 5.0 star feedback loops
                   </td>
                   <td className="py-4 text-[#108a00] font-bold">
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
                       No unvetted ratings; evidence-based
                     </div>
@@ -329,12 +329,12 @@ export default async function HomePage() {
                 </tr>
                 <tr>
                   <td className="py-4 font-bold text-[#001e00]">Paid Verification Badges</td>
-                  <td className="py-4 text-[#738273] flex items-center gap-1.5">
+                  <td className="py-4 text-[#5e6d55] flex items-center gap-2">
                     <XCircle className="w-4 h-4 text-rose-500 shrink-0" />
                     Pay monthly fee to get &quot;Top Rated&quot;
                   </td>
                   <td className="py-4 text-[#108a00] font-bold">
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
                       Payment NEVER confers verification
                     </div>
@@ -352,26 +352,26 @@ export default async function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="relative rounded-3xl overflow-hidden p-8 sm:p-12 border border-[#bfdbfe] bg-gradient-to-r from-[#eff6ff] via-white to-[#edf7ee] shadow-sm">
           <div className="max-w-2xl">
-            <span className="text-xs uppercase font-mono tracking-wider text-[#1d4ed8] font-bold">
+            <span className="text-sm uppercase font-mono tracking-wider text-[#1d4ed8] font-bold">
               Personalized Founder Concierge
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-[#001e00] mt-2 leading-tight">
               Let Our Team Handpick 2 Verified Specialists for Your Workflow.
             </h2>
-            <p className="text-sm text-[#475569] mt-3 leading-relaxed font-medium">
+            <p className="text-base text-[#475569] mt-3 leading-relaxed font-normal">
               Tell us your current operational bottleneck, tech stack, and budget. We will review your request privately and connect you with two verified experts with proven domain case studies.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <Link
                 href="/match"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-sm shadow-md transition-all"
+                className="inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-base shadow-md transition-all"
               >
-                <Sparkles className="w-4 h-4" />
+                <Sparkles className="w-5 h-5" />
                 Submit Matchmaking Request
               </Link>
               <Link
                 href="/about"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white hover:bg-[#f4f6f4] text-[#001e00] font-bold text-sm border border-[#cbd5cb] transition-colors"
+                className="inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full bg-white hover:bg-[#f4f6f4] text-[#001e00] font-bold text-base border border-[#cbd5cb] transition-colors"
               >
                 Read Vetting Standards
               </Link>

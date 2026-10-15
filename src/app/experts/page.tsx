@@ -50,14 +50,14 @@ export default async function ExpertsPage({ searchParams }: ExpertsPageProps) {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
       <div className="mb-8">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-xs font-bold text-[#108a00] mb-2">
-          <ShieldCheck className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] mb-3 shadow-xs">
+          <ShieldCheck className="w-4 h-4" />
           <span>Curated AI Specialist Directory</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-black text-[#001e00] tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight">
           Find Vetted AI Automation Specialists
         </h1>
-        <p className="text-sm text-[#5e6d55] mt-2 max-w-2xl font-medium">
+        <p className="text-base sm:text-lg text-[#475569] mt-3 max-w-3xl leading-relaxed font-normal">
           Every specialist listed below has disclosed their exact human fallback mechanism. Specialists with the green &apos;Verified&apos; badge have passed identity verification and had at least two production case studies reviewed.
         </p>
       </div>
@@ -77,12 +77,12 @@ export default async function ExpertsPage({ searchParams }: ExpertsPageProps) {
       </Suspense>
 
       {/* Results Header */}
-      <div className="flex items-center justify-between mb-6 text-xs text-[#5e6d55]">
+      <div className="flex items-center justify-between mb-6 text-sm text-[#5e6d55]">
         <div>
           Showing <span className="font-bold text-[#001e00]">{experts.length}</span> specialist{experts.length === 1 ? '' : 's'}
           {verifiedOnly && <span className="text-[#108a00] font-bold"> (Verified Only)</span>}
         </div>
-        <div className="text-[#738273] hidden sm:block font-medium">
+        <div className="text-[#5e6d55] hidden sm:block font-medium">
           Ranked by sponsorship & verified case study evidence
         </div>
       </div>
@@ -95,22 +95,22 @@ export default async function ExpertsPage({ searchParams }: ExpertsPageProps) {
           ))}
         </div>
       ) : (
-        <div className="rounded-2xl p-12 text-center border border-[#e4ebe4] bg-white max-w-xl mx-auto my-12 shadow-xs">
-          <SearchX className="w-12 h-12 text-[#889888] mx-auto mb-4" />
-          <h3 className="text-lg font-bold text-[#001e00] mb-2">No Specialists Found</h3>
-          <p className="text-xs text-[#5e6d55] mb-6 leading-relaxed">
+        <div className="rounded-3xl p-12 text-center border border-[#e4ebe4] bg-white max-w-xl mx-auto my-12 shadow-xs">
+          <SearchX className="w-14 h-14 text-[#889888] mx-auto mb-4" />
+          <h3 className="text-xl font-black text-[#001e00] mb-2">No Specialists Found</h3>
+          <p className="text-base text-[#475569] mb-6 leading-relaxed">
             No specialists currently match your exact filter combination. Try clearing some filters or search keywords.
           </p>
           <div className="flex items-center justify-center gap-3">
             <Link
               href="/experts"
-              className="px-5 py-2.5 rounded-full bg-[#f4f6f4] hover:bg-[#e4ebe4] text-[#001e00] text-xs font-bold transition-colors"
+              className="px-6 py-3 rounded-full bg-[#f4f6f4] hover:bg-[#e4ebe4] text-[#001e00] text-sm font-bold transition-colors"
             >
               Reset All Filters
             </Link>
             <Link
               href="/match"
-              className="px-5 py-2.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white text-xs font-bold shadow-xs transition-colors"
+              className="px-6 py-3 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white text-sm font-bold shadow-xs transition-colors"
             >
               Request Custom Match
             </Link>

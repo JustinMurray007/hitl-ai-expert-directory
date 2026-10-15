@@ -97,9 +97,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <div className="mb-6">
         <Link
           href="/#categories"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5e6d55] hover:text-[#001e00] transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#5e6d55] hover:text-[#001e00] transition-colors"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
+          <ArrowLeft className="w-4 h-4" />
           Back to Categories
         </Link>
       </div>
@@ -112,13 +112,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <Icon className="w-8 h-8 text-[#108a00]" />
             </div>
             <div>
-              <span className="text-xs uppercase font-mono tracking-wider text-[#108a00] font-bold">
+              <span className="text-sm uppercase font-mono tracking-wider text-[#108a00] font-bold">
                 Category Hub
               </span>
               <h1 className="text-3xl sm:text-4xl font-black text-[#001e00] mt-1">
                 {category.name}
               </h1>
-              <p className="text-sm text-[#5e6d55] mt-2 max-w-2xl leading-relaxed font-medium">
+              <p className="text-base sm:text-lg text-[#475569] mt-2 max-w-2xl leading-relaxed font-normal">
                 {category.description}
               </p>
             </div>
@@ -126,7 +126,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
           <Link
             href={`/match?category=${category.slug}`}
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-xs shadow-sm transition-all shrink-0"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-sm shadow-sm transition-all shrink-0 hover:scale-[1.02]"
           >
             <Sparkles className="w-4 h-4" />
             Match in this Category
@@ -134,33 +134,33 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </div>
 
         {/* Taxonomy Metadata Strip */}
-        <div className="mt-8 pt-6 border-t border-[#f0f3f0] grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
-          <div className="p-4 rounded-xl bg-[#f9faf9] border border-[#e4ebe4]">
-            <h4 className="font-bold text-[#001e00] mb-1 flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-[#108a00]" />
+        <div className="mt-8 pt-6 border-t border-[#f0f3f0] grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-5 rounded-2xl bg-[#f9faf9] border border-[#e4ebe4]">
+            <h4 className="font-extrabold text-[#001e00] mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
+              <CheckCircle2 className="w-4 h-4 text-[#108a00]" />
               Core Buyer Problem
             </h4>
-            <p className="text-[#5e6d55] leading-relaxed">
+            <p className="text-[#475569] text-base leading-relaxed font-normal">
               {taxonomyInfo.buyerProblem}
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#f9faf9] border border-[#e4ebe4]">
-            <h4 className="font-bold text-[#001e00] mb-1 flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-[#108a00]" />
+          <div className="p-5 rounded-2xl bg-[#eff6ff] border border-[#bfdbfe]">
+            <h4 className="font-extrabold text-[#1d4ed8] mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
+              <Layers className="w-4 h-4 text-[#2563eb]" />
               Typical Tech Stack
             </h4>
-            <p className="text-[#5e6d55] leading-relaxed font-mono">
+            <p className="text-[#1e3a8a] text-base leading-relaxed font-mono font-medium">
               {taxonomyInfo.typicalStack}
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#fffbeb] border border-[#fef3c7]">
-            <h4 className="font-bold text-[#92400e] mb-1 flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#d97706]" />
+          <div className="p-5 rounded-2xl bg-[#fffbeb] border border-[#fde68a]">
+            <h4 className="font-extrabold text-[#92400e] mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#d97706]" />
               Required HITL Safeguard Focus
             </h4>
-            <p className="text-[#78350f] leading-relaxed">
+            <p className="text-[#78350f] text-base leading-relaxed font-normal">
               {taxonomyInfo.commonSafeguards}
             </p>
           </div>
@@ -168,7 +168,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       </div>
 
       {/* Specialists List */}
-      <div className="mb-6 flex items-center justify-between text-xs text-[#5e6d55]">
+      <div className="mb-6 flex items-center justify-between text-sm text-[#5e6d55]">
         <div>
           Showing <span className="font-bold text-[#001e00]">{experts.length}</span> listed specialist{experts.length === 1 ? '' : 's'} in {category.name}
         </div>

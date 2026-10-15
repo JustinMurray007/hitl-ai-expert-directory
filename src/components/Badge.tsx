@@ -3,13 +3,13 @@ import React from 'react';
 export function VerifiedBadge({ count }: { count?: number }) {
   return (
     <span
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8]"
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8]"
       title="Verified: Identity confirmed and at least 2 reviewed production case studies"
     >
-      <span className="w-1.5 h-1.5 rounded-full bg-[#108a00] animate-pulse" />
+      <span className="w-2 h-2 rounded-full bg-[#108a00] animate-pulse" />
       Verified Specialist
       {typeof count === 'number' && count > 0 && (
-        <span className="text-[10px] text-[#108a00] font-mono bg-white px-1.5 py-0.2 rounded-full border border-[#b2e8b8]">
+        <span className="text-sm text-[#108a00] font-mono font-bold bg-white px-2.5 py-0.5 rounded-full border border-[#b2e8b8]">
           {count} studies
         </span>
       )}
@@ -19,7 +19,7 @@ export function VerifiedBadge({ count }: { count?: number }) {
 
 export function SponsorBadge() {
   return (
-    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#fef9c3] text-[#854d0e] border border-[#fde047]">
+    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold bg-[#fef9c3] text-[#854d0e] border border-[#fde047]">
       ★ Featured
     </span>
   );
@@ -27,7 +27,7 @@ export function SponsorBadge() {
 
 export function ToolBadge({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs bg-[#eff6ff] text-[#1d4ed8] border border-[#bfdbfe] font-medium hover:bg-[#dbeafe] transition-colors">
+    <span className="inline-flex items-center px-3 py-1 rounded-lg text-sm bg-[#eff6ff] text-[#1d4ed8] border border-[#bfdbfe] font-semibold hover:bg-[#dbeafe] transition-colors">
       {name}
     </span>
   );
@@ -35,7 +35,7 @@ export function ToolBadge({ name }: { name: string }) {
 
 export function CategoryBadge({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-[#f0f7ff] text-[#1e40af] border border-[#dbeafe]">
+    <span className="inline-flex items-center px-3 py-1 rounded-lg text-sm font-bold bg-[#f0f7ff] text-[#1e40af] border border-[#dbeafe]">
       {name}
     </span>
   );
@@ -52,7 +52,7 @@ export function BudgetBadge({ tier }: { tier: string }) {
   const item = map[tier] || { label: tier, color: 'text-[#334155] bg-[#f8fafc] border-[#e2e8f0]' };
 
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold border ${item.color}`}>
+    <span className={`inline-flex items-center px-3 py-1 rounded-lg text-sm font-bold border ${item.color}`}>
       {item.label}
     </span>
   );
@@ -67,7 +67,7 @@ export function EngagementBadge({ model }: { model: string }) {
   };
 
   return (
-    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-[#f1f5f1] text-[#4b554b] border border-[#dbe3db]">
+    <span className="inline-flex items-center px-2.5 py-1 rounded-md text-sm bg-[#f1f5f1] text-[#334133] border border-[#dbe3db] font-medium">
       {map[model] || model}
     </span>
   );

@@ -26,8 +26,8 @@ export default async function AdminPage() {
           </div>
 
           <div>
-            <h1 className="text-2xl font-black text-[#001e00]">Admin Review Login</h1>
-            <p className="text-xs text-[#5e6d55] mt-1 font-medium">
+            <h1 className="text-2xl sm:text-3xl font-black text-[#001e00]">Admin Review Login</h1>
+            <p className="text-sm sm:text-base text-[#5e6d55] mt-2 font-normal leading-relaxed">
               Authenticate with your administrative review secret to access the verification queue.
             </p>
           </div>

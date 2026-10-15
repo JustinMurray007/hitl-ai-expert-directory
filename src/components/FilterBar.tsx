@@ -86,7 +86,7 @@ export default function FilterBar({
       {/* Top Search & Verified Toggle */}
       <div className="flex flex-col md:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#889888]" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#889888]" />
           <input
             type="text"
             placeholder="Search by specialist name, tool, agency, city, or keyword..."
@@ -95,7 +95,7 @@ export default function FilterBar({
             onKeyDown={(e) => {
               if (e.key === 'Enter') applyFilters({ query: search });
             }}
-            className="w-full pl-10 pr-4 py-2.5 rounded-full bg-[#f9faf9] border border-[#d5ded5] text-sm text-[#001e00] placeholder-[#889888] focus:outline-none focus:border-[#108a00] focus:bg-white transition-colors"
+            className="w-full pl-12 pr-4 py-3 rounded-full bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] placeholder-[#889888] focus:outline-none focus:border-[#108a00] focus:bg-white transition-colors font-medium"
           />
         </div>
 
@@ -105,7 +105,7 @@ export default function FilterBar({
             setVerifiedOnly(next);
             applyFilters({ verified: next });
           }}
-          className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold border transition-all cursor-pointer ${
+          className={`flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold border transition-all cursor-pointer ${
             verifiedOnly
               ? 'bg-[#e4f7e6] text-[#108a00] border-[#b2e8b8] shadow-xs'
               : 'bg-white text-[#5e6d55] border-[#d5ded5] hover:border-[#108a00]'
@@ -117,14 +117,14 @@ export default function FilterBar({
 
         <button
           onClick={() => applyFilters()}
-          className="px-6 py-2.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
+          className="px-7 py-3 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-sm shadow-xs transition-all cursor-pointer"
         >
           {isPending ? 'Filtering...' : 'Apply Filters'}
         </button>
       </div>
 
       {/* Filter Row: Category, Tool, Budget, Engagement */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-[#f0f3f0]">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-3 border-t border-[#f0f3f0]">
         {/* Category */}
         <select
           value={selectedCat}
@@ -133,7 +133,7 @@ export default function FilterBar({
             applyFilters({ cat: e.target.value });
           }}
           aria-label="Filter by category"
-          className="w-full px-3.5 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] font-medium focus:outline-none focus:border-[#108a00] focus:bg-white"
+          className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-sm text-[#001e00] font-semibold focus:outline-none focus:border-[#108a00] focus:bg-white"
         >
           <option value="">All Categories</option>
           {categories.map((c) => (
@@ -151,7 +151,7 @@ export default function FilterBar({
             applyFilters({ tool: e.target.value });
           }}
           aria-label="Filter by tool"
-          className="w-full px-3.5 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] font-medium focus:outline-none focus:border-[#108a00] focus:bg-white"
+          className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-sm text-[#001e00] font-semibold focus:outline-none focus:border-[#108a00] focus:bg-white"
         >
           <option value="">All Tools</option>
           {tools.map((t) => (
@@ -169,7 +169,7 @@ export default function FilterBar({
             applyFilters({ budget: e.target.value });
           }}
           aria-label="Filter by starting budget"
-          className="w-full px-3.5 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] font-medium focus:outline-none focus:border-[#108a00] focus:bg-white"
+          className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-sm text-[#001e00] font-semibold focus:outline-none focus:border-[#108a00] focus:bg-white"
         >
           <option value="all">Any Starting Budget</option>
           <option value="under_2500">Under $2,500</option>
@@ -186,7 +186,7 @@ export default function FilterBar({
             applyFilters({ engagement: e.target.value });
           }}
           aria-label="Filter by engagement model"
-          className="w-full px-3.5 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] font-medium focus:outline-none focus:border-[#108a00] focus:bg-white"
+          className="w-full px-4 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-sm text-[#001e00] font-semibold focus:outline-none focus:border-[#108a00] focus:bg-white"
         >
           <option value="all">All Engagement Models</option>
           <option value="fixed_sprint">Fixed Sprint</option>
@@ -198,35 +198,35 @@ export default function FilterBar({
 
       {/* Active filter tags & reset */}
       {hasActiveFilters && (
-        <div className="flex items-center justify-between pt-2 text-xs">
-          <div className="flex flex-wrap items-center gap-2 text-[#5e6d55]">
-            <span className="font-medium">Active filters:</span>
+        <div className="flex items-center justify-between pt-2 text-sm">
+          <div className="flex flex-wrap items-center gap-2 text-[#475569]">
+            <span className="font-semibold">Active filters:</span>
             {search && (
-              <span className="px-2.5 py-0.5 rounded-full bg-[#f4f6f4] text-[#001e00] border border-[#dbe3db] font-medium">
+              <span className="px-3 py-1 rounded-full bg-[#f4f6f4] text-[#001e00] border border-[#dbe3db] font-semibold">
                 &quot;{search}&quot;
               </span>
             )}
             {selectedCat && (
-              <span className="px-2.5 py-0.5 rounded-full bg-[#f4f6f4] text-[#001e00] border border-[#dbe3db] font-medium">
+              <span className="px-3 py-1 rounded-full bg-[#f4f6f4] text-[#001e00] border border-[#dbe3db] font-semibold">
                 Category: {categories.find((c) => c.slug === selectedCat)?.name || selectedCat}
               </span>
             )}
             {selectedTool && (
-              <span className="px-2.5 py-0.5 rounded-full bg-[#f4f6f4] text-[#001e00] border border-[#dbe3db] font-medium">
+              <span className="px-3 py-1 rounded-full bg-[#eff6ff] text-[#1d4ed8] border border-[#bfdbfe] font-semibold">
                 Tool: {tools.find((t) => t.slug === selectedTool)?.name || selectedTool}
               </span>
             )}
             {verifiedOnly && (
-              <span className="px-2.5 py-0.5 rounded-full bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8] font-bold">
+              <span className="px-3 py-1 rounded-full bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8] font-bold">
                 Verified Only
               </span>
             )}
           </div>
           <button
             onClick={handleReset}
-            className="flex items-center gap-1 text-[#738273] hover:text-rose-600 font-medium transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 text-[#5e6d55] hover:text-rose-600 font-bold transition-colors cursor-pointer text-sm"
           >
-            <X className="w-3.5 h-3.5" />
+            <X className="w-4 h-4" />
             Clear all
           </button>
         </div>

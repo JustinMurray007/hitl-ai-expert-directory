@@ -130,23 +130,23 @@ export default function AdminClient({
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#108a00] animate-pulse" />
-            <span className="text-xs font-mono uppercase text-[#108a00] font-bold tracking-wider">
+            <span className="text-sm font-mono uppercase text-[#108a00] font-bold tracking-wider">
               Administrative Control Session
             </span>
           </div>
-          <h1 className="text-2xl font-black text-[#001e00] mt-1">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#001e00] mt-1.5">
             HITL Review Queue & Verification Gate
           </h1>
-          <p className="text-xs text-[#5e6d55] mt-0.5 font-medium">
+          <p className="text-sm sm:text-base text-[#5e6d55] mt-1 font-normal leading-relaxed">
             Strict verification threshold: Requires ≥2 reviewer-confirmed production case studies with explicit human fallback mechanisms.
           </p>
         </div>
 
         <button
           onClick={handleLogout}
-          className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#f4f6f4] hover:bg-[#e4ebe4] text-xs font-bold text-[#001e00] transition-colors cursor-pointer"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#f4f6f4] hover:bg-[#e4ebe4] text-sm font-bold text-[#001e00] transition-colors cursor-pointer"
         >
-          <LogOut className="w-3.5 h-3.5" />
+          <LogOut className="w-4 h-4" />
           End Session
         </button>
       </div>
@@ -154,25 +154,25 @@ export default function AdminClient({
       {/* KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="rounded-xl p-4 border border-[#e4ebe4] bg-white shadow-xs">
-          <span className="text-[11px] text-[#5e6d55] uppercase font-mono font-bold">Total Submissions</span>
-          <p className="text-2xl font-black text-[#001e00] mt-1">{applications.length}</p>
+          <span className="text-xs sm:text-sm text-[#5e6d55] uppercase font-mono font-bold tracking-wider">Total Submissions</span>
+          <p className="text-2xl sm:text-3xl font-black text-[#001e00] mt-1">{applications.length}</p>
         </div>
         <div className="rounded-xl p-4 border border-[#fef08a] bg-[#fffbeb] shadow-xs">
-          <span className="text-[11px] text-[#92400e] uppercase font-mono font-bold">Pending Review</span>
-          <p className="text-2xl font-black text-[#b45309] mt-1">{pendingCount}</p>
+          <span className="text-xs sm:text-sm text-[#92400e] uppercase font-mono font-bold tracking-wider">Pending Review</span>
+          <p className="text-2xl sm:text-3xl font-black text-[#b45309] mt-1">{pendingCount}</p>
         </div>
         <div className="rounded-xl p-4 border border-[#b2e8b8] bg-[#edf7ee] shadow-xs">
-          <span className="text-[11px] text-[#166534] uppercase font-mono font-bold">Verified Specialists</span>
-          <p className="text-2xl font-black text-[#108a00] mt-1">{verifiedCount}</p>
+          <span className="text-xs sm:text-sm text-[#166534] uppercase font-mono font-bold tracking-wider">Verified Specialists</span>
+          <p className="text-2xl sm:text-3xl font-black text-[#108a00] mt-1">{verifiedCount}</p>
         </div>
         <div className="rounded-xl p-4 border border-[#bfdbfe] bg-[#eff6ff] shadow-xs">
-          <span className="text-[11px] text-[#1e40af] uppercase font-mono font-bold">Match Inquiries</span>
-          <p className="text-2xl font-black text-[#2563eb] mt-1">{matchRequests.length}</p>
+          <span className="text-xs sm:text-sm text-[#1e40af] uppercase font-mono font-bold tracking-wider">Match Inquiries</span>
+          <p className="text-2xl sm:text-3xl font-black text-[#2563eb] mt-1">{matchRequests.length}</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-3 border-b border-[#e4ebe4] pb-3 text-xs font-bold">
+      <div className="flex items-center gap-4 border-b border-[#e4ebe4] pb-3 text-base font-bold">
         <button
           onClick={() => setActiveTab('applications')}
           className={`pb-2 px-3 border-b-2 transition-all cursor-pointer ${
@@ -224,7 +224,7 @@ export default function AdminClient({
                   className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer hover:bg-[#fafbfa]"
                 >
                   <div className="flex items-start sm:items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#f4f6f4] border border-[#e4ebe4] overflow-hidden shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-[#f4f6f4] border border-[#e4ebe4] overflow-hidden shrink-0">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={exp?.avatar_url || `https://api.dicebear.com/7.x/initials/svg?seed=user`}
@@ -234,62 +234,62 @@ export default function AdminClient({
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="text-sm font-bold text-[#001e00]">
+                        <h3 className="text-base font-bold text-[#001e00]">
                           {exp?.full_name || 'Applicant'}
                         </h3>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#f4f6f4] text-[#4b554b] border border-[#dbe3db] font-semibold">
+                        <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-[#f4f6f4] text-[#4b554b] border border-[#dbe3db] font-semibold">
                           {app.legal_entity_type || 'Entity Unspecified'}
                         </span>
                         {exp?.is_verified && (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8]">
+                          <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8]">
                             Verified
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-[#5e6d55] font-medium">
+                      <p className="text-sm text-[#5e6d55] font-medium mt-0.5">
                         {exp?.professional_title} {exp?.agency_name ? `• ${exp.agency_name}` : ''}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4 text-xs">
+                  <div className="flex items-center gap-4 text-sm">
                     <div className="flex flex-col items-end">
-                      <span className="font-mono text-[#5e6d55] text-[11px]">
+                      <span className="font-mono text-[#5e6d55] text-xs sm:text-sm">
                         Status: <strong className="text-[#001e00] capitalize">{current.status.replace('_', ' ')}</strong>
                       </span>
-                      <span className="font-mono text-[11px] text-[#108a00] font-bold">
+                      <span className="font-mono text-xs sm:text-sm text-[#108a00] font-bold">
                         {confirmedCount} confirmed case study(ies)
                       </span>
                     </div>
                     {isExpanded ? (
-                      <ChevronUp className="w-4 h-4 text-[#889888]" />
+                      <ChevronUp className="w-5 h-5 text-[#889888]" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-[#889888]" />
+                      <ChevronDown className="w-5 h-5 text-[#889888]" />
                     )}
                   </div>
                 </div>
 
                 {/* Expanded Review Drawer */}
                 {isExpanded && (
-                  <div className="p-6 border-t border-[#f0f3f0] bg-[#fbfcfb] space-y-6">
+                  <div className="p-6 sm:p-8 border-t border-[#f0f3f0] bg-[#fbfcfb] space-y-6">
                     {/* Private Info Strip */}
-                    <div className="p-4 rounded-xl bg-[#f3e8ff] border border-[#e9d5ff] text-xs grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="p-4 sm:p-5 rounded-xl bg-[#f3e8ff] border border-[#e9d5ff] text-sm sm:text-base grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div>
-                        <span className="text-[#6b21a8] block font-semibold">Private Contact Email:</span>
-                        <span className="text-[#3b0764] font-bold flex items-center gap-1.5 mt-0.5">
-                          <Mail className="w-3.5 h-3.5 text-[#7e22ce]" />
+                        <span className="text-[#6b21a8] block font-semibold text-xs sm:text-sm">Private Contact Email:</span>
+                        <span className="text-[#3b0764] font-bold flex items-center gap-1.5 mt-1">
+                          <Mail className="w-4 h-4 text-[#7e22ce] shrink-0" />
                           {app.contact_email}
                         </span>
                       </div>
                       <div>
-                        <span className="text-[#6b21a8] block font-semibold">Legal Entity:</span>
-                        <span className="text-[#3b0764] font-bold mt-0.5 block">
+                        <span className="text-[#6b21a8] block font-semibold text-xs sm:text-sm">Legal Entity:</span>
+                        <span className="text-[#3b0764] font-bold mt-1 block">
                           {app.legal_entity_type || 'None'}
                         </span>
                       </div>
                       <div>
-                        <span className="text-[#6b21a8] block font-semibold">Submitted At:</span>
-                        <span className="text-[#3b0764] font-mono mt-0.5 block font-bold">
+                        <span className="text-[#6b21a8] block font-semibold text-xs sm:text-sm">Submitted At:</span>
+                        <span className="text-[#3b0764] font-mono mt-1 block font-bold">
                           {new Date(app.created_at || Date.now()).toLocaleDateString()}
                         </span>
                       </div>
@@ -297,12 +297,12 @@ export default function AdminClient({
 
                     {/* Case Studies Inspection with Reviewer Confirmation Gate */}
                     <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-[#001e00] flex items-center gap-1.5">
-                          <Layers className="w-3.5 h-3.5 text-[#108a00]" />
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                        <h4 className="text-sm font-bold uppercase tracking-wider text-[#001e00] flex items-center gap-1.5">
+                          <Layers className="w-4 h-4 text-[#108a00]" />
                           <span>Submitted Production Case Studies & Human Guardrails</span>
                         </h4>
-                        <div className="text-[11px] font-mono font-bold">
+                        <div className="text-sm font-mono font-bold">
                           Threshold: <strong className={isVerificationEligible ? 'text-[#108a00]' : 'text-[#d97706]'}>
                             {confirmedCount} / 2 confirmed
                           </strong>
@@ -315,46 +315,46 @@ export default function AdminClient({
                           return (
                             <div
                               key={cs.id}
-                              className={`p-4 rounded-xl border transition-all text-xs space-y-3 ${
+                              className={`p-5 rounded-2xl border transition-all text-sm sm:text-base space-y-3.5 ${
                                 isConfirmed
                                   ? 'bg-[#edf7ee] border-[#b2e8b8]'
                                   : 'bg-white border-[#e4ebe4]'
                               }`}
                             >
-                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                 <div>
-                                  <span className="font-mono text-[#108a00] text-[10px] uppercase font-bold">
+                                  <span className="font-mono text-[#108a00] text-xs uppercase font-bold tracking-wider">
                                     Case Study #{idx + 1} • {cs.client_industry}
                                   </span>
-                                  <h5 className="font-black text-[#001e00] text-sm mt-0.5">{cs.title}</h5>
+                                  <h5 className="font-black text-[#001e00] text-base sm:text-lg mt-0.5">{cs.title}</h5>
                                 </div>
                                 <button
                                   type="button"
                                   onClick={() => toggleConfirmCaseStudy(app.id, cs.id)}
-                                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold border flex items-center gap-1.5 transition-all cursor-pointer ${
+                                  className={`px-4 py-2 rounded-full text-sm font-bold border flex items-center gap-1.5 transition-all cursor-pointer self-start sm:self-auto ${
                                     isConfirmed
                                       ? 'bg-[#108a00] text-white border-[#108a00] shadow-xs'
                                       : 'bg-white text-[#001e00] border-[#cbd5cb] hover:border-[#108a00]'
                                   }`}
                                 >
-                                  <CheckCircle2 className="w-3.5 h-3.5" />
+                                  <CheckCircle2 className="w-4 h-4" />
                                   <span>{isConfirmed ? 'Confirmed as Evidence' : 'Confirm Study'}</span>
                                 </button>
                               </div>
 
-                              <p className="text-[#4b554b] text-xs">
+                              <p className="text-[#334133] text-sm sm:text-base leading-relaxed">
                                 <strong className="text-[#001e00]">Problem:</strong> {cs.problem_statement}
                               </p>
 
                               {/* HITL MECHANISM REVIEW BOX */}
-                              <div className="p-3.5 rounded-lg bg-[#f2faf3] border border-[#b2e8b8]">
-                                <span className="text-[10px] font-bold text-[#108a00] uppercase tracking-wider block mb-1">
+                              <div className="p-4 rounded-xl bg-[#f2faf3] border border-[#b2e8b8]">
+                                <span className="text-xs sm:text-sm font-bold text-[#108a00] uppercase tracking-wider block mb-1">
                                   Audited Human-in-the-Loop Mechanism:
                                 </span>
-                                <p className="text-[#0f3d17] font-semibold italic">&quot;{cs.hitl_oversight_mechanism}&quot;</p>
+                                <p className="text-[#0f3d17] font-semibold italic text-sm sm:text-base leading-relaxed">&quot;{cs.hitl_oversight_mechanism}&quot;</p>
                               </div>
 
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-[#4b554b]">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-[#4b554b] leading-relaxed">
                                 <p><strong className="text-[#001e00]">Safeguards:</strong> {cs.failure_safeguards}</p>
                                 <p><strong className="text-[#001e00]">ROI / Outcomes:</strong> {cs.outcomes_roi}</p>
                               </div>
@@ -364,9 +364,9 @@ export default function AdminClient({
                                   href={cs.demo_video_url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1 text-[11px] text-[#108a00] font-bold hover:underline"
+                                  className="inline-flex items-center gap-1.5 text-sm text-[#108a00] font-bold hover:underline"
                                 >
-                                  Inspect Video Walkthrough <ExternalLink className="w-3 h-3" />
+                                  Inspect Video Walkthrough <ExternalLink className="w-3.5 h-3.5" />
                                 </a>
                               )}
                             </div>
@@ -376,15 +376,15 @@ export default function AdminClient({
                     </div>
 
                     {/* Review Form & Decision Panel */}
-                    <div className="p-5 rounded-2xl bg-white border border-[#e4ebe4] space-y-4 shadow-xs">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#001e00]">
+                    <div className="p-6 rounded-2xl bg-white border border-[#e4ebe4] space-y-5 shadow-xs">
+                      <h4 className="text-sm font-bold uppercase tracking-wider text-[#001e00]">
                         Reviewer Decision & Audit Trail
                       </h4>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm sm:text-base">
                         {/* Listing Status */}
                         <div>
-                          <label className="block text-[#001e00] mb-1 font-bold">
+                          <label className="block text-[#001e00] mb-1.5 font-bold text-sm">
                             Listing Status
                           </label>
                           <select
@@ -395,7 +395,7 @@ export default function AdminClient({
                                 [app.id]: { ...current, status: e.target.value },
                               }))
                             }
-                            className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] font-medium"
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-sm sm:text-base text-[#001e00] font-semibold"
                           >
                             <option value="pending_review">Pending Review</option>
                             <option value="published">Published</option>
@@ -406,7 +406,7 @@ export default function AdminClient({
 
                         {/* Verification Status */}
                         <div>
-                          <label className="block text-[#001e00] mb-1 font-bold">
+                          <label className="block text-[#001e00] mb-1.5 font-bold text-sm">
                             Verification Tier
                           </label>
                           <select
@@ -417,7 +417,7 @@ export default function AdminClient({
                                 [app.id]: { ...current, verificationStatus: e.target.value },
                               }))
                             }
-                            className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] font-medium"
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-sm sm:text-base text-[#001e00] font-semibold"
                           >
                             <option value="unverified">Unverified (Community Tier)</option>
                             <option value="in_review">In Review (Awaiting 2nd Study)</option>
@@ -428,7 +428,7 @@ export default function AdminClient({
 
                         {/* Sponsor Rank */}
                         <div>
-                          <label className="block text-[#001e00] mb-1 font-bold">
+                          <label className="block text-[#001e00] mb-1.5 font-bold text-sm">
                             Sponsor Rank (0 = Normal)
                           </label>
                           <input
@@ -441,15 +441,15 @@ export default function AdminClient({
                                 [app.id]: { ...current, sponsorRank: parseInt(e.target.value) || 0 },
                               }))
                             }
-                            className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00] font-medium"
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-sm sm:text-base text-[#001e00] font-semibold"
                           />
                         </div>
                       </div>
 
                       {/* Reviewer Name & Notes */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm sm:text-base">
                         <div>
-                          <label className="block text-[#001e00] mb-1 font-bold">
+                          <label className="block text-[#001e00] mb-1.5 font-bold text-sm">
                             Reviewed By (Identifier)
                           </label>
                           <input
@@ -461,12 +461,12 @@ export default function AdminClient({
                                 [app.id]: { ...current, reviewedBy: e.target.value },
                               }))
                             }
-                            className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00]"
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-sm sm:text-base text-[#001e00] font-medium"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[#001e00] mb-1 font-bold">
+                          <label className="block text-[#001e00] mb-1.5 font-bold text-sm">
                             Audit Notes (Private evidence record)
                           </label>
                           <input
@@ -479,7 +479,7 @@ export default function AdminClient({
                               }))
                             }
                             placeholder="e.g. Identity confirmed via LinkedIn, verified n8n webhook Slack queue..."
-                            className="w-full px-3 py-2 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-xs text-[#001e00]"
+                            className="w-full px-3.5 py-2.5 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-sm sm:text-base text-[#001e00] font-medium"
                           />
                         </div>
                       </div>
@@ -487,30 +487,30 @@ export default function AdminClient({
                       {/* Feedback banner */}
                       {actionMessage && actionMessage.id === app.id && (
                         <div
-                          className={`p-3.5 rounded-xl text-xs flex items-center gap-2 ${
+                          className={`p-4 rounded-xl text-sm sm:text-base flex items-center gap-2.5 ${
                             actionMessage.error
                               ? 'bg-rose-50 border border-rose-200 text-rose-800'
                               : 'bg-[#edf7ee] border border-[#b2e8b8] text-[#166534]'
                           }`}
                         >
                           {actionMessage.error ? (
-                            <AlertTriangle className="w-4 h-4 shrink-0 text-rose-600" />
+                            <AlertTriangle className="w-5 h-5 shrink-0 text-rose-600" />
                           ) : (
-                            <CheckCircle2 className="w-4 h-4 shrink-0 text-[#108a00]" />
+                            <CheckCircle2 className="w-5 h-5 shrink-0 text-[#108a00]" />
                           )}
                           <span className="font-bold">{actionMessage.error || actionMessage.success}</span>
                         </div>
                       )}
 
                       {/* Action buttons */}
-                      <div className="flex items-center justify-between pt-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
                         {exp?.slug && (
                           <Link
                             href={`/experts/${exp.slug}`}
                             target="_blank"
-                            className="text-xs text-[#108a00] font-bold hover:underline flex items-center gap-1"
+                            className="text-sm font-bold text-[#108a00] hover:underline flex items-center gap-1.5"
                           >
-                            Preview Profile Page <ExternalLink className="w-3 h-3" />
+                            Preview Profile Page <ExternalLink className="w-4 h-4" />
                           </Link>
                         )}
 
@@ -518,7 +518,7 @@ export default function AdminClient({
                           type="button"
                           disabled={savingAppId === app.id}
                           onClick={() => handleSaveReview(app)}
-                          className="px-8 py-3 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-xs shadow-sm transition-all disabled:opacity-50 cursor-pointer"
+                          className="px-8 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-sm sm:text-base shadow-sm transition-all disabled:opacity-50 cursor-pointer self-start sm:self-auto"
                         >
                           {savingAppId === app.id ? 'Saving Decision...' : 'Save Review Decision'}
                         </button>
@@ -538,37 +538,37 @@ export default function AdminClient({
           {matchRequests.map((req) => (
             <div
               key={req.id}
-              className="rounded-2xl p-6 border border-[#e4ebe4] bg-white text-xs space-y-3 shadow-xs"
+              className="rounded-2xl p-6 sm:p-7 border border-[#e4ebe4] bg-white text-sm sm:text-base space-y-3.5 shadow-xs"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#f0f3f0] pb-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-bold text-[#001e00]">{req.requester_name}</h3>
+                    <h3 className="text-base sm:text-lg font-bold text-[#001e00]">{req.requester_name}</h3>
                     {req.company && (
-                      <span className="text-[#5e6d55] font-medium text-[11px]">({req.company})</span>
+                      <span className="text-[#5e6d55] font-medium text-xs sm:text-sm">({req.company})</span>
                     )}
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[#eff6ff] text-[#1e40af] border border-[#bfdbfe] font-bold">
+                    <span className="text-xs font-mono uppercase px-2.5 py-0.5 rounded-full bg-[#eff6ff] text-[#1e40af] border border-[#bfdbfe] font-bold">
                       {req.status}
                     </span>
                   </div>
-                  <p className="text-[#5e6d55] flex items-center gap-1 mt-0.5">
-                    <Mail className="w-3 h-3 text-[#889888]" />
+                  <p className="text-[#5e6d55] flex items-center gap-1.5 mt-1 text-sm font-medium">
+                    <Mail className="w-4 h-4 text-[#889888]" />
                     {req.requester_email}
                   </p>
                 </div>
-                <span className="text-[#738273] font-mono text-[11px]">
+                <span className="text-[#738273] font-mono text-xs sm:text-sm">
                   {new Date(req.created_at || Date.now()).toLocaleDateString()}
                 </span>
               </div>
 
               <div>
-                <span className="font-bold text-[#001e00] block mb-1">Operational Need:</span>
-                <p className="text-[#223022] leading-relaxed bg-[#f9faf9] p-3.5 rounded-xl border border-[#e4ebe4]">
+                <span className="font-bold text-[#001e00] block mb-1 text-sm">Operational Need:</span>
+                <p className="text-[#223022] leading-relaxed bg-[#f9faf9] p-4 rounded-xl border border-[#e4ebe4] text-sm sm:text-base font-normal">
                   {req.need_description}
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[#5e6d55] text-[11px] pt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[#5e6d55] text-xs sm:text-sm pt-1">
                 <p>
                   <strong className="text-[#001e00]">Budget:</strong> {req.budget_range ? req.budget_range.replace('_', ' ') : 'Flexible'}
                 </p>
@@ -578,7 +578,7 @@ export default function AdminClient({
               </div>
 
               {req.internal_notes && (
-                <div className="p-3 rounded-lg bg-[#fffbeb] border border-[#fef3c7] text-[11px] text-[#92400e]">
+                <div className="p-3.5 rounded-xl bg-[#fffbeb] border border-[#fef3c7] text-xs sm:text-sm text-[#92400e] leading-relaxed">
                   <strong>Internal Match Note:</strong> {req.internal_notes}
                 </div>
               )}

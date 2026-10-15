@@ -20,17 +20,23 @@
     --muted-bg: #f2f7f2;
   }
 
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-sans), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
-  }
-
-  /* Smooth scroll */
-  html {
-    scroll-behavior: smooth;
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
   }
 
   /* Custom subtle scrollbar */
