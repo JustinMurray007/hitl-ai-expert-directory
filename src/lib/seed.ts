@@ -41,6 +41,14 @@ export const SEED_CATEGORIES: Category[] = [
     icon_name: 'UserCheck',
     expert_count: 3,
   },
+  {
+    id: 'cat-6',
+    slug: 'custom-ai-models-integration',
+    name: 'Custom AI & Systems Integration',
+    description: 'Private LLM fine-tuning, vector search pipelines, bespoke ERP bridges, and high-security compliance workflows.',
+    icon_name: 'Cpu',
+    expert_count: 3,
+  },
 ];
 
 export const SEED_TOOLS: Tool[] = [
@@ -97,6 +105,7 @@ export const SEED_EXPERTS: Expert[] = [
     categories: [
       SEED_CATEGORIES[0], // operations-workflow-automation
       SEED_CATEGORIES[2], // customer-support-knowledge-base
+      SEED_CATEGORIES[5], // custom-ai-models-integration
     ],
     tools: [
       SEED_TOOLS[0], // Make
@@ -238,6 +247,7 @@ export const SEED_EXPERTS: Expert[] = [
     categories: [
       SEED_CATEGORIES[2], // customer-support-knowledge-base
       SEED_CATEGORIES[0], // operations-workflow-automation
+      SEED_CATEGORIES[5], // custom-ai-models-integration
     ],
     tools: [
       SEED_TOOLS[4], // Anthropic Claude

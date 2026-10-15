@@ -13,6 +13,7 @@ import {
   Sparkles,
   Layers,
   CheckCircle2,
+  Cpu,
 } from 'lucide-react';
 
 interface CategoryPageProps {
@@ -25,6 +26,7 @@ const categoryIcons: Record<string, any> = {
   LifeBuoy: LifeBuoy,
   Megaphone: Megaphone,
   UserCheck: UserCheck,
+  Cpu: Cpu,
 };
 
 // Category details from STRATEGY.md taxonomy
@@ -56,6 +58,11 @@ const categoryTaxonomyDetails: Record<
     buyerProblem: 'Daily scheduling, email triage, meeting action-item digestion, personal SOPs.',
     typicalStack: 'Claude, Gemini Workspaces, Perplexity, Cursor, Ollama / Local LLM',
     commonSafeguards: 'Zero-send API permissions; drafts created in client inbox requiring manual human review to send.',
+  },
+  'custom-ai-models-integration': {
+    buyerProblem: 'Private LLM fine-tuning, vector search pipelines, bespoke ERP bridges, and high-security compliance workflows.',
+    typicalStack: 'Ollama, vLLM, Supabase pgvector, Python, TypeScript, Docker',
+    commonSafeguards: 'Air-gapped deployment fences, automated hallucination benchmarking, dual-engineer audit sign-offs.',
   },
 };
 

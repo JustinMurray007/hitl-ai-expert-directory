@@ -76,9 +76,41 @@
   background: radial-gradient(circle at 50% 0%, rgba(20, 168, 0, 0.07) 0%, transparent 70%);
 }
 
+.mesh-gradient-hero {
+  background: 
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(16, 138, 0, 0.08) 0%, transparent 75%),
+    radial-gradient(circle at 85% 15%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 15% 20%, rgba(217, 119, 6, 0.04) 0%, transparent 45%),
+    #ffffff;
+}
+
+.mesh-gradient-subtle {
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% 50%, rgba(16, 138, 0, 0.03) 0%, transparent 80%),
+    #f8faf8;
+}
+
+.bg-dots {
+  background-image: radial-gradient(circle, rgba(0, 30, 0, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-dots-blue {
+  background-image: radial-gradient(circle, rgba(37, 99, 235, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.mega-menu-shadow {
+  box-shadow: 
+    0 24px 48px -12px rgba(0, 30, 0, 0.12),
+    0 4px 12px -2px rgba(0, 30, 0, 0.04),
+    0 0 0 1px rgba(0, 30, 0, 0.05);
+}
+
 .tech-grid {
   background-size: 32px 32px;
   background-image: 
     linear-gradient(to right, rgba(0, 30, 0, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 30, 0, 0.03) 1px, transparent 1px);
 }
+
