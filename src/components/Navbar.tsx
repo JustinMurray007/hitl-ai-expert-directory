@@ -41,15 +41,18 @@ export default function Navbar() {
         </Link>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-7 text-sm font-semibold text-[#222325]">
+        <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-[#222325]">
           <Link href="/experts" className="hover:text-[#108a00] transition-colors">
             Find Talent
+          </Link>
+          <Link href="/recommendations" className="hover:text-[#108a00] transition-colors flex items-center gap-1 text-[#108a00]">
+            <Sparkles className="w-3.5 h-3.5 text-[#108a00]" />
+            AI Recommender
           </Link>
           <Link href="/#categories" className="hover:text-[#108a00] transition-colors">
             Categories
           </Link>
-          <Link href="/match" className="hover:text-[#108a00] transition-colors flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#108a00]" />
+          <Link href="/match" className="hover:text-[#108a00] transition-colors">
             Concierge Match
           </Link>
           <Link href="/about" className="hover:text-[#108a00] transition-colors">

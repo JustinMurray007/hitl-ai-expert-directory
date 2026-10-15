@@ -67,6 +67,11 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs">
               <li>
+                <Link href="/recommendations" className="hover:text-[#14a800] transition-colors flex items-center gap-1 font-semibold text-[#57df66]">
+                  SMB AI Recommender <ArrowRight className="w-3 h-3 text-[#14a800]" />
+                </Link>
+              </li>
+              <li>
                 <Link href="/about#the-standard" className="hover:text-white transition-colors">
                   The HITL Standard
                 </Link>

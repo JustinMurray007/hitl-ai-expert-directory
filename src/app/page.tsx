@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { getCategories, getFeaturedExperts } from '@/lib/store';
+import BusinessRecommender from '@/components/BusinessRecommender';
+import { getCategories, getFeaturedExperts, getExperts } from '@/lib/store';
 import ExpertCard from '@/components/ExpertCard';
 import {
   ShieldCheck,
@@ -25,9 +26,10 @@ const categoryIcons: Record<string, any> = {
 };
 
 export default async function HomePage() {
-  const [categories, featuredExperts] = await Promise.all([
+  const [categories, featuredExperts, allExperts] = await Promise.all([
     getCategories(),
     getFeaturedExperts(),
+    getExperts(),
   ]);
 
   return (
@@ -108,6 +110,26 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* =====================================================================
+          INTERACTIVE SMB AI RECOMMENDER & SOLUTION FINDER
+      ====================================================================== */}
+      <section id="ai-recommender" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="mb-8">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-xs font-bold text-[#108a00] mb-2 shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-[#108a00]" />
+            <span>Interactive SMB Solution Finder</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-[#001e00]">
+            Select Your Business Type to See AI Recommendations & Specialists
+          </h2>
+          <p className="text-xs sm:text-sm text-[#5e6d55] mt-1 font-medium max-w-2xl">
+            Choose your industry and operational bottleneck below. We’ll generate a high-ROI AI workflow, outline the exact human guardrails required, and connect you with verified specialists who can build it.
+          </p>
+        </div>
+
+        <BusinessRecommender allExperts={allExperts} />
       </section>
 
       {/* =====================================================================
