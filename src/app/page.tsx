@@ -17,10 +17,9 @@ import {
   Lock,
   Truck,
   Stethoscope,
-  Wrench,
-  Layers,
-  Clock,
   Compass,
+  Target,
+  Clock,
 } from 'lucide-react';
 
 const categoryIcons: Record<string, any> = {
@@ -30,6 +29,7 @@ const categoryIcons: Record<string, any> = {
   Megaphone: Megaphone,
   UserCheck: UserCheck,
   Cpu: Cpu,
+  Target: Target,
 };
 
 const categoryThemes: Record<string, { bg: string; border: string; text: string; hoverBorder: string; badge: string }> = {
@@ -67,6 +67,13 @@ const categoryThemes: Record<string, { bg: string; border: string; text: string;
     text: 'text-[#d97706]',
     hoverBorder: 'hover:border-[#d97706]',
     badge: 'bg-[#fef3c7] text-[#b45309]',
+  },
+  'ai-advertising-paid-media': {
+    bg: 'bg-[#fff1f2]',
+    border: 'border-[#fecdd3]',
+    text: 'text-[#e11d48]',
+    hoverBorder: 'hover:border-[#e11d48]',
+    badge: 'bg-[#ffe4e6] text-[#be123c]',
   },
   'custom-ai-models-integration': {
     bg: 'bg-[#f8fafc]',
@@ -124,7 +131,7 @@ export default async function HomePage() {
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white hover:bg-[#f4f6f4] text-[#001e00] font-bold text-base border border-[#cbd5cb] shadow-xs transition-all hover:border-[#108a00]"
             >
               <Sparkles className="w-5 h-5 text-[#2563eb]" />
-              Generate Free AI Roadmap
+              Find Your Business
             </Link>
           </div>
 
@@ -180,20 +187,20 @@ export default async function HomePage() {
               <div className="lg:col-span-7">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#eff6ff] border border-[#bfdbfe] text-xs font-bold text-[#1d4ed8] mb-4 shadow-xs">
                   <Sparkles className="w-4 h-4 text-[#2563eb]" />
-                  <span>Interactive Business Assessment Tool</span>
+                  <span>Find Your Business — 12 Industry Solutions</span>
                 </div>
                 <h2 className="text-2xl sm:text-4xl font-black text-[#001e00] tracking-tight leading-tight">
-                  Not Sure Which AI Workflow Fits Your Business?
+                  Find Your Business &amp; Recommended AI Workflows
                 </h2>
                 <p className="mt-4 text-base text-[#475569] max-w-xl font-normal leading-relaxed">
-                  Select your industry and current operational bottleneck. Our interactive generator maps out the exact automation pipeline, required human fallback guardrails, and matches you with verified specialists who can build it.
+                  Select your business type and current operational bottleneck. Our interactive generator maps out the exact automation pipeline, required human fallback guardrails, and matches you with verified specialists who can build it.
                 </p>
 
                 {/* Key Features List */}
                 <div className="mt-6 space-y-2.5 max-w-lg">
                   <div className="flex items-center gap-3 text-sm text-[#1e2a1e] font-semibold">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
-                    <span>6 Tailored Industries (Logistics, Dental, HVAC, Legal, Retail, Real Estate)</span>
+                    <span>12 Tailored Industries (Logistics, Dental, HVAC, E-Commerce, Auto, Legal, Hospitality...)</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-[#1e2a1e] font-semibold">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
@@ -210,7 +217,7 @@ export default async function HomePage() {
                     href="/recommendations"
                     className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-base shadow-sm transition-all hover:scale-[1.02]"
                   >
-                    <span>Launch AI Recommender</span>
+                    <span>Launch Find Your Business</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
@@ -374,8 +381,8 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          {/* Symmetrical 2x2 Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Symmetrical 3x2 Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredExperts.map((expert) => (
               <ExpertCard key={expert.id} expert={expert} />
             ))}

@@ -43,11 +43,11 @@ export const SEED_CATEGORIES: Category[] = [
   },
   {
     id: 'cat-6',
-    slug: 'custom-ai-models-integration',
-    name: 'Custom AI & Systems Integration',
-    description: 'Private LLM fine-tuning, vector search pipelines, bespoke ERP bridges, and high-security compliance workflows.',
-    icon_name: 'Cpu',
-    expert_count: 3,
+    slug: 'ai-advertising-paid-media',
+    name: 'AI Advertising & Paid Media Ops',
+    description: 'Meta & Google Ads automation, autonomous creative iteration, ROAS budget pacing, and human spend-cap safeguards.',
+    icon_name: 'Target',
+    expert_count: 4,
   },
 ];
 

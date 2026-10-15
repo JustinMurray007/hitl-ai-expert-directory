@@ -14,6 +14,7 @@ import {
   Layers,
   CheckCircle2,
   Cpu,
+  Target,
 } from 'lucide-react';
 
 interface CategoryPageProps {
@@ -27,6 +28,7 @@ const categoryIcons: Record<string, any> = {
   Megaphone: Megaphone,
   UserCheck: UserCheck,
   Cpu: Cpu,
+  Target: Target,
 };
 
 // Category details from STRATEGY.md taxonomy
@@ -58,6 +60,11 @@ const categoryTaxonomyDetails: Record<
     buyerProblem: 'Daily scheduling, email triage, meeting action-item digestion, personal SOPs.',
     typicalStack: 'Claude, Gemini Workspaces, Perplexity, Cursor, Ollama / Local LLM',
     commonSafeguards: 'Zero-send API permissions; drafts created in client inbox requiring manual human review to send.',
+  },
+  'ai-advertising-paid-media': {
+    buyerProblem: 'Meta & Google Ads automation, autonomous creative iteration, ROAS budget pacing, and human spend-cap safeguards.',
+    typicalStack: 'Make, Meta Marketing API, Google Ads Scripts, Claude 3.5 Sonnet, Python',
+    commonSafeguards: 'Hard daily budget limits requiring marketing director Slack confirmation for spend adjustments > 15%.',
   },
   'custom-ai-models-integration': {
     buyerProblem: 'Private LLM fine-tuning, vector search pipelines, bespoke ERP bridges, and high-security compliance workflows.',

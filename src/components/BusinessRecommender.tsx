@@ -12,6 +12,12 @@ import {
   Briefcase,
   Building2,
   BarChart3,
+  ShoppingBag,
+  Car,
+  UtensilsCrossed,
+  Factory,
+  FileText,
+  GraduationCap,
   CheckCircle2,
   ShieldCheck,
   Sparkles,
@@ -30,6 +36,12 @@ const iconMap: Record<string, any> = {
   Briefcase,
   Building2,
   BarChart3,
+  ShoppingBag,
+  Car,
+  UtensilsCrossed,
+  Factory,
+  FileText,
+  GraduationCap,
 };
 
 interface BusinessRecommenderProps {
@@ -82,10 +94,10 @@ export default function BusinessRecommender({
             1
           </span>
           <h2 className="text-xl sm:text-2xl font-black text-[#001e00]">
-            Select Your Industry or Business Type
+            Select Your Business Type (12 Industries)
           </h2>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {INDUSTRY_RECOMMENDATIONS.map((ind) => {
             const Icon = iconMap[ind.iconName] || Briefcase;
             const isSelected = selectedIndustry.id === ind.id;
@@ -99,23 +111,31 @@ export default function BusinessRecommender({
                 }}
                 className={`p-4 sm:p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#edf7ee] border-2 border-[#108a00] shadow-sm'
-                    : 'bg-white border-[#e4ebe4] hover:border-[#108a00]/50 shadow-xs'
+                    ? 'bg-[#edf7ee] border-2 border-[#108a00] shadow-sm ring-1 ring-[#108a00]/30'
+                    : 'bg-white border-[#e4ebe4] hover:border-[#108a00]/50 hover:shadow-md shadow-xs'
                 }`}
               >
-                <div
-                  className={`w-11 h-11 rounded-xl flex items-center justify-center mb-3.5 ${
-                    isSelected
-                      ? 'bg-[#108a00] text-white'
-                      : 'bg-[#e4f7e6] text-[#108a00]'
-                  }`}
-                >
-                  <Icon className="w-5 h-5" />
-                </div>
                 <div>
+                  <div
+                    className={`w-11 h-11 rounded-xl flex items-center justify-center mb-3.5 ${
+                      isSelected
+                        ? 'bg-[#108a00] text-white'
+                        : 'bg-[#e4f7e6] text-[#108a00]'
+                    }`}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </div>
                   <h3 className="font-extrabold text-sm sm:text-base text-[#001e00] leading-snug">
                     {ind.industryName}
                   </h3>
+                  <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                    {ind.industryDescription}
+                  </p>
+                </div>
+                <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
+                  <span className={isSelected ? 'text-[#108a00]' : 'text-slate-400'}>
+                    {isSelected ? '● Active Selection' : 'Click to Select'}
+                  </span>
                 </div>
               </button>
             );

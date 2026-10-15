@@ -27,6 +27,7 @@ import {
   Building2,
   CheckCircle2,
   Layers,
+  Target,
 } from 'lucide-react';
 
 interface NavbarClientProps {
@@ -80,13 +81,13 @@ const solutionCategories = [
     border: 'border-amber-100',
   },
   {
-    name: 'Custom AI & Systems',
-    desc: 'Private LLMs, pgvector & enterprise compliance',
-    href: '/categories/custom-ai-models-integration',
-    icon: Cpu,
-    color: 'text-sky-600',
-    bg: 'bg-sky-50',
-    border: 'border-sky-100',
+    name: 'AI Advertising & Paid Media',
+    desc: 'Meta & Google Ads automation, creative testing & ROAS pacing',
+    href: '/categories/ai-advertising-paid-media',
+    icon: Target,
+    color: 'text-rose-600',
+    bg: 'bg-rose-50',
+    border: 'border-rose-100',
   },
 ];
 
@@ -178,19 +179,20 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
 
       {/* Main Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand */}
-        <Link href="/" className="flex items-center gap-3 group shrink-0">
-          <div className="w-11 h-11 rounded-xl bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center group-hover:scale-105 transition-transform">
-            <ShieldCheck className="w-6 h-6 text-[#108a00]" />
+        {/* Brand Logo: Clean, modern HITL continuous loop emblem */}
+        <Link href="/" className="flex items-center gap-3.5 group shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#001e00] to-[#123312] border border-[#2b4e2b] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+            <svg className="w-5 h-5 text-[#14a800]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="3.5" fill="#14a800" stroke="#14a800" />
+              <path d="M12 2a10 10 0 0 1 10 10c0 4.5-3 8-7.5 9.5" />
+              <path d="M12 22A10 10 0 0 1 2 12C2 7.5 5 4 9.5 2.5" />
+            </svg>
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="font-black text-2xl text-[#001e00] tracking-tight">HITL</span>
-              <span className="text-xs uppercase font-extrabold tracking-wider px-2 py-0.5 rounded-full bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8]">
-                Verified
-              </span>
-            </div>
-            <p className="text-xs text-[#5e6d55] font-semibold leading-none mt-1">Human in the Loop AI Directory</p>
+            <span className="font-black text-2xl text-[#001e00] tracking-tight leading-none block">
+              HITL<span className="text-[#108a00]">.</span>
+            </span>
+            <p className="text-xs text-[#5e6d55] font-semibold tracking-tight mt-1">Human in the Loop AI Directory</p>
           </div>
         </Link>
 
@@ -222,9 +224,9 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             className="hover:text-[#1d4ed8] transition-colors flex items-center gap-1.5 text-[#1e2a1e]"
           >
             <Sparkles className="w-4 h-4 text-[#2563eb]" />
-            <span>AI Roadmap</span>
+            <span>Find Your Business</span>
             <span className="text-xs font-bold bg-[#eff6ff] text-[#2563eb] border border-[#bfdbfe] px-2 py-0.5 rounded-full">
-              Free Tool
+              12 Industries
             </span>
           </Link>
 
@@ -239,12 +241,6 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
 
         {/* Right CTA Actions */}
         <div className="hidden sm:flex items-center gap-4 shrink-0">
-          <Link
-            href="/admin"
-            className="text-sm font-semibold text-[#5e6d55] hover:text-[#001e00] px-3 py-1.5 rounded-full border border-[#d5ded5] hover:border-[#108a00] transition-all"
-          >
-            Admin
-          </Link>
           <Link
             href="/apply"
             className="inline-flex items-center gap-2 text-sm font-bold bg-[#108a00] hover:bg-[#14a800] text-white px-5 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
@@ -442,9 +438,9 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             >
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-blue-600" />
-                <span>SMB AI Roadmap Generator</span>
+                <span>Find Your Business (12 Industries)</span>
               </div>
-              <span className="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full">Free</span>
+              <span className="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full">Free Tool</span>
             </Link>
             <Link
               href="/match"
@@ -495,15 +491,9 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
             <Link
               href="/apply"
-              className="w-full text-center py-3 rounded-full bg-[#108a00] text-white font-bold text-sm"
+              className="w-full text-center py-3 rounded-full bg-[#108a00] text-white font-bold text-sm shadow-sm"
             >
               Apply as Specialist
-            </Link>
-            <Link
-              href="/admin"
-              className="w-full text-center py-2.5 rounded-full border border-slate-300 text-slate-700 font-semibold text-sm"
-            >
-              Admin Review Queue
             </Link>
           </div>
         </div>

@@ -3,9 +3,9 @@ import BusinessRecommender from '@/components/BusinessRecommender';
 import { Sparkles, ShieldCheck } from 'lucide-react';
 
 export const metadata = {
-  title: 'AI Blueprint & Specialist Recommender for Small Businesses | HITL Directory',
+  title: 'Find Your Business — Tailored AI Blueprints & Verified Specialists | HITL Directory',
   description:
-    'Select your industry and business bottleneck to get tailored AI workflow recommendations, required human safeguards, and verified specialists ready to implement.',
+    'Select your business type from 12 industries to get tailored AI workflow recommendations, required human safeguards, and verified specialists ready to implement.',
 };
 
 interface RecommendationsPageProps {
@@ -23,13 +23,13 @@ export default async function RecommendationsPage({ searchParams }: Recommendati
       <div className="text-center max-w-3xl mx-auto mb-12">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#eff6ff] border border-[#bfdbfe] text-sm font-bold text-[#1d4ed8] mb-4 shadow-xs">
           <Sparkles className="w-5 h-5 text-[#2563eb]" />
-          <span>Interactive SMB AI Solution Finder</span>
+          <span>Find Your Business — 12 Industry Solutions</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight leading-tight">
-          What AI Should Your Business Actually Deploy?
+          Find Your Business &amp; Recommended AI Workflows
         </h1>
         <p className="text-base sm:text-lg text-[#475569] mt-4 leading-relaxed font-normal">
-          Select your business type and operational challenge. We generate a custom AI workflow blueprint, the mandatory human-in-the-loop fallback safeguards, and connect you with vetted specialists with verified production case studies.
+          Select your business type below. We generate a custom AI workflow blueprint, the mandatory human-in-the-loop fallback safeguards, and connect you with vetted specialists with verified production case studies.
         </p>
       </div>
 

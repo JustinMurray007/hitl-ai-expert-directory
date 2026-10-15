@@ -200,7 +200,7 @@ export async function getExperts(filters?: DirectoryFilters): Promise<Expert[]> 
 
 export async function getFeaturedExperts(): Promise<Expert[]> {
   const all = await getExperts();
-  return all.slice(0, 4);
+  return all.slice(0, 6);
 }
 
 export async function getExpertBySlug(slug: string): Promise<Expert | null> {

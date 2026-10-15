@@ -7,6 +7,7 @@ import {
   Megaphone,
   UserCheck,
   Cpu,
+  Target,
   ArrowRight,
   ShieldCheck,
   Sparkles,
@@ -26,6 +27,7 @@ const categoryIcons: Record<string, any> = {
   Megaphone: Megaphone,
   UserCheck: UserCheck,
   Cpu: Cpu,
+  Target: Target,
 };
 
 const categoryThemes: Record<string, { bg: string; border: string; text: string; badgeBg: string }> = {
@@ -58,6 +60,12 @@ const categoryThemes: Record<string, { bg: string; border: string; text: string;
     border: 'border-[#fde68a]',
     text: 'text-[#d97706]',
     badgeBg: 'bg-[#fef3c7]',
+  },
+  'ai-advertising-paid-media': {
+    bg: 'bg-[#fff1f2]',
+    border: 'border-[#fecdd3]',
+    text: 'text-[#e11d48]',
+    badgeBg: 'bg-[#ffe4e6]',
   },
   'custom-ai-models-integration': {
     bg: 'bg-[#f8fafc]',
