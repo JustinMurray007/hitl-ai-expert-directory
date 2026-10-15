@@ -25,6 +25,39 @@ const categoryIcons: Record<string, any> = {
   UserCheck: UserCheck,
 };
 
+const categoryThemes: Record<string, { bg: string; border: string; text: string; hoverBorder: string }> = {
+  'operations-workflow-automation': {
+    bg: 'bg-[#eff6ff]',
+    border: 'border-[#bfdbfe]',
+    text: 'text-[#2563eb]',
+    hoverBorder: 'hover:border-[#2563eb]',
+  },
+  'sales-lead-qualification': {
+    bg: 'bg-[#e4f7e6]',
+    border: 'border-[#b2e8b8]',
+    text: 'text-[#108a00]',
+    hoverBorder: 'hover:border-[#108a00]',
+  },
+  'customer-support-knowledge-base': {
+    bg: 'bg-[#f0fdfa]',
+    border: 'border-[#99f6e4]',
+    text: 'text-[#0d9488]',
+    hoverBorder: 'hover:border-[#0d9488]',
+  },
+  'marketing-programmatic-content': {
+    bg: 'bg-[#f5f3ff]',
+    border: 'border-[#ddd6fe]',
+    text: 'text-[#7c3aed]',
+    hoverBorder: 'hover:border-[#7c3aed]',
+  },
+  'executive-personal-ai-ops': {
+    bg: 'bg-[#fffbeb]',
+    border: 'border-[#fde68a]',
+    text: 'text-[#d97706]',
+    hoverBorder: 'hover:border-[#d97706]',
+  },
+};
+
 export default async function HomePage() {
   const [categories, featuredExperts, allExperts] = await Promise.all([
     getCategories(),
@@ -72,12 +105,12 @@ export default async function HomePage() {
               href="/match"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white hover:bg-[#f4f6f4] text-[#001e00] font-bold text-sm border border-[#cbd5cb] shadow-xs transition-all"
             >
-              <Sparkles className="w-4 h-4 text-[#108a00]" />
+              <Sparkles className="w-4 h-4 text-[#2563eb]" />
               Request Founder Matchmaking
             </Link>
           </div>
 
-          {/* Trust points */}
+          {/* Trust points: Three distinct color pillars */}
           <div className="mt-14 pt-8 border-t border-[#e4ebe4] max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center shrink-0 mt-0.5">
@@ -90,8 +123,8 @@ export default async function HomePage() {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center shrink-0 mt-0.5">
-                <ShieldCheck className="w-4 h-4 text-[#108a00]" />
+              <div className="w-8 h-8 rounded-full bg-[#eff6ff] border border-[#bfdbfe] flex items-center justify-center shrink-0 mt-0.5">
+                <ShieldCheck className="w-4 h-4 text-[#2563eb]" />
               </div>
               <div>
                 <h4 className="text-xs font-bold text-[#001e00]">Audited Guardrails</h4>
@@ -100,8 +133,8 @@ export default async function HomePage() {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#f3e8ff] border border-[#e9d5ff] flex items-center justify-center shrink-0 mt-0.5">
-                <Lock className="w-4 h-4 text-[#7e22ce]" />
+              <div className="w-8 h-8 rounded-full bg-[#fffbeb] border border-[#fde68a] flex items-center justify-center shrink-0 mt-0.5">
+                <Lock className="w-4 h-4 text-[#d97706]" />
               </div>
               <div>
                 <h4 className="text-xs font-bold text-[#001e00]">Zero Fake 5-Star Reviews</h4>
@@ -117,8 +150,8 @@ export default async function HomePage() {
       ====================================================================== */}
       <section id="ai-recommender" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-xs font-bold text-[#108a00] mb-2 shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#108a00]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#eff6ff] border border-[#bfdbfe] text-xs font-bold text-[#1d4ed8] mb-2 shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-[#2563eb]" />
             <span>Interactive SMB Solution Finder</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-[#001e00]">
@@ -138,7 +171,7 @@ export default async function HomePage() {
       <section id="categories" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
-            <span className="text-xs uppercase font-mono tracking-wider text-[#108a00] font-bold">
+            <span className="text-xs uppercase font-mono tracking-wider text-[#1d4ed8] font-bold">
               Operational Taxonomy
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#001e00] mt-1">
@@ -159,15 +192,21 @@ export default async function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {categories.map((category) => {
             const Icon = categoryIcons[category.icon_name] || Workflow;
+            const theme = categoryThemes[category.slug] || {
+              bg: 'bg-[#eff6ff]',
+              border: 'border-[#bfdbfe]',
+              text: 'text-[#2563eb]',
+              hoverBorder: 'hover:border-[#2563eb]',
+            };
             return (
               <Link
                 key={category.id}
                 href={`/categories/${category.slug}`}
-                className="rounded-2xl p-6 group flex flex-col justify-between border border-[#e4ebe4] bg-white shadow-xs hover:shadow-md hover:border-[#108a00] transition-all"
+                className={`rounded-2xl p-6 group flex flex-col justify-between border border-[#e4ebe4] bg-white shadow-xs hover:shadow-md ${theme.hoverBorder} transition-all`}
               >
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
-                    <Icon className="w-6 h-6 text-[#108a00]" />
+                  <div className={`w-12 h-12 rounded-xl ${theme.bg} border ${theme.border} flex items-center justify-center mb-4 group-hover:scale-105 transition-transform`}>
+                    <Icon className={`w-6 h-6 ${theme.text}`} />
                   </div>
                   <h3 className="text-base font-bold text-[#001e00] group-hover:text-[#108a00] transition-colors">
                     {category.name}
@@ -177,7 +216,7 @@ export default async function HomePage() {
                   </p>
                 </div>
                 <div className="mt-5 pt-4 border-t border-[#f0f3f0] flex items-center justify-between text-xs text-[#738273]">
-                  <span className="font-mono text-[#108a00] font-bold">
+                  <span className={`font-mono font-bold ${theme.text}`}>
                     {category.expert_count ?? 0} Listed Specialist{category.expert_count === 1 ? '' : 's'}
                   </span>
                   <span className="text-[#5e6d55] font-semibold group-hover:text-[#108a00] group-hover:translate-x-1 transition-all">
@@ -311,15 +350,15 @@ export default async function HomePage() {
           FOUNDER CONCIERGE MATCH CTA
       ====================================================================== */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="relative rounded-3xl overflow-hidden p-8 sm:p-12 border border-[#b2e8b8] bg-[#edf7ee] shadow-sm">
+        <div className="relative rounded-3xl overflow-hidden p-8 sm:p-12 border border-[#bfdbfe] bg-gradient-to-r from-[#eff6ff] via-white to-[#edf7ee] shadow-sm">
           <div className="max-w-2xl">
-            <span className="text-xs uppercase font-mono tracking-wider text-[#108a00] font-bold">
-              Need Direct Guidance?
+            <span className="text-xs uppercase font-mono tracking-wider text-[#1d4ed8] font-bold">
+              Personalized Founder Concierge
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-[#001e00] mt-2 leading-tight">
               Let Our Team Handpick 2 Verified Specialists for Your Workflow.
             </h2>
-            <p className="text-sm text-[#465a46] mt-3 leading-relaxed font-medium">
+            <p className="text-sm text-[#475569] mt-3 leading-relaxed font-medium">
               Tell us your current operational bottleneck, tech stack, and budget. We will review your request privately and connect you with two verified experts with proven domain case studies.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">

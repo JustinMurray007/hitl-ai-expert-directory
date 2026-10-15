@@ -27,7 +27,7 @@ export function SponsorBadge() {
 
 export function ToolBadge({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs bg-[#f4f6f4] text-[#2d3a2d] border border-[#dbe3db] font-medium">
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs bg-[#eff6ff] text-[#1d4ed8] border border-[#bfdbfe] font-medium hover:bg-[#dbeafe] transition-colors">
       {name}
     </span>
   );
@@ -35,7 +35,7 @@ export function ToolBadge({ name }: { name: string }) {
 
 export function CategoryBadge({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-[#f0f5f0] text-[#1e2a1e] border border-[#d2ded2]">
+    <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-[#f0f7ff] text-[#1e40af] border border-[#dbeafe]">
       {name}
     </span>
   );

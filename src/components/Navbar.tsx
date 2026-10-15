@@ -45,9 +45,12 @@ export default function Navbar() {
           <Link href="/experts" className="hover:text-[#108a00] transition-colors">
             Find Talent
           </Link>
-          <Link href="/recommendations" className="hover:text-[#108a00] transition-colors flex items-center gap-1 text-[#108a00]">
-            <Sparkles className="w-3.5 h-3.5 text-[#108a00]" />
+          <Link href="/recommendations" className="hover:text-[#1d4ed8] transition-colors flex items-center gap-1.5 text-[#1d4ed8] font-bold">
+            <Sparkles className="w-3.5 h-3.5 text-[#2563eb]" />
             AI Recommender
+            <span className="text-[10px] font-bold bg-[#eff6ff] text-[#2563eb] border border-[#bfdbfe] px-1.5 py-0.5 rounded-full">
+              Interactive
+            </span>
           </Link>
           <Link href="/#categories" className="hover:text-[#108a00] transition-colors">
             Categories

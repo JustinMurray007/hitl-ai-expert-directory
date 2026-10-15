@@ -37,21 +37,21 @@ export default function CaseStudyCard({ study }: { study: CaseStudy }) {
 
       {/* Problem & Architecture Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div className="rounded-xl bg-[#fafafa] border border-[#e5e7eb] p-4 text-xs">
-          <h4 className="font-bold text-[#1f2937] mb-1.5 flex items-center gap-1.5">
+        <div className="rounded-xl bg-[#f8fafc] border border-[#e2e8f0] p-4 text-xs">
+          <h4 className="font-bold text-[#334155] mb-1.5 flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-rose-500" />
             Client Bottleneck & Problem
           </h4>
-          <p className="text-[#4b5563] leading-relaxed">
+          <p className="text-[#475569] leading-relaxed font-medium">
             {study.problem_statement}
           </p>
         </div>
-        <div className="rounded-xl bg-[#fafafa] border border-[#e5e7eb] p-4 text-xs">
-          <h4 className="font-bold text-[#1f2937] mb-1.5 flex items-center gap-1.5">
-            <Layers className="w-3.5 h-3.5 text-[#108a00]" />
+        <div className="rounded-xl bg-[#eff6ff] border border-[#bfdbfe] p-4 text-xs">
+          <h4 className="font-bold text-[#1d4ed8] mb-1.5 flex items-center gap-1.5">
+            <Layers className="w-3.5 h-3.5 text-[#2563eb]" />
             Solution Architecture
           </h4>
-          <p className="text-[#4b5563] leading-relaxed">
+          <p className="text-[#1e3a8a] leading-relaxed font-medium">
             {study.solution_architecture}
           </p>
         </div>

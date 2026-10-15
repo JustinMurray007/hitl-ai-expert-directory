@@ -78,7 +78,7 @@ export default function BusinessRecommender({
       {/* Step 1: Select Industry */}
       <div>
         <div className="flex items-center gap-2 mb-3">
-          <span className="w-6 h-6 rounded-full bg-[#108a00] text-white text-xs font-bold flex items-center justify-center font-mono">
+          <span className="w-6 h-6 rounded-full bg-[#2563eb] text-white text-xs font-bold flex items-center justify-center font-mono shadow-xs">
             1
           </span>
           <h2 className="text-lg font-black text-[#001e00]">
@@ -126,7 +126,7 @@ export default function BusinessRecommender({
       {/* Step 2: Select Operational Pain Point */}
       <div>
         <div className="flex items-center gap-2 mb-3">
-          <span className="w-6 h-6 rounded-full bg-[#108a00] text-white text-xs font-bold flex items-center justify-center font-mono">
+          <span className="w-6 h-6 rounded-full bg-[#2563eb] text-white text-xs font-bold flex items-center justify-center font-mono shadow-xs">
             2
           </span>
           <h2 className="text-lg font-black text-[#001e00]">
@@ -174,18 +174,18 @@ export default function BusinessRecommender({
 
       {/* Step 3: Generated AI Recommendation Blueprint */}
       {workflow && (
-        <div className="rounded-3xl p-6 sm:p-10 border border-[#b2e8b8] bg-[#edf7ee] shadow-sm space-y-8">
+        <div className="rounded-3xl p-6 sm:p-10 border border-[#dbeafe] bg-gradient-to-b from-[#f8faff] via-white to-[#f2faf3] shadow-sm space-y-8">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#cde8cf] pb-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#e2e8f0] pb-6">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#b2e8b8] text-xs font-bold text-[#108a00] mb-2 shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-[#108a00]" />
-                <span>Recommended AI Solution for {selectedIndustry.industryName}</span>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#eff6ff] border border-[#bfdbfe] text-xs font-bold text-[#1d4ed8] mb-2 shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-[#2563eb]" />
+                <span>Recommended AI Blueprint • {selectedIndustry.industryName}</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-black text-[#001e00]">
                 {workflow.title}
               </h3>
-              <p className="text-xs sm:text-sm text-[#465a46] mt-1 font-medium">
+              <p className="text-xs sm:text-sm text-[#475569] mt-1 font-medium">
                 {workflow.problemSolved}
               </p>
             </div>
@@ -201,41 +201,62 @@ export default function BusinessRecommender({
             </Link>
           </div>
 
-          {/* Blueprint Details Grid */}
+          {/* Blueprint Details Grid: Distinct Three-Color Pillar Separation */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Architecture */}
-            <div className="rounded-2xl bg-white p-5 border border-[#e4ebe4] shadow-xs">
-              <h4 className="text-xs font-bold text-[#001e00] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <Layers className="w-4 h-4 text-[#108a00]" />
-                <span>System Architecture</span>
-              </h4>
-              <p className="text-xs text-[#5e6d55] leading-relaxed font-medium">
-                {workflow.systemArchitecture}
-              </p>
+            {/* 1. Automated Architecture - Cobalt Blue */}
+            <div className="rounded-2xl bg-[#eff6ff] p-5 border-2 border-[#93c5fd] shadow-xs flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-[#1d4ed8] uppercase tracking-wider flex items-center gap-1.5">
+                    <Layers className="w-4 h-4 text-[#2563eb]" />
+                    <span>System Architecture</span>
+                  </h4>
+                  <span className="text-[10px] font-bold text-[#1e40af] bg-white px-2 py-0.5 rounded-full border border-[#bfdbfe]">
+                    Automated
+                  </span>
+                </div>
+                <p className="text-xs text-[#1e3a8a] leading-relaxed font-medium">
+                  {workflow.systemArchitecture}
+                </p>
+              </div>
             </div>
 
-            {/* THE HITL GUARDRAIL */}
-            <div className="rounded-2xl bg-[#f2faf3] p-5 border-2 border-[#108a00] shadow-xs">
-              <h4 className="text-xs font-bold text-[#108a00] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-[#108a00]" />
-                <span>Required Human-in-the-Loop Safeguard</span>
-              </h4>
-              <p className="text-xs text-[#0f3d17] leading-relaxed font-semibold">
-                {workflow.hitlSafeguard}
-              </p>
+            {/* 2. THE HITL GUARDRAIL - Signature Emerald Green */}
+            <div className="rounded-2xl bg-[#f2faf3] p-5 border-2 border-[#108a00] shadow-xs flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-[#108a00] uppercase tracking-wider flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-[#108a00]" />
+                    <span>Mandatory Human Safeguard</span>
+                  </h4>
+                  <span className="text-[10px] font-bold text-[#0f3d17] bg-white px-2 py-0.5 rounded-full border border-[#b2e8b8]">
+                    HITL Gate
+                  </span>
+                </div>
+                <p className="text-xs text-[#0f3d17] leading-relaxed font-semibold">
+                  {workflow.hitlSafeguard}
+                </p>
+              </div>
             </div>
 
-            {/* ROI */}
-            <div className="rounded-2xl bg-white p-5 border border-[#e4ebe4] shadow-xs">
-              <h4 className="text-xs font-bold text-[#166534] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <TrendingUp className="w-4 h-4 text-[#16a34a]" />
-                <span>Expected Business Impact</span>
-              </h4>
-              <p className="text-xs text-[#14532d] leading-relaxed font-bold">
-                {workflow.typicalRoi}
-              </p>
-              <div className="mt-3 pt-3 border-t border-[#f0f3f0]">
-                <span className="text-[11px] text-[#738273] font-medium block mb-1">Recommended Tools:</span>
+            {/* 3. Expected Business Impact - Warm Honey Amber */}
+            <div className="rounded-2xl bg-[#fffbeb] p-5 border-2 border-[#fde68a] shadow-xs flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-xs font-bold text-[#b45309] uppercase tracking-wider flex items-center gap-1.5">
+                    <TrendingUp className="w-4 h-4 text-[#d97706]" />
+                    <span>Expected Business Impact</span>
+                  </h4>
+                  <span className="text-[10px] font-bold text-[#92400e] bg-white px-2 py-0.5 rounded-full border border-[#fde68a]">
+                    Verified ROI
+                  </span>
+                </div>
+                <p className="text-xs text-[#92400e] leading-relaxed font-bold">
+                  {workflow.typicalRoi}
+                </p>
+              </div>
+              <div className="mt-3 pt-3 border-t border-[#fef3c7]">
+                <span className="text-[11px] text-[#78350f] font-medium block mb-1">Recommended Tools:</span>
                 <div className="flex flex-wrap gap-1">
                   {workflow.recommendedStack.map((tool) => (
                     <ToolBadge key={tool} name={tool} />

@@ -9,6 +9,12 @@
     --primary: #108a00;
     --primary-hover: #14a800;
     --primary-light: #e4f7e6;
+    --secondary: #2563eb;
+    --secondary-hover: #1d4ed8;
+    --secondary-light: #eff6ff;
+    --secondary-border: #bfdbfe;
+    --amber: #d97706;
+    --amber-light: #fffbeb;
     --accent: #13544e;
     --muted: #5e6d55;
     --muted-bg: #f2f7f2;
