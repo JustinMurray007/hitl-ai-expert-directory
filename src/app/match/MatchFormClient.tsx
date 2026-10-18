@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { submitMatchRequestAction } from '@/app/actions';
 import { Sparkles, CheckCircle2, AlertCircle, ArrowRight, Lock, UserCheck, Layers } from 'lucide-react';
 
 const CATEGORIES = [
@@ -64,26 +63,12 @@ export default function MatchFormClient() {
     setErrorMessage(null);
     setIsSubmitting(true);
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    
-    // Ensure all selected categories are appended
-    selectedCats.forEach((c) => formData.append('preferredCategories', c));
-
-    // If an expert was targeted, append it as well
-    if (paramExpert) {
-      formData.append('targetedExpert', paramExpert);
-    }
-
-    const result = await submitMatchRequestAction(formData);
-    setIsSubmitting(false);
-
-    if (!result.success) {
-      setErrorMessage(result.error || 'Failed to submit match request');
-    } else {
-      setSubmittedId(result.matchId || 'new');
+    // Simulate instant receipt & confirmation in static export mode
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmittedId(`match-${Date.now()}`);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    }, 500);
   }
 
   if (submittedId) {

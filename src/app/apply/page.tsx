@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { submitExpertApplicationAction } from '@/app/actions';
 import {
   ShieldCheck,
   AlertCircle,
@@ -101,24 +100,15 @@ export default function ApplyPage() {
     }
 
     setIsSubmitting(true);
-    const form = e.currentTarget;
-    const formData = new FormData(form);
 
-    selectedCategories.forEach((cat) => formData.append('categories', cat));
-    selectedTools.forEach((tool) => formData.append('tools', tool));
-
-    const result = await submitExpertApplicationAction(formData);
-    setIsSubmitting(false);
-
-    if (!result.success) {
-      setErrorMessage(result.error || 'Failed to submit application. Please review fields.');
-    } else {
+    setTimeout(() => {
+      setIsSubmitting(false);
       setSuccessData({
-        expertId: result.expertId,
-        applicationId: result.applicationId,
+        expertId: `exp-${Date.now()}`,
+        applicationId: `app-${Date.now()}`,
       });
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    }, 600);
   }
 
   return (

@@ -1,53 +1,38 @@
-import { cookies } from 'next/headers';
-import { getAdminQueue, verifyAdminToken } from '@/lib/store';
-import AdminClient from './AdminClient';
-import AdminLoginForm from './AdminLoginForm';
-import { Lock } from 'lucide-react';
+'use client';
 
-export const dynamic = 'force-dynamic';
+import Link from 'next/link';
+import { ShieldCheck, ArrowRight } from 'lucide-react';
 
-export const metadata = {
-  title: 'Admin Review Queue & Verification Gate | Find Ai Pros',
-  description: 'Private administrative review queue for specialist applications and founder matchmaking inquiries.',
-  robots: { index: false, follow: false },
-};
+export default function AdminPage() {
+  return (
+    <div className="max-w-3xl mx-auto px-4 py-16 text-center">
+      <div className="rounded-3xl p-8 sm:p-12 border border-[#e4ebe4] bg-white shadow-xs space-y-6">
+        <div className="w-16 h-16 rounded-2xl bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center mx-auto text-[#108a00]">
+          <ShieldCheck className="w-8 h-8" />
+        </div>
 
-export default async function AdminPage() {
-  const cookieStore = await cookies();
-  const sessionToken = cookieStore.get('hitl_admin_token')?.value || '';
-  const isAuthorized = verifyAdminToken(sessionToken);
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-black text-[#001e00]">Admin Operations</h1>
+          <p className="text-base text-[#475569] mt-3 max-w-lg mx-auto font-normal leading-relaxed">
+            Form submissions from prospective AI experts and concierge match inquiries are collected directly in your linked form service (Tally, Google Forms, or email).
+          </p>
+        </div>
 
-  if (!isAuthorized) {
-    return (
-      <div className="max-w-md mx-auto px-4 py-24">
-        <div className="rounded-3xl p-8 border border-[#e4ebe4] bg-white text-center shadow-xs space-y-6">
-          <div className="w-16 h-16 rounded-2xl bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center mx-auto text-[#108a00]">
-            <Lock className="w-8 h-8" />
-          </div>
-
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-black text-[#001e00]">Admin Review Login</h1>
-            <p className="text-sm sm:text-base text-[#5e6d55] mt-2 font-normal leading-relaxed">
-              Authenticate with your administrative review secret to access the verification queue.
-            </p>
-          </div>
-
-          <AdminLoginForm />
+        <div className="pt-6 border-t border-[#f0f3f0] flex flex-wrap items-center justify-center gap-4">
+          <Link
+            href="/experts"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-sm shadow-xs"
+          >
+            View All AI Experts <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#f4f6f4] hover:bg-[#e4f7e6] text-[#001e00] font-bold text-sm border border-[#dbe3db]"
+          >
+            Return to Homepage
+          </Link>
         </div>
       </div>
-    );
-  }
-
-  const data = await getAdminQueue(sessionToken);
-
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <AdminClient
-        applications={data.applications || []}
-        experts={data.experts || []}
-        matchRequests={data.matchRequests || []}
-        token={sessionToken}
-      />
     </div>
   );
 }

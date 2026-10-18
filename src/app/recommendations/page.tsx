@@ -1,6 +1,7 @@
 import { getExperts } from '@/lib/store';
 import BusinessRecommender from '@/components/BusinessRecommender';
-import { Sparkles, ShieldCheck } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+import { Suspense } from 'react';
 
 export const metadata = {
   title: 'Find Your Business — Tailored AI Blueprints & Verified Specialists | Find Ai Pros',
@@ -8,13 +9,7 @@ export const metadata = {
     'Select your business type from 12 industries to get tailored AI workflow recommendations, required human safeguards, and verified specialists ready to implement.',
 };
 
-interface RecommendationsPageProps {
-  searchParams: Promise<{ industry?: string }>;
-}
-
-export default async function RecommendationsPage({ searchParams }: RecommendationsPageProps) {
-  const params = await searchParams;
-  const initialIndustry = params.industry || '';
+export default async function RecommendationsPage() {
   const allExperts = await getExperts();
 
   return (
@@ -34,10 +29,9 @@ export default async function RecommendationsPage({ searchParams }: Recommendati
       </div>
 
       {/* Interactive Recommender */}
-      <BusinessRecommender
-        allExperts={allExperts}
-        initialIndustrySlug={initialIndustry}
-      />
+      <Suspense fallback={<div className="h-64 rounded-3xl bg-white border border-[#e4ebe4] animate-pulse" />}>
+        <BusinessRecommender allExperts={allExperts} />
+      </Suspense>
     </div>
   );
 }

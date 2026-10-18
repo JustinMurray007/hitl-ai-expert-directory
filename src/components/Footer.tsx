@@ -135,11 +135,6 @@ export default function Footer() {
                 <span className="text-[#889888]">PostgreSQL Schema (Supabase RLS)</span>
               </li>
               <li>
-                <Link href="/api/health" className="hover:text-white transition-colors flex items-center gap-1.5">
-                  API Health Status <ExternalLink className="w-3.5 h-3.5 text-[#889888]" />
-                </Link>
-              </li>
-              <li>
                 <a
                   href="https://github.com/JustinMurray007/hitl-ai-expert-directory"
                   target="_blank"
