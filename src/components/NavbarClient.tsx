@@ -247,7 +247,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             className="inline-flex items-center gap-2 text-sm font-bold bg-[#108a00] hover:bg-[#14a800] text-white px-5 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
           >
             <UserPlus className="w-4 h-4" />
-            Apply as Specialist
+            Ai Expert? Join Here Free
           </Link>
         </div>
 
@@ -257,7 +257,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             href="/apply"
             className="text-xs font-bold bg-[#108a00] text-white px-3 py-2 rounded-full"
           >
-            Apply
+            Join Free
           </Link>
           <button
             type="button"
@@ -494,7 +494,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               href="/apply"
               className="w-full text-center py-3 rounded-full bg-[#108a00] text-white font-bold text-sm shadow-sm"
             >
-              Apply as Specialist
+              Ai Expert? Join Here Free
             </Link>
           </div>
         </div>

@@ -105,7 +105,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/apply" className="hover:text-white transition-colors">
-                  Apply for Verification
+                  Ai Expert? Join Here Free
                 </Link>
               </li>
             </ul>
