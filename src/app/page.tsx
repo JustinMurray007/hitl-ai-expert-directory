@@ -105,7 +105,7 @@ export default async function HomePage() {
 
           {/* Symmetrical Heading */}
           <h1 className="text-4xl sm:text-6xl font-black text-[#001e00] tracking-tight max-w-4xl mx-auto leading-[1.12]">
-            Hire AI Specialists Who Put Real{' '}
+            Hire AI Experts Who Put Real{' '}
             <span className="text-[#108a00]">Human Accountability</span> First.
           </h1>
 
@@ -120,7 +120,7 @@ export default async function HomePage() {
               href="/experts"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-base shadow-md transition-all hover:scale-[1.02]"
             >
-              Browse Verified Specialists
+              Browse Verified AI Experts
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
@@ -394,7 +394,7 @@ export default async function HomePage() {
                 <span>HITL Certified Vetting</span>
               </div>
               <h2 className="text-2xl sm:text-4xl font-extrabold text-[#001e00] tracking-tight">
-                Featured Verified Specialists
+                Featured Verified AI Experts
               </h2>
               <p className="text-base text-[#475569] mt-2 max-w-2xl font-normal leading-relaxed">
                 Applied AI architects who have proven their systems with reviewed production case studies and documented human oversight protocols.
@@ -404,7 +404,7 @@ export default async function HomePage() {
               href="/experts"
               className="text-sm font-bold text-[#108a00] hover:text-[#14a800] inline-flex items-center gap-1.5 shrink-0"
             >
-              Browse All Specialists <ArrowRight className="w-4 h-4" />
+              Browse All AI Experts <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 

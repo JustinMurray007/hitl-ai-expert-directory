@@ -20,7 +20,7 @@ interface ExpertsPageProps {
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Browse Verified AI Specialists & Agencies | Find Ai Pros',
+  title: 'Browse Verified AI Experts & Agencies | Find Ai Pros',
   description: 'Search vetted AI automation consultants, conversational voice engineers, and applied AI developers. Filter by category, tool stack, budget, and verification.',
 };
 
@@ -52,13 +52,13 @@ export default async function ExpertsPage({ searchParams }: ExpertsPageProps) {
       <div className="mb-8">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] mb-3 shadow-xs">
           <ShieldCheck className="w-4 h-4" />
-          <span>Curated AI Specialist Directory</span>
+          <span>Curated AI Expert Directory</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight">
-          Find Vetted AI Automation Specialists
+          Find Vetted AI Automation Experts
         </h1>
         <p className="text-base sm:text-lg text-[#475569] mt-3 max-w-3xl leading-relaxed font-normal">
-          Every specialist listed below has disclosed their exact human fallback mechanism. Specialists with the green &apos;Verified&apos; badge have passed identity verification and had at least two production case studies reviewed.
+          Every expert listed below has disclosed their exact human fallback mechanism. Experts with the green &apos;Verified&apos; badge have passed identity verification and had at least two production case studies reviewed.
         </p>
       </div>
 
@@ -79,7 +79,7 @@ export default async function ExpertsPage({ searchParams }: ExpertsPageProps) {
       {/* Results Header */}
       <div className="flex items-center justify-between mb-6 text-sm text-[#5e6d55]">
         <div>
-          Showing <span className="font-bold text-[#001e00]">{experts.length}</span> specialist{experts.length === 1 ? '' : 's'}
+          Showing <span className="font-bold text-[#001e00]">{experts.length}</span> AI expert{experts.length === 1 ? '' : 's'}
           {verifiedOnly && <span className="text-[#108a00] font-bold"> (Verified Only)</span>}
         </div>
         <div className="text-[#5e6d55] hidden sm:block font-medium">
@@ -97,7 +97,7 @@ export default async function ExpertsPage({ searchParams }: ExpertsPageProps) {
       ) : (
         <div className="rounded-3xl p-12 text-center border border-[#e4ebe4] bg-white max-w-xl mx-auto my-12 shadow-xs">
           <SearchX className="w-14 h-14 text-[#889888] mx-auto mb-4" />
-          <h3 className="text-xl font-black text-[#001e00] mb-2">No Specialists Found</h3>
+          <h3 className="text-xl font-black text-[#001e00] mb-2">No AI Experts Found</h3>
           <p className="text-base text-[#475569] mb-6 leading-relaxed">
             No specialists currently match your exact filter combination. Try clearing some filters or search keywords.
           </p>

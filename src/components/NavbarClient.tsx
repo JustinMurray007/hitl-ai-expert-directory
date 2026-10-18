@@ -211,7 +211,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               }`}
               aria-expanded={megaMenuOpen}
             >
-              <span>Find Specialists</span>
+              <span>Find Ai Expert</span>
               <ChevronDown
                 className={`w-4 h-4 transition-transform duration-200 ${
                   megaMenuOpen ? 'rotate-180 text-[#108a00]' : 'text-slate-400'
@@ -364,7 +364,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                     href="/experts"
                     className="text-sm font-bold text-[#108a00] hover:text-[#14a800] flex items-center justify-between p-2 rounded-lg bg-[#e4f7e6]/50 hover:bg-[#e4f7e6] transition-colors"
                   >
-                    <span>Browse All 15+ Verified Specialists</span>
+                    <span>Browse All 26+ Verified AI Experts</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -431,7 +431,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               href="/experts"
               className="flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-bold text-[#001e00]"
             >
-              <span>Browse All Verified Specialists</span>
+              <span>Browse All Verified AI Experts</span>
               <ArrowRight className="w-4 h-4 text-[#108a00]" />
             </Link>
             <Link

@@ -41,7 +41,7 @@ class InMemoryStore {
       budget_range: '5000_to_15000',
       timeline: 'Within 2-3 weeks',
       preferred_categories: ['operations-workflow-automation'],
-      internal_notes: 'High intent prospect; recommended Marcus Vance or Amara Okafor.',
+      internal_notes: 'High intent prospect; recommended Koby Oranski or Ikram Rana.',
     },
   ];
 }
@@ -49,6 +49,10 @@ class InMemoryStore {
 // Global persistent demo state in development (survives hot reloads)
 const globalForStore = globalThis as unknown as { __hitlStore?: InMemoryStore };
 const memStore = globalForStore.__hitlStore ?? new InMemoryStore();
+// Always keep experts, categories, and tools synchronized with latest seed data
+memStore.experts = [...SEED_EXPERTS];
+memStore.categories = [...SEED_CATEGORIES];
+memStore.tools = [...SEED_TOOLS];
 if (process.env.NODE_ENV !== 'production') globalForStore.__hitlStore = memStore;
 
 export function isDemoMode(): boolean {

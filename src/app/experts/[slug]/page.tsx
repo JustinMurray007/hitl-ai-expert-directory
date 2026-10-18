@@ -58,7 +58,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
           className="inline-flex items-center gap-2 text-sm font-semibold text-[#5e6d55] hover:text-[#001e00] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Specialists
+          Back to AI Experts
         </Link>
       </div>
 
