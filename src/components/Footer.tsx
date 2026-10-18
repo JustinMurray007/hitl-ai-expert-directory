@@ -10,15 +10,16 @@ export default function Footer() {
           {/* Col 1: Brand & Positioning */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#001e00] to-[#123312] border border-[#2b4e2b] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-                <svg className="w-4 h-4 text-[#14a800]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="3.5" fill="#14a800" stroke="#14a800" />
-                  <path d="M12 2a10 10 0 0 1 10 10c0 4.5-3 8-7.5 9.5" />
-                  <path d="M12 22A10 10 0 0 1 2 12C2 7.5 5 4 9.5 2.5" />
-                </svg>
+              <div className="relative w-10 h-10 flex items-center justify-center group-hover:scale-105 transition-transform">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo-icon.png"
+                  alt="Find Ai Pros Logo"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <span className="font-black text-white text-xl tracking-tight">
-                HITL<span className="text-[#14a800]">.</span>
+                Find Ai <span className="text-[#38d976]">PROS</span>
               </span>
             </Link>
             <p className="text-sm text-[#b2beb2] leading-relaxed">
@@ -149,7 +150,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-sm text-[#889888] gap-4">
-          <p>© 2026 Human in the Loop (HITL) Directory. Real human oversight in every deployed system.</p>
+          <p>© 2026 Find Ai Pros. Real human oversight in every deployed system.</p>
           <div className="flex items-center gap-6">
             <span>Next.js 15 App Router</span>
             <span>Tailwind CSS</span>

@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export const metadata = {
-  title: 'Operational AI Taxonomy & Solution Hubs | HITL Directory',
+  title: 'Operational AI Taxonomy & Solution Hubs | Find Ai Pros',
   description:
     'Explore verified AI automation categories categorized by operational business bottleneck — from voice dispatch to high-compliance RAG and ERP pipelines.',
 };

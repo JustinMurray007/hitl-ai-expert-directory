@@ -7,7 +7,7 @@ import { Lock } from 'lucide-react';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Admin Review Queue & Verification Gate | HITL Directory',
+  title: 'Admin Review Queue & Verification Gate | Find Ai Pros',
   description: 'Private administrative review queue for specialist applications and founder matchmaking inquiries.',
   robots: { index: false, follow: false },
 };

@@ -10,6 +10,6 @@ export async function GET() {
     supabaseConfigured: isSupabaseConfigured,
     supabaseServiceConfigured: isSupabaseServiceConfigured,
     version: '1.0.0',
-    platform: 'Human in the Loop (HITL) Directory',
+    platform: 'Find Ai Pros Directory',
   });
 }

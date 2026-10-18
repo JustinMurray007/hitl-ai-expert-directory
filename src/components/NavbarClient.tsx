@@ -179,20 +179,21 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
 
       {/* Main Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand Logo: Clean, modern HITL continuous loop emblem */}
-        <Link href="/" className="flex items-center gap-3.5 group shrink-0">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#001e00] to-[#123312] border border-[#2b4e2b] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-            <svg className="w-5 h-5 text-[#14a800]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="3.5" fill="#14a800" stroke="#14a800" />
-              <path d="M12 2a10 10 0 0 1 10 10c0 4.5-3 8-7.5 9.5" />
-              <path d="M12 22A10 10 0 0 1 2 12C2 7.5 5 4 9.5 2.5" />
-            </svg>
+        {/* Brand Logo: Find Ai Pros emblem and typography */}
+        <Link href="/" className="flex items-center gap-3 group shrink-0">
+          <div className="relative w-11 h-11 flex items-center justify-center group-hover:scale-105 transition-transform">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-icon.png"
+              alt="Find Ai Pros Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
           <div>
             <span className="font-black text-2xl text-[#001e00] tracking-tight leading-none block">
-              HITL<span className="text-[#108a00]">.</span>
+              Find Ai <span className="bg-gradient-to-r from-[#108a00] via-[#0d9488] to-[#0284c7] bg-clip-text text-transparent">PROS</span>
             </span>
-            <p className="text-xs text-[#5e6d55] font-semibold tracking-tight mt-1">Human in the Loop AI Directory</p>
+            <p className="text-xs text-[#5e6d55] font-semibold tracking-tight mt-1">Verified AI Specialists Directory</p>
           </div>
         </Link>
 
@@ -373,7 +374,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                 <div className="rounded-2xl p-6 bg-gradient-to-br from-[#e4f7e6]/90 via-white to-[#eff6ff] border border-[#b2e8b8] shadow-xs">
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#108a00] text-white text-xs font-bold mb-3 shadow-xs">
                     <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>The HITL Guarantee</span>
+                    <span>The Find Ai Pros Guarantee</span>
                   </div>
                   <h4 className="text-base font-black text-[#001e00] leading-snug">
                     Zero Unvetted Claims. Mandatory Guardrails.

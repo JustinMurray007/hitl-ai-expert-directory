@@ -25,12 +25,12 @@ export async function generateMetadata({ params }: ExpertProfilePageProps): Prom
 
   if (!expert) {
     return {
-      title: 'Specialist Not Found | HITL Directory',
+      title: 'Specialist Not Found | Find Ai Pros',
     };
   }
 
   return {
-    title: `${expert.full_name} — ${expert.professional_title} | HITL Verified`,
+    title: `${expert.full_name} — ${expert.professional_title} | Find Ai Pros`,
     description: expert.tagline,
     robots: expert.is_demo ? { index: false, follow: false } : undefined,
     openGraph: {

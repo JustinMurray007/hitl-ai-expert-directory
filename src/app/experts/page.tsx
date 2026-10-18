@@ -20,7 +20,7 @@ interface ExpertsPageProps {
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Browse Verified AI Specialists & Agencies | HITL Directory',
+  title: 'Browse Verified AI Specialists & Agencies | Find Ai Pros',
   description: 'Search vetted AI automation consultants, conversational voice engineers, and applied AI developers. Filter by category, tool stack, budget, and verification.',
 };
 

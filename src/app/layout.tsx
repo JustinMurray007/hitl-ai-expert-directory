@@ -12,10 +12,12 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Human in the Loop (HITL) — Verified AI Specialists Directory',
+  title: 'Find Ai Pros — Verified AI Specialists Directory',
   description:
-    'The verified directory of AI specialists who build systems with real human accountability. Find vetted automation architects, conversational voice engineers, and applied AI developers for SMBs.',
+    'Find Ai Pros connects businesses with verified AI specialists who build systems with real human accountability. Find vetted automation architects, conversational voice engineers, and applied AI developers.',
   keywords: [
+    'Find Ai Pros',
+    'find ai pros',
     'AI expert directory',
     'hire AI specialist',
     'human in the loop',
@@ -25,10 +27,14 @@ export const metadata: Metadata = {
     'n8n consultant',
     'Make expert',
   ],
-  authors: [{ name: 'HITL Network' }],
+  authors: [{ name: 'Find Ai Pros Network' }],
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  icons: {
+    icon: '/favicon-32x32.png',
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
-    title: 'Human in the Loop (HITL) — Verified AI Specialists Directory',
+    title: 'Find Ai Pros — Verified AI Specialists Directory',
     description:
       'Verified AI specialists who build systems with real human accountability. No black boxes. Strict 2-case-study vetting.',
     type: 'website',

@@ -130,7 +130,7 @@ export default function ApplyPage() {
           <span>Strict Vetting Application</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-[#001e00] tracking-tight">
-          Apply to the Human in the Loop Directory
+          Apply to Find Ai Pros
         </h1>
         <p className="text-base sm:text-lg text-[#5e6d55] mt-3 leading-relaxed font-normal">
           We only list specialists who build systems with verifiable human oversight. Free public community listing on approval; Verified badge requires two reviewed production case studies.

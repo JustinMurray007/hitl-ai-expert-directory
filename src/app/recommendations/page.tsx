@@ -3,7 +3,7 @@ import BusinessRecommender from '@/components/BusinessRecommender';
 import { Sparkles, ShieldCheck } from 'lucide-react';
 
 export const metadata = {
-  title: 'Find Your Business — Tailored AI Blueprints & Verified Specialists | HITL Directory',
+  title: 'Find Your Business — Tailored AI Blueprints & Verified Specialists | Find Ai Pros',
   description:
     'Select your business type from 12 industries to get tailored AI workflow recommendations, required human safeguards, and verified specialists ready to implement.',
 };

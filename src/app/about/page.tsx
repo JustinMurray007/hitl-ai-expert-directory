@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 
 export const metadata = {
-  title: 'Vetting Standards & The HITL Standard | Human in the Loop Directory',
+  title: 'Vetting Standards & The HITL Standard | Find Ai Pros',
   description: 'Learn why human accountability is the single trust moat in applied AI. Read our two-case-study verification rule and failure safeguard checklist.',
 };
 
@@ -21,7 +21,7 @@ export default function AboutPage() {
           <span>The Vetting Philosophy</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight leading-tight">
-          The HITL Standard for Accountable AI
+          The Find Ai Pros Standard for Accountable AI
         </h1>
         <p className="text-base sm:text-lg text-[#5e6d55] max-w-2xl mx-auto leading-relaxed font-normal">
           We built this directory because small and mid-sized businesses are terrified of handing their brand, finances, and client relationships to hallucinating, zero-touch black boxes.

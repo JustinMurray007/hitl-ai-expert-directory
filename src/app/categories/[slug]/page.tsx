@@ -78,11 +78,11 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const category = await getCategoryBySlug(slug);
 
   if (!category) {
-    return { title: 'Category Not Found | HITL Directory' };
+    return { title: 'Category Not Found | Find Ai Pros' };
   }
 
   return {
-    title: `${category.name} — Verified AI Specialists | HITL Directory`,
+    title: `${category.name} — Verified AI Specialists | Find Ai Pros`,
     description: `Hire vetted AI experts in ${category.name}. Every specialist must prove their human oversight mechanism.`,
   };
 }
