@@ -34,10 +34,10 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         label: 'Missing after-hours patient calls & emergency inquiries',
         description: 'Prospective patients with acute pain or urgent needs call after 5 PM and hang up when hitting voicemail.',
         recommendedWorkflow: {
-          title: '24/7 Conversational Voice Receptionist with Live SIP Forwarding',
+          title: '24/7 Voice AI Receptionist with Live Call Transfer to On-Call Staff',
           problemSolved: 'Eliminates missed patient appointments and captures urgent procedures with zero wait time.',
-          systemArchitecture: 'Voice AI agent (Vapi/Retell) trained on clinic FAQs, insurance carriers, and appointment scheduling via Twilio SIP trunking.',
-          hitlSafeguard: 'Real-time symptom severity analyzer: acute pain, trauma, or bleeding immediately triggers a warm SIP transfer to the on-call doctor with a live transcript pop-up.',
+          systemArchitecture: 'Voice AI phone assistant (Vapi/Retell) trained on clinic FAQs, accepted insurances, and direct calendar appointment booking.',
+          hitlSafeguard: 'Emergency safety transfer: acute pain, trauma, or bleeding immediately transfers the phone call directly to the on-call doctor with a live screen pop-up of caller details.',
           typicalRoi: '$15,000–$40,000 in monthly recovered new-patient procedures; zero lost emergency calls.',
           recommendedStack: ['Vapi', 'Retell AI', 'Twilio', 'OpenAI API'],
           categorySlug: 'sales-lead-qualification',
@@ -51,7 +51,7 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         recommendedWorkflow: {
           title: 'Automated Billing Code Verification & EHR Document Abstraction',
           problemSolved: 'Accelerates chart prep, eliminates billing rejections, and extracts clinical history from patient records.',
-          systemArchitecture: 'Claude 3.5 Sonnet extraction pipeline checking EHR session notes against CMS/CPT billing tables on Supabase.',
+          systemArchitecture: 'Automated AI document reader checking EHR session notes against CMS/CPT billing tables.',
           hitlSafeguard: 'Certified Professional Coder (CPC) must approve flagged code mismatches before claims transmit to clearinghouse.',
           typicalRoi: 'First-pass claim acceptance improves to 98.4%; reduces Accounts Receivable DSO by 21 days.',
           recommendedStack: ['Anthropic Claude', 'Supabase / PostgreSQL', 'Python'],
@@ -199,7 +199,7 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         label: 'Inbound demo requests waiting hours for manual SDR triage',
         description: 'High-value enterprise leads submit inquiries on web forms and go cold before an SDR qualifies them.',
         recommendedWorkflow: {
-          title: 'Instant Lead Enrichment & High-Ticket Triage Pipeline',
+          title: 'Instant Lead Qualification & High-Ticket Follow-Up System',
           problemSolved: 'Enriches inbound leads with company revenue and tech stack data within 60 seconds of form submission.',
           systemArchitecture: 'Webhook listener triggering Clearbit/LinkedIn enrichment into GPT-4o mini lead scoring table in HubSpot.',
           hitlSafeguard: 'High-scoring enterprise leads instantly trigger a Slack alert to the senior account executive with a 1-click calendar bridge.',
@@ -279,8 +279,8 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         recommendedWorkflow: {
           title: '24/7 Dealership Voice Service Scheduler & Trade-In Qualifier',
           problemSolved: 'Transcribes customer symptoms, verifies VIN lookup, and schedules appointments directly into DealerSocket or Reynolds.',
-          systemArchitecture: 'Retell AI voice bot integrated with Twilio SIP and CDK Global / DealerSocket scheduling endpoints.',
-          hitlSafeguard: 'Calls mentioning safety recalls, brake failure, or engine knocking are warm-transferred to service advisor with transcript.',
+          systemArchitecture: 'Voice AI assistant answering service calls, checking schedule availability, and booking directly into your dealership software.',
+          hitlSafeguard: 'Urgent calls mentioning safety recalls, brake failure, or engine issues immediately transfer to a live service advisor with caller summary.',
           typicalRoi: 'Recovers $32,000 monthly in billable repair orders; appointment booking rate increases from 48% to 79%.',
           recommendedStack: ['Retell AI', 'Twilio', 'OpenAI API'],
           categorySlug: 'sales-lead-qualification',
@@ -349,7 +349,7 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         label: 'First Notice of Loss (FNOL) claims triage & policy quote shopping',
         description: 'When accidents or claims occur, account managers spend hours manually gathering police reports and policy coverages.',
         recommendedWorkflow: {
-          title: 'Automated FNOL Claims Intake & Carrier Submission Pipeline',
+          title: 'Automated FNOL Claims Intake & Carrier Submission System',
           problemSolved: 'Ingests accident details via voice/SMS, extracts police report data, and formats claims for carrier submission.',
           systemArchitecture: 'Vapi telephony intake with Claude extraction, generating standardized ACORD loss notices.',
           hitlSafeguard: 'Licensed claims adjuster conducts mandatory review of extracted liability assessments before carrier dispatch.',

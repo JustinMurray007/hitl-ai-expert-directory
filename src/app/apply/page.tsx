@@ -250,7 +250,7 @@ export default function ApplyPage() {
                 maxLength={120}
                 value={tagline}
                 onChange={(e) => setTagline(e.target.value)}
-                placeholder="e.g. Deterministic ops pipelines with Slack-first human exception queues."
+                placeholder="e.g. Reliable business automations with staff review checkpoints before data syncs."
                 className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium"
               />
             </div>
@@ -612,7 +612,7 @@ export default function ApplyPage() {
                 What is the exact mechanism deployed when your AI system is uncertain, wrong, or encounters an edge case? <span className="text-rose-500">*</span>
               </label>
               <p className="text-sm text-[#3b663b] leading-relaxed">
-                Be specific. Do you route to a Slack webhook? A quarantine queue? Trigger an automated SIP warm transfer? &quot;100% autonomous / zero-touch&quot; submissions are automatically rejected.
+                Be specific. Do you send an instant staff alert? Route to an approval dashboard? Trigger an immediate live phone transfer to staff? &quot;100% autonomous / zero-touch&quot; submissions are automatically rejected.
               </p>
               <textarea
                 name="hitlOversightMechanism"

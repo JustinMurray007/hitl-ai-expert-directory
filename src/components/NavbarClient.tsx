@@ -37,7 +37,7 @@ interface NavbarClientProps {
 const solutionCategories = [
   {
     name: 'Workflow Automation',
-    desc: 'n8n, Make, invoice OCR & ERP bridges',
+    desc: 'Invoice processing, QuickBooks sync & automations',
     href: '/categories/operations-workflow-automation',
     icon: Workflow,
     color: 'text-blue-600',
@@ -46,7 +46,7 @@ const solutionCategories = [
   },
   {
     name: 'Voice AI & Telephony',
-    desc: 'Vapi, Retell 24/7 reception & warm SIP transfer',
+    desc: '24/7 call answering, booking & live staff transfers',
     href: '/categories/sales-lead-qualification',
     icon: PhoneCall,
     color: 'text-[#108a00]',
@@ -54,8 +54,8 @@ const solutionCategories = [
     border: 'border-[#b2e8b8]',
   },
   {
-    name: 'Support & RAG Knowledge Bases',
-    desc: 'Strict source citations & internal doc QA',
+    name: 'Customer Support & Knowledge Bases',
+    desc: 'AI search for company files, FAQs & client questions',
     href: '/categories/customer-support-knowledge-base',
     icon: LifeBuoy,
     color: 'text-teal-600',
@@ -64,7 +64,7 @@ const solutionCategories = [
   },
   {
     name: 'Marketing & SEO Automation',
-    desc: 'Local SEO pipelines & estimate nurture loops',
+    desc: 'Local Google ranking, quote follow-ups & review generation',
     href: '/categories/marketing-programmatic-content',
     icon: Megaphone,
     color: 'text-purple-600',
@@ -82,7 +82,7 @@ const solutionCategories = [
   },
   {
     name: 'AI Advertising & Paid Media',
-    desc: 'Meta & Google Ads automation, creative testing & ROAS pacing',
+    desc: 'Automated ad creative, budget management & lead tracking',
     href: '/categories/ai-advertising-paid-media',
     icon: Target,
     color: 'text-rose-600',
@@ -374,16 +374,16 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                     <span>The Find Ai Pros Guarantee</span>
                   </div>
                   <h4 className="text-base font-black text-[#001e00] leading-snug">
-                    Zero Unvetted Claims. Mandatory Guardrails.
+                    Zero Unvetted Claims. Built-In Human Safety Checks.
                   </h4>
                   <p className="mt-2 text-xs text-slate-600 leading-relaxed font-normal">
-                    Unlike open freelance platforms, every specialist has submitted 2 client production case studies with verified human fallback checkpoints.
+                    Unlike open freelance platforms, every specialist has submitted 2 client case studies with verified human checkpoints before anything goes out.
                   </p>
 
                   <div className="mt-4 space-y-2 text-xs text-[#001e00] font-medium">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
-                      <span>Code & Architecture Audited</span>
+                      <span>Code &amp; Systems Audited</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
@@ -391,7 +391,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
-                      <span>Exception Routing Protocol</span>
+                      <span>Instant Staff Alerts &amp; Human Review</span>
                     </div>
                   </div>
 

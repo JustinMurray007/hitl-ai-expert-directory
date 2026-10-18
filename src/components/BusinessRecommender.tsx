@@ -241,16 +241,16 @@ export default function BusinessRecommender({
               </div>
             </div>
 
-            {/* 2. THE HITL GUARDRAIL - Signature Emerald Green */}
+            {/* 2. Human Safety Check - Signature Emerald Green */}
             <div className="rounded-2xl bg-[#f2faf3] p-6 border-2 border-[#108a00] shadow-xs flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-sm font-extrabold text-[#108a00] uppercase tracking-wider flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-[#108a00]" />
-                    <span>Mandatory Human Safeguard</span>
+                    <span>Human Safety Checkpoint</span>
                   </h4>
                   <span className="text-sm font-bold text-[#0f3d17] bg-white px-3 py-1 rounded-full border border-[#b2e8b8]">
-                    HITL Gate
+                    Staff Review
                   </span>
                 </div>
                 <p className="text-base text-[#0f3d17] leading-relaxed font-bold">
@@ -361,7 +361,7 @@ export default function BusinessRecommender({
                         href={`/experts/${exp.slug}`}
                         className="text-sm font-bold text-[#001e00] hover:text-[#108a00] px-4 py-2 rounded-full border border-[#d5ded5] hover:border-[#108a00] transition-colors"
                       >
-                        Inspect Guardrails
+                        View Case Studies
                       </Link>
                       {exp.booking_url ? (
                         <a

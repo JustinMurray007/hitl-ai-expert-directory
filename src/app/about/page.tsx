@@ -51,7 +51,7 @@ export default function AboutPage() {
             &quot;What is the exact mechanism deployed when your AI system is uncertain, wrong, or encounters an edge case?&quot;
           </blockquote>
           <p className="text-sm sm:text-base text-[#13544e] pt-1 font-medium leading-relaxed">
-            This question filters out prompt-wrapper agencies before they ever get listed. If an applicant cannot describe a concrete human fallback (a Slack approval webhook, a confidence quarantine queue, or an automated SIP warm transfer), their application is automatically rejected.
+            This question filters out unreliable, generic AI agencies before they ever get listed. If an applicant cannot describe a concrete human safety check (a team approval alert, an error review dashboard, or an immediate live phone handoff to staff), their application is automatically rejected.
           </p>
         </div>
       </section>
@@ -111,9 +111,9 @@ export default function AboutPage() {
               1
             </span>
             <div>
-              <h4 className="font-bold text-[#001e00] text-base sm:text-lg">Guardrail & Exception Verification</h4>
+              <h4 className="font-bold text-[#001e00] text-base sm:text-lg">Human Safety Checks &amp; Error Prevention</h4>
               <p className="text-[#5e6d55] text-sm sm:text-base mt-1.5 leading-relaxed font-normal">
-                The specialist articulates a concrete human fallback: confidence scoring thresholds, review webhooks, DLQs (Dead Letter Queues), and exception quarantines. Submissions claiming &quot;100% autonomous&quot; are automatically rejected.
+                The specialist articulates concrete human checkpoints: staff alerts, review dashboards, and error-prevention steps before any action affects a customer or database. Submissions claiming &quot;100% autonomous zero-touch&quot; are automatically rejected.
               </p>
             </div>
           </div>

@@ -15,9 +15,6 @@ import {
   XCircle,
   AlertTriangle,
   Lock,
-  Truck,
-  Stethoscope,
-  Compass,
   Target,
   Clock,
 } from 'lucide-react';
@@ -114,7 +111,7 @@ export default async function HomePage() {
 
           {/* Controlled Line-Length Paragraph */}
           <p className="mt-6 text-base sm:text-xl text-[#334133] max-w-2xl mx-auto leading-relaxed font-normal">
-            Autonomous prompt wrappers hallucinate and generic platforms rank paid reviews. We audit applied AI architects through reviewed production case studies and mandatory human fallback guardrails.
+            Generic AI tools make costly mistakes and freelance sites push paid ads. We verify real AI specialists who build dependable business automations with built-in human safety checks — so you stay in complete control.
           </p>
 
           {/* Primary Action Buttons */}
@@ -154,9 +151,9 @@ export default async function HomePage() {
                 <ShieldCheck className="w-5 h-5 text-[#2563eb]" />
               </div>
               <div>
-                <h4 className="text-base font-black text-[#001e00]">Audited Fallbacks</h4>
+                <h4 className="text-base font-black text-[#001e00]">Human Safety Checks</h4>
                 <p className="text-xs sm:text-sm text-[#475569] mt-1 font-normal leading-relaxed">
-                  Mandatory human exception queues on model uncertainty.
+                  Instant staff alerts and human review if the AI is ever unsure.
                 </p>
               </div>
             </div>
@@ -193,7 +190,7 @@ export default async function HomePage() {
                   Find Your Business &amp; Recommended AI Workflows
                 </h2>
                 <p className="mt-4 text-base text-[#475569] max-w-xl font-normal leading-relaxed">
-                  Select your business type and current operational bottleneck. Our interactive generator maps out the exact automation pipeline, required human fallback guardrails, and matches you with verified specialists who can build it.
+                  Select your business type and biggest headache. Our interactive guide shows you the exact AI automations, built-in human safety checks, and matches you with verified specialists who can build it.
                 </p>
 
                 {/* Key Features List */}
@@ -204,11 +201,11 @@ export default async function HomePage() {
                   </div>
                   <div className="flex items-center gap-3 text-sm text-[#1e2a1e] font-semibold">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
-                    <span>Exact Human Guardrails (Slack quarantines, warm SIP transfers, citation sign-offs)</span>
+                    <span>Built-In Human Safety Checks (team alerts, live phone handoffs to staff, owner sign-offs)</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-[#1e2a1e] font-semibold">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
-                    <span>Direct Links to Verified Production Architects</span>
+                    <span>Direct Links to Verified AI Specialists Ready to Build It</span>
                   </div>
                 </div>
 
@@ -229,46 +226,76 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              {/* Right Column: Live Interactive Blueprint Teaser Card */}
+              {/* Right Column: Common AI Integrations List with Checkmarks */}
               <div className="lg:col-span-5">
                 <div className="rounded-2xl p-6 bg-white border border-[#cbd5cb] shadow-md space-y-4">
                   <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center">
-                        <Truck className="w-4 h-4 text-[#108a00]" />
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-9 h-9 rounded-xl bg-[#e4f7e6] border border-[#b2e8b8] flex items-center justify-center">
+                        <Sparkles className="w-4 h-4 text-[#108a00]" />
                       </div>
                       <div>
-                        <div className="text-xs uppercase font-mono font-bold text-slate-400">Sample Blueprint</div>
-                        <div className="text-sm font-bold text-[#001e00]">Freight & Logistics Pipeline</div>
+                        <div className="text-xs uppercase font-mono font-bold text-slate-400">Proven Automations</div>
+                        <div className="text-sm font-bold text-[#001e00]">Common AI Integrations</div>
                       </div>
                     </div>
-                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                      High ROI
+                    <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8]">
+                      Popular
                     </span>
                   </div>
 
-                  {/* Architecture Diagram Snippet */}
-                  <div className="rounded-xl p-3 bg-slate-50 border border-slate-200/80 text-xs font-mono text-slate-700 space-y-1">
-                    <div className="text-slate-400"># Autonomous Extraction + Fallback Flow</div>
-                    <div>1. Carrier PDF Ingestion ──▶ Claude 3.5 Sonnet OCR</div>
-                    <div>2. Validation Check: Line-item deviation &lt; $0.05?</div>
-                    <div className="text-[#108a00] font-bold">
-                      ├─▶ YES: Direct Webhook Post to NetSuite
+                  {/* Checkmarked List of Common Integrations */}
+                  <div className="space-y-3">
+                    <div className="p-3 rounded-xl bg-[#f8faf8] border border-slate-100 hover:border-[#b2e8b8] transition-colors flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-[#108a00] shrink-0 mt-0.5" />
+                      <div>
+                        <div className="text-sm font-bold text-[#001e00]">CRM Ai Integrations</div>
+                        <p className="text-xs text-slate-600 mt-0.5 leading-relaxed font-normal">
+                          Auto-sync customer notes, update deal stages, and trigger personalized follow-ups without manual data entry.
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-amber-700 font-bold">
-                      └─▶ NO: Suspend &amp; Route to Slack Triage Desk
+
+                    <div className="p-3 rounded-xl bg-[#f8faf8] border border-slate-100 hover:border-[#b2e8b8] transition-colors flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-[#108a00] shrink-0 mt-0.5" />
+                      <div>
+                        <div className="text-sm font-bold text-[#001e00]">Ai Voice Agents / Dispatch</div>
+                        <p className="text-xs text-slate-600 mt-0.5 leading-relaxed font-normal">
+                          Answer calls 24/7, book appointments into your calendar, and transfer urgent callers directly to live staff.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-[#f8faf8] border border-slate-100 hover:border-[#b2e8b8] transition-colors flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-[#108a00] shrink-0 mt-0.5" />
+                      <div>
+                        <div className="text-sm font-bold text-[#001e00]">Ai Competitor Research</div>
+                        <p className="text-xs text-slate-600 mt-0.5 leading-relaxed font-normal">
+                          Track competitor pricing, monitor local market changes, and spot new customer opportunities automatically.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-[#f8faf8] border border-slate-100 hover:border-[#b2e8b8] transition-colors flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-[#108a00] shrink-0 mt-0.5" />
+                      <div>
+                        <div className="text-sm font-bold text-[#001e00]">Ai Marketing &amp; Ad Management</div>
+                        <p className="text-xs text-slate-600 mt-0.5 leading-relaxed font-normal">
+                          Generate high-converting ads, write targeted local content, and protect ad budgets from wasted spend.
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="pt-2 flex items-center justify-between text-xs text-slate-500">
+                  <div className="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-100">
                     <span className="flex items-center gap-1 font-semibold text-[#108a00]">
-                      <Clock className="w-3.5 h-3.5" /> 2-3 week setup
+                      <Clock className="w-3.5 h-3.5" /> 1–3 week setup
                     </span>
                     <Link
-                      href="/recommendations?industry=freight_logistics"
+                      href="/recommendations"
                       className="font-bold text-[#2563eb] hover:underline flex items-center gap-1"
                     >
-                      View Live Blueprint →
+                      See Your Industry Solution →
                     </Link>
                   </div>
                 </div>
@@ -287,13 +314,13 @@ export default async function HomePage() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
             <div>
               <span className="text-xs uppercase font-mono tracking-wider text-[#1d4ed8] font-bold">
-                Operational Taxonomy
+                Business Solutions
               </span>
               <h2 className="text-2xl sm:text-4xl font-extrabold text-[#001e00] mt-1 tracking-tight">
-                Browse by Business Bottleneck
+                Browse by Business Need
               </h2>
               <p className="text-base text-[#475569] mt-2 max-w-2xl font-normal leading-relaxed">
-                Explore specialized hubs organized by operational hurdle — from 24/7 telephony agents to high-compliance knowledge bases and ERP synchronization.
+                Explore specialized solutions organized by business need — from 24/7 phone answering and CRM synchronization to customer support and automated marketing.
               </p>
             </div>
             <Link
@@ -444,38 +471,38 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {/* Card 2: Black-Box Autonomous Danger */}
+            {/* Card 2: Unvetted AI Agencies */}
             <div className="rounded-3xl p-8 bg-white border border-amber-200/80 shadow-xs flex flex-col justify-between">
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center mb-6">
                   <AlertTriangle className="w-6 h-6 text-amber-500" />
                 </div>
                 <span className="text-xs font-mono font-bold text-amber-600 uppercase tracking-wider">
-                  Unchecked Autonomy
+                  Unchecked Automation
                 </span>
-                <h3 className="text-xl font-black text-[#001e00] mt-1">Prompt-Wrapper Agencies</h3>
+                <h3 className="text-xl font-black text-[#001e00] mt-1">Unvetted AI Agencies</h3>
                 <p className="text-sm text-slate-500 mt-2 font-normal leading-relaxed">
-                  Agencies selling 100% autonomous magic without failure safeguards.
+                  Agencies selling &quot;100% hands-off AI&quot; with zero error protection.
                 </p>
 
                 <div className="mt-6 space-y-3 text-sm text-slate-700">
                   <div className="flex items-start gap-2.5">
                     <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                    <span>Hallucinations silently corrupting production ERP data</span>
+                    <span>AI errors and wrong answers sent directly to your paying clients</span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                    <span>Callers trapped in unresponsive voice agent loops</span>
+                    <span>Callers trapped in repetitive voice loops with no way to reach staff</span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                    <span>Zero dead-letter queues or audit logging</span>
+                    <span>Zero staff alerts or approval steps when the AI gets confused</span>
                   </div>
                 </div>
               </div>
 
               <div className="mt-8 pt-4 border-t border-slate-100 text-xs font-semibold text-amber-700">
-                Outcome: Reputational damage &amp; lost client trust.
+                Outcome: Reputational damage &amp; lost customer trust.
               </div>
             </div>
 
@@ -500,11 +527,11 @@ export default async function HomePage() {
                 <div className="mt-6 space-y-3 text-sm text-[#001e00] font-semibold">
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0 mt-0.5" />
-                    <span>Mandatory human fallback protocol (Slack, SIP, queues)</span>
+                    <span>Built-in human safety checks (instant staff alerts &amp; live phone transfers)</span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0 mt-0.5" />
-                    <span>≥2 reviewed production case studies with client ROI</span>
+                    <span>≥2 reviewed production case studies with real client ROI</span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0 mt-0.5" />
@@ -535,7 +562,7 @@ export default async function HomePage() {
                 Let Our Team Handpick 2 Verified Specialists for Your Workflow.
               </h2>
               <p className="text-base text-[#475569] mt-3 leading-relaxed font-normal">
-                Tell us your current operational bottleneck, tech stack, and budget. We will review your request privately and connect you with two verified experts with proven domain case studies.
+                Tell us what you want to automate, what software you use, and your budget. We will review your request privately and connect you with two verified experts with proven client case studies.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Link

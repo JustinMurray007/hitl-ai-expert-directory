@@ -217,7 +217,7 @@ export default function MatchFormClient() {
           rows={4}
           value={needDescription}
           onChange={(e) => setNeedDescription(e.target.value)}
-          placeholder="e.g. We receive 300+ invoices and bill of ladings weekly. We want an automated OCR and classification pipeline, but we cannot afford incorrect entries in QuickBooks without human triage."
+          placeholder="e.g. We receive 300+ invoices and receipts weekly. We want an automated scan and data-entry system, but we need our staff to approve any exceptions before data hits QuickBooks."
           className="w-full px-4 py-3 rounded-xl bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] focus:outline-none focus:border-[#108a00] focus:bg-white font-medium leading-relaxed"
         />
       </div>
@@ -235,7 +235,7 @@ export default function MatchFormClient() {
           >
             <option value="under_2500">Under $2,500 (Small sprint or audit)</option>
             <option value="2500_to_5000">$2,500 – $5,000 (Standard workflow)</option>
-            <option value="5000_to_15000">$5,000 – $15,000 (Multi-step pipeline)</option>
+            <option value="5000_to_15000">$5,000 – $15,000 (Multi-step automation system)</option>
             <option value="15000_plus">$15,000+ (Enterprise integration)</option>
           </select>
         </div>

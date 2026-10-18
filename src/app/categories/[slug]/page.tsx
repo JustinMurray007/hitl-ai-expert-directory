@@ -37,39 +37,39 @@ const categoryTaxonomyDetails: Record<
   { buyerProblem: string; typicalStack: string; commonSafeguards: string }
 > = {
   'operations-workflow-automation': {
-    buyerProblem: 'CRM syncing, invoice processing, PDF document extraction, internal handoffs and reporting automation.',
+    buyerProblem: 'CRM syncing, invoice & receipt processing, data entry elimination, and automated financial reporting.',
     typicalStack: 'Make, Zapier, n8n, OpenAI/Anthropic, Supabase / PostgreSQL, Python',
-    commonSafeguards: 'Slack quarantine queues, regex accounting schema checks, transaction rollback triggers.',
+    commonSafeguards: 'Team review alerts, accounting validation checks, and automatic reversal if an invoice numbers mismatch.',
   },
   'sales-lead-qualification': {
-    buyerProblem: '24/7 inbound response, call routing, lead scoring, cold-outreach triage.',
+    buyerProblem: '24/7 inbound phone answering, lead qualification, appointment booking, and instant follow-ups.',
     typicalStack: 'Bland.ai, Vapi, Retell, Twilio, HubSpot, Zoho CRM',
-    commonSafeguards: 'Instant warm SIP transfer to human receptionist on high frustration or urgent keywords.',
+    commonSafeguards: 'Instant live phone transfer to your staff or receptionist whenever a caller has urgent questions.',
   },
   'customer-support-knowledge-base': {
-    buyerProblem: 'FAQ accuracy from internal docs, ticketing triage, RAG and documentation retrieval.',
-    typicalStack: 'pgvector, Pinecone, Claude 3.5 Sonnet, Zendesk AI, Intercom AI',
-    commonSafeguards: 'Strict source snippet citations with human sign-off on low entailment scores.',
+    buyerProblem: 'Answering customer questions from your company manuals, policy documents, and ticket triage.',
+    typicalStack: 'PostgreSQL, Claude 3.5 Sonnet, Zendesk AI, Intercom AI',
+    commonSafeguards: 'Strict source document verification with staff review before any new policy answers are sent.',
   },
   'marketing-programmatic-content': {
-    buyerProblem: 'Review generation, local SEO content workflows, automated estimate follow-ups.',
+    buyerProblem: '5-star review generation, local Google rankings, and automated quote follow-ups.',
     typicalStack: 'Google Workspace, GA4, GoHighLevel, Gemini, Zapier',
-    commonSafeguards: 'Draft preview staging URLs requiring human regional editor sign-off before publishing.',
+    commonSafeguards: 'Draft review links requiring owner or marketing manager sign-off before content goes live.',
   },
   'executive-personal-ai-ops': {
-    buyerProblem: 'Daily scheduling, email triage, meeting action-item digestion, personal SOPs.',
-    typicalStack: 'Claude, Gemini Workspaces, Perplexity, Cursor, Ollama / Local LLM',
-    commonSafeguards: 'Zero-send API permissions; drafts created in client inbox requiring manual human review to send.',
+    buyerProblem: 'Daily scheduling, inbox triage, meeting summaries, and standard operating procedures.',
+    typicalStack: 'Claude, Google Workspace, Perplexity, Cursor, Local AI',
+    commonSafeguards: 'Draft-only permissions; emails and calendar invites are saved as drafts for your final 1-click approval.',
   },
   'ai-advertising-paid-media': {
-    buyerProblem: 'Meta & Google Ads automation, autonomous creative iteration, ROAS budget pacing, and human spend-cap safeguards.',
+    buyerProblem: 'Google & Meta Ads management, automated creative testing, budget optimization, and tracking lead cost.',
     typicalStack: 'Make, Meta Marketing API, Google Ads Scripts, Claude 3.5 Sonnet, Python',
-    commonSafeguards: 'Hard daily budget limits requiring marketing director Slack confirmation for spend adjustments > 15%.',
+    commonSafeguards: 'Hard daily spend limits requiring owner text or email confirmation before any budget increases.',
   },
   'custom-ai-models-integration': {
-    buyerProblem: 'Private LLM fine-tuning, vector search pipelines, bespoke ERP bridges, and high-security compliance workflows.',
-    typicalStack: 'Ollama, vLLM, Supabase pgvector, Python, TypeScript, Docker',
-    commonSafeguards: 'Air-gapped deployment fences, automated hallucination benchmarking, dual-engineer audit sign-offs.',
+    buyerProblem: 'Private company AI systems, custom database connections, proprietary workflows, and data privacy.',
+    typicalStack: 'Python, TypeScript, Secure Cloud / Local Hosting, PostgreSQL, Docker',
+    commonSafeguards: 'Secure data isolation, strict privacy firewalls, and expert code reviews before production deployment.',
   },
 };
 

@@ -225,10 +225,10 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
               <span>The HITL Proof Engine</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-[#001e00]">
-              Production Implementations & Guardrails
+              Verified Client Deployments &amp; Human Safety Checks
             </h2>
             <p className="text-base text-[#475569] mt-2 font-normal">
-              Every case study below requires explicit proof of human oversight, failure safeguards, and measurable ROI.
+              Every case study below requires documented proof of human oversight, error prevention safeguards, and measurable business ROI.
             </p>
           </div>
           <div className="text-sm font-mono font-bold text-[#108a00] bg-[#e4f7e6] px-3.5 py-1 rounded-full border border-[#b2e8b8]">
