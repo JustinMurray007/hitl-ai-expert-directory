@@ -411,7 +411,7 @@ export default async function HomePage() {
           {/* Symmetrical 3x2 Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredExperts.map((expert) => (
-              <ExpertCard key={expert.id} expert={expert} />
+              <ExpertCard key={expert.id} expert={expert} featured />
             ))}
           </div>
         </div>
