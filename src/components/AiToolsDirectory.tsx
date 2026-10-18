@@ -15,6 +15,9 @@ import {
   ArrowUpRight,
   Tag,
   Zap,
+  Gift,
+  Coins,
+  BadgePercent,
 } from 'lucide-react';
 import { AI_TOOLS, AI_TOOL_CATEGORIES, AiTool } from '@/lib/ai-tools';
 
@@ -22,8 +25,9 @@ export default function AiToolsDirectory() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [onlyPopular, setOnlyPopular] = useState(false);
+  const [onlyCredits, setOnlyCredits] = useState(false);
 
-  // Filtered tools based on search and category
+  // Filtered tools based on search, category, marquee, and credit deals
   const filteredTools = useMemo(() => {
     return AI_TOOLS.filter((tool) => {
       // Category filter
@@ -33,6 +37,11 @@ export default function AiToolsDirectory() {
 
       // Popular filter
       if (onlyPopular && !tool.isPopular) {
+        return false;
+      }
+
+      // Credit Deal filter
+      if (onlyCredits && !tool.creditDeal) {
         return false;
       }
 
@@ -47,14 +56,18 @@ export default function AiToolsDirectory() {
         tool.company.toLowerCase().includes(q) ||
         tool.description.toLowerCase().includes(q) ||
         tool.bestFor.toLowerCase().includes(q) ||
+        (tool.creditDeal && tool.creditDeal.toLowerCase().includes(q)) ||
         tool.tags.some((t) => t.toLowerCase().includes(q))
       );
     });
-  }, [searchQuery, selectedCategory, onlyPopular]);
+  }, [searchQuery, selectedCategory, onlyPopular, onlyCredits]);
 
-  // Key featured marquee tools from the user request
+  // Key marquee tools from user request
   const marqueeToolIds = ['viktor-ai', 'claude', 'chatgpt', 'gemini', 'grok', 'perplexity'];
   const marqueeTools = AI_TOOLS.filter((t) => marqueeToolIds.includes(t.id));
+
+  // Count tools with verified credit deals
+  const creditDealsCount = AI_TOOLS.filter((t) => Boolean(t.creditDeal)).length;
 
   return (
     <div className="space-y-12">
@@ -68,7 +81,7 @@ export default function AiToolsDirectory() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search AI models & tools (e.g., Claude, ChatGPT, Viktor, Voice, Make, Gemini...)"
+              placeholder="Search AI models & tools (e.g., Claude, ChatGPT, Viktor, Azure, AWS, Cursor, Make...)"
               className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/70 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#108a00]/30 focus:border-[#108a00] text-sm sm:text-base transition-all"
             />
             {searchQuery && (
@@ -82,19 +95,40 @@ export default function AiToolsDirectory() {
             )}
           </div>
 
-          {/* Quick Toggle: Popular Tools */}
-          <div className="flex items-center gap-2 self-start md:self-auto shrink-0">
+          {/* Quick Filters */}
+          <div className="flex flex-wrap items-center gap-2 self-start md:self-auto shrink-0">
+            {/* Free Credits Filter */}
             <button
               type="button"
-              onClick={() => setOnlyPopular(!onlyPopular)}
+              onClick={() => {
+                setOnlyCredits(!onlyCredits);
+                if (!onlyCredits) setOnlyPopular(false);
+              }}
+              className={`inline-flex items-center gap-2 px-4 py-3 rounded-2xl text-xs sm:text-sm font-bold border transition-all cursor-pointer ${
+                onlyCredits
+                  ? 'bg-[#108a00] border-[#108a00] text-white shadow-xs'
+                  : 'bg-[#edf7ee] border-[#b2e8b8] text-[#108a00] hover:bg-[#e1f3e3]'
+              }`}
+            >
+              <Coins className="w-4 h-4" />
+              <span>Free Credits &amp; Grants ({creditDealsCount})</span>
+            </button>
+
+            {/* Popular Tools Filter */}
+            <button
+              type="button"
+              onClick={() => {
+                setOnlyPopular(!onlyPopular);
+                if (!onlyPopular) setOnlyCredits(false);
+              }}
               className={`inline-flex items-center gap-2 px-4 py-3 rounded-2xl text-xs sm:text-sm font-bold border transition-all cursor-pointer ${
                 onlyPopular
-                  ? 'bg-[#edf7ee] border-[#108a00] text-[#108a00]'
+                  ? 'bg-slate-900 border-slate-900 text-white shadow-xs'
                   : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
               }`}
             >
-              <Zap className={`w-4 h-4 ${onlyPopular ? 'text-[#108a00] fill-[#108a00]' : 'text-slate-400'}`} />
-              <span>Marquee Top Tools</span>
+              <Zap className={`w-4 h-4 ${onlyPopular ? 'text-amber-400 fill-amber-400' : 'text-slate-400'}`} />
+              <span>Marquee Tools</span>
             </button>
           </div>
         </div>
@@ -133,8 +167,8 @@ export default function AiToolsDirectory() {
         </div>
       </div>
 
-      {/* Featured Marquee Tools Quick-Jump (Only when not actively filtering by a specific category) */}
-      {selectedCategory === 'all' && !searchQuery && !onlyPopular && (
+      {/* Featured Marquee Tools Quick-Jump (Only when not filtering by category/search/credits) */}
+      {selectedCategory === 'all' && !searchQuery && !onlyPopular && !onlyCredits && (
         <div>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
@@ -172,13 +206,46 @@ export default function AiToolsDirectory() {
                   </p>
                 </div>
                 <div className="mt-3 pt-2 border-t border-slate-100 flex items-center text-[11px] font-bold text-[#108a00]">
-                  Visit Official Site →
+                  Visit Site →
                 </div>
               </a>
             ))}
           </div>
         </div>
       )}
+
+      {/* Credit Deals Callout Banner (From findaicredits.com) */}
+      <div className="rounded-2xl p-5 sm:p-6 border border-[#b2e8b8] bg-[#f0f9f1] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-[#108a00] text-white flex items-center justify-center shrink-0 shadow-xs">
+            <Coins className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="font-extrabold text-sm sm:text-base text-[#001e00]">
+                Verified Startup Credits &amp; Free AI Grants
+              </span>
+              <span className="text-[10px] font-mono font-bold bg-[#108a00] text-white px-2 py-0.5 rounded-full">
+                Up to $150K
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-snug">
+              Looking for free AI credits, compute grants, and discounts? Check out verified offers from Microsoft ($150K), Claude ($10K), AWS ($200K), and Cloudflare ($10K).
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
+          <a
+            href="https://www.findaicredits.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white border border-[#b2e8b8] hover:border-[#108a00] text-xs font-bold text-[#108a00] hover:bg-[#edf7ee] transition-all shadow-xs"
+          >
+            <span>Visit Find AI Credits</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
+      </div>
 
       {/* Tools Grid */}
       <div>
@@ -188,14 +255,18 @@ export default function AiToolsDirectory() {
             {selectedCategory !== 'all' && (
               <span> in <span className="text-[#108a00] font-black">{AI_TOOL_CATEGORIES.find(c => c.id === selectedCategory)?.label}</span></span>
             )}
+            {onlyCredits && (
+              <span className="text-[#108a00] font-bold"> (With Free Credits &amp; Grants)</span>
+            )}
           </div>
-          {(searchQuery || selectedCategory !== 'all' || onlyPopular) && (
+          {(searchQuery || selectedCategory !== 'all' || onlyPopular || onlyCredits) && (
             <button
               type="button"
               onClick={() => {
                 setSearchQuery('');
                 setSelectedCategory('all');
                 setOnlyPopular(false);
+                setOnlyCredits(false);
               }}
               className="text-xs font-bold text-[#108a00] hover:underline cursor-pointer"
             >
@@ -217,6 +288,7 @@ export default function AiToolsDirectory() {
                 setSearchQuery('');
                 setSelectedCategory('all');
                 setOnlyPopular(false);
+                setOnlyCredits(false);
               }}
               className="mt-4 px-5 py-2 rounded-full bg-[#108a00] text-white text-xs font-bold hover:bg-[#14a800] transition-colors"
             >
@@ -231,7 +303,7 @@ export default function AiToolsDirectory() {
                 className="bg-white rounded-2xl border border-[#e4ebe4] hover:border-[#108a00] hover:shadow-lg transition-all p-6 flex flex-col justify-between group"
               >
                 <div>
-                  {/* Top Bar: Company & Category & Pricing */}
+                  {/* Top Bar: Company & Category */}
                   <div className="flex items-center justify-between gap-2 mb-3">
                     <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
                       {tool.company}
@@ -262,6 +334,17 @@ export default function AiToolsDirectory() {
                     {tool.description}
                   </p>
 
+                  {/* Verified Credit Deal Callout (findaicredits.com) */}
+                  {tool.creditDeal && (
+                    <div className="p-3 rounded-xl bg-[#edf7ee] border border-[#b2e8b8] text-xs text-[#1e2a1e] mb-4 leading-snug">
+                      <div className="flex items-center gap-1.5 text-[#108a00] font-extrabold mb-1">
+                        <Gift className="w-3.5 h-3.5" />
+                        <span>Verified Credit / Startup Grant:</span>
+                      </div>
+                      <p className="font-semibold text-slate-800">{tool.creditDeal}</p>
+                    </div>
+                  )}
+
                   {/* Best For Box */}
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700 mb-4 leading-snug">
                     <span className="font-bold text-[#001e00] block mb-0.5">🎯 Best For:</span>
@@ -288,7 +371,7 @@ export default function AiToolsDirectory() {
 
                   <div className="flex items-center gap-2 pt-1">
                     <a
-                      href={tool.websiteUrl}
+                      href={tool.creditLink || tool.websiteUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-[#108a00] hover:bg-[#14a800] text-white text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition-all"
