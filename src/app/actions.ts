@@ -66,11 +66,17 @@ export async function submitExpertApplicationAction(formData: FormData) {
 export async function submitMatchRequestAction(formData: FormData) {
   try {
     const rawPreferred = formData.getAll('preferredCategories').map(String);
+    const targetedExpert = formData.get('targetedExpert');
+    let needDescription = String(formData.get('needDescription') || '');
+    if (targetedExpert && !needDescription.toLowerCase().includes(String(targetedExpert).toLowerCase())) {
+      needDescription = `[Targeted Specialist: ${targetedExpert}]\n${needDescription}`;
+    }
+
     const rawData = {
       requesterName: formData.get('requesterName'),
       requesterEmail: formData.get('requesterEmail'),
       company: formData.get('company') || undefined,
-      needDescription: formData.get('needDescription'),
+      needDescription: needDescription,
       budgetRange: formData.get('budgetRange') || undefined,
       timeline: formData.get('timeline'),
       preferredCategories: rawPreferred,

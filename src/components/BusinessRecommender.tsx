@@ -375,7 +375,9 @@ export default function BusinessRecommender({
                         </a>
                       ) : (
                         <Link
-                          href={`/match?expert=${exp.slug}`}
+                          href={`/match?expert=${encodeURIComponent(exp.full_name)}&category=${encodeURIComponent(
+                            workflow?.categorySlug || ''
+                          )}&budget=${encodeURIComponent(exp.starting_budget)}`}
                           className="inline-flex items-center gap-1.5 text-sm font-bold text-white bg-[#108a00] hover:bg-[#14a800] px-4 py-2 rounded-full shadow-xs transition-colors"
                         >
                           Request Match

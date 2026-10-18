@@ -130,7 +130,9 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
               </a>
             ) : (
               <Link
-                href="/match"
+                href={`/match?expert=${encodeURIComponent(expert.full_name)}&category=${encodeURIComponent(
+                  expert.categories[0]?.slug || ''
+                )}&budget=${encodeURIComponent(expert.starting_budget)}`}
                 className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-base shadow-sm transition-all text-center hover:scale-[1.02]"
               >
                 Inquire via Matchmaking

@@ -16,6 +16,7 @@ const CATEGORY_OPTIONS = [
   { slug: 'operations-workflow-automation', label: 'Operations & Workflow Automation' },
   { slug: 'sales-lead-qualification', label: 'Sales & Lead Qualification' },
   { slug: 'customer-support-knowledge-base', label: 'Customer Support & Knowledge Bases' },
+  { slug: 'ai-advertising-paid-media', label: 'AI Advertising & Paid Media Ops' },
   { slug: 'marketing-programmatic-content', label: 'Marketing & Programmatic Content' },
   { slug: 'executive-personal-ai-ops', label: 'Executive & Personal AI Ops' },
 ];
