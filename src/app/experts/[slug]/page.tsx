@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { getExpertBySlug } from '@/lib/store';
+import { getExpertBySlug, getExperts } from '@/lib/store';
 import { VerifiedBadge, SponsorBadge, ToolBadge, BudgetBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
 import CaseStudyCard from '@/components/CaseStudyCard';
 import {
@@ -17,6 +17,11 @@ import { GithubIcon, LinkedinIcon } from '@/components/Icons';
 
 interface ExpertProfilePageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const experts = await getExperts();
+  return experts.map((e) => ({ slug: e.slug }));
 }
 
 export async function generateMetadata({ params }: ExpertProfilePageProps): Promise<Metadata> {

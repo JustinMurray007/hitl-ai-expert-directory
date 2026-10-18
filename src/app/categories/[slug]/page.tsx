@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { getCategoryBySlug, getExperts } from '@/lib/store';
+import { getCategoryBySlug, getCategories, getExperts } from '@/lib/store';
 import ExpertCard from '@/components/ExpertCard';
 import {
   Workflow,
@@ -19,6 +19,11 @@ import {
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const categories = await getCategories();
+  return categories.map((c) => ({ slug: c.slug }));
 }
 
 const categoryIcons: Record<string, any> = {
