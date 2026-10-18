@@ -226,9 +226,6 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           >
             <Sparkles className="w-4 h-4 text-[#2563eb]" />
             <span>Find Your Business</span>
-            <span className="text-xs font-bold bg-[#eff6ff] text-[#2563eb] border border-[#bfdbfe] px-2 py-0.5 rounded-full">
-              12 Industries
-            </span>
           </Link>
 
           <Link href="/about" className="hover:text-[#108a00] transition-colors">
@@ -439,7 +436,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             >
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-blue-600" />
-                <span>Find Your Business (12 Industries)</span>
+                <span>Find Your Business</span>
               </div>
               <span className="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full">Free Tool</span>
             </Link>
