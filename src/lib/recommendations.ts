@@ -1,25 +1,95 @@
+export interface BottleneckItem {
+  id: string;
+  label: string;
+  description: string;
+  badge?: string;
+  recommendedWorkflow: {
+    title: string;
+    problemSolved: string;
+    systemArchitecture: string;
+    hitlSafeguard: string;
+    typicalRoi: string;
+    recommendedStack: string[];
+    categorySlug: string;
+    matchingExpertSlugs: string[];
+  };
+}
+
 export interface IndustryRecommendation {
   id: string;
   industrySlug: string;
   industryName: string;
   industryDescription: string;
   iconName: string;
-  commonBottlenecks: {
-    id: string;
-    label: string;
-    description: string;
-    recommendedWorkflow: {
-      title: string;
-      problemSolved: string;
-      systemArchitecture: string;
-      hitlSafeguard: string;
-      typicalRoi: string;
-      recommendedStack: string[];
-      categorySlug: string;
-      matchingExpertSlugs: string[];
-    };
-  }[];
+  commonBottlenecks: BottleneckItem[];
 }
+
+export const COMMON_GROWTH_BOTTLENECKS: BottleneckItem[] = [
+  {
+    id: 'bottleneck-marketing',
+    label: 'Marketing',
+    badge: 'Marketing',
+    description: 'Struggling to stand out locally, consistently create content, or generate authentic 5-star customer reviews on Google.',
+    recommendedWorkflow: {
+      title: 'Automated Local SEO, Review Generation & Marketing Engine',
+      problemSolved: 'Ranks your business higher on local Google search, auto-requests 5-star reviews from happy customers, and creates localized content.',
+      systemArchitecture: 'Automated review request triggers via SMS/email synced with Google Business Profile, GA4 analytics, and local search optimization.',
+      hitlSafeguard: 'Public content drafts and review campaign triggers are queued for 1-click owner approval before sending.',
+      typicalRoi: 'Generates 25+ verified 5-star reviews monthly; organic local inbound search traffic increases by 65%.',
+      recommendedStack: ['Google Gemini', 'GoHighLevel', 'Make', 'Zapier'],
+      categorySlug: 'marketing-programmatic-content',
+      matchingExpertSlugs: ['chloe-dupont', 'julian-mercier'],
+    },
+  },
+  {
+    id: 'bottleneck-advertising',
+    label: 'Advertising',
+    badge: 'Advertising',
+    description: 'Wasting ad budget on Meta or Google Ads with unpredictable lead costs, creative fatigue, and poor conversion tracking.',
+    recommendedWorkflow: {
+      title: 'Targeted Ad Creative & Budget Spend-Protection Engine',
+      problemSolved: 'Creates high-converting Meta and Google Ads, tests new creative angles, and protects your budget from wasted ad spend.',
+      systemArchitecture: 'Automated performance tracking connecting Google Ads and Meta Marketing APIs with AI creative generation.',
+      hitlSafeguard: 'Hard daily spend caps: any ad campaign launch or budget adjustment >15% requires owner email/SMS confirmation.',
+      typicalRoi: 'Lowers customer acquisition cost (CAC) by 25%–38%; eliminates wasted spend on non-performing keywords.',
+      recommendedStack: ['Meta Marketing API', 'Google Ads Scripts', 'Make', 'Claude 3.5 Sonnet'],
+      categorySlug: 'ai-advertising-paid-media',
+      matchingExpertSlugs: ['julian-mercier', 'chloe-dupont'],
+    },
+  },
+  {
+    id: 'bottleneck-lead-growth',
+    label: 'General Lead / New Customer Growth',
+    badge: 'Lead Growth',
+    description: 'Missing inbound phone calls, slow response times to website inquiries, and losing hot leads to faster competitors.',
+    recommendedWorkflow: {
+      title: '24/7 Instant Lead Capture & High-Speed Follow-Up System',
+      problemSolved: 'Instantly qualifies web form inquiries and phone calls within 60 seconds, booking hot prospects directly onto your calendar.',
+      systemArchitecture: 'Multi-channel AI phone assistant and SMS qualifier integrated with your CRM, website forms, and booking calendar.',
+      hitlSafeguard: 'Hot leads and high-value inquiries trigger an instant priority phone transfer or team alert to your live staff.',
+      typicalRoi: 'Lead-to-appointment conversion increases by 45%; eliminates after-hours lost customer inquiries completely.',
+      recommendedStack: ['Vapi', 'Retell AI', 'Twilio', 'HubSpot'],
+      categorySlug: 'sales-lead-qualification',
+      matchingExpertSlugs: ['elena-rostova', 'julian-mercier'],
+    },
+  },
+  {
+    id: 'bottleneck-customer-retention',
+    label: 'Customer Retention',
+    badge: 'Retention',
+    description: 'Past customers drift away without re-booking, missing out on predictable recurring revenue and customer lifetime value.',
+    recommendedWorkflow: {
+      title: 'Automated Customer Re-Engagement & Churn Prevention System',
+      problemSolved: 'Monitors customer service/purchase intervals, automatically reaching out to past clients at the exact right time to drive repeat business.',
+      systemArchitecture: 'CRM webhook monitor tracking last interaction dates, triggering personalized check-in messages and VIP special offers.',
+      hitlSafeguard: 'Any past customer expressing dissatisfaction or asking for a discount is instantly routed to a human account manager.',
+      typicalRoi: 'Boosts repeat customer transactions by 30%–50%; cuts client churn rate in half.',
+      recommendedStack: ['Make', 'HubSpot', 'OpenAI API', 'Python'],
+      categorySlug: 'operations-workflow-automation',
+      matchingExpertSlugs: ['marcus-vance', 'amara-okafor'],
+    },
+  },
+];
 
 export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
   {
@@ -381,6 +451,106 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
           recommendedStack: ['OpenAI API', 'Retell AI', 'HubSpot'],
           categorySlug: 'sales-lead-qualification',
           matchingExpertSlugs: ['chloe-dupont'],
+        },
+      },
+    ],
+  },
+  {
+    id: 'ind-retail-shops',
+    industrySlug: 'retail-boutiques-shops',
+    industryName: 'Retail, Boutiques & Local Stores',
+    industryDescription: 'Independent retail stores, clothing boutiques, hardware shops, and local merchant storefronts.',
+    iconName: 'Store',
+    commonBottlenecks: [
+      {
+        id: 'retail-inventory-sync',
+        label: 'In-Store POS & Online Inventory Desynchronization',
+        badge: 'Inventory',
+        description: 'In-store point of sale and online website stocks get out of sync, causing accidental overselling and stockout cancellations.',
+        recommendedWorkflow: {
+          title: 'Real-Time POS & E-Commerce Inventory Reconciliation',
+          problemSolved: 'Synchronizes in-store point of sale with online Shopify/WooCommerce inventory automatically without manual reconciliations.',
+          systemArchitecture: 'Square/Clover POS webhooks feeding inventory sync into online storefront with automated low-stock warnings.',
+          hitlSafeguard: 'Any inventory discrepancy >3 units flags an immediate count request to the store manager before writing off.',
+          typicalRoi: 'Eliminates stockout cancellation losses; saves 10+ hours of manual counting weekly.',
+          recommendedStack: ['Shopify', 'Make', 'Supabase / PostgreSQL', 'Python'],
+          categorySlug: 'operations-workflow-automation',
+          matchingExpertSlugs: ['marcus-vance', 'amara-okafor'],
+        },
+      },
+    ],
+  },
+  {
+    id: 'ind-personal-wellness',
+    industrySlug: 'salons-spas-wellness',
+    industryName: 'Salons, Spas & Personal Wellness',
+    industryDescription: 'Hair salons, barbershops, day spas, massage therapy clinics, and personal wellness studios.',
+    iconName: 'Sparkles',
+    commonBottlenecks: [
+      {
+        id: 'cancellation-empty-chairs',
+        label: 'Last-Minute Cancellations & Empty Stylist Chairs',
+        badge: 'Scheduling',
+        description: 'No-shows and cancellations leave expensive stylists and therapists idle with zero revenue for that hour.',
+        recommendedWorkflow: {
+          title: 'Automated Waitlist Fill & 24/7 Booking Assistant',
+          problemSolved: 'Instantly texts waitlisted clients when a cancellation occurs, filling open chair slots within minutes.',
+          systemArchitecture: 'Booking software webhooks triggering automated SMS waitlist offers with 1-click confirmation.',
+          hitlSafeguard: 'VIP clients or sensitive rescheduling requests are immediately forwarded to the front desk coordinator.',
+          typicalRoi: 'Fills 80%+ of last-minute cancellations; recovers $4,000–$8,000 in monthly lost billable service revenue.',
+          recommendedStack: ['Retell AI', 'Twilio', 'Zapier', 'Google Gemini'],
+          categorySlug: 'sales-lead-qualification',
+          matchingExpertSlugs: ['elena-rostova', 'julian-mercier'],
+        },
+      },
+    ],
+  },
+  {
+    id: 'ind-cleaning-services',
+    industrySlug: 'cleaning-facility-services',
+    industryName: 'Cleaning & Facility Services',
+    industryDescription: 'Commercial janitorial, residential house cleaning, carpet care, and facility maintenance.',
+    iconName: 'CheckCircle2',
+    commonBottlenecks: [
+      {
+        id: 'cleaning-quote-nurture',
+        label: 'Unconverted Cleaning Estimates & Slow Quote Follow-Up',
+        badge: 'Estimates',
+        description: 'Prospective residential and commercial clients ask for estimates but go cold without regular, professional follow-up.',
+        recommendedWorkflow: {
+          title: 'Instant Square-Footage Estimator & Quote Nurture System',
+          problemSolved: 'Calculates cleaning estimates from property specs and follows up automatically via SMS/email until booked.',
+          systemArchitecture: 'Website intake calculator with automated SMS/email quote nurture and calendar dispatch.',
+          hitlSafeguard: 'Quotes over $1,500/month or specialized facility requests require manager verification before dispatch.',
+          typicalRoi: 'Increases quote conversion by 38%; onboards 15+ new recurring commercial contracts quarterly.',
+          recommendedStack: ['Make', 'GoHighLevel', 'Zapier', 'OpenAI API'],
+          categorySlug: 'sales-lead-qualification',
+          matchingExpertSlugs: ['chloe-dupont', 'julian-mercier'],
+        },
+      },
+    ],
+  },
+  {
+    id: 'ind-not-listed',
+    industrySlug: 'other-business-type',
+    industryName: 'My Business Type is Not Listed Here',
+    industryDescription: 'Custom business operations, specialized trades, or mixed service and product business models.',
+    iconName: 'HelpCircle',
+    commonBottlenecks: [
+      {
+        id: 'custom-business-ops',
+        label: 'Repetitive Data Entry & Disconnected Software Tools',
+        badge: 'Custom Ops',
+        description: 'Staff spend hours manually typing information between software tools, copying spreadsheets, and sending repetitive status emails.',
+        recommendedWorkflow: {
+          title: 'Custom Business Workflow Automation & Database Bridge',
+          problemSolved: 'Eliminates repetitive data entry, connects incompatible software tools, and automates daily reporting.',
+          systemArchitecture: 'Custom webhook triggers connecting your business software, document processors, and database tables.',
+          hitlSafeguard: 'All automated actions include verification checkpoints where staff confirm data accuracy before live sync.',
+          typicalRoi: 'Saves 20–30 hours of administrative labor weekly; prevents human data-entry errors.',
+          recommendedStack: ['Make', 'n8n', 'Python', 'Anthropic Claude', 'Supabase / PostgreSQL'],
+          categorySlug: 'operations-workflow-automation',
+          matchingExpertSlugs: ['marcus-vance', 'amara-okafor'],
         },
       },
     ],

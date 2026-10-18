@@ -184,7 +184,7 @@ export default async function HomePage() {
               <div className="lg:col-span-7">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#eff6ff] border border-[#bfdbfe] text-xs font-bold text-[#1d4ed8] mb-4 shadow-xs">
                   <Sparkles className="w-4 h-4 text-[#2563eb]" />
-                  <span>Find Your Business — 12 Industry Solutions</span>
+                  <span>Find Your Business — Tailored AI Solutions</span>
                 </div>
                 <h2 className="text-2xl sm:text-4xl font-black text-[#001e00] tracking-tight leading-tight">
                   Find Your Business &amp; Recommended AI Workflows
@@ -197,7 +197,7 @@ export default async function HomePage() {
                 <div className="mt-6 space-y-2.5 max-w-lg">
                   <div className="flex items-center gap-3 text-sm text-[#1e2a1e] font-semibold">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
-                    <span>12 Tailored Industries (Logistics, Dental, HVAC, E-Commerce, Auto, Legal, Hospitality...)</span>
+                    <span>Tailored Industry Solutions (Logistics, Dental, HVAC, Retail, Wellness, Legal, Hospitality...)</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-[#1e2a1e] font-semibold">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />

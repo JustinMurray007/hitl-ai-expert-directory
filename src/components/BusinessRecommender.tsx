@@ -3,7 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Expert } from '@/lib/types';
-import { INDUSTRY_RECOMMENDATIONS, IndustryRecommendation } from '@/lib/recommendations';
+import {
+  INDUSTRY_RECOMMENDATIONS,
+  IndustryRecommendation,
+  COMMON_GROWTH_BOTTLENECKS,
+} from '@/lib/recommendations';
 import { VerifiedBadge, ToolBadge } from '@/components/Badge';
 import {
   Activity,
@@ -18,15 +22,21 @@ import {
   Factory,
   FileText,
   GraduationCap,
+  Store,
+  HelpCircle,
   CheckCircle2,
   ShieldCheck,
   Sparkles,
   ArrowRight,
+  ArrowDown,
   TrendingUp,
   Layers,
   MapPin,
   Calendar,
   Building,
+  Megaphone,
+  Target,
+  UserCheck,
 } from 'lucide-react';
 
 const iconMap: Record<string, any> = {
@@ -42,6 +52,10 @@ const iconMap: Record<string, any> = {
   Factory,
   FileText,
   GraduationCap,
+  Store,
+  HelpCircle,
+  Sparkles,
+  CheckCircle2,
 };
 
 interface BusinessRecommenderProps {
@@ -55,19 +69,35 @@ export default function BusinessRecommender({
 }: BusinessRecommenderProps) {
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryRecommendation>(() => {
     if (initialIndustrySlug) {
-      const match = INDUSTRY_RECOMMENDATIONS.find((i) => i.industrySlug === initialIndustrySlug);
+      const match = INDUSTRY_RECOMMENDATIONS.find(
+        (i) =>
+          i.industrySlug === initialIndustrySlug ||
+          i.id === initialIndustrySlug ||
+          i.industrySlug.replace(/-/g, '_') === initialIndustrySlug ||
+          initialIndustrySlug.replace(/-/g, '_') === i.industrySlug.replace(/-/g, '_')
+      );
       if (match) return match;
     }
     return INDUSTRY_RECOMMENDATIONS[0];
   });
 
+  const [hasSelectedIndustry, setHasSelectedIndustry] = useState<boolean>(() => {
+    return Boolean(initialIndustrySlug);
+  });
+
+  // Combine industry-specific bottlenecks with the 4 common cards: Marketing, Advertising, General Lead/New Customer Growth, Customer Retention
+  const displayBottlenecks = [
+    ...selectedIndustry.commonBottlenecks,
+    ...COMMON_GROWTH_BOTTLENECKS,
+  ];
+
   const [selectedBottleneckId, setSelectedBottleneckId] = useState<string>(() => {
-    return selectedIndustry.commonBottlenecks[0]?.id || '';
+    return selectedIndustry.commonBottlenecks[0]?.id || COMMON_GROWTH_BOTTLENECKS[0].id;
   });
 
   const activeBottleneck =
-    selectedIndustry.commonBottlenecks.find((b) => b.id === selectedBottleneckId) ||
-    selectedIndustry.commonBottlenecks[0];
+    displayBottlenecks.find((b) => b.id === selectedBottleneckId) ||
+    displayBottlenecks[0];
 
   const workflow = activeBottleneck?.recommendedWorkflow;
 
@@ -94,7 +124,7 @@ export default function BusinessRecommender({
             1
           </span>
           <h2 className="text-xl sm:text-2xl font-black text-[#001e00]">
-            Select Your Business Type (12 Industries)
+            Select Your Business Type
           </h2>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -107,7 +137,8 @@ export default function BusinessRecommender({
                 type="button"
                 onClick={() => {
                   setSelectedIndustry(ind);
-                  setSelectedBottleneckId(ind.commonBottlenecks[0]?.id || '');
+                  setSelectedBottleneckId(ind.commonBottlenecks[0]?.id || COMMON_GROWTH_BOTTLENECKS[0].id);
+                  setHasSelectedIndustry(true);
                 }}
                 className={`p-4 sm:p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
                   isSelected
@@ -141,10 +172,30 @@ export default function BusinessRecommender({
             );
           })}
         </div>
+
+        {/* Animated Arrow Down Indicator to Step 2 */}
+        {hasSelectedIndustry && (
+          <div className="mt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={() => {
+                document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white border-2 border-[#108a00] text-[#001e00] hover:bg-[#edf7ee] shadow-sm transition-all cursor-pointer animate-gentle-bounce group"
+            >
+              <span className="text-sm font-bold text-[#001e00] group-hover:text-[#108a00] transition-colors">
+                Business Selected — Scroll Down to Step 2
+              </span>
+              <div className="w-6 h-6 rounded-full bg-[#108a00] text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                <ArrowDown className="w-3.5 h-3.5 text-white" />
+              </div>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Step 2: Select Operational Pain Point */}
-      <div>
+      <div id="step-2" className="scroll-mt-8">
         <div className="flex items-center gap-2.5 mb-4">
           <span className="w-7 h-7 rounded-full bg-[#2563eb] text-white text-sm font-black flex items-center justify-center font-mono shadow-xs">
             2
@@ -153,38 +204,48 @@ export default function BusinessRecommender({
             What is Your Biggest Operational Bottleneck?
           </h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {selectedIndustry.commonBottlenecks.map((b) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {displayBottlenecks.map((b) => {
             const isSelected = selectedBottleneckId === b.id;
             return (
               <button
                 key={b.id}
                 type="button"
                 onClick={() => setSelectedBottleneckId(b.id)}
-                className={`p-5 sm:p-6 rounded-2xl border text-left transition-all cursor-pointer ${
+                className={`p-5 sm:p-6 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
                     ? 'bg-white border-2 border-[#108a00] shadow-md ring-2 ring-[#108a00]/10'
                     : 'bg-white border-[#e4ebe4] hover:border-[#cbd5cb] shadow-xs'
                 }`}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <h3 className="font-extrabold text-base sm:text-lg text-[#001e00]">
-                      {b.label}
-                    </h3>
-                    <p className="text-sm sm:text-base text-[#475569] mt-2 leading-relaxed font-normal">
-                      {b.description}
-                    </p>
+                <div>
+                  <div className="flex items-start justify-between gap-3 mb-2.5">
+                    {b.badge && (
+                      <span className="text-xs uppercase font-mono font-bold text-[#108a00] bg-[#e4f7e6] px-2.5 py-0.5 rounded-full border border-[#b2e8b8]">
+                        {b.badge}
+                      </span>
+                    )}
+                    <div
+                      className={`w-6 h-6 rounded-full border flex items-center justify-center shrink-0 ml-auto ${
+                        isSelected
+                          ? 'border-[#108a00] bg-[#108a00] text-white'
+                          : 'border-[#cbd5cb] bg-white'
+                      }`}
+                    >
+                      {isSelected && <CheckCircle2 className="w-4 h-4" />}
+                    </div>
                   </div>
-                  <div
-                    className={`w-6 h-6 rounded-full border flex items-center justify-center shrink-0 mt-0.5 ${
-                      isSelected
-                        ? 'border-[#108a00] bg-[#108a00] text-white'
-                        : 'border-[#cbd5cb] bg-white'
-                    }`}
-                  >
-                    {isSelected && <CheckCircle2 className="w-4 h-4" />}
-                  </div>
+                  <h3 className="font-extrabold text-base sm:text-lg text-[#001e00]">
+                    {b.label}
+                  </h3>
+                  <p className="text-sm text-[#475569] mt-2 leading-relaxed font-normal">
+                    {b.description}
+                  </p>
+                </div>
+                <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
+                  <span className={isSelected ? 'text-[#108a00]' : 'text-slate-400'}>
+                    {isSelected ? '● Selected Solution' : 'Click to Select'}
+                  </span>
                 </div>
               </button>
             );
