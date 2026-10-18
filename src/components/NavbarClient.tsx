@@ -228,6 +228,10 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             <span>Find Your Business</span>
           </Link>
 
+          <Link href="/ai-tools" className="hover:text-[#108a00] transition-colors">
+            AI Tools
+          </Link>
+
           <Link href="/about" className="hover:text-[#108a00] transition-colors">
             How It Works
           </Link>
@@ -439,6 +443,16 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                 <span>Find Your Business</span>
               </div>
               <span className="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full">Free Tool</span>
+            </Link>
+            <Link
+              href="/ai-tools"
+              className="flex items-center justify-between p-3 rounded-xl bg-purple-50 text-base font-bold text-purple-900"
+            >
+              <div className="flex items-center gap-2">
+                <Cpu className="w-4 h-4 text-purple-600" />
+                <span>AI Models &amp; Tools</span>
+              </div>
+              <span className="text-xs bg-purple-200 text-purple-800 px-2 py-0.5 rounded-full">Directory</span>
             </Link>
             <Link
               href="/match"

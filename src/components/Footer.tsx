@@ -80,7 +80,12 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <Link href="/recommendations" className="hover:text-[#14a800] transition-colors flex items-center gap-1.5 font-bold text-[#57df66]">
-                  Find Your Business (12 Industries) <ArrowRight className="w-3.5 h-3.5 text-[#14a800]" />
+                  Find Your Business Solutions <ArrowRight className="w-3.5 h-3.5 text-[#14a800]" />
+                </Link>
+              </li>
+              <li>
+                <Link href="/ai-tools" className="hover:text-[#14a800] transition-colors flex items-center gap-1.5 font-medium text-white">
+                  AI Models &amp; Tools Directory <ArrowRight className="w-3.5 h-3.5 text-[#14a800]" />
                 </Link>
               </li>
               <li>
