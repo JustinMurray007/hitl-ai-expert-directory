@@ -161,21 +161,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
 
   return (
     <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/95 border-b border-[#e4ebe4] shadow-xs">
-      {/* Demo Mode Notice */}
-      {demoActive && (
-        <div className="bg-[#fff9eb] border-b border-[#fef08a] px-4 py-2 text-sm text-[#854d0e] flex items-center justify-center gap-2">
-          <ShieldAlert className="w-4 h-4 text-[#ca8a04] shrink-0" />
-          <span>
-            <strong>Demo Mode:</strong> Seed experts displayed.
-          </span>
-          <Link
-            href="/admin"
-            className="underline hover:text-[#713f12] ml-2 font-bold inline-flex items-center gap-0.5"
-          >
-            Review Admin Queue <ArrowUpRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-      )}
+
 
       {/* Main Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">

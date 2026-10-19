@@ -100,7 +100,7 @@ export default async function HomePage() {
           {/* Trust Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] mb-6 shadow-xs">
             <ShieldCheck className="w-5 h-5 text-[#108a00]" />
-            <span>The Verified Standard in Applied AI Automation</span>
+            <span>Matching Business Owners With The Ai Experts They Need</span>
           </div>
 
           {/* Symmetrical Heading */}
