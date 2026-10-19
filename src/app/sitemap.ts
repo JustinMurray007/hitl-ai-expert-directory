@@ -1,15 +1,18 @@
 import { MetadataRoute } from 'next';
 import { getCategories, getExperts } from '@/lib/store';
+import { getLocationsSummary } from '@/lib/locations';
 
 export const dynamic = 'force-static';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://findaipros.com';
 
   const [categories, experts] = await Promise.all([
     getCategories(),
     getExperts(),
   ]);
+
+  const { states, cities, zips } = getLocationsSummary(experts);
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -26,6 +29,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/recommendations`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/locations`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
@@ -64,6 +73,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
+  // Location Hubs: States
+  const stateRoutes: MetadataRoute.Sitemap = states.map((s) => ({
+    url: `${baseUrl}/locations/state/${s.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily',
+    priority: 0.85,
+  }));
+
+  // Location Hubs: Cities
+  const cityRoutes: MetadataRoute.Sitemap = cities.map((c) => ({
+    url: `${baseUrl}/locations/city/${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily',
+    priority: 0.85,
+  }));
+
+  // Location Hubs: Zip codes
+  const zipRoutes: MetadataRoute.Sitemap = zips.map((z) => ({
+    url: `${baseUrl}/locations/zip/${z.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }));
+
   // Profiles (strictly excluding demo rows from SEO)
   const profileRoutes: MetadataRoute.Sitemap = experts
     .filter((e) => !e.is_demo)
@@ -74,5 +107,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.75,
     }));
 
-  return [...staticRoutes, ...categoryRoutes, ...profileRoutes];
+  return [
+    ...staticRoutes,
+    ...categoryRoutes,
+    ...stateRoutes,
+    ...cityRoutes,
+    ...zipRoutes,
+    ...profileRoutes,
+  ];
 }

@@ -23,6 +23,7 @@ import {
   Stethoscope,
   Wrench,
   Scale,
+  MapPin,
   ShoppingBag,
   Building2,
   CheckCircle2,
@@ -413,6 +414,16 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                     <span>Browse All 26+ Verified AI Experts</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
+                  <Link
+                    href="/locations"
+                    className="text-xs font-bold text-[#2563eb] hover:text-[#1d4ed8] flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 transition-colors mt-1"
+                  >
+                    <span className="flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5" />
+                      Find AI Consultants Near You (By City &amp; State)
+                    </span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               </div>
 
@@ -708,6 +719,16 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               className="block p-3 text-base font-semibold text-slate-700 hover:text-[#001e00]"
             >
               Browse Category Hubs
+            </Link>
+            <Link
+              href="/locations"
+              className="flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-bold text-[#001e00] hover:bg-[#e4f7e6]"
+            >
+              <span className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-[#108a00]" />
+                Find AI Near You (City &amp; State)
+              </span>
+              <ArrowRight className="w-4 h-4 text-[#108a00]" />
             </Link>
           </div>
 

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Expert } from '@/lib/types';
 import { VerifiedBadge, SponsorBadge, ToolBadge, BudgetBadge, EngagementBadge } from './Badge';
 import { MapPin, ArrowRight, Building, MessageSquareQuote } from 'lucide-react';
+import ExpertLocationLinks from './ExpertLocation';
 
 export default function ExpertCard({
   expert,
@@ -24,7 +25,7 @@ export default function ExpertCard({
       <div>
         {/* Standard top bar (hidden on featured homepage cards) */}
         {!featured && (
-          <div className="flex items-center justify-between gap-2 mb-4">
+          <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
             <div className="flex items-center gap-2">
               {expert.is_verified ? (
                 <VerifiedBadge count={expert.verified_case_study_count} />
@@ -35,12 +36,7 @@ export default function ExpertCard({
               )}
               {expert.sponsor_rank > 0 && <SponsorBadge />}
             </div>
-            <div className="flex items-center gap-1.5 text-sm text-[#5e6d55] font-medium">
-              <MapPin className="w-4 h-4 text-[#889888]" />
-              <span>
-                {expert.city}{expert.state_region ? `, ${expert.state_region}` : ''}
-              </span>
-            </div>
+            <ExpertLocationLinks expert={expert} />
           </div>
         )}
 
@@ -107,12 +103,7 @@ export default function ExpertCard({
       <div className="pt-4 border-t border-[#f0f3f0] flex items-center justify-between">
         {featured ? (
           /* On featured cards: location moved below the safeguard with no prices */
-          <div className="flex items-center gap-1.5 text-sm text-[#5e6d55] font-medium">
-            <MapPin className="w-4 h-4 text-[#889888]" />
-            <span>
-              {expert.city}{expert.state_region ? `, ${expert.state_region}` : ''}
-            </span>
-          </div>
+          <ExpertLocationLinks expert={expert} />
         ) : (
           /* On standard directory search cards: prices & engagement tier */
           <div className="flex flex-col gap-1.5">

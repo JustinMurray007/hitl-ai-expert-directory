@@ -9,6 +9,7 @@ import {
   COMMON_GROWTH_BOTTLENECKS,
 } from '@/lib/recommendations';
 import { VerifiedBadge, ToolBadge } from '@/components/Badge';
+import ExpertLocationLinks from '@/components/ExpertLocation';
 import {
   Activity,
   Wrench,
@@ -440,9 +441,8 @@ export default function BusinessRecommender({
                       {exp.tagline}
                     </p>
 
-                    <div className="flex items-center gap-2 text-sm text-[#5e6d55] mb-4 font-medium">
-                      <MapPin className="w-4 h-4 text-[#889888]" />
-                      <span>{exp.city}, {exp.country}</span>
+                    <div className="mb-4">
+                      <ExpertLocationLinks expert={exp} />
                     </div>
                   </div>
 

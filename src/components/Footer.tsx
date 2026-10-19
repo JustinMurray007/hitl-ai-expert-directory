@@ -84,6 +84,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/locations" className="hover:text-[#14a800] transition-colors flex items-center gap-1.5 font-bold text-[#57df66]">
+                  Find AI Pros Near You <ArrowRight className="w-3.5 h-3.5 text-[#14a800]" />
+                </Link>
+              </li>
+              <li>
                 <Link href="/ai-tools" className="hover:text-[#14a800] transition-colors flex items-center gap-1.5 font-medium text-white">
                   AI Models &amp; Tools Directory <ArrowRight className="w-3.5 h-3.5 text-[#14a800]" />
                 </Link>

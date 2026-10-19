@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { getExpertBySlug, getExperts } from '@/lib/store';
 import { VerifiedBadge, SponsorBadge, ToolBadge, BudgetBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
 import CaseStudyCard from '@/components/CaseStudyCard';
+import ExpertLocationLinks from '@/components/ExpertLocation';
 import {
   MapPin,
   Clock,
@@ -109,10 +110,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
               )}
 
               <div className="flex flex-wrap items-center gap-5 text-sm text-[#475569] pt-2 font-medium">
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-[#889888]" />
-                  {expert.city}{expert.state_region ? `, ${expert.state_region}` : ''}, {expert.country}
-                </span>
+                <ExpertLocationLinks expert={expert} showCountry={true} />
                 <span className="flex items-center gap-1.5">
                   <Clock className="w-4 h-4 text-[#889888]" />
                   {expert.timezone}

@@ -55,6 +55,7 @@ export interface Expert {
   avatar_url: string;
   city: string;
   state_region?: string;
+  postal_code?: string;
   country: string;
   timezone: string;
   website_url?: string;
