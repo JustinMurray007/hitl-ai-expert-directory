@@ -101,6 +101,22 @@ export default function BusinessRecommender({
 
   const workflow = activeBottleneck?.recommendedWorkflow;
 
+  const handleSelectIndustry = (ind: IndustryRecommendation) => {
+    setSelectedIndustry(ind);
+    setSelectedBottleneckId(ind.commonBottlenecks[0]?.id || COMMON_GROWTH_BOTTLENECKS[0].id);
+    setHasSelectedIndustry(true);
+    setTimeout(() => {
+      document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 60);
+  };
+
+  const handleSelectBottleneck = (id: string) => {
+    setSelectedBottleneckId(id);
+    setTimeout(() => {
+      document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 60);
+  };
+
   // Find matching experts
   const matchedExperts = allExperts.filter((exp) => {
     if (!workflow) return false;
@@ -135,11 +151,7 @@ export default function BusinessRecommender({
               <button
                 key={ind.id}
                 type="button"
-                onClick={() => {
-                  setSelectedIndustry(ind);
-                  setSelectedBottleneckId(ind.commonBottlenecks[0]?.id || COMMON_GROWTH_BOTTLENECKS[0].id);
-                  setHasSelectedIndustry(true);
-                }}
+                onClick={() => handleSelectIndustry(ind)}
                 className={`p-4 sm:p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
                   isSelected
                     ? 'bg-[#edf7ee] border-2 border-[#108a00] shadow-sm ring-1 ring-[#108a00]/30'
@@ -195,15 +207,26 @@ export default function BusinessRecommender({
       </div>
 
       {/* Step 2: Select Operational Pain Point */}
-      <div id="step-2" className="scroll-mt-8">
-        <div className="flex items-center gap-2.5 mb-4">
-          <span className="w-7 h-7 rounded-full bg-[#2563eb] text-white text-sm font-black flex items-center justify-center font-mono shadow-xs">
-            2
+      <div
+        id="step-2"
+        className="scroll-mt-24 rounded-3xl bg-[#f2f7f2] border border-[#d3e3d5] p-6 sm:p-8 shadow-xs space-y-6"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5">
+            <span className="w-7 h-7 rounded-full bg-[#2563eb] text-white text-sm font-black flex items-center justify-center font-mono shadow-xs">
+              2
+            </span>
+            <h2 className="text-xl sm:text-2xl font-black text-[#001e00]">
+              What is Your Biggest Operational Bottleneck?
+            </h2>
+          </div>
+          <span className="inline-flex items-center gap-1.5 self-start sm:self-auto text-xs font-bold text-[#108a00] bg-white px-3 py-1.5 rounded-full border border-[#c3dec6] shadow-2xs">
+            Industry: <strong className="font-black text-[#001e00]">{selectedIndustry.industryName}</strong>
           </span>
-          <h2 className="text-xl sm:text-2xl font-black text-[#001e00]">
-            What is Your Biggest Operational Bottleneck?
-          </h2>
         </div>
+        <p className="text-sm text-[#526352] font-medium">
+          Choose the friction point you want to solve. We will generate the recommended architecture, required staff review checkpoints, and verified specialists.
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {displayBottlenecks.map((b) => {
             const isSelected = selectedBottleneckId === b.id;
@@ -211,11 +234,11 @@ export default function BusinessRecommender({
               <button
                 key={b.id}
                 type="button"
-                onClick={() => setSelectedBottleneckId(b.id)}
+                onClick={() => handleSelectBottleneck(b.id)}
                 className={`p-5 sm:p-6 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-white border-2 border-[#108a00] shadow-md ring-2 ring-[#108a00]/10'
-                    : 'bg-white border-[#e4ebe4] hover:border-[#cbd5cb] shadow-xs'
+                    ? 'bg-white border-2 border-[#108a00] shadow-md ring-2 ring-[#108a00]/20'
+                    : 'bg-white/95 border-[#d0ded2] hover:bg-white hover:border-[#108a00]/50 hover:shadow-md shadow-xs'
                 }`}
               >
                 <div>
@@ -255,8 +278,18 @@ export default function BusinessRecommender({
 
       {/* Step 3: Generated AI Recommendation Blueprint */}
       {workflow && (
-        <div className="rounded-3xl p-6 sm:p-10 border border-[#dbeafe] bg-gradient-to-b from-[#f8faff] via-white to-[#f2faf3] shadow-sm space-y-8">
-          {/* Header */}
+        <div id="step-3" className="scroll-mt-24 space-y-4">
+          <div className="flex items-center gap-2.5">
+            <span className="w-7 h-7 rounded-full bg-[#2563eb] text-white text-sm font-black flex items-center justify-center font-mono shadow-xs">
+              3
+            </span>
+            <h2 className="text-xl sm:text-2xl font-black text-[#001e00]">
+              Your Tailored AI Blueprint &amp; Verified Specialists
+            </h2>
+          </div>
+
+          <div className="rounded-3xl p-6 sm:p-10 border border-[#dbeafe] bg-gradient-to-b from-[#f8faff] via-white to-[#f2faf3] shadow-sm space-y-8">
+            {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 border-b border-[#e2e8f0] pb-6">
             <div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#eff6ff] border border-[#bfdbfe] text-sm font-bold text-[#1d4ed8] mb-3 shadow-xs">
@@ -451,7 +484,8 @@ export default function BusinessRecommender({
             </div>
           </div>
         </div>
-      )}
-    </div>
-  );
+      </div>
+    )}
+  </div>
+);
 }
