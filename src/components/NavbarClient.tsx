@@ -191,12 +191,9 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               className="w-full h-full object-contain"
             />
           </div>
-          <div>
-            <span className="font-black text-2xl text-[#001e00] tracking-tight leading-none block">
-              Find Ai <span className="bg-gradient-to-r from-[#108a00] via-[#0d9488] to-[#0284c7] bg-clip-text text-transparent">PROS</span>
-            </span>
-            <p className="text-xs text-[#5e6d55] font-semibold tracking-tight mt-1">Verified AI Specialists Directory</p>
-          </div>
+          <span className="font-black text-2xl text-[#001e00] tracking-tight leading-none">
+            Find Ai <span className="bg-gradient-to-r from-[#108a00] via-[#0d9488] to-[#0284c7] bg-clip-text text-transparent">PROS</span>
+          </span>
         </Link>
 
         {/* Simplified Desktop Navigation */}
