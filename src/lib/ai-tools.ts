@@ -16,12 +16,147 @@ export interface AiTool {
   description: string;
   bestFor: string;
   pricing: string;
-  creditDeal?: string; // Verified credit or startup grant from findaicredits.com
+  creditDeal?: string; // Verified credit or startup grant
   creditLink?: string; // Direct link to claim or view deal
+  isStudentDeal?: boolean; // Student/education-specific deal (excluded from business Save on AI)
   isPopular?: boolean;
   tags: string[];
   features: string[];
 }
+
+export interface SaveOnAiDeal {
+  id: string;
+  name: string;
+  company: string;
+  category: string;
+  badge: string;
+  headline: string;
+  description: string;
+  claimUrl: string;
+}
+
+export const SAVE_ON_AI_DEALS: SaveOnAiDeal[] = [
+  {
+    id: 'azure-openai',
+    name: 'Azure OpenAI & Microsoft Cloud',
+    company: 'Microsoft',
+    category: 'Cloud & AI Infrastructure',
+    badge: 'Up to $150K',
+    headline: 'Microsoft for Startups',
+    description: 'Up to $150,000 in Azure AI, Azure OpenAI Service, GitHub Enterprise & LinkedIn credits.',
+    claimUrl: 'https://founders.startups.microsoft.com/',
+  },
+  {
+    id: 'aws-bedrock',
+    name: 'AWS Bedrock & Cloud Compute',
+    company: 'Amazon Web Services',
+    category: 'Cloud & AI Infrastructure',
+    badge: 'Up to $200K',
+    headline: 'AWS Activate Startup Program',
+    description: 'Up to $200,000 in AWS credits via AWS Partners, or up to $5,000 for self-funded startups.',
+    claimUrl: 'https://aws.amazon.com/activate/',
+  },
+  {
+    id: 'claude',
+    name: 'Claude & Claude Team',
+    company: 'Anthropic',
+    category: 'Frontier LLM',
+    badge: 'Up to $10K',
+    headline: 'Anthropic for Startups',
+    description: 'Up to $10,000 in Claude API credits plus 1 year free of Claude Team for qualified early-stage teams.',
+    claimUrl: 'https://claude.ai',
+  },
+  {
+    id: 'gemini',
+    name: 'Google Gemini & Vertex AI',
+    company: 'Google Cloud',
+    category: 'Frontier LLM & Cloud',
+    badge: 'Up to $200K',
+    headline: 'Google Cloud for Startups',
+    description: '$150 Google AI Plus credits plus up to $200,000 in Google Cloud & Vertex AI credits over 2 years.',
+    claimUrl: 'https://cloud.google.com/startup',
+  },
+  {
+    id: 'cloudflare-workers-ai',
+    name: 'Cloudflare Workers AI',
+    company: 'Cloudflare',
+    category: 'Edge & AI Inference',
+    badge: 'Up to $10K',
+    headline: 'Cloudflare for Startups',
+    description: 'Up to $10,000 in Cloudflare & Workers AI credits for bootstrapped software companies.',
+    claimUrl: 'https://www.cloudflare.com/startups/',
+  },
+  {
+    id: 'framer',
+    name: 'Framer AI Web Builder',
+    company: 'Framer',
+    category: 'Design & Web AI',
+    badge: '$480 Value',
+    headline: 'Framer for Startups',
+    description: '1 Year Free on the Framer Pro/Startup Program for early-stage companies and founders.',
+    claimUrl: 'https://www.framer.com/startups/',
+  },
+  {
+    id: 'notion',
+    name: 'Notion AI & Workspace',
+    company: 'Notion',
+    category: 'Operations & Workspace',
+    badge: '$140 Value',
+    headline: 'Notion for Startups',
+    description: 'Free Plus Plan for 1 Year with unlimited AI features for eligible business startups.',
+    claimUrl: 'https://www.notion.so/startups',
+  },
+  {
+    id: 'apollo-io',
+    name: 'Apollo.io AI Sales Engine',
+    company: 'Apollo',
+    category: 'B2B Sales & GTM',
+    badge: '$50 Value',
+    headline: '14-Day Free Professional Trial',
+    description: 'No credit card required — full access to AI sales prospecting, email sequencing & verified phone numbers.',
+    claimUrl: 'https://www.apollo.io/',
+  },
+  {
+    id: 'vapi',
+    name: 'Vapi Voice AI',
+    company: 'Vapi',
+    category: 'Voice AI & Telephony',
+    badge: '$10 Free',
+    headline: 'Free Initial Call Credits',
+    description: '$10 in free call credits upon sign up to build, test, and deploy production voice AI agents.',
+    claimUrl: 'https://vapi.ai',
+  },
+  {
+    id: 'retell-ai',
+    name: 'Retell AI Voice Engine',
+    company: 'Retell AI',
+    category: 'Voice AI & Telephony',
+    badge: '10 Free Mins',
+    headline: 'Free Voice AI Trial',
+    description: '10 free minutes of sub-second conversational latency voice AI calls for production testing.',
+    claimUrl: 'https://www.retellai.com',
+  },
+  {
+    id: 'n8n',
+    name: 'n8n Workflow Automation',
+    company: 'n8n',
+    category: 'Workflow Automation',
+    badge: '100% Free',
+    headline: 'Self-Hosted Community Edition',
+    description: '100% free forever self-hosted edition with full LangChain and AI Agent node execution.',
+    claimUrl: 'https://n8n.io',
+  },
+  {
+    id: 'make',
+    name: 'Make.com Visual Workflows',
+    company: 'Make',
+    category: 'Workflow Automation',
+    badge: 'Free Tier',
+    headline: 'Free Starter Plan',
+    description: '1,000 free operations monthly with visual scenario builder and webhook triggers.',
+    claimUrl: 'https://www.make.com/en/pricing',
+  },
+];
 
 export const AI_TOOL_CATEGORIES = [
   { id: 'all', label: 'All Tools' },
@@ -295,6 +430,7 @@ export const AI_TOOLS: AiTool[] = [
     pricing: 'Free Tier / Pro $12/mo',
     creditDeal: '3 Months Flow Pro Free for Students & Educators ($120 Value)',
     creditLink: 'https://www.wisprflow.ai/',
+    isStudentDeal: true,
     isPopular: false,
     tags: ['Voice Dictation', 'Speech to Text', 'Productivity', '$120 Deal', 'Mac / Windows'],
     features: ['Speaks 3x faster than typing', 'Auto-removes filler words & adds punctuation', 'Works in every desktop application', 'Personalized dictionary adaptation'],
@@ -313,6 +449,7 @@ export const AI_TOOLS: AiTool[] = [
     pricing: 'Free Tier / Pro $20/mo / Business $40/user',
     creditDeal: '1 Year Cursor Pro Free for Verified University Students ($260 Value)',
     creditLink: 'https://www.cursor.com',
+    isStudentDeal: true,
     isPopular: true,
     tags: ['Code Editor', 'Composer Mode', 'Codebase Indexing', 'VS Code Fork', '$260 Discount'],
     features: ['Multi-file Composer generation', 'Full repo semantic vector indexing', 'Inline smart diffs & corrections', 'Supports Claude 3.5 Sonnet & GPT-4o'],
@@ -329,6 +466,7 @@ export const AI_TOOLS: AiTool[] = [
     pricing: 'Individual $10/mo / Business $19/user/mo',
     creditDeal: '2 Years Free via GitHub Student Developer Pack ($240 Value)',
     creditLink: 'https://education.github.com/pack',
+    isStudentDeal: true,
     isPopular: true,
     tags: ['GitHub', 'Pair Programming', 'VS Code', 'Copilot Workspace', '$240 Deal'],
     features: ['Inline autocomplete in 80+ languages', 'Copilot Chat with workspace awareness', 'Automated unit test generation', 'Free for verified students & open source maintainers'],
@@ -345,6 +483,7 @@ export const AI_TOOLS: AiTool[] = [
     pricing: 'Free Starter / Core $25/mo',
     creditDeal: 'Free Pro Plan for Verified Educators & Students ($120 Value)',
     creditLink: 'https://replit.com/pricing',
+    isStudentDeal: true,
     isPopular: true,
     tags: ['Cloud IDE', 'AI Agent', 'Autonomous Coding', 'Instant Hosting', '$120 Deal'],
     features: ['Autonomous multi-file software creation', 'Built-in PostgreSQL database and hosting', 'Browser-based execution with zero local setup', 'Live collaborative multiplayer coding'],
@@ -395,6 +534,7 @@ export const AI_TOOLS: AiTool[] = [
     pricing: 'Free Starter / Professional $15/user/mo',
     creditDeal: 'Free Professional Plan for 2 Years for Verified Students & Educators ($384 Value)',
     creditLink: 'https://www.figma.com/education/',
+    isStudentDeal: true,
     isPopular: true,
     tags: ['UI/UX', 'Figma', 'Generative Design', '$384 Deal', 'Prototypes'],
     features: ['First-draft generative UI wireframes', 'Automated realistic copy & translation', 'Smart layer renaming & auto-layout', '1-click image background removal'],
@@ -427,6 +567,7 @@ export const AI_TOOLS: AiTool[] = [
     pricing: 'Free / Canva Pro $15/mo / Canva Teams',
     creditDeal: 'Canva Pro Free for Educators & Students ($420 Value)',
     creditLink: 'https://www.canva.com/education/',
+    isStudentDeal: true,
     isPopular: true,
     tags: ['Graphic Design', 'Social Media', '$420 Deal', 'Magic Studio', 'Marketing'],
     features: ['Magic Switch (reformats designs across 10+ platforms)', 'AI background remover and photo expander', 'Magic Write brand voice copy generation', 'Instant text-to-presentation generator'],

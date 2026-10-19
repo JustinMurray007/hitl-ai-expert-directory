@@ -40,8 +40,8 @@ export default function AiToolsDirectory() {
         return false;
       }
 
-      // Credit Deal filter
-      if (onlyCredits && !tool.creditDeal) {
+      // Save on AI (Credit & Grant) filter (non-student)
+      if (onlyCredits && (!tool.creditDeal || tool.isStudentDeal)) {
         return false;
       }
 
@@ -66,8 +66,8 @@ export default function AiToolsDirectory() {
   const marqueeToolIds = ['viktor-ai', 'claude', 'chatgpt', 'gemini', 'grok', 'perplexity'];
   const marqueeTools = AI_TOOLS.filter((t) => marqueeToolIds.includes(t.id));
 
-  // Count tools with verified credit deals
-  const creditDealsCount = AI_TOOLS.filter((t) => Boolean(t.creditDeal)).length;
+  // Count tools with business Save on AI deals (non-student)
+  const saveOnAiCount = AI_TOOLS.filter((t) => Boolean(t.creditDeal && !t.isStudentDeal)).length;
 
   return (
     <div className="space-y-12">
@@ -97,7 +97,7 @@ export default function AiToolsDirectory() {
 
           {/* Quick Filters */}
           <div className="flex flex-wrap items-center gap-2 self-start md:self-auto shrink-0">
-            {/* Free Credits Filter */}
+            {/* Save on AI Filter */}
             <button
               type="button"
               onClick={() => {
@@ -111,7 +111,7 @@ export default function AiToolsDirectory() {
               }`}
             >
               <Coins className="w-4 h-4" />
-              <span>Free Credits &amp; Grants ({creditDealsCount})</span>
+              <span>Save on Ai ({saveOnAiCount})</span>
             </button>
 
             {/* Popular Tools Filter */}
@@ -214,39 +214,6 @@ export default function AiToolsDirectory() {
         </div>
       )}
 
-      {/* Credit Deals Callout Banner (From findaicredits.com) */}
-      <div className="rounded-2xl p-5 sm:p-6 border border-[#b2e8b8] bg-[#f0f9f1] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-[#108a00] text-white flex items-center justify-center shrink-0 shadow-xs">
-            <Coins className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-sm sm:text-base text-[#001e00]">
-                Verified Startup Credits &amp; Free AI Grants
-              </span>
-              <span className="text-[10px] font-mono font-bold bg-[#108a00] text-white px-2 py-0.5 rounded-full">
-                Up to $150K
-              </span>
-            </div>
-            <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-snug">
-              Looking for free AI credits, compute grants, and discounts? Check out verified offers from Microsoft ($150K), Claude ($10K), AWS ($200K), and Cloudflare ($10K).
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
-          <a
-            href="https://www.findaicredits.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white border border-[#b2e8b8] hover:border-[#108a00] text-xs font-bold text-[#108a00] hover:bg-[#edf7ee] transition-all shadow-xs"
-          >
-            <span>Visit Find AI Credits</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
-      </div>
-
       {/* Tools Grid */}
       <div>
         <div className="flex items-center justify-between mb-6">
@@ -334,12 +301,12 @@ export default function AiToolsDirectory() {
                     {tool.description}
                   </p>
 
-                  {/* Verified Credit Deal Callout (findaicredits.com) */}
+                  {/* Verified Credit Deal Callout */}
                   {tool.creditDeal && (
                     <div className="p-3 rounded-xl bg-[#edf7ee] border border-[#b2e8b8] text-xs text-[#1e2a1e] mb-4 leading-snug">
                       <div className="flex items-center gap-1.5 text-[#108a00] font-extrabold mb-1">
                         <Gift className="w-3.5 h-3.5" />
-                        <span>Verified Credit / Startup Grant:</span>
+                        <span>Save on Ai Offer:</span>
                       </div>
                       <p className="font-semibold text-slate-800">{tool.creditDeal}</p>
                     </div>

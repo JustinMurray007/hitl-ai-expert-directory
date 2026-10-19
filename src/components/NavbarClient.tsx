@@ -28,7 +28,11 @@ import {
   CheckCircle2,
   Layers,
   Target,
+  Coins,
+  ExternalLink,
+  Gift,
 } from 'lucide-react';
+import { SAVE_ON_AI_DEALS } from '@/lib/ai-tools';
 
 interface NavbarClientProps {
   demoActive: boolean;
@@ -132,14 +136,18 @@ const industryVerticals = [
 
 export default function NavbarClient({ demoActive }: NavbarClientProps) {
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
+  const [aiToolsMenuOpen, setAiToolsMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const megaMenuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const aiToolsMenuRef = useRef<HTMLDivElement>(null);
+  const aiToolsButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
 
   // Close menus on route change
   useEffect(() => {
     setMegaMenuOpen(false);
+    setAiToolsMenuOpen(false);
     setMobileMenuOpen(false);
   }, [pathname]);
 
@@ -153,6 +161,14 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
         !buttonRef.current.contains(event.target as Node)
       ) {
         setMegaMenuOpen(false);
+      }
+      if (
+        aiToolsMenuRef.current &&
+        !aiToolsMenuRef.current.contains(event.target as Node) &&
+        aiToolsButtonRef.current &&
+        !aiToolsButtonRef.current.contains(event.target as Node)
+      ) {
+        setAiToolsMenuOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -190,8 +206,14 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             <button
               ref={buttonRef}
               type="button"
-              onClick={() => setMegaMenuOpen(!megaMenuOpen)}
-              onMouseEnter={() => setMegaMenuOpen(true)}
+              onClick={() => {
+                setMegaMenuOpen(!megaMenuOpen);
+                if (!megaMenuOpen) setAiToolsMenuOpen(false);
+              }}
+              onMouseEnter={() => {
+                setMegaMenuOpen(true);
+                setAiToolsMenuOpen(false);
+              }}
               className={`inline-flex items-center gap-1.5 py-2 hover:text-[#108a00] transition-colors focus:outline-hidden ${
                 megaMenuOpen ? 'text-[#108a00]' : ''
               }`}
@@ -208,21 +230,62 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
 
           <Link
             href="/recommendations"
+            onMouseEnter={() => {
+              setMegaMenuOpen(false);
+              setAiToolsMenuOpen(false);
+            }}
             className="hover:text-[#1d4ed8] transition-colors flex items-center gap-1.5 text-[#1e2a1e]"
           >
             <Sparkles className="w-4 h-4 text-[#2563eb]" />
             <span>Find Your Business</span>
           </Link>
 
-          <Link href="/ai-tools" className="hover:text-[#108a00] transition-colors">
-            AI Tools
-          </Link>
+          {/* AI Tools & Save on AI Dropdown Trigger */}
+          <div className="relative">
+            <button
+              ref={aiToolsButtonRef}
+              type="button"
+              onClick={() => {
+                setAiToolsMenuOpen(!aiToolsMenuOpen);
+                if (!aiToolsMenuOpen) setMegaMenuOpen(false);
+              }}
+              onMouseEnter={() => {
+                setAiToolsMenuOpen(true);
+                setMegaMenuOpen(false);
+              }}
+              className={`inline-flex items-center gap-1.5 py-2 hover:text-[#108a00] transition-colors focus:outline-hidden ${
+                aiToolsMenuOpen ? 'text-[#108a00]' : ''
+              }`}
+              aria-expanded={aiToolsMenuOpen}
+            >
+              <span>AI Tools</span>
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-200 ${
+                  aiToolsMenuOpen ? 'rotate-180 text-[#108a00]' : 'text-slate-400'
+                }`}
+              />
+            </button>
+          </div>
 
-          <Link href="/about" className="hover:text-[#108a00] transition-colors">
+          <Link
+            href="/about"
+            onMouseEnter={() => {
+              setMegaMenuOpen(false);
+              setAiToolsMenuOpen(false);
+            }}
+            className="hover:text-[#108a00] transition-colors"
+          >
             How It Works
           </Link>
 
-          <Link href="/match" className="hover:text-[#108a00] transition-colors">
+          <Link
+            href="/match"
+            onMouseEnter={() => {
+              setMegaMenuOpen(false);
+              setAiToolsMenuOpen(false);
+            }}
+            className="hover:text-[#108a00] transition-colors"
+          >
             Concierge Match
           </Link>
         </nav>
@@ -407,6 +470,150 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
       )}
 
       {/* =======================================================================
+          AI TOOLS & SAVE ON AI MEGA DROPDOWN (DESKTOP)
+      ======================================================================== */}
+      {aiToolsMenuOpen && (
+        <div
+          ref={aiToolsMenuRef}
+          onMouseLeave={() => setAiToolsMenuOpen(false)}
+          className="hidden lg:block absolute top-full left-0 w-full bg-white z-50 border-b border-[#c8d6c8] mega-menu-shadow transition-all duration-200 animate-in fade-in slide-in-from-top-2"
+        >
+          <div className="max-w-7xl mx-auto px-6 py-8">
+            <div className="grid grid-cols-12 gap-8">
+              {/* Left Column: AI Tools Overview & Quick Navigation (4 cols) */}
+              <div className="col-span-4 pr-6 border-r border-slate-100 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xs font-mono font-bold tracking-wider uppercase text-slate-500">
+                      Explore AI Stack
+                    </span>
+                    <span className="text-[10px] font-bold bg-purple-100 text-purple-700 px-2.5 py-0.5 rounded-full border border-purple-200">
+                      35+ Models &amp; Tools
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-black text-[#001e00] tracking-tight">
+                    AI Tools Directory
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                    Explore curated, battle-tested AI models, voice telephony APIs, coding assistants, and workflow automation platforms used by real businesses.
+                  </p>
+
+                  <div className="mt-5 space-y-2.5">
+                    <Link
+                      href="/ai-tools"
+                      onClick={() => setAiToolsMenuOpen(false)}
+                      className="group flex items-center justify-between p-3 rounded-xl bg-[#f9faf9] border border-[#e4ebe4] hover:border-[#108a00] hover:bg-white transition-all shadow-2xs"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-[#e4f7e6] text-[#108a00] flex items-center justify-center font-bold">
+                          <Cpu className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-bold text-[#001e00] group-hover:text-[#108a00] transition-colors">
+                            Browse All 35+ AI Tools
+                          </div>
+                          <div className="text-[11px] text-slate-500">Search, filter &amp; compare models</div>
+                        </div>
+                      </div>
+                      <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#108a00] transition-colors" />
+                    </Link>
+
+                    <Link
+                      href="/ai-tools"
+                      onClick={() => setAiToolsMenuOpen(false)}
+                      className="group flex items-center justify-between p-3 rounded-xl bg-[#edf7ee] border border-[#b2e8b8] hover:border-[#108a00] hover:bg-[#e4f7e6] transition-all shadow-2xs"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-[#108a00] text-white flex items-center justify-center font-bold">
+                          <Coins className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-bold text-[#001e00] group-hover:text-[#108a00] transition-colors">
+                            Save on Ai Hub
+                          </div>
+                          <div className="text-[11px] text-[#108a00] font-semibold">Verified business credits &amp; grants</div>
+                        </div>
+                      </div>
+                      <ArrowRight className="w-4 h-4 text-[#108a00]" />
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                  <span>Zero student fluff • 100% Business vetted</span>
+                  <Link
+                    href="/match"
+                    onClick={() => setAiToolsMenuOpen(false)}
+                    className="text-[#108a00] font-bold hover:underline"
+                  >
+                    Need an Expert? →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Right Column: "Save on Ai" Offers, Discounts & Grants (8 cols) */}
+              <div className="col-span-8">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-mono font-extrabold tracking-wider uppercase text-[#108a00] flex items-center gap-1.5">
+                      <Coins className="w-4 h-4 text-[#108a00]" />
+                      Save on Ai:
+                    </span>
+                    <span className="text-xs font-bold text-slate-600">
+                      Offers, Discounts &amp; Startup Grants
+                    </span>
+                  </div>
+                  <Link
+                    href="/ai-tools"
+                    onClick={() => setAiToolsMenuOpen(false)}
+                    className="text-xs font-bold text-[#108a00] hover:underline flex items-center gap-1"
+                  >
+                    View in Directory <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+
+                {/* 2-Column Grid of Verified Business Deals */}
+                <div className="grid grid-cols-2 gap-3 max-h-[380px] overflow-y-auto pr-1">
+                  {SAVE_ON_AI_DEALS.map((deal) => (
+                    <a
+                      key={deal.id}
+                      href={deal.claimUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group p-3.5 rounded-xl bg-[#fafbfa] border border-[#e4ebe4] hover:border-[#108a00] hover:bg-white transition-all shadow-2xs hover:shadow-xs flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-1.5">
+                          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400">
+                            {deal.company}
+                          </span>
+                          <span className="text-[10px] font-mono font-extrabold bg-[#edf7ee] border border-[#b2e8b8] text-[#108a00] px-2 py-0.5 rounded-full">
+                            {deal.badge}
+                          </span>
+                        </div>
+                        <h4 className="text-sm font-bold text-[#001e00] group-hover:text-[#108a00] transition-colors leading-snug">
+                          {deal.headline}
+                        </h4>
+                        <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+                          {deal.description}
+                        </p>
+                      </div>
+                      <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                        <span className="text-slate-400 font-medium truncate pr-2">{deal.category}</span>
+                        <span className="font-bold text-[#108a00] inline-flex items-center gap-1 shrink-0 group-hover:translate-x-0.5 transition-transform">
+                          Claim <ExternalLink className="w-3 h-3" />
+                        </span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =======================================================================
           MOBILE DRAWER (SM / MD SCREENS)
       ======================================================================== */}
       {mobileMenuOpen && (
@@ -430,16 +637,62 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               </div>
               <span className="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full">Free Tool</span>
             </Link>
-            <Link
-              href="/ai-tools"
-              className="flex items-center justify-between p-3 rounded-xl bg-purple-50 text-base font-bold text-purple-900"
-            >
-              <div className="flex items-center gap-2">
-                <Cpu className="w-4 h-4 text-purple-600" />
-                <span>AI Models &amp; Tools</span>
+            {/* AI Tools & Save on Ai Mobile Section */}
+            <div className="p-3.5 rounded-2xl bg-purple-50/70 border border-purple-100 space-y-3">
+              <div className="flex items-center justify-between">
+                <Link
+                  href="/ai-tools"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 font-bold text-purple-950 text-base hover:text-[#108a00]"
+                >
+                  <Cpu className="w-4 h-4 text-purple-600" />
+                  <span>AI Models &amp; Tools</span>
+                </Link>
+                <Link
+                  href="/ai-tools"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-xs bg-purple-200 text-purple-800 font-bold px-2 py-0.5 rounded-full"
+                >
+                  35+ Tools
+                </Link>
               </div>
-              <span className="text-xs bg-purple-200 text-purple-800 px-2 py-0.5 rounded-full">Directory</span>
-            </Link>
+
+              {/* Save on AI sub-list */}
+              <div className="pt-2.5 border-t border-purple-200/50">
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#108a00] mb-2 flex items-center justify-between">
+                  <span className="flex items-center gap-1.5">
+                    <Coins className="w-3.5 h-3.5 text-[#108a00]" />
+                    Save on Ai: Credits &amp; Grants
+                  </span>
+                  <Link
+                    href="/ai-tools"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-[10px] font-bold text-slate-500 hover:underline"
+                  >
+                    View All →
+                  </Link>
+                </div>
+                <div className="grid grid-cols-1 gap-1.5">
+                  {SAVE_ON_AI_DEALS.slice(0, 5).map((deal) => (
+                    <a
+                      key={deal.id}
+                      href={deal.claimUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200/80 text-xs font-semibold text-slate-800 hover:border-[#108a00]"
+                    >
+                      <div className="flex items-center gap-1.5 truncate pr-2">
+                        <span className="font-bold text-[#001e00]">{deal.company}:</span>
+                        <span className="text-slate-600 truncate">{deal.headline}</span>
+                      </div>
+                      <span className="text-[10px] font-extrabold text-[#108a00] bg-[#edf7ee] px-1.5 py-0.5 rounded shrink-0">
+                        {deal.badge}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
             <Link
               href="/match"
               className="flex items-center justify-between p-3 rounded-xl bg-[#e4f7e6] text-base font-bold text-[#001e00]"
