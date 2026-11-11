@@ -5,7 +5,7 @@ import { Sparkles } from 'lucide-react';
 export const metadata = {
   title: 'Request AI Specialist Matchmaking | Find Ai Pros',
   description:
-    'Private concierge matchmaking with vetted AI specialists. We review your workflow bottleneck and introduce specialists who are eligible for a match.',
+    'Private concierge matchmaking with AI specialists. We review your workflow bottleneck and introduce specialists who are eligible for a match.',
 };
 
 export default function MatchPage() {
@@ -21,7 +21,7 @@ export default function MatchPage() {
           Request AI Specialist Matchmaking
         </h1>
         <p className="text-base sm:text-lg text-[#5e6d55] mt-3 leading-relaxed font-normal">
-          Tell us about your business process, stack, and budget. We will review your request privately and introduce vetted specialists. Match eligibility stays on during the free 30 days and on any paid plan.
+          Tell us about your business process, stack, and budget. We will review your request privately and introduce specialists. Match eligibility stays on during the free 30 days and on any paid plan.
         </p>
       </div>
 

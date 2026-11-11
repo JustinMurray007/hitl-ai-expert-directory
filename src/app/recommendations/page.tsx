@@ -4,9 +4,9 @@ import { Sparkles } from 'lucide-react';
 import { Suspense } from 'react';
 
 export const metadata = {
-  title: 'Find Your Business — Tailored AI Blueprints & Verified Specialists | Find Ai Pros',
+  title: 'Find Your Business — Tailored AI Blueprints & Specialists | Find Ai Pros',
   description:
-    'Select your business type from 12 industries to get tailored AI workflow recommendations, required human safeguards, and verified specialists ready to implement.',
+    'Select your business type from 12 industries to get tailored AI workflow recommendations, required human safeguards, and specialists ready to implement.',
 };
 
 export default async function RecommendationsPage() {
@@ -24,7 +24,7 @@ export default async function RecommendationsPage() {
           Find Your Business &amp; Recommended AI Workflows
         </h1>
         <p className="text-base sm:text-lg text-[#475569] mt-4 leading-relaxed font-normal">
-          Select your business type below. We generate a custom AI workflow blueprint, the human-in-the-loop fallback safeguards, and connect you with vetted specialists who are eligible for a match.
+          Select your business type below. We generate a custom AI workflow blueprint, the human-in-the-loop fallback safeguards, and connect you with specialists who are eligible for a match.
         </p>
       </div>
 

@@ -53,7 +53,7 @@ export default function ConstructionLandingPage() {
 
           {/* Subheadline */}
           <p className="mt-6 text-lg sm:text-xl text-[#334133] max-w-2xl mx-auto leading-relaxed font-normal">
-            When you&apos;re running crews, talking with subs, or on a roof, you can&apos;t answer every phone call. Our verified AI specialists build 24/7 voice dispatch, instant text-backs, and automated estimate follow-up — with 100% human control.
+            When you&apos;re running crews, talking with subs, or on a roof, you can&apos;t answer every phone call. Specialists here build 24/7 voice dispatch, instant text-backs, and automated estimate follow-up — with 100% human control.
           </p>
 
           {/* Jump to Form CTA Button */}
@@ -272,7 +272,7 @@ export default function ConstructionLandingPage() {
               Real Builds Implemented for Construction Companies
             </h2>
             <p className="text-base text-[#475569] mt-3 font-normal leading-relaxed max-w-2xl mx-auto">
-              Specialists here are vetted the same way as the rest of the directory: a named person, human safety checks, and references we can contact. Some also choose to show an example of past work.
+              Specialists here follow the same listing standard as the rest of the directory: a named person, human safety checks, and references we can contact. Some also choose to show an example of past work.
             </p>
           </div>
 
@@ -372,7 +372,7 @@ export default function ConstructionLandingPage() {
               Tell Us About Your Business
             </h2>
             <p className="text-base sm:text-lg text-[#475569] mt-3 leading-relaxed font-normal">
-              Complete the quick questionnaire below. We will review your trade focus, current CRM, and bottlenecks, and match you with a vetted construction automation specialist.
+              Complete the quick questionnaire below. We will review your trade focus, current CRM, and bottlenecks, and match you with a construction automation specialist.
             </p>
           </div>
 
@@ -447,7 +447,7 @@ export default function ConstructionLandingPage() {
                 Does this integrate with Jobber, JobNimbus, or BuilderTrend?
               </h3>
               <p className="text-sm text-[#475569] mt-2 leading-relaxed">
-                Yes. All verified specialists on our directory specialize in connecting voice agents and SMS workflows directly into standard contractor CRMs via webhooks and Make/Zapier, eliminating manual data entry.
+                Yes. Specialists on the directory connect voice agents and SMS workflows directly into standard contractor CRMs via webhooks and Make/Zapier, eliminating manual data entry.
               </p>
             </div>
 

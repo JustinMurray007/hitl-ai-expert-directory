@@ -4,7 +4,7 @@ import SuccessActions from './SuccessActions';
 
 export const metadata = {
   title: 'Payment received | Find Ai Pros',
-  description: 'Stripe confirms the listing subscription from a webhook. Paying does not skip vetting.',
+  description: 'Stripe confirms the listing subscription from a webhook.',
 };
 
 export default function ApplySuccessPage() {
@@ -13,7 +13,7 @@ export default function ApplySuccessPage() {
       <div className="rounded-3xl border border-[#e4ebe4] bg-white p-8 shadow-xs">
         <h1 className="text-3xl font-black text-[#001e00]">Payment received</h1>
         <p className="mt-3 text-[#5e6d55] leading-relaxed">
-          Stripe is confirming the subscription. Your listing tier updates from the webhook, not from this page. Paying does not skip vetting. If the subscription later ends, the public profile becomes limited: name, category, and vetted badge stay, and website, social, contact, and match eligibility come off.
+          Stripe is confirming the subscription. Your listing tier and categories update from the webhook, not from this page. If the subscription later ends, the public profile becomes limited: name and category stay, and website, social, contact, and match eligibility come off.
         </p>
         <Suspense fallback={null}>
           <SuccessActions />

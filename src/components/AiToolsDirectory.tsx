@@ -370,10 +370,10 @@ export default function AiToolsDirectory() {
               <span>The Human-in-the-Loop Advantage</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-black text-[#001e00] tracking-tight">
-              Tools don&apos;t run a business on their own — verified workflows do.
+              Tools don&apos;t run a business on their own — workflows with a human check do.
             </h3>
             <p className="text-sm sm:text-base text-[#475569] leading-relaxed max-w-2xl font-normal">
-              Most businesses struggle when deploying raw AI models without safeguard guardrails, team alerts, or proper CRM synchronization. Our directory connects you with vetted specialists who assemble these tools into resilient production systems.
+              Most businesses struggle when deploying raw AI models without safeguard guardrails, team alerts, or proper CRM synchronization. Our directory connects you with specialists who assemble these tools into resilient production systems.
             </p>
           </div>
           <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">

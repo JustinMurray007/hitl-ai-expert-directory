@@ -4,9 +4,15 @@ import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle2 } from 'lucide-react';
 import type { BillingPeriod, CheckoutPlan } from '@/lib/stripe-links';
+import { extraCategoryQuantity, includedCategoryPhrase } from '@/lib/billing/category-cap';
 
 const APPLICATION_HREF = '#application';
 const CHECKOUT_ENABLED = process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_ENABLED === 'true';
+
+export type PricingCategory = {
+  slug: string;
+  name: string;
+};
 
 const PLANS: {
   id: CheckoutPlan;
@@ -28,37 +34,33 @@ const PLANS: {
     points: [
       'Listed in 1 category',
       'Link to your website',
-      'The same vetted badge as every listed specialist',
-      'Vetting is included. Paying does not skip it',
     ],
   },
   {
     id: 'featured',
     name: 'Featured',
-    ribbon: '4 categories · labeled Featured',
+    ribbon: '3 categories · labeled Featured',
     monthly: '$29.99',
     yearly: '$299.99',
     yearlyNote: '$25.00 / month, billed yearly',
     highlighted: true,
     points: [
-      'Listed above Basic listings in 4 categories',
+      'Listed above Basic listings in 3 categories',
       'Always labeled Featured',
       'Everything in Basic, including your website link',
-      'Placement only. It does not skip vetting',
     ],
   },
   {
     id: 'premium',
     name: 'Premium Featured',
-    ribbon: 'Homepage · top of 6 categories',
+    ribbon: 'Homepage · every category',
     monthly: '$59.99',
     yearly: '$599.99',
     yearlyNote: '$50.00 / month, billed yearly',
     points: [
-      'Homepage listing, plus the absolute top of 6 categories',
+      'Homepage listing, plus the top of every category',
       'Always labeled Premium Featured',
       'Everything in Featured, including your website link',
-      'Placement only. It does not skip vetting',
     ],
   },
 ];
@@ -73,9 +75,21 @@ function CheckoutIds() {
   );
 }
 
-export default function ApplyPricing() {
+function extraPriceLabel(period: BillingPeriod, quantity: number): string {
+  const each = period === 'monthly' ? '$9.99/month' : '$79/year';
+  const noun = quantity === 1 ? 'category' : 'categories';
+  return `${quantity} extra ${noun} at ${each} each`;
+}
+
+export default function ApplyPricing({ categories = [] }: { categories?: PricingCategory[] }) {
   const [period, setPeriod] = useState<BillingPeriod>('monthly');
-  const [extraCategories, setExtraCategories] = useState(0);
+  const [selected, setSelected] = useState<string[]>([]);
+
+  function toggleCategory(slug: string) {
+    setSelected((current) => (
+      current.includes(slug) ? current.filter((item) => item !== slug) : [...current, slug]
+    ));
+  }
 
   return (
     <section id="pricing" className="scroll-mt-24 mb-16">
@@ -84,7 +98,7 @@ export default function ApplyPricing() {
           Listing plans
         </h2>
         <p className="text-base sm:text-lg text-[#5e6d55] mt-3 leading-relaxed">
-          Vetting is always free. A new profile is free for the first 30 days in one category.
+          A new profile is free for the first 30 days in one category.
           No card required. Nothing is charged automatically. Contractors browse free.
         </p>
         <div className="inline-flex mt-5 px-4 py-2 rounded-full bg-[#108a00] text-white text-sm font-bold">
@@ -117,9 +131,60 @@ export default function ApplyPricing() {
         </div>
       </div>
 
+      <aside className="mb-5 rounded-3xl p-6 sm:p-7 bg-white border border-[#e4ebe4] shadow-xs">
+        <h3 className="text-xl font-black text-[#001e00]">Choose your categories</h3>
+        <p className="text-[#5e6d55] mt-2 leading-relaxed">
+          Each category has its own page, and people can filter and search the directory by category. The more categories you&apos;re in, the more of those pages and filters you show up in.
+        </p>
+        <p className="text-[#5e6d55] mt-2 leading-relaxed">
+          Extra categories are <strong className="text-[#001e00]">$9.99/month</strong> or <strong className="text-[#001e00]">$79/year</strong> each, on top of your plan. Basic includes 1 category, Featured includes 3, and Premium Featured includes every category. You are only charged for categories past the ones your plan includes.
+        </p>
+        {categories.length > 0 ? (
+          <fieldset className="mt-4">
+            <legend className="text-sm font-semibold text-[#001e00]">
+              Categories to appear in
+            </legend>
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {categories.map((category) => {
+                const checked = selected.includes(category.slug);
+                return (
+                  <label
+                    key={category.slug}
+                    className={`flex items-start gap-3 rounded-2xl border px-4 py-3 cursor-pointer ${
+                      checked ? 'border-[#108a00] bg-[#f2faf3]' : 'border-[#dbe3db] bg-white'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      className="mt-1 accent-[#108a00]"
+                      checked={checked}
+                      onChange={() => toggleCategory(category.slug)}
+                    />
+                    <span className="text-sm font-bold text-[#001e00]">{category.name}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </fieldset>
+        ) : (
+          <p className="mt-4 text-sm text-[#5e6d55]">Categories are not available right now. Refresh and try again.</p>
+        )}
+        {selected.length === 0 && (
+          <p className="mt-3 text-sm font-semibold text-[#001e00]">Choose at least one category before checkout.</p>
+        )}
+      </aside>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {PLANS.map((plan) => {
           const href = CHECKOUT_ENABLED ? undefined : APPLICATION_HREF;
+          const included = includedCategoryPhrase(plan.id, categories.length);
+          const extra = extraCategoryQuantity(selected.length, plan.id, Math.max(categories.length, selected.length));
+          const buttonLabel = `Get started — ${plan.name === 'Premium Featured' ? 'Premium' : plan.name}`;
+          const buttonClass = `w-full inline-flex items-center justify-center px-5 py-3.5 rounded-full font-bold text-sm sm:text-base transition-colors ${
+            plan.highlighted
+              ? 'bg-[#108a00] hover:bg-[#14a800] text-white shadow-sm'
+              : 'bg-white hover:bg-[#f2faf3] text-[#108a00] border border-[#108a00]'
+          }`;
           return (
             <article
               key={plan.id}
@@ -144,6 +209,9 @@ export default function ApplyPricing() {
               <p className="text-sm text-[#5e6d55] min-h-[1.25rem] mt-1">
                 {period === 'yearly' ? plan.yearlyNote : ''}
               </p>
+              <p className="mt-3 text-sm font-semibold text-[#001e00] leading-relaxed">
+                Your plan includes {included}. Choose which ones you want to appear in.
+              </p>
               <ul className="mt-4 space-y-3 text-sm sm:text-base text-[#334133] flex-1">
                 {plan.points.map((point) => (
                   <li key={point} className="flex items-start gap-2">
@@ -152,6 +220,13 @@ export default function ApplyPricing() {
                   </li>
                 ))}
               </ul>
+              <p className="mt-4 text-sm text-[#5e6d55] leading-relaxed min-h-[2.5rem]">
+                {extra > 0
+                  ? `Adds ${extraPriceLabel(period, extra)}.`
+                  : plan.id === 'premium'
+                    ? 'No extra category charge on this plan.'
+                    : 'No extra category charge for this selection.'}
+              </p>
               {href ? (
                 <a
                   href={href}
@@ -161,25 +236,23 @@ export default function ApplyPricing() {
                       : 'bg-white hover:bg-[#f2faf3] text-[#108a00] border border-[#108a00]'
                   }`}
                 >
-                  Get started — {plan.name === 'Premium Featured' ? 'Premium' : plan.name}
+                  {buttonLabel}
                 </a>
               ) : (
                 <form action="/api/stripe/checkout" method="POST" className="mt-6">
                   <input type="hidden" name="plan" value={plan.id} />
                   <input type="hidden" name="interval" value={period === 'yearly' ? 'year' : 'month'} />
-                  <input type="hidden" name="extra_category_quantity" value={extraCategories} />
+                  <input type="hidden" name="category_slugs" value={selected.join(',')} />
+                  <input type="hidden" name="extra_category_quantity" value={extra} />
                   <Suspense fallback={null}>
                     <CheckoutIds />
                   </Suspense>
                   <button
                     type="submit"
-                    className={`w-full inline-flex items-center justify-center px-5 py-3.5 rounded-full font-bold text-sm sm:text-base transition-colors ${
-                      plan.highlighted
-                        ? 'bg-[#108a00] hover:bg-[#14a800] text-white shadow-sm'
-                        : 'bg-white hover:bg-[#f2faf3] text-[#108a00] border border-[#108a00]'
-                    }`}
+                    disabled={selected.length === 0}
+                    className={`${buttonClass} disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
-                    Get started — {plan.name === 'Premium Featured' ? 'Premium' : plan.name}
+                    {buttonLabel}
                   </button>
                 </form>
               )}
@@ -191,30 +264,9 @@ export default function ApplyPricing() {
         })}
       </div>
 
-      <aside className="mt-5 rounded-3xl p-6 sm:p-7 bg-white border border-[#e4ebe4] shadow-xs">
-        <h3 className="text-xl font-black text-[#001e00]">Extra categories</h3>
-        <p className="text-[#5e6d55] mt-2 leading-relaxed">
-          Need to be listed in more categories than your plan includes? Extra categories are <strong className="text-[#001e00]">$9.99/month</strong> or <strong className="text-[#001e00]">$79/year</strong> each, on top of your plan. Basic includes 1 category, Featured includes 4, and Premium Featured includes 6.
-        </p>
-        <label className="mt-4 flex flex-col gap-1 text-sm font-semibold text-[#001e00]">
-          Extra categories to add at checkout
-          <input
-            type="number"
-            min={0}
-            max={20}
-            value={extraCategories}
-            onChange={(event) => setExtraCategories(Math.max(0, Math.min(20, Number(event.target.value) || 0)))}
-            className="w-28 rounded-lg border border-[#dbe3db] px-3 py-2 font-bold"
-          />
-        </label>
-      </aside>
-
       <div className="mt-5 rounded-3xl p-6 sm:p-8 bg-white border border-[#e4ebe4] shadow-xs">
         <h3 className="text-xl font-black text-[#001e00]">How listings work</h3>
         <ul className="mt-4 space-y-3 text-sm sm:text-base text-[#334133] leading-relaxed">
-          <li>
-            <strong>Vetting is always free.</strong> Every specialist is checked the same way. Paying never skips or softens vetting.
-          </li>
           <li>
             <strong>Your profile is free for the first 30 days</strong> in one category. No card is required at signup, and nothing is charged automatically. The 30 days are tracked in the directory, not as a Stripe trial. During those 30 days, your website and social links are shown.
           </li>
@@ -225,13 +277,13 @@ export default function ApplyPricing() {
             <strong>On any paid plan,</strong> your website and social links stay on your public profile and expert cards.
           </li>
           <li>
-            <strong>After 30 days, if you have not picked a plan,</strong> the listing stays visible as a limited profile: your name, category, and vetted badge remain public. Your website link, social links, contact and lead routing, and match eligibility come off until you start a plan. The listing is not hidden, and you are not charged automatically.
+            <strong>After 30 days, if you have not picked a plan,</strong> the listing stays visible as a limited profile: your name and category remain public. Your website link, social links, contact and lead routing, and match eligibility come off until you start a plan. The listing is not hidden, and you are not charged automatically.
           </li>
           <li>
-            <strong>Featured and Premium Featured are paid placements, and they are clearly labeled.</strong> They change where you appear. They do not change whether you are vetted.
+            <strong>Featured and Premium Featured are paid placements, and they are clearly labeled.</strong> They change where you appear.
           </li>
           <li>
-            The Directory does not guarantee results, leads, or hired work. A specialist who breaks the standard can be suspended or removed, including on a paid placement.
+            A specialist who breaks the standard can be suspended or removed, including on a paid placement.
           </li>
         </ul>
       </div>
@@ -243,7 +295,7 @@ export default function ApplyPricing() {
           <p className="mt-2 text-sm sm:text-base text-[#5e6d55] leading-relaxed">
             Nothing is charged automatically. You get a reminder email at day 15, and another on day 30 if you have not picked a plan.
             If you are on Basic, Featured, or Premium Featured, that plan continues, and your website and social links stay visible.
-            If you have not picked a plan, your listing stays on the site as a limited profile: your name, category, and vetted badge stay public.
+            If you have not picked a plan, your listing stays on the site as a limited profile: your name and category stay public.
             Your website link, social links, contact and lead routing, and match eligibility come off until you start a plan.
             The listing is not hidden. The same limited profile applies when a paid subscription ends.
           </p>
@@ -255,15 +307,9 @@ export default function ApplyPricing() {
           </p>
         </details>
         <details className="border-t border-[#e4ebe4] py-4">
-          <summary className="cursor-pointer font-bold text-[#001e00]">Does paying skip vetting?</summary>
+          <summary className="cursor-pointer font-bold text-[#001e00]">Why would I add more categories?</summary>
           <p className="mt-2 text-sm sm:text-base text-[#5e6d55] leading-relaxed">
-            No. Vetting is free for every applicant and is never a paid upgrade. Featured and Premium Featured buy placement. They do not buy a different vetting bar, and they do not buy the badge.
-          </p>
-        </details>
-        <details className="border-t border-[#e4ebe4] py-4">
-          <summary className="cursor-pointer font-bold text-[#001e00]">Do you guarantee results or leads?</summary>
-          <p className="mt-2 text-sm sm:text-base text-[#5e6d55] leading-relaxed">
-            No. The Directory does not guarantee results, lead volume, or hired work. If a specialist offers their own terms, those belong in the written plan with the contractor before work starts.
+            Each category has its own page, and people can filter and search the directory by category. The more categories you&apos;re in, the more of those pages and filters you show up in. Your plan includes a set number of categories. Choose which ones you want to appear in. Categories past that number are $9.99/month or $79/year each. Premium Featured includes every category.
           </p>
         </details>
         <details className="border-t border-[#e4ebe4] py-4">

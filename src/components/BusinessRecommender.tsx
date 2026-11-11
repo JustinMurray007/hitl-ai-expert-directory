@@ -8,7 +8,7 @@ import {
   IndustryRecommendation,
   COMMON_GROWTH_BOTTLENECKS,
 } from '@/lib/recommendations';
-import { VerifiedBadge, ToolBadge } from '@/components/Badge';
+import { ToolBadge } from '@/components/Badge';
 import { isMatchEligible, showsPublicLinks } from '@/lib/listing';
 import ExpertLocationLinks from '@/components/ExpertLocation';
 import {
@@ -229,7 +229,7 @@ export default function BusinessRecommender({
           </span>
         </div>
         <p className="text-sm text-[#526352] font-medium">
-          Choose the friction point you want to solve. We will generate the recommended architecture, required staff review checkpoints, and verified specialists.
+          Choose the friction point you want to solve. We will generate the recommended architecture, required staff review checkpoints, and specialists.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {displayBottlenecks.map((b) => {
@@ -288,7 +288,7 @@ export default function BusinessRecommender({
               3
             </span>
             <h2 className="text-xl sm:text-2xl font-black text-[#001e00]">
-              Your Tailored AI Blueprint &amp; Verified Specialists
+              Your Tailored AI Blueprint &amp; Specialists
             </h2>
           </div>
 
@@ -389,10 +389,10 @@ export default function BusinessRecommender({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <h4 className="text-xl sm:text-2xl font-black text-[#001e00]">
-                  Vetted Specialists Ready to Build This for You
+                  Specialists Ready to Build This for You
                 </h4>
                 <p className="text-sm sm:text-base text-[#475569] font-medium mt-0.5">
-                  These vetted specialists can take a match for this kind of work:
+                  These specialists can take a match for this kind of work:
                 </p>
               </div>
               <Link
@@ -426,7 +426,6 @@ export default function BusinessRecommender({
                               {exp.full_name}
                             </Link>
                           </h5>
-                          {exp.is_verified && <VerifiedBadge />}
                         </div>
                         <p className="text-sm text-[#108a00] font-bold truncate mt-0.5">
                           {exp.professional_title}

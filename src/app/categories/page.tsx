@@ -17,7 +17,7 @@ import {
 export const metadata = {
   title: 'AI Solutions by Business Need | Find Ai Pros',
   description:
-    'Explore verified AI automation solutions categorized by business need — from 24/7 phone answering and CRM sync to customer support and automated marketing.',
+    'Explore AI automation solutions categorized by business need — from 24/7 phone answering and CRM sync to customer support and automated marketing.',
 };
 
 const categoryIcons: Record<string, any> = {
@@ -85,13 +85,13 @@ export default async function CategoriesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] mb-4 shadow-xs">
             <ShieldCheck className="w-4 h-4 text-[#108a00]" />
-            <span>Verified Business AI Solutions</span>
+            <span>Business AI Solutions</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight max-w-3xl mx-auto leading-tight">
             Browse AI Specialists by Business Need
           </h1>
           <p className="mt-4 text-base sm:text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed font-normal">
-            Every category hub groups vetted specialists and the human safety checks they commit to.
+            Every category hub groups specialists and the human safety checks they commit to.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm font-semibold">

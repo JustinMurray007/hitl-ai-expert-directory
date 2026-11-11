@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: ZipPageProps): Promise<Metada
   }
 
   const title = `Find An Ai Consultant & Company Near ${postalCode} (${cityName}, ${stateCode}) | Find Ai Pros`;
-  const description = `Hire vetted AI automation consultants and AI development companies serving postal code ${postalCode} in ${cityName}, ${stateCode}. Human accountability and references we can contact.`;
+  const description = `Hire AI automation consultants and AI development companies serving postal code ${postalCode} in ${cityName}, ${stateCode}. Human accountability and references we can contact.`;
 
   return {
     title,
@@ -99,7 +99,7 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: `Find An Ai Consultant & Company Near ${postalCode}`,
-    description: `Verified AI specialists serving zip code ${postalCode} in ${cityName}, ${stateCode}.`,
+    description: `AI specialists serving zip code ${postalCode} in ${cityName}, ${stateCode}.`,
     itemListElement: zipExperts.map((exp, index) => ({
       '@type': 'ListItem',
       position: index + 1,
@@ -226,7 +226,7 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
           <div className="flex items-center justify-between border-b border-[#e4ebe4] pb-4 flex-wrap gap-2">
             <div>
               <h2 className="text-2xl font-black text-[#001e00]">
-                Verified Specialists Serving Zip Code {postalCode}
+                Specialists Serving Zip Code {postalCode}
               </h2>
               <p className="text-sm text-slate-600 mt-1">
                 Human safety checks, and contact links while a listing is inside its free 30 days or on a paid plan.

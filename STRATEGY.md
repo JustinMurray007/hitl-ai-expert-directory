@@ -47,21 +47,21 @@ Executive & Personal AI Ops (executive-personal-ai-ops)
 Scheduling, email triage, meeting action-item digestion, personal SOPs
 Claude, Gemini Workspaces, Perplexity, Cursor/Ollama
 
-Rule: Experts can select at most 3 categories. Keep taxonomy flat at launch — no nested industry × location × tool fan-out.
+Rule: Category caps follow the plan. Free and Basic include 1, Featured includes 3, and Premium includes every category. Extras fill the gap. Keep taxonomy flat at launch — no nested industry × location × tool fan-out.
 
-4. Listing plans and vetting
-Vetting is free for every applicant. The Verified badge is not sold, and paying never skips vetting. Case studies are not required to be listed or verified. References we can contact remain the proof requirement.
+4. Listing plans
+Case studies are not required to be listed. References we can contact remain part of the listing standard. The public site does not show a verification badge.
 
-New profiles are free for the first 30 days in one category, no card required, and nothing is charged automatically. After 30 days without a plan, the listing stays visible as a limited profile (name, category, vetted badge). Website, social links, contact and lead routing, and match eligibility come off. Reminder emails go out at day 15 and on day 30 if they have not picked a plan.
+New profiles are free for the first 30 days in one category, no card required, and nothing is charged automatically. After 30 days without a plan, the listing stays visible as a limited profile (name and category). Website, social links, contact and lead routing, and match eligibility come off. Reminder emails go out at day 15 and on day 30 if they have not picked a plan.
 
 Basic — $9.99/month or $79/year. One category, including a website link.
-Featured — $29.99/month or $299.99/year. Labeled Featured, above Basic listings in 4 categories.
-Premium Featured — $59.99/month or $599.99/year. Labeled Premium Featured. Homepage listing plus the absolute top of 6 categories.
-Extra categories — $9.99 each.
+Featured — $29.99/month or $299.99/year. Labeled Featured, above Basic listings in 3 categories.
+Premium Featured — $59.99/month or $599.99/year. Labeled Premium Featured. Homepage listing plus the top of every category.
+Extra categories — $9.99/month or $79/year each. Quantity is the number of chosen categories past the ones the plan includes. Premium does not need extras.
 
-The Directory does not guarantee results.
+Each category has its own page, and people can filter and search the directory by category. The more categories a specialist is in, the more of those pages and filters they show up in.
 
-Vetting checklist (applied before granting Verified)
+Listing checklist
 1. Guardrail verification — expert articulates a concrete human fallback (approval queue, staff alert, confidence threshold routing, exception quarantine). "100% autonomous / zero-touch" = automatic rejection.
 2. Entity and identity — active domain and a real business identity we can confirm.
 3. References — at least one reference we can contact.
@@ -93,7 +93,7 @@ Revenue
 Rationale
 1 (now)
 Free 30-day profiles, no card, no auto-charge
-Populate the directory. Vetting stays free.
+Populate the directory. Joining stays free for 30 days.
 2
 Basic, Featured, and Premium Featured
 Placement after the free period. Paying does not buy verification.
@@ -102,7 +102,7 @@ Extra categories at $9.99 each
 Only when a specialist needs more categories than the plan includes.
 4
 Concierge matchmaking
-Founder submits need → we shortlist eligible vetted specialists.
+Founder submits need → we shortlist eligible specialists.
 
 Sponsorships (voice AI vendors, automation platforms) are a Phase 3+ opportunity once traffic proves category hubs have an audience.
 
@@ -122,7 +122,7 @@ Phase 1 — Go live with inventory
 [ ] Replace demo data with real listings
 [ ] Point domain, deploy (Vercel recommended)
 Phase 2 — Revenue & verification at scale
-[ ] Stripe Payment Links for Basic, Featured, and Premium Featured (vetting stays free)
+[ ] Stripe Payment Links for Basic, Featured, and Premium Featured
 [ ] Admin dashboard for reviewer notes, evidence audit trail
 [ ] Newsletter + matchmaking intake go live
 [ ] Add real testimonials and reference links

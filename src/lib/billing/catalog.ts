@@ -3,11 +3,20 @@ export const STRIPE_API_VERSION = '2026-09-30.endive' as const;
 export type CheckoutPlan = 'basic' | 'featured' | 'premium';
 export type BillingInterval = 'month' | 'year';
 
-export const INCLUDED_CATEGORIES: Record<CheckoutPlan, number> = {
+/**
+ * Categories included before extras.
+ * Premium is every category that exists at checkout, so it is not a fixed count.
+ */
+export const INCLUDED_CATEGORIES: Record<CheckoutPlan, number | 'all'> = {
   basic: 1,
-  featured: 4,
-  premium: 6,
+  featured: 3,
+  premium: 'all',
 };
+
+export function includedCategoriesMetadata(plan: CheckoutPlan): string {
+  const included = INCLUDED_CATEGORIES[plan];
+  return included === 'all' ? 'all' : String(included);
+}
 
 export type CatalogPrice = {
   productName: string;

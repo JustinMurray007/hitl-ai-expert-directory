@@ -54,7 +54,7 @@ export default function OutdoorLandingPage() {
 
           {/* Subheadline */}
           <p className="mt-6 text-lg sm:text-xl text-[#334133] max-w-2xl mx-auto leading-relaxed font-normal">
-            Spring rushes and busy field days mean dozens of missed inquiries. Our verified AI specialists build 24/7 call answering, instant project pre-qualification, and automated weather-delay notices tailored specifically for outdoor contractors.
+            Spring rushes and busy field days mean dozens of missed inquiries. Specialists here build 24/7 call answering, instant project pre-qualification, and automated weather-delay notices tailored specifically for outdoor contractors.
           </p>
 
           {/* Action Buttons */}
@@ -373,7 +373,7 @@ export default function OutdoorLandingPage() {
               Tell Us About Your Outdoor Trade
             </h2>
             <p className="text-base sm:text-lg text-[#475569] mt-3 leading-relaxed font-normal">
-              Complete the quick questionnaire below. Tell us about your service focus (pools, landscaping, hardscaping, lawn care), current software, and goals. We will match you with a vetted outdoor living automation specialist.
+              Complete the quick questionnaire below. Tell us about your service focus (pools, landscaping, hardscaping, lawn care), current software, and goals. We will match you with an outdoor living automation specialist.
             </p>
           </div>
 
@@ -466,7 +466,7 @@ export default function OutdoorLandingPage() {
                 Who owns the automation setup and customer phone numbers?
               </h3>
               <p className="text-sm text-[#475569] mt-2 leading-relaxed">
-                You retain 100% ownership. Our vetted specialists build systems inside your own accounts (Twilio, GHL, Make, Jobber). You never get locked into an agency holding your data hostage.
+                You retain 100% ownership. Specialists build systems inside your own accounts (Twilio, GHL, Make, Jobber). You never get locked into an agency holding your data hostage.
               </p>
             </div>
           </div>

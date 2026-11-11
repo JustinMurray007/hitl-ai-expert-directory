@@ -120,7 +120,7 @@ export default async function HomePage() {
               href="/experts"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-base shadow-md transition-all hover:scale-[1.02]"
             >
-              Browse Verified AI Experts
+              Browse AI Experts
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
@@ -165,7 +165,7 @@ export default async function HomePage() {
               <div>
                 <h4 className="text-base font-black text-[#001e00]">Zero Bought Stars</h4>
                 <p className="text-xs sm:text-sm text-[#475569] mt-1 font-normal leading-relaxed">
-                  Vetted through technical audits, not self-reported ratings.
+                  Listed for human safety checks, not self-reported ratings.
                 </p>
               </div>
             </div>
@@ -190,7 +190,7 @@ export default async function HomePage() {
                   Find Your Business &amp; Recommended AI Workflows
                 </h2>
                 <p className="mt-4 text-base text-[#475569] max-w-xl font-normal leading-relaxed">
-                  Select your business type and biggest headache. Our interactive guide shows you the exact AI automations, built-in human safety checks, and matches you with verified specialists who can build it.
+                  Select your business type and biggest headache. Our interactive guide shows you the exact AI automations, built-in human safety checks, and matches you with specialists who can build it.
                 </p>
 
                 {/* Key Features List */}
@@ -205,7 +205,7 @@ export default async function HomePage() {
                   </div>
                   <div className="flex items-center gap-3 text-sm text-[#1e2a1e] font-semibold">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
-                    <span>Direct Links to Verified AI Specialists Ready to Build It</span>
+                    <span>Direct Links to AI Specialists Ready to Build It</span>
                   </div>
                 </div>
 
@@ -383,7 +383,7 @@ export default async function HomePage() {
       </section>
 
       {/* =====================================================================
-          FEATURED VERIFIED SPECIALISTS (Symmetrical 2x2 Grid)
+          FEATURED SPECIALISTS
       ====================================================================== */}
       <section className="py-20 border-b border-[#e4ebe4] bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -391,10 +391,10 @@ export default async function HomePage() {
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-xs font-bold text-[#108a00] mb-2">
                 <ShieldCheck className="w-4 h-4" />
-                <span>HITL Certified Vetting</span>
+                <span>Human safety checks</span>
               </div>
               <h2 className="text-2xl sm:text-4xl font-extrabold text-[#001e00] tracking-tight">
-                Featured Verified AI Experts
+                Featured AI Experts
               </h2>
               <p className="text-base text-[#475569] mt-2 max-w-2xl font-normal leading-relaxed">
                 Applied AI architects who name an accountable person and publish how a human steps in when the system is unsure.
@@ -471,7 +471,7 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {/* Card 2: Unvetted AI Agencies */}
+            {/* Card 2: Hands-off AI agencies */}
             <div className="rounded-3xl p-8 bg-white border border-amber-200/80 shadow-xs flex flex-col justify-between">
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center mb-6">
@@ -480,7 +480,7 @@ export default async function HomePage() {
                 <span className="text-xs font-mono font-bold text-amber-600 uppercase tracking-wider">
                   Unchecked Automation
                 </span>
-                <h3 className="text-xl font-black text-[#001e00] mt-1">Unvetted AI Agencies</h3>
+                <h3 className="text-xl font-black text-[#001e00] mt-1">Hands-off AI Agencies</h3>
                 <p className="text-sm text-slate-500 mt-2 font-normal leading-relaxed">
                   Agencies selling &quot;100% hands-off AI&quot; with zero error protection.
                 </p>
@@ -519,9 +519,9 @@ export default async function HomePage() {
                 <span className="text-xs font-mono font-bold text-[#108a00] uppercase tracking-wider">
                   The HITL Standard
                 </span>
-                <h3 className="text-xl font-black text-[#001e00] mt-1">Human-in-the-Loop Verified</h3>
+                <h3 className="text-xl font-black text-[#001e00] mt-1">Human-in-the-Loop</h3>
                 <p className="text-sm text-slate-500 mt-2 font-normal leading-relaxed">
-                  Every specialist audited for production reliability and fail-safes.
+                  Every specialist describes production reliability and fail-safes.
                 </p>
 
                 <div className="mt-6 space-y-3 text-sm text-[#001e00] font-semibold">
@@ -535,7 +535,7 @@ export default async function HomePage() {
                   </div>
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0 mt-0.5" />
-                    <span>Payment NEVER confers verification status</span>
+                    <span>A paid plan does not change the human safety checks</span>
                   </div>
                 </div>
               </div>
@@ -559,10 +559,10 @@ export default async function HomePage() {
                 Personalized Founder Concierge
               </span>
               <h2 className="text-3xl sm:text-4xl font-black text-[#001e00] mt-2 leading-tight">
-                Let Our Team Handpick 2 Verified Specialists for Your Workflow.
+                Let Our Team Handpick 2 Specialists for Your Workflow.
               </h2>
               <p className="text-base text-[#475569] mt-3 leading-relaxed font-normal">
-                Tell us what you want to automate, what software you use, and your budget. We will review your request privately and connect you with two vetted specialists.
+                Tell us what you want to automate, what software you use, and your budget. We will review your request privately and connect you with two specialists.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Link
@@ -576,7 +576,7 @@ export default async function HomePage() {
                   href="/about"
                   className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white hover:bg-[#f4f6f4] text-[#001e00] font-bold text-base border border-[#cbd5cb] transition-colors"
                 >
-                  Read Vetting Standards
+                  Read the HITL Standard
                 </Link>
               </div>
             </div>

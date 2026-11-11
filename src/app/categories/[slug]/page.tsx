@@ -87,8 +87,8 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   }
 
   return {
-    title: `${category.name} — Verified AI Specialists | Find Ai Pros`,
-    description: `Hire vetted AI experts in ${category.name}. Every specialist must prove their human oversight mechanism.`,
+    title: `${category.name} — AI Specialists | Find Ai Pros`,
+    description: `Hire AI experts in ${category.name}. Every specialist names how a human steps in when the system is unsure.`,
   };
 }
 

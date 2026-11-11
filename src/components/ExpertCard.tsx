@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Expert } from '@/lib/types';
-import { VerifiedBadge, PlacementBadge, ToolBadge, BudgetBadge, EngagementBadge } from './Badge';
+import { PlacementBadge, ToolBadge, BudgetBadge, EngagementBadge } from './Badge';
 import { MapPin, ArrowRight, Building, MessageSquareQuote } from 'lucide-react';
 import ExpertLocationLinks from './ExpertLocation';
 
@@ -27,13 +27,6 @@ export default function ExpertCard({
         {!featured && (
           <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
             <div className="flex items-center gap-2">
-              {expert.is_verified ? (
-                <VerifiedBadge />
-              ) : (
-                <span className="text-sm text-[#5e6d55] font-mono bg-[#f4f6f4] px-3 py-1 rounded-full border border-[#dbe3db]">
-                  Community Member
-                </span>
-              )}
               <PlacementBadge plan={expert.listing_plan} sponsorRank={expert.sponsor_rank} />
             </div>
             <ExpertLocationLinks expert={expert} />
@@ -87,12 +80,12 @@ export default function ExpertCard({
         {/* Tools tags: only shown on standard directory pages, omitted on featured cards */}
         {!featured && (
           <div className="flex flex-wrap gap-2 mb-5">
-            {expert.tools.slice(0, 4).map((tool) => (
+            {(expert.tools ?? []).slice(0, 4).map((tool) => (
               <ToolBadge key={tool.id} name={tool.name} />
             ))}
-            {expert.tools.length > 4 && (
+            {(expert.tools ?? []).length > 4 && (
               <span className="text-sm font-bold text-[#2563eb] bg-[#eff6ff] px-3 py-1 rounded-md border border-[#bfdbfe] self-center">
-                +{expert.tools.length - 4} more
+                +{(expert.tools ?? []).length - 4} more
               </span>
             )}
           </div>

@@ -1,8 +1,15 @@
 import type Stripe from 'stripe';
+import { createClient } from '@supabase/supabase-js';
 import { extraCategoryLookupKey, planLookupKey, type BillingInterval, type CheckoutPlan } from './catalog';
 import { buildCheckoutSessionParams, integrationIdentifier } from './checkout-params';
+import {
+  categorySlugsFitInMetadata,
+  extraCategoryQuantity,
+  parseCategorySlugList,
+} from './category-cap';
 import { applyStripeEvent } from './apply-event';
 import { requestProductionRebuild } from '../deploy-hook';
+import { SEED_CATEGORIES } from '../seed';
 import { SUBSCRIPTION_ITEM_PRICE_EXPAND, type StripeEventLike } from './events';
 import type { BillingStore } from './store';
 import { createStripeClient, verifyWebhookEvent } from './stripe-client';
@@ -79,11 +86,28 @@ type CheckoutBody = {
   plan?: string;
   interval?: string;
   extra_category_quantity?: number;
+  category_slugs?: string;
   expert_id?: string;
   referrer_expert_id?: string;
   email?: string;
   customer_id?: string;
 };
+
+type CheckoutCategory = { slug: string; name: string };
+
+async function checkoutCategories(env: BillingEnv): Promise<CheckoutCategory[]> {
+  const url = env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = env.SUPABASE_SERVICE_ROLE_KEY;
+  if (url && key && url.startsWith('https://')) {
+    const client = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+    const { data, error } = await client.from('categories').select('slug, name');
+    if (error) throw error;
+    if (data && data.length > 0) {
+      return data.map((row) => ({ slug: String(row.slug), name: String(row.name ?? row.slug) }));
+    }
+  }
+  return SEED_CATEGORIES.map((category) => ({ slug: category.slug, name: category.name }));
+}
 
 export async function handleCheckoutRequest(
   request: Request,
@@ -103,6 +127,7 @@ export async function handleCheckoutRequest(
     plan: fields.plan,
     interval: fields.interval,
     extra_category_quantity: Number(fields.extra_category_quantity || 0),
+    category_slugs: fields.category_slugs,
     expert_id: fields.expert_id || undefined,
     referrer_expert_id: fields.referrer_expert_id || undefined,
     email: fields.email || undefined,
@@ -113,12 +138,42 @@ export async function handleCheckoutRequest(
   if (fields.interval && fields.interval !== 'month' && fields.interval !== 'year') {
     return form ? formError(env) : json({ error: 'invalid_interval' }, 400);
   }
-  const extra = Number(body.extra_category_quantity || 0);
-  if (!Number.isInteger(extra) || extra < 0 || extra > 20) {
-    return form ? formError(env) : json({ error: 'invalid_extra_quantity' }, 400);
+  const plan = body.plan as CheckoutPlan;
+  const slugsProvided = Object.prototype.hasOwnProperty.call(fields, 'category_slugs');
+  let categorySlugs: string[] | undefined;
+  let catalogSize: number | undefined;
+  let extra = 0;
+  if (slugsProvided) {
+    const selected = parseCategorySlugList(body.category_slugs);
+    if (selected.length === 0) {
+      return form ? formError(env) : json({ error: 'invalid_category' }, 400);
+    }
+    let known: CheckoutCategory[];
+    try {
+      known = await checkoutCategories(env);
+    } catch (error) {
+      logStripeFailure('categories.list', error);
+      return form ? formError(env) : json({ error: 'categories_unavailable' }, 500);
+    }
+    const knownSlugs = new Set(known.map((category) => category.slug));
+    if (selected.some((slug) => !knownSlugs.has(slug))) {
+      return form ? formError(env) : json({ error: 'invalid_category' }, 400);
+    }
+    if (!categorySlugsFitInMetadata(selected)) {
+      return form ? formError(env) : json({ error: 'category_slugs_too_long' }, 400);
+    }
+    catalogSize = known.length;
+    categorySlugs = selected;
+    extra = extraCategoryQuantity(selected.length, plan, known.length);
+  } else {
+    // No selection was sent. Do not charge for extras the specialist did not pick.
+    const requested = Number(body.extra_category_quantity || 0);
+    if (!Number.isInteger(requested) || requested < 0) {
+      return form ? formError(env) : json({ error: 'invalid_extra_quantity' }, 400);
+    }
+    extra = 0;
   }
 
-  const plan = body.plan as CheckoutPlan;
   const lookupKeys = [planLookupKey(plan, interval)];
   if (extra > 0) lookupKeys.push(extraCategoryLookupKey(interval));
   let prices;
@@ -140,6 +195,8 @@ export async function handleCheckoutRequest(
     planPriceId: planPrice.id,
     extraPriceId: extraPrice?.id,
     extraCategoryQuantity: extra,
+    categorySlugs,
+    categoryCatalogSize: catalogSize,
     expertId: body.expert_id,
     referrerExpertId: body.referrer_expert_id,
     customerId: body.customer_id,

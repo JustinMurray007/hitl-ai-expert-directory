@@ -183,6 +183,30 @@ function subscriptionObject(sessionOrSub: Record<string, unknown>): Record<strin
   return isRecord(sessionOrSub.subscription) ? sessionOrSub.subscription : null;
 }
 
+function metadataSlugValue(record: Record<string, unknown> | null): string | null {
+  if (!record || !isRecord(record.metadata)) return null;
+  return str(record.metadata, 'category_slugs');
+}
+
+/** Chosen category slugs carried on the Checkout Session or its subscription. */
+export function categorySlugMetadata(event: StripeEventLike): string | null {
+  const object = event.data.object;
+  const direct = metadataSlugValue(object);
+  if (direct) return direct;
+  const subscription = subscriptionObject(object);
+  const fromSubscription = metadataSlugValue(subscription);
+  if (fromSubscription) return fromSubscription;
+  const parent = isRecord(object.parent) ? object.parent : null;
+  const details = parent && isRecord(parent.subscription_details) ? parent.subscription_details : null;
+  if (!details) return null;
+  if (isRecord(details.metadata)) {
+    const fromDetails = str(details.metadata, 'category_slugs');
+    if (fromDetails) return fromDetails;
+  }
+  if (isRecord(details.subscription)) return metadataSlugValue(details.subscription);
+  return null;
+}
+
 /** Stripe webhook payloads usually send the subscription as an id. Retrieve with items.data.price expanded. */
 export const SUBSCRIPTION_ITEM_PRICE_EXPAND = ['items.data.price'] as const;
 
