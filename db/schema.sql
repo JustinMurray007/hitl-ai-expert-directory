@@ -100,6 +100,16 @@ create table experts (
   -- Billing is separate from verification. See header note 6.
   listing_plan text check (listing_plan is null or listing_plan in ('unpaid', 'basic', 'featured', 'premium')),
   free_period_ends_at timestamptz,
+  profile_mode text check (profile_mode is null or profile_mode in ('full', 'limited')),
+  subscription_status text,
+  stripe_customer_id text,
+  stripe_subscription_id text,
+  stripe_price_lookup_key text,
+  billing_interval text check (billing_interval is null or billing_interval in ('month', 'year')),
+  current_period_end timestamptz,
+  cancel_at timestamptz,
+  extra_category_quantity int not null default 0 check (extra_category_quantity >= 0),
+  referrer_expert_id uuid,
 
   -- Demo content flag — never true in production
   is_demo boolean not null default false
@@ -311,6 +321,42 @@ create trigger trg_case_studies_updated_at
 create trigger trg_applications_updated_at
   before update on applications
   for each row execute function set_updated_at();
+
+-- ----------------------------------------------------------------------------
+-- STRIPE BILLING — private. Service role only.
+-- Referral payouts are a ledger for manual payment. No Stripe Connect.
+-- ============================================================================
+create table stripe_webhook_events (
+  event_id text primary key,
+  event_type text not null,
+  processed_at timestamptz default now()
+);
+
+create table referral_ledger (
+  id uuid primary key default uuid_generate_v4(),
+  created_at timestamptz default now(),
+  stripe_event_id text not null,
+  stripe_invoice_id text,
+  expert_id uuid,
+  referrer_expert_id uuid,
+  amount_cents int not null,
+  currency text not null default 'usd',
+  kind text not null check (kind in ('credit', 'reversal')),
+  status text not null default 'unpaid' check (status in ('unpaid', 'paid', 'void')),
+  unique (stripe_event_id, kind)
+);
+
+create table billing_pending (
+  id uuid primary key default uuid_generate_v4(),
+  created_at timestamptz default now(),
+  expert_id text,
+  stripe_customer_id text,
+  patch jsonb not null default '{}'
+);
+
+alter table stripe_webhook_events enable row level security;
+alter table referral_ledger enable row level security;
+alter table billing_pending enable row level security;
 
 -- ----------------------------------------------------------------------------
 -- NOTES

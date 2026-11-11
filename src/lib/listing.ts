@@ -15,7 +15,16 @@ export function freePeriodEndsAt(start: Date = new Date()): string {
 type LinkVisibility = {
   listing_plan?: ListingPlan | null;
   free_period_ends_at?: string | null;
+  /** Set by billing webhooks. `limited` hides links even if a free window is still open. */
+  profile_mode?: 'full' | 'limited' | null;
+  /**
+   * Stripe subscription status. `past_due` keeps a paid listing visible during retries.
+   * `canceled`, `unpaid`, and `incomplete_expired` are treated as ended.
+   */
+  subscription_status?: string | null;
 };
+
+const ENDED_SUBSCRIPTION_STATUSES = new Set(['canceled', 'unpaid', 'incomplete_expired']);
 
 /**
  * Website, social, booking, and match eligibility stay on during the free
@@ -30,6 +39,11 @@ type LinkVisibility = {
  * every current public profile.
  */
 export function showsPublicLinks(expert: LinkVisibility, now: Date = new Date()): boolean {
+  if (expert.profile_mode === 'limited') return false;
+  if (expert.subscription_status && ENDED_SUBSCRIPTION_STATUSES.has(expert.subscription_status)) {
+    return false;
+  }
+
   if (isPaidListingPlan(expert.listing_plan)) return true;
 
   if (expert.free_period_ends_at) {

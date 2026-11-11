@@ -146,11 +146,11 @@ export default function AboutPage() {
         </div>
 
         <ul className="space-y-3 text-[#334133] text-sm sm:text-base leading-relaxed">
-          <li>New profiles are free for the first 30 days in one category. No card required. Nothing is charged automatically. Website and social links show during those 30 days and on any paid plan.</li>
+          <li>New profiles are free for the first 30 days in one category. No card required. Nothing is charged automatically. Website and social links show during those 30 days and on any paid plan. If you pay during the 30 days, the paid plan starts that day. It is not a Stripe trial. When a subscription ends, the listing becomes a limited profile.</li>
           <li><strong>Basic</strong> — $9.99/month or $79/year. One category, including a link to their website.</li>
           <li><strong>Featured</strong> — $29.99/month or $299.99/year. Labeled Featured, and listed above Basic listings in 4 categories.</li>
           <li><strong>Premium Featured</strong> — $59.99/month or $599.99/year. Labeled Premium Featured. Homepage listing plus the absolute top of 6 categories.</li>
-          <li>Extra categories are $9.99 each.</li>
+          <li>Extra categories are $9.99/month or $79/year each.</li>
           <li>After 30 days without a plan, the listing stays visible as a limited profile (name, category, and vetted badge). The website link, social links, contact and lead routing, and match eligibility come off. It is not hidden and it is not auto-charged. Reminder emails go out at day 15 and on day 30 if they have not picked a plan.</li>
         </ul>
 

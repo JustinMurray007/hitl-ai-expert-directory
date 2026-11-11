@@ -75,6 +75,10 @@ export interface Expert {
   listing_plan?: ListingPlan | null;
   /** ISO timestamp. Links stay public until this moment when listing_plan is unpaid. */
   free_period_ends_at?: string | null;
+  profile_mode?: 'full' | 'limited' | null;
+  subscription_status?: string | null;
+  stripe_customer_id?: string | null;
+  stripe_subscription_id?: string | null;
   is_demo: boolean;
   // Associated relations
   categories: Category[];

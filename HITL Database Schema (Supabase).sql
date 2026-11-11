@@ -100,6 +100,16 @@ create table experts (
   -- Billing is separate from verification. See header note 6.
   listing_plan text check (listing_plan is null or listing_plan in ('unpaid', 'basic', 'featured', 'premium')),
   free_period_ends_at timestamptz,
+  profile_mode text check (profile_mode is null or profile_mode in ('full', 'limited')),
+  subscription_status text,
+  stripe_customer_id text,
+  stripe_subscription_id text,
+  stripe_price_lookup_key text,
+  billing_interval text check (billing_interval is null or billing_interval in ('month', 'year')),
+  current_period_end timestamptz,
+  cancel_at timestamptz,
+  extra_category_quantity int not null default 0 check (extra_category_quantity >= 0),
+  referrer_expert_id uuid,
 
   -- Demo content flag — never true in production
   is_demo boolean not null default false

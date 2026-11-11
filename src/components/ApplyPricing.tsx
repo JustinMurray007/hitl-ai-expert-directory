@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { CheckCircle2 } from 'lucide-react';
-import { stripePaymentLink, type BillingPeriod, type CheckoutPlan } from '@/lib/stripe-links';
+import type { BillingPeriod, CheckoutPlan } from '@/lib/stripe-links';
 
 const APPLICATION_HREF = '#application';
+const CHECKOUT_ENABLED = process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_ENABLED === 'true';
 
 const PLANS: {
   id: CheckoutPlan;
@@ -61,8 +63,19 @@ const PLANS: {
   },
 ];
 
+function CheckoutIds() {
+  const params = useSearchParams();
+  return (
+    <>
+      <input type="hidden" name="expert_id" value={params.get('expert') || ''} />
+      <input type="hidden" name="referrer_expert_id" value={params.get('ref') || ''} />
+    </>
+  );
+}
+
 export default function ApplyPricing() {
   const [period, setPeriod] = useState<BillingPeriod>('monthly');
+  const [extraCategories, setExtraCategories] = useState(0);
 
   return (
     <section id="pricing" className="scroll-mt-24 mb-16">
@@ -106,9 +119,7 @@ export default function ApplyPricing() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {PLANS.map((plan) => {
-          const checkout = stripePaymentLink(plan.id, period);
-          const href = checkout || APPLICATION_HREF;
-          const external = href.startsWith('https://');
+          const href = CHECKOUT_ENABLED ? undefined : APPLICATION_HREF;
           return (
             <article
               key={plan.id}
@@ -141,17 +152,37 @@ export default function ApplyPricing() {
                   </li>
                 ))}
               </ul>
-              <a
-                href={href}
-                {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className={`mt-6 inline-flex items-center justify-center px-5 py-3.5 rounded-full font-bold text-sm sm:text-base transition-colors ${
-                  plan.highlighted
-                    ? 'bg-[#108a00] hover:bg-[#14a800] text-white shadow-sm'
-                    : 'bg-white hover:bg-[#f2faf3] text-[#108a00] border border-[#108a00]'
-                }`}
-              >
-                Get started — {plan.name === 'Premium Featured' ? 'Premium' : plan.name}
-              </a>
+              {href ? (
+                <a
+                  href={href}
+                  className={`mt-6 inline-flex items-center justify-center px-5 py-3.5 rounded-full font-bold text-sm sm:text-base transition-colors ${
+                    plan.highlighted
+                      ? 'bg-[#108a00] hover:bg-[#14a800] text-white shadow-sm'
+                      : 'bg-white hover:bg-[#f2faf3] text-[#108a00] border border-[#108a00]'
+                  }`}
+                >
+                  Get started — {plan.name === 'Premium Featured' ? 'Premium' : plan.name}
+                </a>
+              ) : (
+                <form action="/api/stripe/checkout" method="POST" className="mt-6">
+                  <input type="hidden" name="plan" value={plan.id} />
+                  <input type="hidden" name="interval" value={period === 'yearly' ? 'year' : 'month'} />
+                  <input type="hidden" name="extra_category_quantity" value={extraCategories} />
+                  <Suspense fallback={null}>
+                    <CheckoutIds />
+                  </Suspense>
+                  <button
+                    type="submit"
+                    className={`w-full inline-flex items-center justify-center px-5 py-3.5 rounded-full font-bold text-sm sm:text-base transition-colors ${
+                      plan.highlighted
+                        ? 'bg-[#108a00] hover:bg-[#14a800] text-white shadow-sm'
+                        : 'bg-white hover:bg-[#f2faf3] text-[#108a00] border border-[#108a00]'
+                    }`}
+                  >
+                    Get started — {plan.name === 'Premium Featured' ? 'Premium' : plan.name}
+                  </button>
+                </form>
+              )}
               <p className="mt-3 text-xs text-[#738273] text-center leading-relaxed">
                 You are only charged when you choose this plan. New profiles are free for 30 days, no card required.
               </p>
@@ -163,9 +194,19 @@ export default function ApplyPricing() {
       <aside className="mt-5 rounded-3xl p-6 sm:p-7 bg-white border border-[#e4ebe4] shadow-xs">
         <h3 className="text-xl font-black text-[#001e00]">Extra categories</h3>
         <p className="text-[#5e6d55] mt-2 leading-relaxed">
-          Need to be listed in more categories than your plan includes? Extra categories are <strong className="text-[#001e00]">$9.99</strong> each.
-          This is in addition to your plan.
+          Need to be listed in more categories than your plan includes? Extra categories are <strong className="text-[#001e00]">$9.99/month</strong> or <strong className="text-[#001e00]">$79/year</strong> each, on top of your plan. Basic includes 1 category, Featured includes 4, and Premium Featured includes 6.
         </p>
+        <label className="mt-4 flex flex-col gap-1 text-sm font-semibold text-[#001e00]">
+          Extra categories to add at checkout
+          <input
+            type="number"
+            min={0}
+            max={20}
+            value={extraCategories}
+            onChange={(event) => setExtraCategories(Math.max(0, Math.min(20, Number(event.target.value) || 0)))}
+            className="w-28 rounded-lg border border-[#dbe3db] px-3 py-2 font-bold"
+          />
+        </label>
       </aside>
 
       <div className="mt-5 rounded-3xl p-6 sm:p-8 bg-white border border-[#e4ebe4] shadow-xs">
@@ -175,7 +216,10 @@ export default function ApplyPricing() {
             <strong>Vetting is always free.</strong> Every specialist is checked the same way. Paying never skips or softens vetting.
           </li>
           <li>
-            <strong>Your profile is free for the first 30 days</strong> in one category. No card is required. Nothing is charged automatically. During those 30 days, your website and social links are shown.
+            <strong>Your profile is free for the first 30 days</strong> in one category. No card is required at signup, and nothing is charged automatically. The 30 days are tracked in the directory, not as a Stripe trial. During those 30 days, your website and social links are shown.
+          </li>
+          <li>
+            <strong>If you pay during those 30 days, the paid plan starts that day.</strong> There is no trial on the subscription. When a subscription ends, the listing becomes a limited profile the same way an unpaid listing does after day 30.
           </li>
           <li>
             <strong>On any paid plan,</strong> your website and social links stay on your public profile and expert cards.
@@ -201,7 +245,13 @@ export default function ApplyPricing() {
             If you are on Basic, Featured, or Premium Featured, that plan continues, and your website and social links stay visible.
             If you have not picked a plan, your listing stays on the site as a limited profile: your name, category, and vetted badge stay public.
             Your website link, social links, contact and lead routing, and match eligibility come off until you start a plan.
-            The listing is not hidden.
+            The listing is not hidden. The same limited profile applies when a paid subscription ends.
+          </p>
+        </details>
+        <details className="border-t border-[#e4ebe4] py-4">
+          <summary className="cursor-pointer font-bold text-[#001e00]">If I pay during the 30 free days, when does the plan start?</summary>
+          <p className="mt-2 text-sm sm:text-base text-[#5e6d55] leading-relaxed">
+            The paid plan starts immediately. No card is collected at signup, and the free 30 days are not a Stripe trial. Choosing a plan opens Stripe Checkout. You are only charged when you pay.
           </p>
         </details>
         <details className="border-t border-[#e4ebe4] py-4">

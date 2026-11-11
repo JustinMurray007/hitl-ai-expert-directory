@@ -2,7 +2,7 @@
 
 > The verified directory of AI specialists who build systems with real human accountability.
 
-Built with **Next.js 15 (App Router)**, **Tailwind CSS**, **Server Actions**, **PostgreSQL (Supabase)** with Row Level Security, and strict 2-case-study verification gates.
+Built with **Next.js (App Router)**, **Tailwind CSS**, **PostgreSQL (Supabase)** with Row Level Security, and Stripe Billing for specialist listings. Case studies are not required to be listed.
 
 ---
 
@@ -35,6 +35,38 @@ Open [http://localhost:3000](http://localhost:3000). A yellow **Demo mode** bann
    NEXT_PUBLIC_SITE_URL=https://your-domain.com
    ```
 4. Restart `npm run dev`. The demo banner disappears and all reads/writes hit your Supabase instance.
+5. For billing columns and the referral ledger, also run [`db/migration_stripe_billing.sql`](db/migration_stripe_billing.sql) if the database was created before that migration.
+
+---
+
+## Stripe billing
+
+Specialist plans use Stripe-hosted Checkout in subscription mode (flexible billing). The free 30 days are tracked in the app. No card is collected at signup, and there is no Stripe trial. Paying during those 30 days starts the paid plan immediately. After day 30 without a plan, or when a subscription ends, the listing becomes limited (no website, social, contact, or match eligibility).
+
+The public site is a static export. Checkout, the Customer Portal, webhooks, and the day-30 limiter are Cloudflare Pages Functions in `functions/api/stripe/`. They use the Stripe Node SDK's fetch HTTP client and `constructEventAsync` so they can run on the edge.
+
+Use a **restricted API key** (`rk_test_…` in a [Stripe sandbox](https://docs.stripe.com/sandboxes), `rk_live_…` only in production). Do not use a secret key (`sk_`) if a restricted key can do the job. Suggested permissions: Checkout Sessions write, Customers write, Subscriptions write, Billing Portal sessions write, Prices read, Products read, Invoices read.
+
+| Variable | Secret? | Purpose |
+|---|---|---|
+| `STRIPE_SECRET_KEY` | Yes | Restricted key. Cloudflare secret. Never in git. |
+| `STRIPE_WEBHOOK_SECRET` | Yes | `whsec_…` for `POST /api/stripe/webhook`. |
+| `STRIPE_AUTOMATIC_TAX` | No | Default `false`. This build never sends `automatic_tax.enabled`, even if the value is `true`, until a Stripe Tax registration is active. Prices are tax-exclusive. |
+| `NEXT_PUBLIC_STRIPE_CHECKOUT_ENABLED` | No | `true` only when the server key is set. Otherwise plan buttons scroll to the application form. |
+| `NEXT_PUBLIC_SITE_URL` | No | Success, cancel, and portal return URLs. |
+| `CRON_SECRET` | Yes | Bearer token for `POST /api/stripe/limit-expired`. |
+
+Subscribe the webhook endpoint to: `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted`, `invoice.paid`, `invoice.payment_failed`, and `charge.refunded` (referral reversals).
+
+Create the sandbox catalog (not run by the build):
+
+```bash
+STRIPE_SECRET_KEY=rk_test_... node --experimental-strip-types scripts/create-stripe-catalog.ts
+```
+
+The script rejects live keys. Extra categories are $9.99/month (`extra_category_monthly`) or $79/year (`extra_category_yearly`). Referral commissions are 30% of the invoice pre-tax amount, stored in `referral_ledger` for manual payout. Stripe Connect is not used.
+
+One more thing: if you later charge US customers tax, Stripe Tax only collects where you have an active registration. Do not turn on automatic tax before that. See [Collect taxes for recurring payments](https://docs.stripe.com/billing/taxes/collect-taxes.md).
 
 ---
 
