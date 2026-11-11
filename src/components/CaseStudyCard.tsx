@@ -5,10 +5,10 @@ export default function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
     <div className="rounded-2xl p-6 sm:p-8 border border-[#e4ebe4] bg-white shadow-xs relative overflow-hidden">
       {/* Verification Evidence Ribbon */}
-      {study.reviewer_confirmed && (
+        {study.reviewer_confirmed && (
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-sm font-bold bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8] mb-4 shadow-xs">
           <CheckCircle2 className="w-4 h-4" />
-          <span>Reviewer Confirmed Production Case Study</span>
+          <span>Reviewer confirmed example</span>
         </div>
       )}
 
@@ -68,8 +68,9 @@ export default function CaseStudyCard({ study }: { study: CaseStudy }) {
         </p>
       </div>
 
-      {/* Safeguards & ROI Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      {(study.failure_safeguards || study.outcomes_roi) && (
+      <div className={`grid grid-cols-1 ${study.failure_safeguards && study.outcomes_roi ? 'sm:grid-cols-2' : ''} gap-5`}>
+        {study.failure_safeguards && (
         <div className="rounded-2xl bg-[#fffbeb] border border-[#fef3c7] p-5">
           <h4 className="font-bold text-[#92400e] mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
             <AlertTriangle className="w-4 h-4 text-[#d97706]" />
@@ -79,17 +80,21 @@ export default function CaseStudyCard({ study }: { study: CaseStudy }) {
             {study.failure_safeguards}
           </p>
         </div>
+        )}
 
+        {study.outcomes_roi && (
         <div className="rounded-2xl bg-[#f0fdf4] border border-[#bbf7d0] p-5">
           <h4 className="font-bold text-[#166534] mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
             <TrendingUp className="w-4 h-4 text-[#16a34a]" />
-            Quantified ROI & Business Outcome
+            Outcome the specialist reported
           </h4>
           <p className="text-[#14532d] text-base leading-relaxed font-bold">
             {study.outcomes_roi}
           </p>
         </div>
+        )}
       </div>
+      )}
     </div>
   );
 }

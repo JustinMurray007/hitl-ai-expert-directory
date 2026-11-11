@@ -9,6 +9,7 @@ import {
   COMMON_GROWTH_BOTTLENECKS,
 } from '@/lib/recommendations';
 import { VerifiedBadge, ToolBadge } from '@/components/Badge';
+import { isMatchEligible, showsPublicLinks } from '@/lib/listing';
 import ExpertLocationLinks from '@/components/ExpertLocation';
 import {
   Activity,
@@ -118,8 +119,10 @@ export default function BusinessRecommender({
     }, 60);
   };
 
-  // Find matching experts
-  const matchedExperts = allExperts.filter((exp) => {
+  const eligibleExperts = allExperts.filter((exp) => isMatchEligible(exp));
+
+  // Find matching experts who can still receive a match
+  const matchedExperts = eligibleExperts.filter((exp) => {
     if (!workflow) return false;
     return workflow.matchingExpertSlugs.includes(exp.slug);
   });
@@ -128,7 +131,7 @@ export default function BusinessRecommender({
   const fallbackExperts =
     matchedExperts.length > 0
       ? matchedExperts
-      : allExperts.filter((exp) =>
+      : eligibleExperts.filter((exp) =>
           exp.categories.some((c) => c.slug === workflow?.categorySlug)
         ).slice(0, 2);
 
@@ -363,7 +366,7 @@ export default function BusinessRecommender({
                     <span>Expected Business Impact</span>
                   </h4>
                   <span className="text-sm font-bold text-[#92400e] bg-white px-3 py-1 rounded-full border border-[#fde68a]">
-                    Verified ROI
+                    Expected impact
                   </span>
                 </div>
                 <p className="text-base text-[#78350f] leading-relaxed font-extrabold">
@@ -389,7 +392,7 @@ export default function BusinessRecommender({
                   Vetted Specialists Ready to Build This for You
                 </h4>
                 <p className="text-sm sm:text-base text-[#475569] font-medium mt-0.5">
-                  These verified experts have demonstrated production case studies in this exact workflow:
+                  These vetted specialists can take a match for this kind of work:
                 </p>
               </div>
               <Link
@@ -423,7 +426,7 @@ export default function BusinessRecommender({
                               {exp.full_name}
                             </Link>
                           </h5>
-                          {exp.is_verified && <VerifiedBadge count={exp.verified_case_study_count} />}
+                          {exp.is_verified && <VerifiedBadge />}
                         </div>
                         <p className="text-sm text-[#108a00] font-bold truncate mt-0.5">
                           {exp.professional_title}
@@ -455,9 +458,9 @@ export default function BusinessRecommender({
                         href={`/experts/${exp.slug}`}
                         className="text-sm font-bold text-[#001e00] hover:text-[#108a00] px-4 py-2 rounded-full border border-[#d5ded5] hover:border-[#108a00] transition-colors"
                       >
-                        View Case Studies
+                        View Profile
                       </Link>
-                      {exp.booking_url ? (
+                      {showsPublicLinks(exp) && exp.booking_url ? (
                         <a
                           href={exp.booking_url}
                           target="_blank"
@@ -467,7 +470,7 @@ export default function BusinessRecommender({
                           <Calendar className="w-4 h-4" />
                           Book Call
                         </a>
-                      ) : (
+                      ) : showsPublicLinks(exp) ? (
                         <Link
                           href={`/match?expert=${encodeURIComponent(exp.full_name)}&category=${encodeURIComponent(
                             workflow?.categorySlug || ''
@@ -476,7 +479,7 @@ export default function BusinessRecommender({
                         >
                           Request Match
                         </Link>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 </div>

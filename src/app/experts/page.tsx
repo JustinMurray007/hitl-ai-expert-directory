@@ -27,7 +27,7 @@ export default async function ExpertsPage() {
           Find Vetted AI Automation Experts
         </h1>
         <p className="text-base sm:text-lg text-[#475569] mt-3 max-w-3xl leading-relaxed font-normal">
-          Every expert listed below has disclosed their exact human fallback mechanism. Experts with the green &apos;Verified&apos; badge have passed identity verification and had at least two production case studies reviewed.
+          Every expert listed below has agreed to name an accountable person and describe their human fallback. The green Verified badge means identity was confirmed and we could contact a reference. Case studies are not required.
         </p>
       </div>
 

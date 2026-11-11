@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
   }
 
   const title = `Find An Ai Consultant & Company Near ${cityName}, ${stateCode} | Find Ai Pros`;
-  const description = `Hire vetted AI automation consultants, conversational voice engineers, and applied AI development companies near ${cityName}, ${stateCode}. 100% verified case studies and human-in-the-loop safeguards.`;
+  const description = `Hire vetted AI automation consultants, conversational voice engineers, and applied AI development companies near ${cityName}, ${stateCode}. Human-in-the-loop safeguards and references we can contact.`;
 
   return {
     title,
@@ -184,7 +184,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
             </span>
             <span className="flex items-center gap-1.5">
               <Sparkles className="w-4 h-4 text-[#d97706]" />
-              Production Case Studies Audited
+              References we contact
             </span>
           </div>
 
@@ -215,7 +215,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
                 Verified AI Specialists in {cityName}
               </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Direct portfolio links, verified ROI stats, and calendar booking links.
+                Named specialists in {cityName}, with the categories they serve.
               </p>
             </div>
           </div>

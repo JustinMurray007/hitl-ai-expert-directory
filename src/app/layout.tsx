@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Find Ai Pros — Verified AI Specialists Directory',
     description:
-      'Verified AI specialists who build systems with real human accountability. No black boxes. Strict 2-case-study vetting.',
+      'Verified AI specialists who build systems with real human accountability. Vetting is free. Case studies are not required.',
     type: 'website',
   },
 };

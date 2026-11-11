@@ -49,31 +49,23 @@ Claude, Gemini Workspaces, Perplexity, Cursor/Ollama
 
 Rule: Experts can select at most 3 categories. Keep taxonomy flat at launch — no nested industry × location × tool fan-out.
 
-4. Listing Tiers & Vetting
-Tier
-Cost
-What it includes
-Vetting bar
-Community (Basic)
-Free
-Public profile, tool tags, portfolio links, booking CTA
-Auto-approval on publish (self-reported)
-Verified HITL Expert
-Paid (TBD)
-Verified badge, top-of-category placement, featured in newsletter, direct matchmaking eligibility
-Identity + entity check, ≥2 reviewed production case studies, guardrail interview
-Featured / Sponsor Spotlight
-Premium monthly
-Pinned top of category hub, newsletter feature
-Requires Verified tier + active sponsorship
+4. Listing plans and vetting
+Vetting is free for every applicant. The Verified badge is not sold, and paying never skips vetting. Case studies are not required to be listed or verified. References we can contact remain the proof requirement.
 
-Pricing is a hypothesis, not a commitment. Suggested starting points from the brief: $29–$79/mo verified; $199/mo featured. Test with first 10 experts before publishing a rate card.
-Two case studies rule
-Verification requires two reviewed production implementations with quantifiable outcomes and a demonstrable human-oversight mechanism. An applicant may submit with one to start; verification is not granted until the second is reviewed. (The application form asks for the strongest one first.)
+New profiles are free for the first 30 days in one category, no card required, and nothing is charged automatically. After 30 days without a plan, the listing stays visible as a limited profile (name, category, vetted badge). Website, social links, contact and lead routing, and match eligibility come off. Reminder emails go out at day 15 and on day 30 if they have not picked a plan.
+
+Basic — $9.99/month or $79/year. One category, including a website link.
+Featured — $29.99/month or $299.99/year. Labeled Featured, above Basic listings in 4 categories.
+Premium Featured — $59.99/month or $599.99/year. Labeled Premium Featured. Homepage listing plus the absolute top of 6 categories.
+Extra categories — $9.99 each.
+
+The Directory does not guarantee results.
+
 Vetting checklist (applied before granting Verified)
-1. Guardrail verification — expert articulates a concrete human fallback (approval queue, Slack webhook, confidence threshold routing, exception quarantine). "100% autonomous / zero-touch" = automatic rejection.
-2. Entity & identity — active domain, real LinkedIn, verifiable business registration.
-3. Execution artifact — Loom demo, code repo, or detailed architecture walkthrough of a live workflow.
+1. Guardrail verification — expert articulates a concrete human fallback (approval queue, staff alert, confidence threshold routing, exception quarantine). "100% autonomous / zero-touch" = automatic rejection.
+2. Entity and identity — active domain and a real business identity we can confirm.
+3. References — at least one reference we can contact.
+4. Sample plan and handoff — a sample scope and a sample handoff guide. Not a case-study requirement.
 
 5. Tech Architecture
 Next.js 15 (App Router)  ─┐
@@ -100,17 +92,17 @@ Phase
 Revenue
 Rationale
 1 (now)
-None — free listings to seed inventory
-Trust + volume first
+Free 30-day profiles, no card, no auto-charge
+Populate the directory. Vetting stays free.
 2
-Verified tier subscription
-Gate behind demonstrated value
+Basic, Featured, and Premium Featured
+Placement after the free period. Paying does not buy verification.
 3
-Featured/sponsor tier
-Once category hubs have traffic
+Extra categories at $9.99 each
+Only when a specialist needs more categories than the plan includes.
 4
 Concierge matchmaking
-Founder submits need → we shortlist 2 verified experts → intro retainer or % fee
+Founder submits need → we shortlist eligible vetted specialists.
 
 Sponsorships (voice AI vendors, automation platforms) are a Phase 3+ opportunity once traffic proves category hubs have an audience.
 
@@ -123,14 +115,14 @@ Phase 0 — Foundations (this build)
 [x] Admin review view (publish/reject/verify/archive) with fail-closed token auth + session cookie
 [x] Seed categories + tools + fictional demo experts (clearly labeled)
 [x] Demo vs. connected mode toggle
-[x] Server-side verification gate: 2 reviewer-confirmed case studies required
+[x] Server-side verification: references required when an application row exists; case studies are not a gate
 Phase 1 — Go live with inventory
 [ ] Create Supabase project, run migration
 [ ] Manually onboard 5–10 real experts (personal outreach, comp'd listings)
 [ ] Replace demo data with real listings
 [ ] Point domain, deploy (Vercel recommended)
 Phase 2 — Revenue & verification at scale
-[ ] Stripe integration for Verified tier
+[ ] Stripe Payment Links for Basic, Featured, and Premium Featured (vetting stays free)
 [ ] Admin dashboard for reviewer notes, evidence audit trail
 [ ] Newsletter + matchmaking intake go live
 [ ] Add real testimonials and reference links

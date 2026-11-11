@@ -2,49 +2,48 @@ import { Metadata } from 'next';
 import {
   ShieldCheck,
   CheckCircle2,
-  Award,
+  Users,
   ExternalLink,
 } from 'lucide-react';
 import Script from 'next/script';
+import ApplyPricing from '@/components/ApplyPricing';
 
 export const metadata: Metadata = {
   title: 'Apply to Be Listed | Find Ai Pros',
   description:
-    'Apply to be listed on Find Ai Pros. We verify real AI specialists who build systems with verifiable human oversight and production case studies.',
+    'Apply to be listed on Find Ai Pros. Vetting is free. A new profile is free for 30 days in one category, no card required, and nothing is charged automatically.',
 };
 
 export default function ApplyPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Tally Widget Script */}
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <Script
         src="https://tally.so/widgets/embed.js"
         strategy="lazyOnload"
       />
 
-      {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] mb-3 shadow-xs">
           <ShieldCheck className="w-4 h-4" />
-          <span>Strict Vetting Application</span>
+          <span>Free to apply</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight">
           Apply to Be Listed
         </h1>
         <p className="text-base sm:text-lg text-[#5e6d55] mt-3 leading-relaxed font-normal">
-          We only list specialists who build systems with verifiable human oversight. Free public community listing on approval; Verified badge requires two reviewed production case studies.
+          Vetting is free. We list specialists who name one accountable person and give references we can contact.
+          Case studies are not required. A new profile is free for the first 30 days in one category, no card required, and nothing is charged automatically.
         </p>
       </div>
 
-      {/* Trust & Vetting Standards Pill Banner */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
         <div className="rounded-2xl p-4 bg-white border border-[#e4ebe4] shadow-xs flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-[#e4f7e6] text-[#108a00] flex items-center justify-center shrink-0">
             <CheckCircle2 className="w-5 h-5" />
           </div>
           <div>
             <div className="text-xs font-mono uppercase tracking-wider text-[#5e6d55] font-bold">Standard 1</div>
-            <div className="text-sm font-bold text-[#001e00]">Production Deployments</div>
+            <div className="text-sm font-bold text-[#001e00]">Named accountable person</div>
           </div>
         </div>
 
@@ -60,17 +59,24 @@ export default function ApplyPage() {
 
         <div className="rounded-2xl p-4 bg-white border border-[#e4ebe4] shadow-xs flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-[#fffbeb] text-[#d97706] flex items-center justify-center shrink-0">
-            <Award className="w-5 h-5" />
+            <Users className="w-5 h-5" />
           </div>
           <div>
             <div className="text-xs font-mono uppercase tracking-wider text-[#5e6d55] font-bold">Standard 3</div>
-            <div className="text-sm font-bold text-[#001e00]">Verified Client ROI</div>
+            <div className="text-sm font-bold text-[#001e00]">References we can contact</div>
           </div>
         </div>
       </div>
 
-      {/* Embedded Tally Application Form */}
-      <div className="rounded-3xl p-4 sm:p-8 border border-[#e4ebe4] bg-white shadow-sm">
+      <ApplyPricing />
+
+      <div id="application" className="scroll-mt-28 rounded-3xl p-4 sm:p-8 border border-[#e4ebe4] bg-white shadow-sm">
+        <div className="mb-4 px-2">
+          <h2 className="text-2xl font-black text-[#001e00]">Application</h2>
+          <p className="text-sm text-[#5e6d55] mt-1">
+            Apply at no charge. Choose a paid plan only when you want to.
+          </p>
+        </div>
         <div className="w-full min-h-[680px] rounded-2xl overflow-hidden bg-white">
           <iframe
             data-tally-src="https://tally.so/embed/Nq5NDp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&formEventsForwarding=1"
@@ -86,7 +92,6 @@ export default function ApplyPage() {
           />
         </div>
 
-        {/* Fallback Direct Link */}
         <div className="mt-4 pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
           Form not loading properly?{' '}
           <a

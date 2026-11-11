@@ -91,7 +91,7 @@ export default async function CategoriesPage() {
             Browse AI Specialists by Business Need
           </h1>
           <p className="mt-4 text-base sm:text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed font-normal">
-            Every category hub groups vetted specialists, real client case studies, and built-in human safety checks tailored to solve your biggest daily business headaches.
+            Every category hub groups vetted specialists and the human safety checks they commit to.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm font-semibold">
@@ -100,7 +100,7 @@ export default async function CategoriesPage() {
             </span>
             <span className="text-slate-300">•</span>
             <span className="text-[#5e6d55] flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#108a00]" /> Audited Client Case Studies
+              <CheckCircle2 className="w-4 h-4 text-[#108a00]" /> References we contact
             </span>
             <span className="text-slate-300">•</span>
             <span className="text-[#5e6d55] flex items-center gap-1.5">

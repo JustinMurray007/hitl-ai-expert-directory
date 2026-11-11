@@ -1,20 +1,36 @@
 import React from 'react';
+import type { ListingPlan } from '@/lib/types';
 
-export function VerifiedBadge({ count }: { count?: number }) {
+export function VerifiedBadge() {
   return (
     <span
       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8]"
-      title="Verified: Identity confirmed and at least 2 reviewed production case studies"
+      title="Verified: identity confirmed and references we could contact. Case studies are not required. Payment does not confer this badge."
     >
       <span className="w-2 h-2 rounded-full bg-[#108a00] animate-pulse" />
       Verified Specialist
-      {typeof count === 'number' && count > 0 && (
-        <span className="text-sm text-[#108a00] font-mono font-bold bg-white px-2.5 py-0.5 rounded-full border border-[#b2e8b8]">
-          {count} studies
-        </span>
-      )}
     </span>
   );
+}
+
+export function PlacementBadge({
+  plan,
+  sponsorRank = 0,
+}: {
+  plan?: ListingPlan | null;
+  sponsorRank?: number;
+}) {
+  if (plan === 'premium') {
+    return (
+      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold bg-[#eff6ff] text-[#1e3a8a] border border-[#bfdbfe]">
+        Premium Featured
+      </span>
+    );
+  }
+  if (plan === 'featured' || sponsorRank > 0) {
+    return <SponsorBadge />;
+  }
+  return null;
 }
 
 export function SponsorBadge() {

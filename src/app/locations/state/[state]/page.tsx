@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: StatePageProps): Promise<Meta
   }
 
   const title = `Find An Ai Consultant & Company in ${stateName} | Find Ai Pros`;
-  const description = `Hire verified AI consultants, automation architects, and AI development companies across ${stateName} (${stateCode}). Browse top cities, verified case studies, and local experts.`;
+  const description = `Hire vetted AI consultants, automation architects, and AI development companies across ${stateName} (${stateCode}). Browse top cities and local experts.`;
 
   return {
     title,
@@ -154,7 +154,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
               Find An Ai Consultant &amp; Company in {stateName}
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              Connect with verified automation specialists, CRM architects, and custom AI developers across {stateName}. Every expert must pass technical case study reviews with guaranteed human oversight.
+              Connect with vetted automation specialists, CRM architects, and custom AI developers across {stateName}. Every listed specialist names an accountable person. The Directory does not guarantee results.
             </p>
           </div>
 
@@ -183,7 +183,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
                 Browse by City in {stateName}
               </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Select your city to view local case studies, on-site availability, and neighborhood zip codes.
+                Select your city to see who is listed, on-site availability, and neighborhood zip codes.
               </p>
             </div>
           </div>
@@ -242,7 +242,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
                 All AI Specialists in {stateName} ({stateExperts.length})
               </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Verified consultants with demonstrated production systems.
+                Vetted consultants who name an accountable person and give references we can contact.
               </p>
             </div>
           </div>

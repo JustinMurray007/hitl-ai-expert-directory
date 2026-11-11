@@ -77,26 +77,18 @@ export const expertApplicationSchema = z.object({
   contactEmail: z.string().email('Please enter a valid business contact email'),
   legalEntityType: legalEntityEnum,
   portfolioUrls: z.string().optional(), // newline-separated or comma
-  referencesProvided: z.boolean().default(false),
+  referencesProvided: z
+    .boolean()
+    .refine((value) => value === true, 'At least one reference we can contact is required'),
 
-  // Mandatory Primary Case Study with HITL Safeguards
-  caseStudyTitle: z.string().min(5, 'Case study title is required'),
-  clientIndustry: z.string().min(2, 'Client industry is required'),
-  problemStatement: z.string().min(30, 'Problem statement must be at least 30 characters'),
-  solutionArchitecture: z.string().min(30, 'Solution architecture must be at least 30 characters'),
-  hitlOversightMechanism: z
-    .string()
-    .min(
-      40,
-      'The HITL oversight mechanism is mandatory (min 40 characters). Explain how humans intervene when confidence drops or edge cases arise.'
-    ),
-  failureSafeguards: z
-    .string()
-    .min(
-      25,
-      'Failure safeguards are required (min 25 characters). Mention retry caps, alerts, quarantine queues, or circuit breakers.'
-    ),
-  outcomesRoi: z.string().min(20, 'Outcomes & ROI are required (e.g. hours saved, error drop, lead conversion lift)'),
+  // Optional example of past work. Not required to apply or to be verified.
+  caseStudyTitle: z.string().optional(),
+  clientIndustry: z.string().optional(),
+  problemStatement: z.string().optional(),
+  solutionArchitecture: z.string().optional(),
+  hitlOversightMechanism: z.string().optional(),
+  failureSafeguards: z.string().optional(),
+  outcomesRoi: z.string().optional(),
   demoVideoUrl: z.string().url('Must be a valid URL (Loom, YouTube, etc.)').or(z.literal('')).optional(),
 });
 

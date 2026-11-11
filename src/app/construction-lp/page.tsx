@@ -266,13 +266,13 @@ export default function ConstructionLandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <span className="text-xs uppercase font-mono tracking-wider text-[#108a00] font-bold">
-              Proven Contractor Case Studies
+              Examples from listed specialists
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#001e00] mt-2 tracking-tight">
               Real Builds Implemented for Construction Companies
             </h2>
             <p className="text-base text-[#475569] mt-3 font-normal leading-relaxed max-w-2xl mx-auto">
-              We vet every specialist on our directory for demonstrable work with home service and remodeling contractors. Here are actual systems live in production:
+              Specialists here are vetted the same way as the rest of the directory: a named person, human safety checks, and references we can contact. Some also choose to show an example of past work.
             </p>
           </div>
 
@@ -298,7 +298,7 @@ export default function ConstructionLandingPage() {
                   href="/experts/koby-oranski"
                   className="text-xs font-bold text-[#108a00] hover:underline inline-flex items-center gap-1"
                 >
-                  View Verified Profile &amp; Case Study <ArrowRight className="w-3 h-3" />
+                  View profile <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </div>
@@ -324,7 +324,7 @@ export default function ConstructionLandingPage() {
                   href="/experts/ikram-rana"
                   className="text-xs font-bold text-[#108a00] hover:underline inline-flex items-center gap-1"
                 >
-                  View Verified Profile &amp; Case Study <ArrowRight className="w-3 h-3" />
+                  View profile <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </div>
@@ -350,7 +350,7 @@ export default function ConstructionLandingPage() {
                   href="/experts/matt-aponte"
                   className="text-xs font-bold text-[#108a00] hover:underline inline-flex items-center gap-1"
                 >
-                  View Verified Profile &amp; Case Study <ArrowRight className="w-3 h-3" />
+                  View profile <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </div>

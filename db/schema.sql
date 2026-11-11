@@ -11,9 +11,16 @@
 --   3. Reviewer evidence (who verified, when, what was checked) is recorded
 --      separately and is not applicant-writable.
 --   4. Ratings are omitted — there is no review system. Never store a fake 5.00.
---   5. Verification requires TWO reviewed production case studies; an applicant
---      may submit with one. The `verified_case_study_count` field tracks this.
---   6. Max 3 categories per expert enforced in application logic (not DB).
+--   5. Case studies are optional. They are not required to be listed or verified.
+--      References we can contact remain the proof requirement.
+--      `verified_case_study_count` only counts optional reviewer-confirmed
+--      case studies. It is not a gate, and payment never confers verification.
+--   6. `listing_plan` and `free_period_ends_at` are separate from verification.
+--      Null plan and null free-period end = legacy row (public links stay).
+--      unpaid + free_period_ends_at in the future = the free 30 days (links show).
+--      After that date, with no paid plan, the app hides website, social,
+--      booking, and match eligibility. The listing stays public.
+--   7. Max 3 categories per expert enforced in application logic (not DB).
 -- ============================================================================
 
 create extension if not exists "uuid-ossp";
@@ -90,6 +97,10 @@ create table experts (
   verified_case_study_count int not null default 0 check (verified_case_study_count >= 0),
   sponsor_rank int not null default 0 check (sponsor_rank >= 0),
 
+  -- Billing is separate from verification. See header note 6.
+  listing_plan text check (listing_plan is null or listing_plan in ('unpaid', 'basic', 'featured', 'premium')),
+  free_period_ends_at timestamptz,
+
   -- Demo content flag — never true in production
   is_demo boolean not null default false
 );
@@ -132,7 +143,7 @@ create table case_studies (
   problem_statement text not null,
   solution_architecture text not null,
 
-  -- HITL fields — mandatory
+  -- Optional example of past work. Not required to apply or to be verified.
   hitl_oversight_mechanism text not null,
   failure_safeguards text not null,
   outcomes_roi text not null,
@@ -309,5 +320,6 @@ create trigger trg_applications_updated_at
 --   and from robots.txt / sitemap in production.
 -- • The 3-category limit and 120-char tagline limit are enforced in the
 --   application validation layer, not at the DB level.
--- • Verification requires 2 reviewed case studies. See `applications.review_notes`
---   and `case_studies.is_verification_evidence`.
+-- • Case studies are optional and are not a verification gate.
+--   References we can contact are required before verification when an
+--   application row exists. See `applications.references_provided`.

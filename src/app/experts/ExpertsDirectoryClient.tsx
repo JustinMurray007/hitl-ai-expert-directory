@@ -82,7 +82,7 @@ export default function ExpertsDirectoryClient({
           {verifiedOnly && <span className="text-[#108a00] font-bold"> (Verified Only)</span>}
         </div>
         <div className="text-[#5e6d55] hidden sm:block font-medium">
-          Ranked by sponsorship &amp; verified case study evidence
+          Ranked by placement, then verification
         </div>
       </div>
 

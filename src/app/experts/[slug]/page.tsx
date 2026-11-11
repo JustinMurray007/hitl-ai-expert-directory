@@ -2,7 +2,8 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getExpertBySlug, getExperts } from '@/lib/store';
-import { VerifiedBadge, SponsorBadge, ToolBadge, BudgetBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
+import { VerifiedBadge, PlacementBadge, ToolBadge, BudgetBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
+import { showsPublicLinks } from '@/lib/listing';
 import CaseStudyCard from '@/components/CaseStudyCard';
 import ExpertLocationLinks from '@/components/ExpertLocation';
 import {
@@ -55,6 +56,8 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
     notFound();
   }
 
+  const linksVisible = showsPublicLinks(expert);
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Back button */}
@@ -89,13 +92,13 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
                   {expert.full_name}
                 </h1>
                 {expert.is_verified ? (
-                  <VerifiedBadge count={expert.verified_case_study_count} />
+                  <VerifiedBadge />
                 ) : (
                   <span className="text-sm text-[#5e6d55] font-mono bg-[#f4f6f4] px-3 py-1 rounded-full border border-[#dbe3db]">
                     Community Member
                   </span>
                 )}
-                {expert.sponsor_rank > 0 && <SponsorBadge />}
+                <PlacementBadge plan={expert.listing_plan} sponsorRank={expert.sponsor_rank} />
               </div>
 
               <p className="text-base sm:text-lg font-bold text-[#108a00] mt-1">
@@ -119,7 +122,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
             </div>
           </div>
 
-          {/* Booking & Action Buttons */}
+          {linksVisible && (
           <div className="w-full md:w-auto flex flex-col sm:flex-row md:flex-col gap-3.5 shrink-0">
             {expert.booking_url ? (
               <a
@@ -142,7 +145,6 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
               </Link>
             )}
 
-            {/* Social links */}
             <div className="flex items-center justify-center gap-2.5 pt-1">
               {expert.website_url && (
                 <a
@@ -179,6 +181,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
               )}
             </div>
           </div>
+          )}
         </div>
 
         {/* Tagline & Bio */}
@@ -217,25 +220,20 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
         </div>
       </div>
 
-      {/* =====================================================================
-          CASE STUDIES PROOF ENGINE SECTION
-      ====================================================================== */}
+      {expert.case_studies.length > 0 && (
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] mb-2 shadow-xs">
               <ShieldCheck className="w-4 h-4" />
-              <span>The HITL Proof Engine</span>
+              <span>Optional examples</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-[#001e00]">
-              Verified Client Deployments &amp; Human Safety Checks
+              Examples of past work
             </h2>
             <p className="text-base text-[#475569] mt-2 font-normal">
-              Every case study below requires documented proof of human oversight, error prevention safeguards, and measurable business ROI.
+              Case studies are optional. They are not required to be listed or verified. When a specialist chooses to show one, it describes the work and the human checks in it.
             </p>
-          </div>
-          <div className="text-sm font-mono font-bold text-[#108a00] bg-[#e4f7e6] px-3.5 py-1 rounded-full border border-[#b2e8b8]">
-            {expert.case_studies.length} Documented Case {expert.case_studies.length === 1 ? 'Study' : 'Studies'}
           </div>
         </div>
 
@@ -245,6 +243,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
           ))}
         </div>
       </div>
+      )}
     </div>
   );
 }

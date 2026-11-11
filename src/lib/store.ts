@@ -22,6 +22,7 @@ import {
   MatchRequestInput,
   AdminReviewActionInput,
 } from './validation';
+import { compareDirectoryExperts, freePeriodEndsAt } from './listing';
 
 // In-memory runtime store for Demo Mode
 class InMemoryStore {
@@ -155,7 +156,7 @@ export async function getExperts(filters?: DirectoryFilters): Promise<Expert[]> 
               e.tools.some((t) => t.name.toLowerCase().includes(q))
           );
         }
-        return list;
+        return list.sort(compareDirectoryExperts);
       }
     } catch (err) {
       console.warn('Supabase getExperts fallback to memory store', err);
@@ -194,12 +195,7 @@ export async function getExperts(filters?: DirectoryFilters): Promise<Expert[]> 
     );
   }
 
-  // Sort: sponsored first, then verified, then case studies count
-  return list.sort((a, b) => {
-    if (b.sponsor_rank !== a.sponsor_rank) return b.sponsor_rank - a.sponsor_rank;
-    if (Number(b.is_verified) !== Number(a.is_verified)) return Number(b.is_verified) - Number(a.is_verified);
-    return b.verified_case_study_count - a.verified_case_study_count;
-  });
+  return list.sort(compareDirectoryExperts);
 }
 
 export async function getFeaturedExperts(): Promise<Expert[]> {
@@ -263,30 +259,43 @@ export async function createExpertApplication(input: ExpertApplicationInput): Pr
   const slug = `${baseSlug}-${Math.floor(1000 + Math.random() * 9000)}`;
 
   const expertId = `exp-${Date.now()}`;
-  const caseStudyId = `cs-${Date.now()}`;
   const applicationId = `app-${Date.now()}`;
+  const freePeriodEnds = freePeriodEndsAt();
 
   // Resolve category objects
   const categories = memStore.categories.filter((c) => data.categories.includes(c.slug));
   // Resolve tool objects
   const tools = memStore.tools.filter((t) => data.tools.includes(t.slug));
 
-  const newCaseStudy = {
-    id: caseStudyId,
-    expert_id: expertId,
-    title: data.caseStudyTitle,
-    client_industry: data.clientIndustry,
-    problem_statement: data.problemStatement,
-    solution_architecture: data.solutionArchitecture,
-    hitl_oversight_mechanism: data.hitlOversightMechanism,
-    failure_safeguards: data.failureSafeguards,
-    outcomes_roi: data.outcomesRoi,
-    demo_video_url: data.demoVideoUrl || undefined,
-    is_verification_evidence: true,
-    reviewer_confirmed: false,
-    is_featured: false,
-    created_at: new Date().toISOString(),
-  };
+  const text = (value?: string) => value?.trim() || '';
+  const caseStudyParts = [
+    text(data.caseStudyTitle),
+    text(data.clientIndustry),
+    text(data.problemStatement),
+    text(data.solutionArchitecture),
+    text(data.hitlOversightMechanism),
+    text(data.failureSafeguards),
+    text(data.outcomesRoi),
+    text(data.demoVideoUrl),
+  ];
+  const newCaseStudy = caseStudyParts.some(Boolean)
+    ? {
+        id: `cs-${Date.now()}`,
+        expert_id: expertId,
+        title: text(data.caseStudyTitle) || 'Example of past work',
+        client_industry: text(data.clientIndustry),
+        problem_statement: text(data.problemStatement),
+        solution_architecture: text(data.solutionArchitecture),
+        hitl_oversight_mechanism: text(data.hitlOversightMechanism),
+        failure_safeguards: text(data.failureSafeguards),
+        outcomes_roi: text(data.outcomesRoi),
+        demo_video_url: text(data.demoVideoUrl) || undefined,
+        is_verification_evidence: false,
+        reviewer_confirmed: false,
+        is_featured: false,
+        created_at: new Date().toISOString(),
+      }
+    : null;
 
   const newExpert: Expert = {
     id: expertId,
@@ -312,10 +321,12 @@ export async function createExpertApplication(input: ExpertApplicationInput): Pr
     verified_at: null,
     verified_case_study_count: 0,
     sponsor_rank: 0,
+    listing_plan: 'unpaid',
+    free_period_ends_at: freePeriodEnds,
     is_demo: false,
     categories,
     tools,
-    case_studies: [newCaseStudy],
+    case_studies: newCaseStudy ? [newCaseStudy] : [],
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   };
@@ -341,7 +352,7 @@ export async function createExpertApplication(input: ExpertApplicationInput): Pr
     if (adminClient) {
       try {
         // Insert public expert row
-        const { error: expErr } = await adminClient.from('experts').insert({
+        const expertRow = {
           id: expertId,
           slug,
           full_name: data.fullName,
@@ -364,13 +375,27 @@ export async function createExpertApplication(input: ExpertApplicationInput): Pr
           is_verified: false,
           verified_case_study_count: 0,
           sponsor_rank: 0,
+          listing_plan: 'unpaid',
+          free_period_ends_at: freePeriodEnds,
           is_demo: false,
-        });
+        };
+
+        let { error: expErr } = await adminClient.from('experts').insert(expertRow);
+        if (expErr && /listing_plan|free_period_ends_at/i.test(String(expErr.message || expErr))) {
+          const legacyRow = Object.fromEntries(
+            Object.entries(expertRow).filter(
+              ([key]) => key !== 'listing_plan' && key !== 'free_period_ends_at',
+            ),
+          );
+          const retry = await adminClient.from('experts').insert(legacyRow);
+          expErr = retry.error;
+        }
 
         if (expErr) throw expErr;
 
-        // Insert case study
-        await adminClient.from('case_studies').insert(newCaseStudy);
+        if (newCaseStudy) {
+          await adminClient.from('case_studies').insert(newCaseStudy);
+        }
 
         // Insert private application
         await adminClient.from('applications').insert({
@@ -523,14 +548,16 @@ export async function updateExpertReviewStatus(
     expert.verified_case_study_count = expert.case_studies.filter((cs) => cs.reviewer_confirmed).length;
   }
 
-  // Enforce Verification Rule from STRATEGY.md:
-  // "Verification requires two reviewed case studies."
-  // Payment or manual override never confers verification without 2 reviewed case studies.
+  // Case studies are optional and are not a verification gate.
+  // References remain required when an application record exists.
+  // Sponsor rank / payment never sets is_verified.
   if (verificationStatus === 'verified') {
-    if (expert.verified_case_study_count < 2) {
+    const applicationForGate = memStore.applications.find((a) => a.expert_id === expertId);
+    if (applicationForGate && !applicationForGate.references_provided) {
       return {
         success: false,
-        error: `Verification Gate Enforced: Expert has ${expert.verified_case_study_count} confirmed case study(ies). Minimum of 2 reviewer-confirmed production case studies with demonstrable HITL oversight is strictly required for the Verified badge.`,
+        error:
+          'Verification requires at least one reference we can contact. Case studies are not required, and payment does not confer the Verified badge.',
       };
     }
     expert.is_verified = true;

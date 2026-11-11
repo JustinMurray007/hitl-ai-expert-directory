@@ -54,7 +54,7 @@ Next.js 15 (App Router)  ─┐
 ```
 
 - **Separation of Concerns:** Publication, verification, and sponsorship are three independent dimensions. Payment never confers verification.
-- **Strict Verification Gate:** Setting an expert to `Verified` requires at least **two reviewer-confirmed production case studies** with demonstrable human oversight.
+- **Verification:** The Verified badge is not sold. Case studies are not required to be listed or verified. When an application record exists, verification requires at least one reference we can contact. Payment never confers verification.
 - **Private Data Protection:** Applicant contact emails, legal entity details, private repositories, and reviewer notes live in private tables (`applications`, `match_requests`) with zero anonymous RLS read policies.
 
 ---
@@ -67,10 +67,10 @@ Next.js 15 (App Router)  ─┐
 | `/experts` | Searchable directory with category, tool stack, budget, and verification filters |
 | `/experts/[slug]` | Individual specialist profile with case studies & HITL oversight mechanism |
 | `/categories/[slug]` | Category hub with taxonomy metadata, typical stack, and specialists |
-| `/apply` | Multi-section specialist application with mandatory human guardrail disclosure |
+| `/apply` | Specialist application. Vetting is free. Listing prices sit above the form. |
 | `/match` | Private founder concierge matchmaking intake form |
 | `/admin` | Administrative review queue with token authentication & verification gate |
-| `/about` | The HITL Standard, two-case-study rule, and pricing hypothesis |
+| `/about` | Accountability standard, references requirement, and listing prices |
 | `/api/experts` | Public REST API endpoint for filtering published specialists |
 | `/api/categories` | Public REST API endpoint for category hubs taxonomy |
 | `/api/apply` | Intake API endpoint for specialist submissions |
@@ -84,4 +84,4 @@ Next.js 15 (App Router)  ─┐
 
 Visit `/admin` to access the review queue:
 - **Default Local Secret:** `hitl-admin-secret-2026`
-- **Actions:** Publish, reject, archive, adjust sponsor rank, confirm case studies, and apply verified status.
+- **Actions:** Publish, reject, archive, adjust sponsor rank, optionally confirm case studies, and apply verified status when references are on file.
