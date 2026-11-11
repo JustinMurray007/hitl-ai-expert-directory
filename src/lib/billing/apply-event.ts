@@ -1,8 +1,10 @@
-import { effectForEvent, type StripeEventLike } from './events';
+import { effectForEvent, withExpandedSubscriptions, type StripeEventLike } from './events';
 import type { BillingStore } from './store';
 
 export type StripeSideEffects = {
   updateCustomerMetadata?: (customerId: string, metadata: Record<string, string>) => Promise<void>;
+  /** Required for checkout and invoice events that only include a subscription id. */
+  retrieveSubscription?: (subscriptionId: string) => Promise<Record<string, unknown>>;
 };
 
 export async function applyStripeEvent(
@@ -14,7 +16,10 @@ export async function applyStripeEvent(
     return { ok: true, duplicate: true, action: 'duplicate' };
   }
 
-  const effect = effectForEvent(event);
+  const hydrated = sideEffects.retrieveSubscription
+    ? await withExpandedSubscriptions(event, sideEffects.retrieveSubscription)
+    : event;
+  const effect = effectForEvent(hydrated);
   if (effect.action === 'ignore') {
     await store.markProcessed(event.id, event.type);
     return { ok: true, action: effect.reason };

@@ -149,6 +149,38 @@ function subscriptionObject(sessionOrSub: Record<string, unknown>): Record<strin
   return isRecord(sessionOrSub.subscription) ? sessionOrSub.subscription : null;
 }
 
+/** Stripe webhook payloads usually send the subscription as an id. Retrieve with items.data.price expanded. */
+export const SUBSCRIPTION_ITEM_PRICE_EXPAND = ['items.data.price'] as const;
+
+export async function withExpandedSubscriptions(
+  event: StripeEventLike,
+  retrieveSubscription: (subscriptionId: string) => Promise<Record<string, unknown>>,
+): Promise<StripeEventLike> {
+  const object = { ...event.data.object };
+
+  if (
+    (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') &&
+    typeof object.subscription === 'string' &&
+    object.subscription.length > 0
+  ) {
+    object.subscription = await retrieveSubscription(object.subscription);
+  }
+
+  if (event.type === 'invoice.paid' && isRecord(object.parent)) {
+    const parent = { ...object.parent };
+    if (isRecord(parent.subscription_details)) {
+      const details = { ...parent.subscription_details };
+      if (typeof details.subscription === 'string' && details.subscription.length > 0) {
+        details.subscription = await retrieveSubscription(details.subscription);
+        parent.subscription_details = details;
+        object.parent = parent;
+      }
+    }
+  }
+
+  return { ...event, data: { object } };
+}
+
 export function effectForEvent(event: StripeEventLike): BillingEffect {
   const object = event.data.object;
 

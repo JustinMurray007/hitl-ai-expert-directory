@@ -2,7 +2,7 @@ import type Stripe from 'stripe';
 import { extraCategoryLookupKey, planLookupKey, type BillingInterval, type CheckoutPlan } from './catalog';
 import { buildCheckoutSessionParams, integrationIdentifier } from './checkout-params';
 import { applyStripeEvent } from './apply-event';
-import type { StripeEventLike } from './events';
+import { SUBSCRIPTION_ITEM_PRICE_EXPAND, type StripeEventLike } from './events';
 import type { BillingStore } from './store';
 import { createStripeClient, verifyWebhookEvent } from './stripe-client';
 
@@ -149,6 +149,12 @@ export async function handleWebhookRequest(
     const result = await applyStripeEvent(event as unknown as StripeEventLike, store, {
       updateCustomerMetadata: async (customerId, metadata) => {
         await client.customers.update(customerId, { metadata });
+      },
+      retrieveSubscription: async (subscriptionId) => {
+        const subscription = await client.subscriptions.retrieve(subscriptionId, {
+          expand: [...SUBSCRIPTION_ITEM_PRICE_EXPAND],
+        });
+        return subscription as unknown as Record<string, unknown>;
       },
     });
     return json(result);
