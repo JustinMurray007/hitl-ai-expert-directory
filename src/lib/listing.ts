@@ -78,17 +78,16 @@ export type DirectoryExpertVisibility = {
  * Whether `getExperts()` includes this row in the static export.
  *
  * The directory read is published specialists only, with demo rows excluded.
- * It inner-joins categories and tools, so a row missing either relation is
- * not rendered. Billing rebuilds use this same predicate.
+ * A listing has to be in at least one category. Tools are optional: a
+ * specialist with category rows and no tool rows still renders. Billing
+ * rebuilds use this same predicate.
  */
 export function isPublicDirectoryExpert(expert: DirectoryExpertVisibility): boolean {
   return (
     expert.status === 'published' &&
     expert.is_demo === false &&
     Array.isArray(expert.categories) &&
-    expert.categories.length > 0 &&
-    Array.isArray(expert.tools) &&
-    expert.tools.length > 0
+    expert.categories.length > 0
   );
 }
 

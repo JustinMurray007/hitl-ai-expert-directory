@@ -8,7 +8,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Find An Ai Consultant & Company Near You | Find Ai Pros',
   description:
-    'Find vetted local AI consultants, automation agencies, and AI developers in your city, state, or zip code. Every listed specialist names an accountable person and gives references we can contact.',
+    'Find local AI consultants, automation agencies, and AI developers in your city, state, or zip code. Every listed specialist names an accountable person and gives references we can contact.',
   alternates: {
     canonical: 'https://findaipros.com/locations',
   },
@@ -23,7 +23,7 @@ export default async function LocationsMainPage() {
     '@type': 'ItemList',
     name: 'Find An Ai Consultant & Company Near You',
     description:
-      'Directory of verified local AI consultants, automation agencies, and applied engineers across cities, states, and zip codes.',
+      'Directory of local AI consultants, automation agencies, and applied engineers across cities, states, and zip codes.',
     itemListElement: cities.slice(0, 15).map((city, index) => ({
       '@type': 'ListItem',
       position: index + 1,
@@ -45,13 +45,13 @@ export default async function LocationsMainPage() {
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] shadow-xs">
             <MapPin className="w-4 h-4 text-[#108a00]" />
-            <span>National Verified Local Directory</span>
+            <span>National Local Directory</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight leading-tight">
             Find An Ai Consultant &amp; Company Near You
           </h1>
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-            Browse vetted local AI consultants, automation architects, and development agencies across cities, states, and zip codes. Every specialist is reviewed for human safety checkpoints and references we can contact.
+            Browse local AI consultants, automation architects, and development agencies across cities, states, and zip codes. Every specialist names human safety checkpoints and references we can contact.
           </p>
 
           {/* Quick Metrics */}
@@ -66,7 +66,7 @@ export default async function LocationsMainPage() {
             </span>
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#108a00]" />
-              {experts.length} Vetted Specialists
+              {experts.length} Specialists
             </span>
           </div>
         </div>

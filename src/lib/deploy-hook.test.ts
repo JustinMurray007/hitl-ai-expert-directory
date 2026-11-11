@@ -276,10 +276,11 @@ test('stripe webhook does not rebuild a listing the directory would not render',
       tools: [],
       listing_plan: 'featured',
     });
+    // Category rows without tools are public, so a plan change rebuilds.
     const noTools = await request(paidCheckoutEvent('evt_notools', 'premium'));
     assert.equal(noTools.status, 200);
     assert.equal(store.experts.get('exp_1')?.listing_plan, 'premium');
-    assert.equal(fetchMock.calls.length, 0);
+    assert.equal(fetchMock.calls.length, 1);
   } finally {
     fetchMock.restore();
     resetDeployHookForTests();
@@ -349,6 +350,67 @@ test('admin publish requests a rebuild and a failed hook still succeeds', async 
     resetDeployHookForTests();
     if (previous === undefined) delete process.env.CLOUDFLARE_DEPLOY_HOOK_URL;
     else process.env.CLOUDFLARE_DEPLOY_HOOK_URL = previous;
+  }
+});
+
+test('stripe webhook rebuilds when chosen categories change on a public listing', async () => {
+  resetDeployHookForTests();
+  const fetchMock = installFetch(() => new Response('ok', { status: 200 }));
+  try {
+    const slugs = [
+      'operations-workflow-automation',
+      'sales-lead-qualification',
+      'customer-support-knowledge-base',
+      'marketing-programmatic-content',
+    ];
+    const store = memoryBillingStore();
+    store.experts.set('exp_1', {
+      id: 'exp_1',
+      listing_plan: 'featured',
+      profile_mode: 'full',
+      status: 'published',
+      is_demo: false,
+      categories: slugs.map((slug) => ({ slug })),
+      category_slugs: slugs,
+      tools: [],
+    });
+    const response = await handleWebhookRequest(
+      new Request('https://findaipros.com/api/stripe/webhook', {
+        method: 'POST',
+        headers: { 'stripe-signature': 't=1,v1=ok' },
+        body: '{}',
+      }),
+      {
+        STRIPE_SECRET_KEY: 'rk_test_dummy',
+        STRIPE_WEBHOOK_SECRET: 'whsec_test',
+        CLOUDFLARE_DEPLOY_HOOK_URL: HOOK,
+      },
+      store,
+      stripeFor({
+        id: 'evt_categories',
+        type: 'customer.subscription.updated',
+        data: {
+          object: {
+            id: 'sub_1',
+            customer: 'cus_1',
+            status: 'active',
+            metadata: {
+              expert_id: 'exp_1',
+              listing_tier: 'basic',
+              category_slugs: slugs.join(','),
+            },
+            items: { data: [{ quantity: 1, price: { lookup_key: 'basic_monthly' } }] },
+          },
+        },
+      }),
+    );
+    assert.equal(response.status, 200);
+    assert.deepEqual(store.experts.get('exp_1')?.category_slugs, [slugs[0]]);
+    assert.equal(fetchMock.calls.length, 1);
+    assert.equal(fetchMock.calls[0]?.url, HOOK);
+  } finally {
+    fetchMock.restore();
+    resetDeployHookForTests();
   }
 });
 });

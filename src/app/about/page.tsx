@@ -6,8 +6,8 @@ import {
 } from 'lucide-react';
 
 export const metadata = {
-  title: 'Vetting Standards & The HITL Standard | Find Ai Pros',
-  description: 'Learn how Find Ai Pros vets specialists: a named accountable person, human safety checks, and references we can contact. Case studies are not required.',
+  title: 'The HITL Standard | Find Ai Pros',
+  description: 'How Find Ai Pros listings work: a named accountable person, human safety checks, references we can contact, and plan-based categories.',
 };
 
 export default function AboutPage() {
@@ -17,7 +17,7 @@ export default function AboutPage() {
       <div className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00]">
           <ShieldCheck className="w-4 h-4" />
-          <span>The Vetting Philosophy</span>
+          <span>The listing standard</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight leading-tight">
           The Find Ai Pros Standard for Accountable AI
@@ -67,7 +67,7 @@ export default function AboutPage() {
         </div>
 
         <p className="text-base sm:text-lg text-[#334133] leading-relaxed">
-          The green <strong>Verified Specialist</strong> badge is never sold. Payment never confers verification, and it never skips vetting. Case studies are not required to be listed or to earn the badge. A specialist may still choose to show examples of past work on their profile.
+          Case studies are not required to be listed. A specialist may still choose to show examples of past work on their profile. References we can contact remain part of the listing standard.
         </p>
 
         <div className="p-6 rounded-2xl bg-[#f9faf9] border border-[#e4ebe4] space-y-2.5">
@@ -88,7 +88,7 @@ export default function AboutPage() {
             Rigorous Criteria
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-[#001e00] mt-1.5">
-            The Three-Part Vetting Checklist
+            The Three-Part Listing Checklist
           </h2>
         </div>
 
@@ -138,20 +138,20 @@ export default function AboutPage() {
             Listing plans
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-[#001e00] mt-1.5">
-            Vetting is free. Placement is what you pay for.
+            Placement is what you pay for.
           </h2>
           <p className="text-sm sm:text-base text-[#5e6d55] mt-1.5 leading-relaxed font-normal">
-            Every listed specialist is vetted the same way. Paying does not buy the badge and does not skip vetting. The Directory does not guarantee results.
+            Each category has its own page, and people can filter and search the directory by category. The more categories you&apos;re in, the more of those pages and filters you show up in. Your plan includes a set number of categories. Choose which ones you want to appear in.
           </p>
         </div>
 
         <ul className="space-y-3 text-[#334133] text-sm sm:text-base leading-relaxed">
           <li>New profiles are free for the first 30 days in one category. No card required. Nothing is charged automatically. Website and social links show during those 30 days and on any paid plan. If you pay during the 30 days, the paid plan starts that day. It is not a Stripe trial. When a subscription ends, the listing becomes a limited profile.</li>
           <li><strong>Basic</strong> — $9.99/month or $79/year. One category, including a link to their website.</li>
-          <li><strong>Featured</strong> — $29.99/month or $299.99/year. Labeled Featured, and listed above Basic listings in 4 categories.</li>
-          <li><strong>Premium Featured</strong> — $59.99/month or $599.99/year. Labeled Premium Featured. Homepage listing plus the absolute top of 6 categories.</li>
-          <li>Extra categories are $9.99/month or $79/year each.</li>
-          <li>After 30 days without a plan, the listing stays visible as a limited profile (name, category, and vetted badge). The website link, social links, contact and lead routing, and match eligibility come off. It is not hidden and it is not auto-charged. Reminder emails go out at day 15 and on day 30 if they have not picked a plan.</li>
+          <li><strong>Featured</strong> — $29.99/month or $299.99/year. Labeled Featured, and listed above Basic listings in 3 categories.</li>
+          <li><strong>Premium Featured</strong> — $59.99/month or $599.99/year. Labeled Premium Featured. Homepage listing plus the top of every category.</li>
+          <li>Extra categories are $9.99/month or $79/year each. Basic includes 1, Featured includes 3, and Premium Featured includes every category, so Premium does not need extras.</li>
+          <li>After 30 days without a plan, the listing stays visible as a limited profile (name and category). The website link, social links, contact and lead routing, and match eligibility come off. It is not hidden and it is not auto-charged. Reminder emails go out at day 15 and on day 30 if they have not picked a plan.</li>
         </ul>
 
         <Link

@@ -25,6 +25,17 @@ import {
 import { requestProductionRebuild } from './deploy-hook';
 import { compareDirectoryExperts, freePeriodEndsAt, isPublicDirectoryExpert } from './listing';
 
+/**
+ * Categories stay an inner join so a specialist with no category is omitted.
+ * Tools are a left join: category rows alone are enough for a listing to render.
+ */
+export const EXPERT_PUBLIC_SELECT = `
+  *,
+  expert_categories!inner(category:categories(*)),
+  expert_tools(tool:tools(*)),
+  case_studies(*)
+`;
+
 // In-memory runtime store for Demo Mode
 class InMemoryStore {
   categories: Category[] = [...SEED_CATEGORIES];
@@ -108,15 +119,10 @@ export async function getExperts(filters?: DirectoryFilters): Promise<Expert[]> 
   if (isSupabaseConfigured && supabase) {
     try {
       // Membership matches isPublicDirectoryExpert: published, not demo,
-      // and at least one category and one tool (the inner joins).
+      // and at least one category. Tools are optional.
       let query = supabase
         .from('experts')
-        .select(`
-          *,
-          expert_categories!inner(category:categories(*)),
-          expert_tools!inner(tool:tools(*)),
-          case_studies(*)
-        `)
+        .select(EXPERT_PUBLIC_SELECT)
         .eq('status', 'published')
         .eq('is_demo', false)
         .order('sponsor_rank', { ascending: false })
@@ -148,7 +154,7 @@ export async function getExperts(filters?: DirectoryFilters): Promise<Expert[]> 
           list = list.filter((e) => e.categories.some((c) => c.slug === filters.category));
         }
         if (filters?.tool) {
-          list = list.filter((e) => e.tools.some((t) => t.slug === filters.tool));
+          list = list.filter((e) => (e.tools ?? []).some((t) => t.slug === filters.tool));
         }
         if (filters?.query) {
           const q = filters.query.toLowerCase();
@@ -158,7 +164,7 @@ export async function getExperts(filters?: DirectoryFilters): Promise<Expert[]> 
               e.tagline.toLowerCase().includes(q) ||
               e.bio.toLowerCase().includes(q) ||
               e.city.toLowerCase().includes(q) ||
-              e.tools.some((t) => t.name.toLowerCase().includes(q))
+              (e.tools ?? []).some((t) => t.name.toLowerCase().includes(q))
           );
         }
         return list.sort(compareDirectoryExperts);
@@ -175,7 +181,7 @@ export async function getExperts(filters?: DirectoryFilters): Promise<Expert[]> 
     list = list.filter((e) => e.categories.some((c) => c.slug === filters.category));
   }
   if (filters?.tool) {
-    list = list.filter((e) => e.tools.some((t) => t.slug === filters.tool));
+    list = list.filter((e) => (e.tools ?? []).some((t) => t.slug === filters.tool));
   }
   if (filters?.budget && filters.budget !== 'all') {
     list = list.filter((e) => e.starting_budget === filters.budget);
@@ -196,7 +202,7 @@ export async function getExperts(filters?: DirectoryFilters): Promise<Expert[]> 
         (e.agency_name && e.agency_name.toLowerCase().includes(q)) ||
         e.city.toLowerCase().includes(q) ||
         e.categories.some((c) => c.name.toLowerCase().includes(q)) ||
-        e.tools.some((t) => t.name.toLowerCase().includes(q))
+        (e.tools ?? []).some((t) => t.name.toLowerCase().includes(q))
     );
   }
 
@@ -213,12 +219,7 @@ export async function getExpertBySlug(slug: string): Promise<Expert | null> {
     try {
       const { data, error } = await supabase
         .from('experts')
-        .select(`
-          *,
-          expert_categories!inner(category:categories(*)),
-          expert_tools!inner(tool:tools(*)),
-          case_studies(*)
-        `)
+        .select(EXPERT_PUBLIC_SELECT)
         .eq('slug', slug)
         .eq('status', 'published')
         .single();
@@ -267,10 +268,14 @@ export async function createExpertApplication(input: ExpertApplicationInput): Pr
   const applicationId = `app-${Date.now()}`;
   const freePeriodEnds = freePeriodEndsAt();
 
-  // Resolve category objects
-  const categories = memStore.categories.filter((c) => data.categories.includes(c.slug));
-  // Resolve tool objects
-  const tools = memStore.tools.filter((t) => data.tools.includes(t.slug));
+  // Preserve the order the applicant chose. The free-listing cap is already
+  // enforced by expertApplicationSchema.
+  const categories = data.categories
+    .map((slug) => memStore.categories.find((category) => category.slug === slug))
+    .filter((category): category is Category => Boolean(category));
+  const tools = data.tools
+    .map((slug) => memStore.tools.find((tool) => tool.slug === slug))
+    .filter((tool): tool is Tool => Boolean(tool));
 
   const text = (value?: string) => value?.trim() || '';
   const caseStudyParts = [
@@ -397,6 +402,52 @@ export async function createExpertApplication(input: ExpertApplicationInput): Pr
         }
 
         if (expErr) throw expErr;
+
+        const categorySlugs = categories.map((category) => category.slug);
+        if (categorySlugs.length > 0) {
+          const { data: categoryRows, error: categoryLookupError } = await adminClient
+            .from('categories')
+            .select('id, slug')
+            .in('slug', categorySlugs);
+          if (categoryLookupError) throw categoryLookupError;
+          const categoryIdBySlug = new Map(
+            (categoryRows ?? []).map((row) => [String(row.slug), String(row.id)]),
+          );
+          const categoryLinks = categorySlugs.flatMap((slug, index) => {
+            const categoryId = categoryIdBySlug.get(slug);
+            return categoryId ? [{ expert_id: expertId, category_id: categoryId, sort_order: index }] : [];
+          });
+          if (categoryLinks.length > 0) {
+            let { error: categoryLinkError } = await adminClient.from('expert_categories').insert(categoryLinks);
+            if (categoryLinkError && /sort_order/i.test(String(categoryLinkError.message || categoryLinkError))) {
+              const legacyLinks = categoryLinks.map((link) => ({
+                expert_id: link.expert_id,
+                category_id: link.category_id,
+              }));
+              const retry = await adminClient.from('expert_categories').insert(legacyLinks);
+              categoryLinkError = retry.error;
+            }
+            if (categoryLinkError) throw categoryLinkError;
+          }
+        }
+
+        const toolSlugs = tools.map((tool) => tool.slug);
+        if (toolSlugs.length > 0) {
+          const { data: toolRows, error: toolLookupError } = await adminClient
+            .from('tools')
+            .select('id, slug')
+            .in('slug', toolSlugs);
+          if (toolLookupError) throw toolLookupError;
+          const toolIdBySlug = new Map((toolRows ?? []).map((row) => [String(row.slug), String(row.id)]));
+          const toolLinks = toolSlugs.flatMap((slug) => {
+            const toolId = toolIdBySlug.get(slug);
+            return toolId ? [{ expert_id: expertId, tool_id: toolId }] : [];
+          });
+          if (toolLinks.length > 0) {
+            const { error: toolLinkError } = await adminClient.from('expert_tools').insert(toolLinks);
+            if (toolLinkError) throw toolLinkError;
+          }
+        }
 
         if (newCaseStudy) {
           await adminClient.from('case_studies').insert(newCaseStudy);
@@ -562,7 +613,7 @@ export async function updateExpertReviewStatus(
       return {
         success: false,
         error:
-          'Verification requires at least one reference we can contact. Case studies are not required, and payment does not confer the Verified badge.',
+          'Listing requires at least one reference we can contact. Case studies are not required, and payment does not change that requirement.',
       };
     }
     expert.is_verified = true;

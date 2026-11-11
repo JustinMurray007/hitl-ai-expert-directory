@@ -12,9 +12,9 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Find Ai Pros — Verified AI Specialists Directory',
+  title: 'Find Ai Pros — AI Specialists Directory',
   description:
-    'Find Ai Pros connects businesses with verified AI specialists who build systems with real human accountability. Find vetted automation architects, conversational voice engineers, and applied AI developers.',
+    'Find Ai Pros connects businesses with AI specialists who build systems with real human accountability. Find automation architects, conversational voice engineers, and applied AI developers.',
   keywords: [
     'Find Ai Pros',
     'find ai pros',
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   openGraph: {
-    title: 'Find Ai Pros — Verified AI Specialists Directory',
+    title: 'Find Ai Pros — AI Specialists Directory',
     description:
-      'Verified AI specialists who build systems with real human accountability. Vetting is free. Case studies are not required.',
+      'AI specialists who build systems with real human accountability. Case studies are not required.',
     type: 'website',
   },
 };

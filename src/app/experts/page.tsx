@@ -4,8 +4,8 @@ import { ShieldCheck } from 'lucide-react';
 import { Suspense } from 'react';
 
 export const metadata = {
-  title: 'Browse Verified AI Experts & Agencies | Find Ai Pros',
-  description: 'Search vetted AI automation consultants, conversational voice engineers, and applied AI developers. Filter by category, tool stack, budget, and verification.',
+  title: 'Browse AI Experts & Agencies | Find Ai Pros',
+  description: 'Search AI automation consultants, conversational voice engineers, and applied AI developers. Filter by category, tool stack, and budget.',
 };
 
 export default async function ExpertsPage() {
@@ -24,10 +24,10 @@ export default async function ExpertsPage() {
           <span>Curated AI Expert Directory</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight">
-          Find Vetted AI Automation Experts
+          Find AI Automation Experts
         </h1>
         <p className="text-base sm:text-lg text-[#475569] mt-3 max-w-3xl leading-relaxed font-normal">
-          Every expert listed below has agreed to name an accountable person and describe their human fallback. The green Verified badge means identity was confirmed and we could contact a reference. Case studies are not required.
+          Every expert listed below has agreed to name an accountable person and describe their human fallback. Case studies are not required. Filter by category to see who appears on each category page.
         </p>
       </div>
 

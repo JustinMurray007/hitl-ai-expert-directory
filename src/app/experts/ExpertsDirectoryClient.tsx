@@ -24,7 +24,6 @@ export default function ExpertsDirectoryClient({
   const tool = searchParams.get('tool') || '';
   const budget = searchParams.get('budget') || 'all';
   const engagement = searchParams.get('engagement') || 'all';
-  const verifiedOnly = searchParams.get('verified') === 'true';
   const query = searchParams.get('q') || '';
 
   const filteredExperts = useMemo(() => {
@@ -34,16 +33,13 @@ export default function ExpertsDirectoryClient({
       list = list.filter((e) => e.categories.some((c) => c.slug === category));
     }
     if (tool) {
-      list = list.filter((e) => e.tools.some((t) => t.slug === tool));
+      list = list.filter((e) => (e.tools ?? []).some((t) => t.slug === tool));
     }
     if (budget && budget !== 'all') {
       list = list.filter((e) => e.starting_budget === budget);
     }
     if (engagement && engagement !== 'all') {
       list = list.filter((e) => e.primary_engagement === engagement);
-    }
-    if (verifiedOnly) {
-      list = list.filter((e) => e.is_verified);
     }
     if (query) {
       const q = query.toLowerCase().trim();
@@ -55,11 +51,11 @@ export default function ExpertsDirectoryClient({
           (e.agency_name && e.agency_name.toLowerCase().includes(q)) ||
           e.city.toLowerCase().includes(q) ||
           e.categories.some((c) => c.name.toLowerCase().includes(q)) ||
-          e.tools.some((t) => t.name.toLowerCase().includes(q))
+          (e.tools ?? []).some((t) => t.name.toLowerCase().includes(q))
       );
     }
     return list;
-  }, [allExperts, category, tool, budget, engagement, verifiedOnly, query]);
+  }, [allExperts, category, tool, budget, engagement, query]);
 
   return (
     <>
@@ -71,7 +67,6 @@ export default function ExpertsDirectoryClient({
         initialTool={tool}
         initialBudget={budget}
         initialEngagement={engagement}
-        initialVerified={verifiedOnly}
         initialQuery={query}
       />
 
@@ -79,10 +74,9 @@ export default function ExpertsDirectoryClient({
       <div className="flex items-center justify-between mb-6 text-sm text-[#5e6d55]">
         <div>
           Showing <span className="font-bold text-[#001e00]">{filteredExperts.length}</span> AI expert{filteredExperts.length === 1 ? '' : 's'}
-          {verifiedOnly && <span className="text-[#108a00] font-bold"> (Verified Only)</span>}
         </div>
         <div className="text-[#5e6d55] hidden sm:block font-medium">
-          Ranked by placement, then verification
+          Ranked by placement
         </div>
       </div>
 

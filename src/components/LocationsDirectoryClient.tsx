@@ -215,7 +215,7 @@ export default function LocationsDirectoryClient({
                 <span>Browse AI Consultants by State</span>
               </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Statewide hubs featuring vetted specialists and city directories.
+                Statewide hubs featuring specialists and city directories.
               </p>
             </div>
             <span className="text-xs font-mono font-bold text-[#2563eb] bg-[#eff6ff] px-3 py-1 rounded-full border border-[#bfdbfe]">
@@ -300,7 +300,7 @@ export default function LocationsDirectoryClient({
         <div className="flex items-center justify-between flex-wrap gap-2">
           <div>
             <h2 className="text-2xl font-black text-[#001e00]">
-              {searchQuery ? `Matched AI Specialists (${filtered.experts.length})` : 'All Vetted AI Specialists Across North America'}
+              {searchQuery ? `Matched AI Specialists (${filtered.experts.length})` : 'All AI Specialists Across North America'}
             </h2>
             <p className="text-sm text-slate-600 mt-1">
               Click any city, state, or zip code on an expert card to navigate to their dedicated location hub.

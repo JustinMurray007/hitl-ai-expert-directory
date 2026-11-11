@@ -5,14 +5,16 @@ import {
 } from 'lucide-react';
 import Script from 'next/script';
 import ApplyPricing from '@/components/ApplyPricing';
+import { getCategories } from '@/lib/store';
 
 export const metadata: Metadata = {
   title: 'Apply to Be Listed | Find Ai Pros',
   description:
-    'Apply to be listed on Find Ai Pros. Vetting is free. A new profile is free for 30 days in one category, no card required, and nothing is charged automatically.',
+    'Apply to be listed on Find Ai Pros. A new profile is free for 30 days in one category, no card required, and nothing is charged automatically.',
 };
 
-export default function ApplyPage() {
+export default async function ApplyPage() {
+  const categories = await getCategories();
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <Script
@@ -29,12 +31,11 @@ export default function ApplyPage() {
           Apply to Be Listed
         </h1>
         <p className="text-base sm:text-lg text-[#5e6d55] mt-3 leading-relaxed font-normal">
-          Vetting is free. We list specialists who name one accountable person and give references we can contact.
-          Case studies are not required. A new profile is free for the first 30 days in one category, no card required, and nothing is charged automatically.
+          Joining is free. Any new profile is free for the first 30 days in one category, no card required, and nothing is charged automatically. But, to retain your profile for over 30 days and for extra categories or featured locations on the website, please pay the affordable options below.
         </p>
       </div>
 
-      <ApplyPricing />
+      <ApplyPricing categories={categories.map((category) => ({ slug: category.slug, name: category.name }))} />
 
       <div id="application" className="scroll-mt-28 rounded-3xl p-4 sm:p-8 border border-[#e4ebe4] bg-white shadow-sm">
         <div className="mb-4 px-2">

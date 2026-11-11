@@ -8,7 +8,7 @@ import {
   isStaticExportPlaceholder,
   staticPlaceholderMetadata,
 } from '@/lib/static-params';
-import { VerifiedBadge, PlacementBadge, ToolBadge, BudgetBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
+import { PlacementBadge, ToolBadge, BudgetBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
 import { showsPublicLinks } from '@/lib/listing';
 import CaseStudyCard from '@/components/CaseStudyCard';
 import ExpertLocationLinks from '@/components/ExpertLocation';
@@ -106,13 +106,6 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
                 <h1 className="text-2xl sm:text-3xl font-black text-[#001e00]">
                   {expert.full_name}
                 </h1>
-                {expert.is_verified ? (
-                  <VerifiedBadge />
-                ) : (
-                  <span className="text-sm text-[#5e6d55] font-mono bg-[#f4f6f4] px-3 py-1 rounded-full border border-[#dbe3db]">
-                    Community Member
-                  </span>
-                )}
                 <PlacementBadge plan={expert.listing_plan} sponsorRank={expert.sponsor_rank} />
               </div>
 
@@ -228,8 +221,8 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
 
         {/* Tools Stack */}
         <div className="mt-5 pt-5 border-t border-[#f0f3f0] flex flex-wrap items-center gap-2 text-sm sm:text-base">
-          <span className="text-[#475569] mr-2 font-semibold">Verified Stack:</span>
-          {expert.tools.map((t) => (
+          <span className="text-[#475569] mr-2 font-semibold">Tools:</span>
+          {(expert.tools ?? []).map((t) => (
             <ToolBadge key={t.id} name={t.name} />
           ))}
         </div>
@@ -247,7 +240,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
               Examples of past work
             </h2>
             <p className="text-base text-[#475569] mt-2 font-normal">
-              Case studies are optional. They are not required to be listed or verified. When a specialist chooses to show one, it describes the work and the human checks in it.
+              Case studies are optional. They are not required to be listed. When a specialist chooses to show one, it describes the work and the human checks in it.
             </p>
           </div>
         </div>

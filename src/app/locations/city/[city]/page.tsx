@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
   }
 
   const title = `Find An Ai Consultant & Company Near ${cityName}, ${stateCode} | Find Ai Pros`;
-  const description = `Hire vetted AI automation consultants, conversational voice engineers, and applied AI development companies near ${cityName}, ${stateCode}. Human-in-the-loop safeguards and references we can contact.`;
+  const description = `Hire AI automation consultants, conversational voice engineers, and applied AI development companies near ${cityName}, ${stateCode}. Human-in-the-loop safeguards and references we can contact.`;
 
   return {
     title,
@@ -97,7 +97,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: `Find An Ai Consultant & Company Near ${cityName}`,
-    description: `Vetted AI specialists, automation consultants, and AI agencies serving ${cityName}, ${stateCode}.`,
+    description: `AI specialists, automation consultants, and AI agencies serving ${cityName}, ${stateCode}.`,
     itemListElement: cityExperts.map((exp, index) => ({
       '@type': 'ListItem',
       position: index + 1,
@@ -183,7 +183,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
               Find An Ai Consultant &amp; Company Near {cityName}
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              Connect with vetted AI automation specialists, conversational voice engineers, and applied machine learning developers serving {cityName}, {stateCode} and surrounding metro markets.
+              Connect with AI automation specialists, conversational voice engineers, and applied machine learning developers serving {cityName}, {stateCode} and surrounding metro markets.
             </p>
           </div>
 
@@ -191,7 +191,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
           <div className="pt-4 border-t border-[#e2ece2] flex flex-wrap items-center gap-6 text-xs sm:text-sm font-bold text-slate-700">
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#108a00]" />
-              {cityExperts.length} Verified {cityExperts.length === 1 ? 'Specialist' : 'Specialists'} in {cityName}
+              {cityExperts.length} {cityExperts.length === 1 ? 'Specialist' : 'Specialists'} in {cityName}
             </span>
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-[#2563eb]" />
@@ -227,7 +227,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
           <div className="flex items-center justify-between border-b border-[#e4ebe4] pb-4 flex-wrap gap-2">
             <div>
               <h2 className="text-2xl font-black text-[#001e00]">
-                Verified AI Specialists in {cityName}
+                AI Specialists in {cityName}
               </h2>
               <p className="text-sm text-slate-600 mt-1">
                 Named specialists in {cityName}, with the categories they serve.

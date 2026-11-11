@@ -1,18 +1,6 @@
 import React from 'react';
 import type { ListingPlan } from '@/lib/types';
 
-export function VerifiedBadge() {
-  return (
-    <span
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8]"
-      title="Verified: identity confirmed and references we could contact. Case studies are not required. Payment does not confer this badge."
-    >
-      <span className="w-2 h-2 rounded-full bg-[#108a00] animate-pulse" />
-      Verified Specialist
-    </span>
-  );
-}
-
 export function PlacementBadge({
   plan,
   sponsorRank = 0,

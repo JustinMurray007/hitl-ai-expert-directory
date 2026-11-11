@@ -1,9 +1,9 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { Category, Tool } from '@/lib/types';
-import { Search, ShieldCheck, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 
 interface FilterBarProps {
   categories: Category[];
@@ -12,7 +12,6 @@ interface FilterBarProps {
   initialTool?: string;
   initialBudget?: string;
   initialEngagement?: string;
-  initialVerified?: boolean;
   initialQuery?: string;
 }
 
@@ -23,11 +22,9 @@ export default function FilterBar({
   initialTool = '',
   initialBudget = 'all',
   initialEngagement = 'all',
-  initialVerified = false,
   initialQuery = '',
 }: FilterBarProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
   const [search, setSearch] = useState(initialQuery);
@@ -35,7 +32,6 @@ export default function FilterBar({
   const [selectedTool, setSelectedTool] = useState(initialTool);
   const [selectedBudget, setSelectedBudget] = useState(initialBudget);
   const [selectedEngagement, setSelectedEngagement] = useState(initialEngagement);
-  const [verifiedOnly, setVerifiedOnly] = useState(initialVerified);
 
   const applyFilters = (overrides?: Partial<{
     query: string;
@@ -43,14 +39,12 @@ export default function FilterBar({
     tool: string;
     budget: string;
     engagement: string;
-    verified: boolean;
   }>) => {
     const q = overrides?.query !== undefined ? overrides.query : search;
     const cat = overrides?.cat !== undefined ? overrides.cat : selectedCat;
     const tool = overrides?.tool !== undefined ? overrides.tool : selectedTool;
     const b = overrides?.budget !== undefined ? overrides.budget : selectedBudget;
     const eng = overrides?.engagement !== undefined ? overrides.engagement : selectedEngagement;
-    const ver = overrides?.verified !== undefined ? overrides.verified : verifiedOnly;
 
     const params = new URLSearchParams();
     if (q.trim()) params.set('q', q.trim());
@@ -58,7 +52,6 @@ export default function FilterBar({
     if (tool) params.set('tool', tool);
     if (b && b !== 'all') params.set('budget', b);
     if (eng && eng !== 'all') params.set('engagement', eng);
-    if (ver) params.set('verified', 'true');
 
     startTransition(() => {
       router.push(`/experts?${params.toString()}`);
@@ -71,19 +64,18 @@ export default function FilterBar({
     setSelectedTool('');
     setSelectedBudget('all');
     setSelectedEngagement('all');
-    setVerifiedOnly(false);
     startTransition(() => {
       router.push('/experts');
     });
   };
 
   const hasActiveFilters = Boolean(
-    search || selectedCat || selectedTool || (selectedBudget && selectedBudget !== 'all') || (selectedEngagement && selectedEngagement !== 'all') || verifiedOnly
+    search || selectedCat || selectedTool || (selectedBudget && selectedBudget !== 'all') || (selectedEngagement && selectedEngagement !== 'all')
   );
 
   return (
     <div className="rounded-2xl p-5 mb-8 border border-[#e4ebe4] bg-white shadow-xs space-y-4">
-      {/* Top Search & Verified Toggle */}
+      {/* Search */}
       <div className="flex flex-col md:flex-row gap-3">
         <div className="relative flex-1">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#889888]" />
@@ -98,22 +90,6 @@ export default function FilterBar({
             className="w-full pl-12 pr-4 py-3 rounded-full bg-[#f9faf9] border border-[#d5ded5] text-base text-[#001e00] placeholder-[#889888] focus:outline-none focus:border-[#108a00] focus:bg-white transition-colors font-medium"
           />
         </div>
-
-        <button
-          onClick={() => {
-            const next = !verifiedOnly;
-            setVerifiedOnly(next);
-            applyFilters({ verified: next });
-          }}
-          className={`flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold border transition-all cursor-pointer ${
-            verifiedOnly
-              ? 'bg-[#e4f7e6] text-[#108a00] border-[#b2e8b8] shadow-xs'
-              : 'bg-white text-[#5e6d55] border-[#d5ded5] hover:border-[#108a00]'
-          }`}
-        >
-          <ShieldCheck className={`w-4 h-4 ${verifiedOnly ? 'text-[#108a00]' : 'text-[#889888]'}`} />
-          <span>Verified Only</span>
-        </button>
 
         <button
           onClick={() => applyFilters()}
@@ -214,11 +190,6 @@ export default function FilterBar({
             {selectedTool && (
               <span className="px-3 py-1 rounded-full bg-[#eff6ff] text-[#1d4ed8] border border-[#bfdbfe] font-semibold">
                 Tool: {tools.find((t) => t.slug === selectedTool)?.name || selectedTool}
-              </span>
-            )}
-            {verifiedOnly && (
-              <span className="px-3 py-1 rounded-full bg-[#e4f7e6] text-[#108a00] border border-[#b2e8b8] font-bold">
-                Verified Only
               </span>
             )}
           </div>

@@ -13,6 +13,14 @@ import { isPublicDirectoryExpert, showsPublicLinks } from '../listing';
 import { SEED_EXPERTS } from '../seed';
 import { getExperts, isDemoMode } from '../store';
 import { handleCheckoutRequest, handlePortalRequest, handleWebhookRequest } from './http';
+import {
+  categoryCapForListing,
+  extraCategoryQuantity,
+  includedCategoryCount,
+  trimCategorySlugs,
+} from './category-cap';
+import { chargedExtraCategoryQuantity } from './checkout-params';
+import { EXPERT_PUBLIC_SELECT } from '../store';
 
 test('automatic tax is never enabled', () => {
   assert.equal(AUTOMATIC_TAX_ALLOWED, false);
@@ -41,7 +49,7 @@ test('checkout session is a flexible subscription without payment method types o
   assert.equal(params.subscription_data?.billing_mode?.type, 'flexible');
   assert.equal(params.client_reference_id, 'exp_1');
   assert.equal(params.metadata?.listing_tier, 'featured');
-  assert.equal(params.metadata?.included_categories, '4');
+  assert.equal(params.metadata?.included_categories, '3');
   assert.equal(params.metadata?.extra_category_quantity, '2');
   assert.equal(params.line_items?.length, 2);
   assert.equal(params.line_items?.[1].quantity, 2);
@@ -636,7 +644,7 @@ test('public directory predicate matches getExperts and keeps the seeded profile
   assert.equal(isPublicDirectoryExpert({ status: 'rejected', is_demo: false, categories: [{}], tools: [{}] }), false);
   assert.equal(isPublicDirectoryExpert({ status: 'archived', is_demo: false, categories: [{}], tools: [{}] }), false);
   assert.equal(isPublicDirectoryExpert({ status: 'published', is_demo: false, categories: [], tools: [{}] }), false);
-  assert.equal(isPublicDirectoryExpert({ status: 'published', is_demo: false, categories: [{}], tools: [] }), false);
+  assert.equal(isPublicDirectoryExpert({ status: 'published', is_demo: false, categories: [{}], tools: [] }), true);
   assert.equal(isPublicDirectoryExpert({ status: 'published', is_demo: false, categories: [{}], tools: [{}] }), true);
   assert.ok(SEED_EXPERTS.length > 0);
   assert.ok(SEED_EXPERTS.every((expert) => isPublicDirectoryExpert(expert)));
@@ -767,4 +775,228 @@ test('portal returns a handled error when Stripe retrieve or portal create fails
   } finally {
     logs.restore();
   }
+});
+
+test('category caps, extra quantity, and trim keep the first chosen slugs', () => {
+  assert.equal(includedCategoryCount('basic', 5), 1);
+  assert.equal(includedCategoryCount('featured', 5), 3);
+  assert.equal(includedCategoryCount('premium', 5), 5);
+  assert.equal(includedCategoryCount('unpaid', 5), 1);
+  assert.equal(categoryCapForListing('basic', 2), 3);
+  assert.equal(categoryCapForListing('featured', 0), 3);
+  assert.equal(categoryCapForListing('premium', 0), Number.MAX_SAFE_INTEGER);
+  assert.equal(categoryCapForListing('unpaid', 4), 1);
+  assert.equal(extraCategoryQuantity(1, 'basic', 5), 0);
+  assert.equal(extraCategoryQuantity(4, 'basic', 5), 3);
+  assert.equal(extraCategoryQuantity(2, 'featured', 5), 0);
+  assert.equal(extraCategoryQuantity(5, 'featured', 5), 2);
+  assert.equal(extraCategoryQuantity(5, 'premium', 5), 0);
+  assert.equal(extraCategoryQuantity(9, 'basic', 5), 4);
+  assert.deepEqual(trimCategorySlugs(['ops', 'sales', 'ops', 'support'], 2), ['ops', 'sales']);
+  assert.equal(
+    chargedExtraCategoryQuantity({
+      plan: 'basic',
+      extraCategoryQuantity: 20,
+      categorySlugs: ['operations-workflow-automation', 'sales-lead-qualification'],
+      categoryCatalogSize: 5,
+    }),
+    1,
+  );
+  assert.equal(
+    chargedExtraCategoryQuantity({
+      plan: 'premium',
+      extraCategoryQuantity: 4,
+      categorySlugs: ['operations-workflow-automation', 'sales-lead-qualification', 'marketing-programmatic-content'],
+      categoryCatalogSize: 5,
+    }),
+    0,
+  );
+});
+
+test('checkout charges only for categories past the plan and stores the chosen slugs', () => {
+  const params = buildCheckoutSessionParams({
+    plan: 'basic',
+    interval: 'month',
+    planPriceId: 'price_basic',
+    extraPriceId: 'price_extra',
+    extraCategoryQuantity: 20,
+    categorySlugs: ['operations-workflow-automation', 'sales-lead-qualification', 'customer-support-knowledge-base'],
+    categoryCatalogSize: 5,
+    successUrl: 'https://findaipros.com/apply/success?session_id={CHECKOUT_SESSION_ID}',
+    cancelUrl: 'https://findaipros.com/apply#pricing',
+    integrationIdentifier: integrationIdentifier('abcdefgh'),
+  });
+  assert.equal(params.metadata?.included_categories, '1');
+  assert.equal(params.metadata?.extra_category_quantity, '2');
+  assert.equal(params.metadata?.category_slugs, 'operations-workflow-automation,sales-lead-qualification,customer-support-knowledge-base');
+  assert.equal(params.line_items?.[1]?.quantity, 2);
+  assert.equal(params.subscription_data?.metadata?.category_slugs, params.metadata?.category_slugs);
+
+  const premium = buildCheckoutSessionParams({
+    plan: 'premium',
+    interval: 'year',
+    planPriceId: 'price_premium',
+    extraPriceId: 'price_extra',
+    extraCategoryQuantity: 3,
+    categorySlugs: ['operations-workflow-automation', 'sales-lead-qualification'],
+    categoryCatalogSize: 5,
+    successUrl: 'https://findaipros.com/apply/success?session_id={CHECKOUT_SESSION_ID}',
+    cancelUrl: 'https://findaipros.com/apply#pricing',
+    integrationIdentifier: integrationIdentifier('abcdefgh'),
+  });
+  assert.equal(premium.metadata?.included_categories, 'all');
+  assert.equal(premium.metadata?.extra_category_quantity, '0');
+  assert.equal(premium.line_items?.length, 1);
+});
+
+test('checkout route rejects unknown categories and ignores a client extra quantity', async () => {
+  const captured: { params?: Stripe.Checkout.SessionCreateParams } = {};
+  const stripe = {
+    prices: {
+      list: async ({ lookup_keys }: { lookup_keys: string[] }) => ({
+        data: lookup_keys.map((lookupKey) => ({ id: `price_${lookupKey}`, lookup_key: lookupKey })),
+      }),
+    },
+    checkout: {
+      sessions: {
+        create: async (params: Stripe.Checkout.SessionCreateParams) => {
+          captured.params = params;
+          return { id: 'cs_categories', url: 'https://checkout.stripe.com/c/pay/cs_categories' };
+        },
+      },
+    },
+  } as unknown as Stripe;
+  const env = { STRIPE_SECRET_KEY: 'rk_test_dummy', NEXT_PUBLIC_SITE_URL: 'https://findaipros.com' };
+  const slugs = 'operations-workflow-automation,sales-lead-qualification,marketing-programmatic-content';
+  const response = await handleCheckoutRequest(
+    new Request('https://findaipros.com/api/stripe/checkout', {
+      method: 'POST',
+      body: JSON.stringify({
+        plan: 'featured',
+        interval: 'month',
+        extra_category_quantity: 20,
+        category_slugs: slugs,
+      }),
+    }),
+    env,
+    stripe,
+  );
+  assert.equal(response.status, 200);
+  assert.equal(captured.params?.metadata?.included_categories, '3');
+  assert.equal(captured.params?.metadata?.extra_category_quantity, '0');
+  assert.equal(captured.params?.line_items?.length, 1);
+  assert.equal(captured.params?.metadata?.category_slugs, slugs);
+
+  const rejected = await handleCheckoutRequest(
+    new Request('https://findaipros.com/api/stripe/checkout', {
+      method: 'POST',
+      body: JSON.stringify({
+        plan: 'basic',
+        interval: 'month',
+        category_slugs: 'not-a-real-category',
+      }),
+    }),
+    env,
+    stripe,
+  );
+  assert.equal(rejected.status, 400);
+  assert.deepEqual(await rejected.json(), { error: 'invalid_category' });
+});
+
+test('downgrade and cancel trim stored categories to the new cap', async () => {
+  const slugs = [
+    'operations-workflow-automation',
+    'sales-lead-qualification',
+    'customer-support-knowledge-base',
+    'marketing-programmatic-content',
+  ];
+  const store = memoryBillingStore();
+  store.experts.set('exp_1', {
+    id: 'exp_1',
+    listing_plan: 'premium',
+    profile_mode: 'full',
+    status: 'published',
+    is_demo: false,
+    categories: slugs.map((slug) => ({ slug })),
+    category_slugs: slugs,
+    tools: [],
+  });
+
+  const downgrade = await applyStripeEvent(
+    {
+      id: 'evt_downgrade',
+      type: 'customer.subscription.updated',
+      data: {
+        object: {
+          id: 'sub_1',
+          customer: 'cus_1',
+          status: 'active',
+          metadata: {
+            expert_id: 'exp_1',
+            listing_tier: 'featured',
+            category_slugs: slugs.join(','),
+          },
+          items: { data: [{ quantity: 1, price: { lookup_key: 'featured_monthly' } }] },
+        },
+      },
+    },
+    store,
+  );
+  assert.equal(downgrade.publicListingChanged, true);
+  assert.deepEqual(store.experts.get('exp_1')?.category_slugs, slugs.slice(0, 3));
+  assert.equal(store.experts.get('exp_1')?.listing_plan, 'featured');
+
+  const basicWithExtra = await applyStripeEvent(
+    {
+      id: 'evt_basic_extra',
+      type: 'customer.subscription.updated',
+      data: {
+        object: {
+          id: 'sub_1',
+          customer: 'cus_1',
+          status: 'active',
+          metadata: {
+            expert_id: 'exp_1',
+            listing_tier: 'basic',
+            category_slugs: slugs.join(','),
+            extra_category_quantity: '1',
+          },
+          items: {
+            data: [
+              { quantity: 1, price: { lookup_key: 'basic_monthly' } },
+              { quantity: 1, price: { lookup_key: 'extra_category_monthly' } },
+            ],
+          },
+        },
+      },
+    },
+    store,
+  );
+  assert.equal(basicWithExtra.publicListingChanged, true);
+  assert.deepEqual(store.experts.get('exp_1')?.category_slugs, slugs.slice(0, 2));
+
+  const canceled = await applyStripeEvent(
+    {
+      id: 'evt_cancel_categories',
+      type: 'customer.subscription.deleted',
+      data: {
+        object: {
+          id: 'sub_1',
+          customer: 'cus_1',
+          status: 'canceled',
+          metadata: { expert_id: 'exp_1', category_slugs: slugs.join(',') },
+        },
+      },
+    },
+    store,
+  );
+  assert.equal(canceled.publicListingChanged, true);
+  assert.equal(store.experts.get('exp_1')?.listing_plan, 'unpaid');
+  assert.deepEqual(store.experts.get('exp_1')?.category_slugs, [slugs[0]]);
+});
+
+test('directory select keeps category rows when an expert has no tools', () => {
+  assert.equal(EXPERT_PUBLIC_SELECT.includes('expert_categories!inner'), true);
+  assert.equal(EXPERT_PUBLIC_SELECT.includes('expert_tools!inner'), false);
+  assert.equal(EXPERT_PUBLIC_SELECT.includes('expert_tools('), true);
 });

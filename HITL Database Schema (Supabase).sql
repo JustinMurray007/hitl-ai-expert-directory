@@ -20,7 +20,9 @@
 --      unpaid + free_period_ends_at in the future = the free 30 days (links show).
 --      After that date, with no paid plan, the app hides website, social,
 --      booking, and match eligibility. The listing stays public.
---   7. Max 3 categories per expert enforced in application logic (not DB).
+--   7. Category caps are plan-based, enforced in application logic (not a DB max):
+--      free listing 1, Basic 1, Featured 3, Premium every category, plus paid extras.
+--      expert_categories.sort_order is the order the specialist chose.
 -- ============================================================================
 
 create extension if not exists "uuid-ossp";
@@ -133,7 +135,7 @@ create table applications (
   case_study_urls jsonb default '[]',
   references_provided boolean default false,
 
-  -- Vetting evidence (reviewer-controlled, not applicant-writable via public API)
+  -- Review evidence (reviewer-controlled, not applicant-writable via public API)
   reviewed_by text,
   review_notes text,
   review_decision verification_status default 'unverified',
@@ -172,6 +174,7 @@ create table case_studies (
 create table expert_categories (
   expert_id uuid references experts(id) on delete cascade,
   category_id uuid references categories(id) on delete cascade,
+  sort_order integer not null default 0,
   primary key (expert_id, category_id)
 );
 
@@ -328,7 +331,8 @@ create trigger trg_applications_updated_at
 -- • Fictional demo experts are inserted only in DEMO mode via the app's seed
 --   script, marked is_demo = true. They are excluded from public RLS reads
 --   and from robots.txt / sitemap in production.
--- • The 3-category limit and 120-char tagline limit are enforced in the
+-- • Category caps (free 1, Basic 1, Featured 3, Premium every category, plus
+--   paid extras) and the 120-char tagline limit are enforced in the
 --   application validation layer, not at the DB level.
 -- • Case studies are optional and are not a verification gate.
 --   References we can contact are required before verification when an

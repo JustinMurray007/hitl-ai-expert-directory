@@ -80,7 +80,7 @@ export default function MatchFormClient() {
         <div>
           <h2 className="text-2xl sm:text-3xl font-black text-[#001e00]">Match Request Received</h2>
           <p className="text-base text-[#465a46] mt-3 max-w-md mx-auto font-medium leading-relaxed">
-            Thank you! Our review team has logged your inquiry. We will curate two vetted specialists for your workflow. Specialists whose free listing period has ended without a plan are not eligible for a match.
+            Thank you! Our review team has logged your inquiry. We will curate two specialists for your workflow. Specialists whose free listing period has ended without a plan are not eligible for a match.
           </p>
         </div>
 

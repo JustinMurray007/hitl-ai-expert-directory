@@ -411,7 +411,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                     href="/experts"
                     className="text-sm font-bold text-[#108a00] hover:text-[#14a800] flex items-center justify-between p-2 rounded-lg bg-[#e4f7e6]/50 hover:bg-[#e4f7e6] transition-colors"
                   >
-                    <span>Browse All 26+ Verified AI Experts</span>
+                    <span>Browse All 26+ AI Experts</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
@@ -435,10 +435,10 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                     <span>The accountability standard</span>
                   </div>
                   <h4 className="text-base font-black text-[#001e00] leading-snug">
-                    Zero Unvetted Claims. Built-In Human Safety Checks.
+                    Built-In Human Safety Checks.
                   </h4>
                   <p className="mt-2 text-xs text-slate-600 leading-relaxed font-normal">
-                    Every listed specialist names one accountable person and gives references we can contact. Case studies are optional. Paying does not skip vetting.
+                    Every listed specialist names one accountable person and gives references we can contact. Case studies are optional.
                   </p>
 
                   <div className="mt-4 space-y-2 text-xs text-[#001e00] font-medium">
@@ -467,7 +467,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                       href="/about"
                       className="text-center text-xs font-bold text-slate-600 hover:text-[#001e00] transition-colors"
                     >
-                      Read Vetting Standard →
+                      Read the HITL Standard →
                     </Link>
                   </div>
                 </div>
@@ -548,7 +548,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-                  <span>Zero student fluff • 100% Business vetted</span>
+                  <span>Zero student fluff • Built for businesses</span>
                   <Link
                     href="/match"
                     onClick={() => setAiToolsMenuOpen(false)}
@@ -632,7 +632,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               href="/experts"
               className="flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-bold text-[#001e00]"
             >
-              <span>Browse All Verified AI Experts</span>
+              <span>Browse All AI Experts</span>
               <ArrowRight className="w-4 h-4 text-[#108a00]" />
             </Link>
             <Link
@@ -712,7 +712,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               href="/about"
               className="block p-3 text-base font-semibold text-slate-700 hover:text-[#001e00]"
             >
-              How It Works & Vetting Standards
+              How It Works & the HITL Standard
             </Link>
             <Link
               href="/categories"

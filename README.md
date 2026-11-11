@@ -96,8 +96,8 @@ Next.js 16.4.1 (App Router)  ─┐
                   └─ RLS: public read-only, server-write only
 ```
 
-- **Separation of Concerns:** Publication, verification, and sponsorship are three independent dimensions. Payment never confers verification.
-- **Verification:** The Verified badge is not sold. Case studies are not required to be listed or verified. When an application record exists, verification requires at least one reference we can contact. Payment never confers verification.
+- **Separation of Concerns:** Publication and sponsorship are separate from payment. The `is_verified` column remains in the database and is not shown on the site.
+- **References:** Case studies are not required to be listed. When an application record exists, a reference we can contact is still required before an admin marks the row verified. Payment does not change that.
 - **Private Data Protection:** Applicant contact emails, legal entity details, private repositories, and reviewer notes live in private tables (`applications`, `match_requests`) with zero anonymous RLS read policies.
 
 ---
@@ -106,11 +106,11 @@ Next.js 16.4.1 (App Router)  ─┐
 
 | Route | Description |
 |---|---|
-| `/` | Homepage with positioning, categories, verified specialists, and comparison matrix |
-| `/experts` | Searchable directory with category, tool stack, budget, and verification filters |
+| `/` | Homepage with positioning, categories, specialists, and comparison matrix |
+| `/experts` | Searchable directory with category, tool stack, and budget filters |
 | `/experts/[slug]` | Individual specialist profile with case studies & HITL oversight mechanism |
 | `/categories/[slug]` | Category hub with taxonomy metadata, typical stack, and specialists |
-| `/apply` | Specialist application. Vetting is free. Listing prices sit above the form. |
+| `/apply` | Specialist application. A new profile is free for 30 days. Listing prices and category choices sit above the form. |
 | `/match` | Private founder concierge matchmaking intake form |
 | `/admin` | Administrative review queue with token authentication & verification gate |
 | `/about` | Accountability standard, references requirement, and listing prices |

@@ -1,4 +1,5 @@
-import { effectForEvent, withExpandedSubscriptions, type StripeEventLike } from './events';
+import { listingCategorySync, parseCategorySlugList } from './category-cap';
+import { categorySlugMetadata, effectForEvent, withExpandedSubscriptions, type StripeEventLike } from './events';
 import type { BillingStore } from './store';
 
 export type StripeSideEffects = {
@@ -12,8 +13,10 @@ export type ApplyStripeEventResult = {
   duplicate?: boolean;
   action: string;
   /**
-   * True when listing_plan or profile_mode was written on a row `getExperts()`
-   * would render. Pending, demo, and other non-public rows do not rebuild.
+   * True when the public directory would change: a plan or profile-mode write,
+   * or a category selection change, on a row `getExperts()` renders. Pending,
+   * demo, and other non-public rows do not rebuild. A listing that leaves the
+   * directory (it was visible, then its categories were removed) still rebuilds.
    */
   publicListingChanged?: boolean;
 };
@@ -51,11 +54,14 @@ export async function applyStripeEvent(
     expertId = await store.findExpertIdByCustomer(effect.customerId);
   }
 
+  const chosenSlugs = parseCategorySlugList(categorySlugMetadata(hydrated));
+
   if (!expertId) {
     await store.savePending({
       expertId: null,
       customerId: effect.customerId,
       patch: effect.patch,
+      categorySlugs: chosenSlugs,
     });
     await store.markProcessed(event.id, event.type);
     return { ok: true, action: 'pending_unlinked' };
@@ -67,7 +73,22 @@ export async function applyStripeEvent(
       expertId,
       customerId: effect.customerId,
       patch: effect.patch,
+      categorySlugs: chosenSlugs,
     });
+  }
+
+  const touchesListing = wrotePublicListing(effect.patch, result);
+  const wasVisible = touchesListing || listingCategorySync(effect.patch, categorySlugMetadata(hydrated))
+    ? result === 'updated' && await store.directoryVisible(expertId)
+    : false;
+
+  let categoriesChanged = false;
+  if (result === 'updated') {
+    const sync = listingCategorySync(effect.patch, categorySlugMetadata(hydrated));
+    if (sync) {
+      const synced = await store.syncCategories(expertId, sync);
+      categoriesChanged = synced.changed;
+    }
   }
 
   if (effect.referral && effect.referral.amountCents > 0) {
@@ -78,8 +99,8 @@ export async function applyStripeEvent(
     await sideEffects.updateCustomerMetadata(effect.customerId, effect.customerMetadata);
   }
 
-  const publicListingChanged = wrotePublicListing(effect.patch, result)
-    ? await store.directoryVisible(expertId)
+  const publicListingChanged = (touchesListing || categoriesChanged)
+    ? wasVisible || await store.directoryVisible(expertId)
     : false;
 
   await store.markProcessed(event.id, event.type);

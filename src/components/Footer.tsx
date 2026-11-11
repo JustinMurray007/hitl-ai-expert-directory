@@ -23,12 +23,12 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm text-[#b2beb2] leading-relaxed">
-              The verified directory of AI specialists who build systems with real human accountability. We reject zero-touch hallucination black boxes.
+              The directory of AI specialists who build systems with real human accountability. We reject zero-touch hallucination black boxes.
             </p>
             <div className="pt-2">
               <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#1b3a1b] border border-[#2b522b] text-sm font-semibold text-[#c1eec6]">
                 <span className="w-2 h-2 rounded-full bg-[#14a800] animate-pulse" />
-                Vetting is free. References required.
+                References required.
               </div>
             </div>
           </div>
@@ -72,10 +72,10 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Platform & Vetting */}
+          {/* Col 3: Platform */}
           <div>
             <h4 className="text-sm font-black text-white uppercase tracking-wider mb-5">
-              Vetting Standards
+              The HITL Standard
             </h4>
             <ul className="space-y-3 text-sm">
               <li>

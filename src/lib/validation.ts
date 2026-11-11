@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { FREE_INCLUDED_CATEGORIES } from './billing/category-cap';
 
 export const engagementModelEnum = z.enum([
   'fixed_sprint',
@@ -64,11 +65,15 @@ export const expertApplicationSchema = z.object({
   primaryEngagement: engagementModelEnum,
   startingBudget: budgetTierEnum,
 
-  // Rule: Max 3 categories per expert, at least 1
+  // Free applications use the free-listing cap (1). Paid plans enforce their
+  // own cap at checkout: Basic 1, Featured 3, Premium every category, plus extras.
   categories: z
     .array(z.string())
     .min(1, 'Please select at least 1 primary category')
-    .max(3, 'Rule: You may select at most 3 core categories to preserve specialist focus'),
+    .max(
+      FREE_INCLUDED_CATEGORIES,
+      'A free listing includes 1 category. Choose a paid plan to be listed in more.',
+    ),
 
   // Tools: at least 1 tool selected
   tools: z.array(z.string()).min(1, 'Please select at least 1 primary tool or technology'),

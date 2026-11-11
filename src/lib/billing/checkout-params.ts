@@ -1,6 +1,11 @@
 import type Stripe from 'stripe';
-import { INCLUDED_CATEGORIES, type BillingInterval, type CheckoutPlan } from './catalog';
+import { includedCategoriesMetadata, type BillingInterval, type CheckoutPlan } from './catalog';
 import { automaticTaxParam } from './automatic-tax';
+import {
+  categorySlugsMetadataValue,
+  extraCategoryQuantity,
+  parseCategorySlugList,
+} from './category-cap';
 
 export type CheckoutDraft = {
   plan: CheckoutPlan;
@@ -8,6 +13,10 @@ export type CheckoutDraft = {
   planPriceId: string;
   extraPriceId?: string;
   extraCategoryQuantity: number;
+  /** Chosen category slugs, in selection order. When set, quantity is recomputed. */
+  categorySlugs?: string[];
+  /** How many real categories exist. Used so extras cannot exceed the catalog. */
+  categoryCatalogSize?: number;
   expertId?: string;
   referrerExpertId?: string;
   customerId?: string;
@@ -31,25 +40,36 @@ export function integrationIdentifier(suffix = randomIntegrationSuffix()): strin
   return `findaipros_checkout_${suffix}`;
 }
 
+export function chargedExtraCategoryQuantity(draft: Pick<CheckoutDraft, 'plan' | 'extraCategoryQuantity' | 'categorySlugs' | 'categoryCatalogSize'>): number {
+  const slugs = draft.categorySlugs ? parseCategorySlugList(draft.categorySlugs.join(',')) : null;
+  if (!slugs) return Math.max(0, draft.extraCategoryQuantity);
+  const available = draft.categoryCatalogSize && draft.categoryCatalogSize > 0
+    ? draft.categoryCatalogSize
+    : slugs.length;
+  return extraCategoryQuantity(slugs.length, draft.plan, available);
+}
+
 export function buildCheckoutSessionParams(draft: CheckoutDraft): Stripe.Checkout.SessionCreateParams {
-  const included = String(INCLUDED_CATEGORIES[draft.plan]);
-  const extraQuantity = String(draft.extraCategoryQuantity);
+  const slugs = draft.categorySlugs ? parseCategorySlugList(draft.categorySlugs.join(',')) : [];
+  const extraCount = chargedExtraCategoryQuantity(draft);
+  const extraQuantity = String(extraCount);
   const metadata: Stripe.MetadataParam = {
     listing_tier: draft.plan,
-    included_categories: included,
+    included_categories: includedCategoriesMetadata(draft.plan),
     extra_category_quantity: extraQuantity,
   };
+  if (slugs.length > 0) metadata.category_slugs = categorySlugsMetadataValue(slugs);
   if (draft.expertId) metadata.expert_id = draft.expertId;
   if (draft.referrerExpertId) metadata.referrer_expert_id = draft.referrerExpertId;
 
   const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
     { price: draft.planPriceId, quantity: 1 },
   ];
-  if (draft.extraCategoryQuantity > 0) {
+  if (extraCount > 0) {
     if (!draft.extraPriceId) {
       throw new Error('Extra category price is required when quantity is greater than zero');
     }
-    lineItems.push({ price: draft.extraPriceId, quantity: draft.extraCategoryQuantity });
+    lineItems.push({ price: draft.extraPriceId, quantity: extraCount });
   }
 
   const params: Stripe.Checkout.SessionCreateParams = {

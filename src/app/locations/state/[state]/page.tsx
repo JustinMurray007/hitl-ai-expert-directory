@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: StatePageProps): Promise<Meta
   }
 
   const title = `Find An Ai Consultant & Company in ${stateName} | Find Ai Pros`;
-  const description = `Hire vetted AI consultants, automation architects, and AI development companies across ${stateName} (${stateCode}). Browse top cities and local experts.`;
+  const description = `Hire AI consultants, automation architects, and AI development companies across ${stateName} (${stateCode}). Browse top cities and local experts.`;
 
   return {
     title,
@@ -95,7 +95,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: `Find An Ai Consultant & Company in ${stateName}`,
-    description: `Directory of verified AI specialists and companies in ${stateName}.`,
+    description: `Directory of AI specialists and companies in ${stateName}.`,
     itemListElement: stateExperts.map((exp, index) => ({
       '@type': 'ListItem',
       position: index + 1,
@@ -166,7 +166,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
               Find An Ai Consultant &amp; Company in {stateName}
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              Connect with vetted automation specialists, CRM architects, and custom AI developers across {stateName}. Every listed specialist names an accountable person. The Directory does not guarantee results.
+              Connect with automation specialists, CRM architects, and custom AI developers across {stateName}. Every listed specialist names an accountable person.
             </p>
           </div>
 
@@ -174,7 +174,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
           <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center gap-6 text-xs sm:text-sm font-bold text-slate-700">
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="w-4 h-4 text-[#108a00]" />
-              {stateExperts.length} Verified {stateExperts.length === 1 ? 'Specialist' : 'Specialists'} in {stateName}
+              {stateExperts.length} {stateExperts.length === 1 ? 'Specialist' : 'Specialists'} in {stateName}
             </span>
             <span className="flex items-center gap-1.5">
               <Compass className="w-4 h-4 text-[#2563eb]" />
@@ -254,7 +254,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
                 All AI Specialists in {stateName} ({stateExperts.length})
               </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Vetted consultants who name an accountable person and give references we can contact.
+                Consultants who name an accountable person and give references we can contact.
               </p>
             </div>
           </div>
