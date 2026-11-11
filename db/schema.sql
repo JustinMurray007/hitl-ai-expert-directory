@@ -362,6 +362,32 @@ alter table referral_ledger enable row level security;
 alter table billing_pending enable row level security;
 
 -- ----------------------------------------------------------------------------
+-- TALLY APPLY WEBHOOK — private. Service role only.
+-- response_id dedupes retries. payload keeps the raw submission, including
+-- answers that do not match a live category or tool.
+-- On an existing database, run db/migration_tally_submissions.sql instead.
+-- ============================================================================
+create table tally_submissions (
+  response_id text primary key,
+  submission_id text,
+  event_id text,
+  form_id text,
+  expert_id uuid references experts(id) on delete set null,
+  application_id uuid references applications(id) on delete set null,
+  status text not null default 'received' check (status in ('received', 'stored', 'needs_review', 'ignored')),
+  unknown_categories jsonb not null default '[]',
+  dropped_categories jsonb not null default '[]',
+  unknown_tools jsonb not null default '[]',
+  mapping_notes jsonb not null default '[]',
+  payload jsonb not null,
+  created_at timestamptz not null default now()
+);
+
+create index tally_submissions_expert_id on tally_submissions (expert_id);
+
+alter table tally_submissions enable row level security;
+
+-- ----------------------------------------------------------------------------
 -- NOTES
 -- ============================================================================
 -- • Fictional demo experts are inserted only in DEMO mode via the app's seed
@@ -375,3 +401,7 @@ alter table billing_pending enable row level security;
 -- • Case studies are optional and are not a verification gate.
 --   References we can contact are required before verification when an
 --   application row exists. See `applications.references_provided`.
+-- • tally_submissions is the private audit log for POST /api/tally/webhook.
+--   A new apply submission is stored as experts.status = pending_review and
+--   does not rebuild the site. Live projects run
+--   db/migration_tally_submissions.sql before that function is deployed.
