@@ -56,6 +56,25 @@ function formError(env: BillingEnv): Response {
   return Response.redirect(`${siteUrl(env)}/apply#application`, 303);
 }
 
+const STRIPE_SECRET_PATTERN = /\b(?:rk|sk|pk)_(?:live|test)_[A-Za-z0-9]+\b|\bwhsec_[A-Za-z0-9]+\b/g;
+
+function logStripeFailure(operation: string, error: unknown): void {
+  const record = error && typeof error === 'object' ? (error as Record<string, unknown>) : {};
+  const rawMessage = typeof record.message === 'string' ? record.message : 'stripe_request_failed';
+  console.error('stripe_request_failed', {
+    operation,
+    type: typeof record.type === 'string' ? record.type : undefined,
+    code: typeof record.code === 'string' ? record.code : undefined,
+    statusCode: typeof record.statusCode === 'number' ? record.statusCode : undefined,
+    requestId: typeof record.requestId === 'string' ? record.requestId : undefined,
+    message: rawMessage.replace(STRIPE_SECRET_PATTERN, '[redacted]').slice(0, 240),
+  });
+}
+
+function stripeFailure(form: boolean, env: BillingEnv): Response {
+  return form ? formError(env) : json({ error: 'stripe_error' }, 500);
+}
+
 type CheckoutBody = {
   plan?: string;
   interval?: string;
@@ -102,7 +121,13 @@ export async function handleCheckoutRequest(
   const plan = body.plan as CheckoutPlan;
   const lookupKeys = [planLookupKey(plan, interval)];
   if (extra > 0) lookupKeys.push(extraCategoryLookupKey(interval));
-  const prices = await client.prices.list({ lookup_keys: lookupKeys, limit: 10 });
+  let prices;
+  try {
+    prices = await client.prices.list({ lookup_keys: lookupKeys, limit: 10 });
+  } catch (error) {
+    logStripeFailure('prices.list', error);
+    return stripeFailure(form, env);
+  }
   const planPrice = prices.data.find((price) => price.lookup_key === lookupKeys[0]);
   const extraPrice = extra > 0 ? prices.data.find((price) => price.lookup_key === lookupKeys[1]) : undefined;
   if (!planPrice) return form ? formError(env) : json({ error: 'price_not_found' }, 500);
@@ -125,7 +150,13 @@ export async function handleCheckoutRequest(
     automaticTaxFlag: env.STRIPE_AUTOMATIC_TAX,
   });
 
-  const session = await client.checkout.sessions.create(params);
+  let session;
+  try {
+    session = await client.checkout.sessions.create(params);
+  } catch (error) {
+    logStripeFailure('checkout.sessions.create', error);
+    return stripeFailure(form, env);
+  }
   if (!session.url) return form ? formError(env) : json({ error: 'missing_checkout_url' }, 500);
   if (form) return Response.redirect(session.url, 303);
   return json({ url: session.url, id: session.id });
@@ -189,13 +220,25 @@ export async function handlePortalRequest(
     return form ? formError(env) : json({ error: 'invalid_json' }, 400);
   }
   if (!fields.checkout_session_id) return form ? formError(env) : json({ error: 'missing_session' }, 400);
-  const session = await client.checkout.sessions.retrieve(fields.checkout_session_id);
+  let session;
+  try {
+    session = await client.checkout.sessions.retrieve(fields.checkout_session_id);
+  } catch (error) {
+    logStripeFailure('checkout.sessions.retrieve', error);
+    return stripeFailure(form, env);
+  }
   const customerId = typeof session.customer === 'string' ? session.customer : session.customer?.id;
   if (session.payment_status !== 'paid' || !customerId) return form ? formError(env) : json({ error: 'session_not_paid' }, 403);
-  const portal = await client.billingPortal.sessions.create({
-    customer: customerId,
-    return_url: `${siteUrl(env)}/apply/success?session_id=${encodeURIComponent(session.id)}`,
-  });
+  let portal;
+  try {
+    portal = await client.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: `${siteUrl(env)}/apply/success?session_id=${encodeURIComponent(session.id)}`,
+    });
+  } catch (error) {
+    logStripeFailure('billingPortal.sessions.create', error);
+    return stripeFailure(form, env);
+  }
   if (form) return Response.redirect(portal.url, 303);
   return json({ url: portal.url });
 }

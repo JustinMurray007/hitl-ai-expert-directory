@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { isPublicDirectoryExpert } from '@/lib/listing';
 import { getServiceSupabase } from '@/lib/supabase';
 import type { BillingPatch } from './events';
 import type { BillingStore, LedgerEntry } from './store';
@@ -43,6 +44,29 @@ export function supabaseBillingStore(env?: SupabaseEnv): BillingStore {
       const { data, error } = await db.from('experts').update(patchToRow(patch)).eq('id', expertId).select('id');
       if (error) throw error;
       return data && data.length > 0 ? 'updated' : 'missing';
+    },
+    async directoryVisible(expertId) {
+      const db = client();
+      if (!db) return false;
+      const { data, error } = await db
+        .from('experts')
+        .select('status, is_demo, expert_categories(category_id), expert_tools(tool_id)')
+        .eq('id', expertId)
+        .maybeSingle();
+      if (error) throw error;
+      if (!data) return false;
+      const row = data as {
+        status?: string | null;
+        is_demo?: boolean | null;
+        expert_categories?: unknown[] | null;
+        expert_tools?: unknown[] | null;
+      };
+      return isPublicDirectoryExpert({
+        status: row.status,
+        is_demo: row.is_demo,
+        categories: row.expert_categories ?? [],
+        tools: row.expert_tools ?? [],
+      });
     },
     async findExpertIdByCustomer(customerId) {
       const db = client();

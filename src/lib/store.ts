@@ -23,7 +23,7 @@ import {
   AdminReviewActionInput,
 } from './validation';
 import { requestProductionRebuild } from './deploy-hook';
-import { compareDirectoryExperts, freePeriodEndsAt } from './listing';
+import { compareDirectoryExperts, freePeriodEndsAt, isPublicDirectoryExpert } from './listing';
 
 // In-memory runtime store for Demo Mode
 class InMemoryStore {
@@ -107,6 +107,8 @@ export async function getExperts(filters?: DirectoryFilters): Promise<Expert[]> 
   // If Supabase is configured and not running in demo fallback
   if (isSupabaseConfigured && supabase) {
     try {
+      // Membership matches isPublicDirectoryExpert: published, not demo,
+      // and at least one category and one tool (the inner joins).
       let query = supabase
         .from('experts')
         .select(`
@@ -133,12 +135,14 @@ export async function getExperts(filters?: DirectoryFilters): Promise<Expert[]> 
       const { data, error } = await query;
       if (!error && data) {
         // Transform Supabase structure
-        let list: Expert[] = data.map((row: any) => ({
-          ...row,
-          categories: (row.expert_categories || []).map((ec: any) => ec.category).filter(Boolean),
-          tools: (row.expert_tools || []).map((et: any) => et.tool).filter(Boolean),
-          case_studies: row.case_studies || [],
-        }));
+        let list: Expert[] = data
+          .map((row: any) => ({
+            ...row,
+            categories: (row.expert_categories || []).map((ec: any) => ec.category).filter(Boolean),
+            tools: (row.expert_tools || []).map((et: any) => et.tool).filter(Boolean),
+            case_studies: row.case_studies || [],
+          }))
+          .filter((expert) => isPublicDirectoryExpert(expert));
 
         if (filters?.category) {
           list = list.filter((e) => e.categories.some((c) => c.slug === filters.category));
@@ -164,8 +168,8 @@ export async function getExperts(filters?: DirectoryFilters): Promise<Expert[]> 
     }
   }
 
-  // Demo mode: in-memory filtering
-  let list = memStore.experts.filter((e) => e.status === 'published');
+  // Demo mode uses the same public-directory predicate as the Supabase read.
+  let list = memStore.experts.filter((expert) => isPublicDirectoryExpert(expert));
 
   if (filters?.category) {
     list = list.filter((e) => e.categories.some((c) => c.slug === filters.category));

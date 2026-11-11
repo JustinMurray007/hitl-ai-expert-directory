@@ -164,7 +164,15 @@ test('stripe webhook rebuilds once for a plan change and still returns 200 if th
   });
   try {
     const store = memoryBillingStore();
-    store.experts.set('exp_1', { id: 'exp_1', listing_plan: 'unpaid', profile_mode: 'full' });
+    store.experts.set('exp_1', {
+      id: 'exp_1',
+      listing_plan: 'unpaid',
+      profile_mode: 'full',
+      status: 'published',
+      is_demo: false,
+      categories: [{}],
+      tools: [{}],
+    });
     const env = {
       STRIPE_SECRET_KEY: 'rk_test_dummy',
       STRIPE_WEBHOOK_SECRET: 'whsec_test',
@@ -212,6 +220,66 @@ test('stripe webhook rebuilds once for a plan change and still returns 200 if th
     const failedHook = await request(paidCheckoutEvent('evt_plan_premium', 'premium'));
     assert.equal(failedHook.status, 200);
     assert.equal(store.experts.get('exp_1')?.listing_plan, 'premium');
+  } finally {
+    fetchMock.restore();
+    resetDeployHookForTests();
+  }
+});
+
+test('stripe webhook does not rebuild a listing the directory would not render', async () => {
+  resetDeployHookForTests();
+  const fetchMock = installFetch(() => new Response('ok', { status: 200 }));
+  try {
+    const store = memoryBillingStore();
+    const hidden = {
+      id: 'exp_1',
+      listing_plan: 'unpaid' as const,
+      profile_mode: 'limited' as const,
+      status: 'pending_review',
+      is_demo: false,
+      categories: [{}],
+      tools: [{}],
+    };
+    store.experts.set('exp_1', hidden);
+    const env = {
+      STRIPE_SECRET_KEY: 'rk_test_dummy',
+      STRIPE_WEBHOOK_SECRET: 'whsec_test',
+      CLOUDFLARE_DEPLOY_HOOK_URL: HOOK,
+    };
+    const request = (event: unknown) =>
+      handleWebhookRequest(
+        new Request('https://findaipros.com/api/stripe/webhook', {
+          method: 'POST',
+          headers: { 'stripe-signature': 't=1,v1=ok' },
+          body: '{}',
+        }),
+        env,
+        store,
+        stripeFor(event),
+      );
+
+    const pending = await request(paidCheckoutEvent('evt_pending', 'basic'));
+    assert.equal(pending.status, 200);
+    assert.equal(store.experts.get('exp_1')?.listing_plan, 'basic');
+    assert.equal(fetchMock.calls.length, 0);
+
+    store.experts.set('exp_1', { ...hidden, status: 'published', is_demo: true, listing_plan: 'basic' });
+    const demo = await request(paidCheckoutEvent('evt_demo', 'featured'));
+    assert.equal(demo.status, 200);
+    assert.equal(store.experts.get('exp_1')?.listing_plan, 'featured');
+    assert.equal(fetchMock.calls.length, 0);
+
+    store.experts.set('exp_1', {
+      ...hidden,
+      status: 'published',
+      is_demo: false,
+      tools: [],
+      listing_plan: 'featured',
+    });
+    const noTools = await request(paidCheckoutEvent('evt_notools', 'premium'));
+    assert.equal(noTools.status, 200);
+    assert.equal(store.experts.get('exp_1')?.listing_plan, 'premium');
+    assert.equal(fetchMock.calls.length, 0);
   } finally {
     fetchMock.restore();
     resetDeployHookForTests();
