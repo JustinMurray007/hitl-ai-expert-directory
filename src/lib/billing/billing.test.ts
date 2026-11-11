@@ -4,7 +4,7 @@ import type Stripe from 'stripe';
 import { automaticTaxParam, AUTOMATIC_TAX_ALLOWED } from './automatic-tax';
 import { buildCheckoutSessionParams, integrationIdentifier } from './checkout-params';
 import { CATALOG_PRICES, isLiveStripeKey, isTestStripeKey } from './catalog';
-import { effectForEvent } from './events';
+import { effectForEvent, SUBSCRIPTION_ITEM_PRICE_EXPAND } from './events';
 import { applyStripeEvent } from './apply-event';
 import { memoryBillingStore } from './store';
 import { referralCreditCents } from './referral';
@@ -295,4 +295,136 @@ test('webhook rejects a bad signature and does not grant a tier', async () => {
   );
   assert.equal(response.status, 400);
   assert.equal(store.experts.get('exp_1')?.listing_plan, 'unpaid');
+});
+
+function expandedSubscription(id: string, lookupKey: string, periodEnd: number) {
+  return {
+    id,
+    status: 'active',
+    customer: 'cus_1',
+    metadata: { expert_id: 'exp_1', listing_tier: 'basic', extra_category_quantity: '2' },
+    items: {
+      data: [
+        { quantity: 1, current_period_end: periodEnd, price: { lookup_key: lookupKey } },
+        { quantity: 2, current_period_end: periodEnd, price: { lookup_key: 'extra_category_monthly' } },
+      ],
+    },
+  };
+}
+
+test('checkout.session.completed retrieves a subscription id before reading lookup key and period end', async () => {
+  const store = memoryBillingStore();
+  store.experts.set('exp_1', { id: 'exp_1', listing_plan: 'unpaid' });
+  const retrieved: string[] = [];
+  await applyStripeEvent(
+    {
+      id: 'evt_checkout_id',
+      type: 'checkout.session.completed',
+      data: {
+        object: {
+          payment_status: 'paid',
+          customer: 'cus_1',
+          subscription: 'sub_basic',
+          client_reference_id: 'exp_1',
+          metadata: { expert_id: 'exp_1', listing_tier: 'basic' },
+        },
+      },
+    },
+    store,
+    {
+      retrieveSubscription: async (subscriptionId) => {
+        retrieved.push(subscriptionId);
+        return expandedSubscription(subscriptionId, 'basic_monthly', 1800000000);
+      },
+    },
+  );
+  assert.deepEqual(retrieved, ['sub_basic']);
+  const expert = store.experts.get('exp_1');
+  assert.equal(expert?.stripe_price_lookup_key, 'basic_monthly');
+  assert.equal(expert?.billing_interval, 'month');
+  assert.equal(expert?.current_period_end, new Date(1800000000 * 1000).toISOString());
+  assert.equal(expert?.extra_category_quantity, 2);
+  assert.equal(expert?.listing_plan, 'basic');
+});
+
+test('invoice.paid retrieves a subscription id from parent.subscription_details', async () => {
+  const store = memoryBillingStore();
+  store.experts.set('exp_1', { id: 'exp_1', listing_plan: 'unpaid' });
+  const retrieved: string[] = [];
+  await applyStripeEvent(
+    {
+      id: 'evt_invoice_id',
+      type: 'invoice.paid',
+      data: {
+        object: {
+          id: 'in_sub',
+          currency: 'usd',
+          total_excluding_tax: 999,
+          customer: 'cus_1',
+          parent: {
+            subscription_details: {
+              subscription: 'sub_featured',
+              metadata: { expert_id: 'exp_1', referrer_expert_id: 'exp_ref', listing_tier: 'basic' },
+            },
+          },
+        },
+      },
+    },
+    store,
+    {
+      retrieveSubscription: async (subscriptionId) => {
+        retrieved.push(subscriptionId);
+        return expandedSubscription(subscriptionId, 'featured_yearly', 1900000000);
+      },
+    },
+  );
+  assert.deepEqual(retrieved, ['sub_featured']);
+  const expert = store.experts.get('exp_1');
+  assert.equal(expert?.stripe_price_lookup_key, 'featured_yearly');
+  assert.equal(expert?.billing_interval, 'year');
+  assert.equal(expert?.listing_plan, 'featured');
+  assert.equal(expert?.current_period_end, new Date(1900000000 * 1000).toISOString());
+  assert.equal(store.ledger[0]?.amountCents, 300);
+});
+
+test('webhook retrieve expands items.data.price', async () => {
+  const store = memoryBillingStore();
+  store.experts.set('exp_1', { id: 'exp_1', listing_plan: 'unpaid' });
+  let expand: string[] | undefined;
+  const stripe = {
+    webhooks: {
+      constructEventAsync: async () => ({
+        id: 'evt_wh',
+        type: 'checkout.session.completed',
+        data: {
+          object: {
+            payment_status: 'paid',
+            customer: 'cus_1',
+            subscription: 'sub_wh',
+            metadata: { expert_id: 'exp_1', listing_tier: 'basic' },
+          },
+        },
+      }),
+    },
+    subscriptions: {
+      retrieve: async (_id: string, params: { expand?: string[] }) => {
+        expand = params.expand;
+        return expandedSubscription('sub_wh', 'basic_monthly', 1800000000);
+      },
+    },
+    customers: { update: async () => ({}) },
+  } as unknown as Stripe;
+  const response = await handleWebhookRequest(
+    new Request('https://findaipros.com/api/stripe/webhook', {
+      method: 'POST',
+      headers: { 'stripe-signature': 't=1,v1=ok' },
+      body: '{}',
+    }),
+    { STRIPE_SECRET_KEY: 'rk_test_dummy', STRIPE_WEBHOOK_SECRET: 'whsec_test' },
+    store,
+    stripe,
+  );
+  assert.equal(response.status, 200);
+  assert.deepEqual(expand, [...SUBSCRIPTION_ITEM_PRICE_EXPAND]);
+  assert.equal(store.experts.get('exp_1')?.stripe_price_lookup_key, 'basic_monthly');
 });

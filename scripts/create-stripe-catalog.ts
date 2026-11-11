@@ -2,10 +2,39 @@
  * Creates the Find Ai Pros products and prices in a Stripe sandbox.
  * Do not run this against a live key. This file is not executed by the build or tests.
  *
- *   STRIPE_SECRET_KEY=rk_test_... node --experimental-strip-types scripts/create-stripe-catalog.ts
+ *   STRIPE_SECRET_KEY=rk_test_... npx tsx scripts/create-stripe-catalog.ts
  */
-import { CATALOG_PRICES, isTestStripeKey } from '../src/lib/billing/catalog';
+import { CATALOG_PRICES, isTestStripeKey, type CatalogPrice } from '../src/lib/billing/catalog';
 import { createStripeClient } from '../src/lib/billing/stripe-client';
+import type Stripe from 'stripe';
+
+function catalogKey(tier: string): string {
+  return `findaipros:${tier}`;
+}
+
+function productMatches(product: Stripe.Product, price: CatalogPrice): boolean {
+  const metadata = product.metadata || {};
+  if (metadata.catalog_key === catalogKey(price.tier)) return true;
+  return product.name === price.productName && metadata.tier === price.tier;
+}
+
+/** List is strongly consistent. Search is not, and reruns were creating duplicate products. */
+async function findProductId(stripe: Stripe, price: CatalogPrice): Promise<string | null> {
+  let startingAfter: string | undefined;
+  for (;;) {
+    const page = await stripe.products.list({
+      active: true,
+      limit: 100,
+      ...(startingAfter ? { starting_after: startingAfter } : {}),
+    });
+    const match = page.data.find((product) => productMatches(product, price));
+    if (match) return match.id;
+    if (!page.has_more || page.data.length === 0) return null;
+    const last = page.data[page.data.length - 1];
+    if (!last) return null;
+    startingAfter = last.id;
+  }
+}
 
 async function main() {
   const key = process.env.STRIPE_SECRET_KEY || '';
@@ -22,16 +51,14 @@ async function main() {
   for (const price of CATALOG_PRICES) {
     let productId = productIds.get(price.productName);
     if (!productId) {
-      const found = await stripe.products.search({
-        query: `name:'${price.productName}' AND active:'true'`,
-        limit: 1,
-      });
-      if (found.data[0]) {
-        productId = found.data[0].id;
+      const existingId = await findProductId(stripe, price);
+      if (existingId) {
+        productId = existingId;
+        console.log('product exists', price.productName, productId);
       } else {
         const created = await stripe.products.create({
           name: price.productName,
-          metadata: { tier: price.tier },
+          metadata: { tier: price.tier, catalog_key: catalogKey(price.tier) },
         });
         productId = created.id;
         console.log('product', price.productName, productId);

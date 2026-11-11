@@ -61,7 +61,7 @@ Subscribe the webhook endpoint to: `checkout.session.completed`, `checkout.sessi
 Create the sandbox catalog (not run by the build):
 
 ```bash
-STRIPE_SECRET_KEY=rk_test_... node --experimental-strip-types scripts/create-stripe-catalog.ts
+STRIPE_SECRET_KEY=rk_test_... npx tsx scripts/create-stripe-catalog.ts
 ```
 
 The script rejects live keys. Extra categories are $9.99/month (`extra_category_monthly`) or $79/year (`extra_category_yearly`). Referral commissions are 30% of the invoice pre-tax amount, stored in `referral_ledger` for manual payout. Stripe Connect is not used.
@@ -73,7 +73,7 @@ One more thing: if you later charge US customers tax, Stripe Tax only collects w
 ## 📐 Architecture & Security
 
 ```
-Next.js 15 (App Router)  ─┐
+Next.js 16.4.1 (App Router)  ─┐
   ├─ Static + SSG pages   │
   ├─ Tailwind CSS         │
   ├─ Server Actions       │
