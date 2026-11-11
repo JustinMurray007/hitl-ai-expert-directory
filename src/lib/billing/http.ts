@@ -2,6 +2,7 @@ import type Stripe from 'stripe';
 import { extraCategoryLookupKey, planLookupKey, type BillingInterval, type CheckoutPlan } from './catalog';
 import { buildCheckoutSessionParams, integrationIdentifier } from './checkout-params';
 import { applyStripeEvent } from './apply-event';
+import { requestProductionRebuild } from '../deploy-hook';
 import { SUBSCRIPTION_ITEM_PRICE_EXPAND, type StripeEventLike } from './events';
 import type { BillingStore } from './store';
 import { createStripeClient, verifyWebhookEvent } from './stripe-client';
@@ -14,6 +15,8 @@ export type BillingEnv = {
   CRON_SECRET?: string;
   NEXT_PUBLIC_SUPABASE_URL?: string;
   SUPABASE_SERVICE_ROLE_KEY?: string;
+  /** Cloudflare Pages deploy hook. Unset means listing changes do not rebuild the site. */
+  CLOUDFLARE_DEPLOY_HOOK_URL?: string;
 };
 
 const PLANS = new Set<CheckoutPlan>(['basic', 'featured', 'premium']);
@@ -145,8 +148,9 @@ export async function handleWebhookRequest(
   } catch {
     return json({ error: 'invalid_signature' }, 400);
   }
+  let result;
   try {
-    const result = await applyStripeEvent(event as unknown as StripeEventLike, store, {
+    result = await applyStripeEvent(event as unknown as StripeEventLike, store, {
       updateCustomerMetadata: async (customerId, metadata) => {
         await client.customers.update(customerId, { metadata });
       },
@@ -157,10 +161,17 @@ export async function handleWebhookRequest(
         return subscription as unknown as Record<string, unknown>;
       },
     });
-    return json(result);
   } catch {
     return json({ error: 'webhook_failed' }, 500);
   }
+  if (result.publicListingChanged) {
+    await requestProductionRebuild('stripe_webhook', env);
+  }
+  return json({
+    ok: result.ok,
+    ...(result.duplicate ? { duplicate: true } : {}),
+    action: result.action,
+  });
 }
 
 export async function handlePortalRequest(

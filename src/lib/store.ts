@@ -22,6 +22,7 @@ import {
   MatchRequestInput,
   AdminReviewActionInput,
 } from './validation';
+import { requestProductionRebuild } from './deploy-hook';
 import { compareDirectoryExperts, freePeriodEndsAt } from './listing';
 
 // In-memory runtime store for Demo Mode
@@ -583,6 +584,14 @@ export async function updateExpertReviewStatus(
     application.review_notes = reviewNotes;
     application.review_decision = verificationStatus || application.review_decision;
     application.reviewed_at = new Date().toISOString();
+  }
+
+  // Publishing or changing verification changes what the static site shows.
+  // Notes-only reviews do not. The hook no-ops when CLOUDFLARE_DEPLOY_HOOK_URL is unset.
+  if (status !== undefined || verificationStatus !== undefined) {
+    const reason =
+      status === 'published' ? 'admin_publish' : verificationStatus === 'verified' ? 'admin_approve' : 'admin_listing';
+    await requestProductionRebuild(reason);
   }
 
   return { success: true, updatedExpert: expert };

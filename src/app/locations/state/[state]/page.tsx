@@ -3,6 +3,12 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getExperts } from '@/lib/store';
 import {
+  STATIC_EXPORT_PLACEHOLDER,
+  ensureStaticParams,
+  isStaticExportPlaceholder,
+  staticPlaceholderMetadata,
+} from '@/lib/static-params';
+import {
   getExpertsByState,
   getLocationsSummary,
   toStateSlug,
@@ -32,11 +38,14 @@ export async function generateStaticParams() {
     params.push({ state: st.code.toLowerCase() });
   }
 
-  return params;
+  return ensureStaticParams(params, { state: STATIC_EXPORT_PLACEHOLDER });
 }
 
 export async function generateMetadata({ params }: StatePageProps): Promise<Metadata> {
   const { state } = await params;
+  if (isStaticExportPlaceholder(state)) {
+    return staticPlaceholderMetadata('State AI Directory | Find Ai Pros');
+  }
   const experts = await getExperts();
   const { stateName, stateCode } = getExpertsByState(state, experts);
 
@@ -66,6 +75,9 @@ export async function generateMetadata({ params }: StatePageProps): Promise<Meta
 
 export default async function StateLocationPage({ params }: StatePageProps) {
   const { state } = await params;
+  if (isStaticExportPlaceholder(state)) {
+    notFound();
+  }
   const allExperts = await getExperts();
   const { experts: stateExperts, stateCode, stateName, cities, zips } = getExpertsByState(
     state,

@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { expertsToLimit, type LimitCandidate } from '../../../src/lib/billing/limit-listings';
 import type { BillingEnv } from '../../../src/lib/billing/http';
+import { requestProductionRebuild } from '../../../src/lib/deploy-hook';
 
 export async function onRequestPost(context: { request: Request; env: BillingEnv }): Promise<Response> {
   const secret = context.env.CRON_SECRET;
@@ -32,5 +33,6 @@ export async function onRequestPost(context: { request: Request; env: BillingEnv
   if (updateError) {
     return new Response(JSON.stringify({ error: 'update_failed' }), { status: 500 });
   }
+  await requestProductionRebuild('limit_expired', context.env);
   return new Response(JSON.stringify({ limited: ids.length }), { headers: { 'content-type': 'application/json' } });
 }

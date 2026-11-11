@@ -3,6 +3,12 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getExperts } from '@/lib/store';
 import {
+  STATIC_EXPORT_PLACEHOLDER,
+  ensureStaticParams,
+  isStaticExportPlaceholder,
+  staticPlaceholderMetadata,
+} from '@/lib/static-params';
+import {
   getExpertsByCity,
   getLocationsSummary,
   toCitySlug,
@@ -28,11 +34,17 @@ interface CityPageProps {
 export async function generateStaticParams() {
   const experts = await getExperts();
   const { cities } = getLocationsSummary(experts);
-  return cities.map((c) => ({ city: c.slug }));
+  return ensureStaticParams(
+    cities.map((c) => ({ city: c.slug })),
+    { city: STATIC_EXPORT_PLACEHOLDER },
+  );
 }
 
 export async function generateMetadata({ params }: CityPageProps): Promise<Metadata> {
   const { city } = await params;
+  if (isStaticExportPlaceholder(city)) {
+    return staticPlaceholderMetadata('City AI Directory | Find Ai Pros');
+  }
   const experts = await getExperts();
   const { cityName, stateCode } = getExpertsByCity(city, experts);
 
@@ -62,6 +74,9 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
 
 export default async function CityLocationPage({ params }: CityPageProps) {
   const { city } = await params;
+  if (isStaticExportPlaceholder(city)) {
+    notFound();
+  }
   const allExperts = await getExperts();
   const { experts: cityExperts, cityName, stateCode, stateName, stateSlug, zips } = getExpertsByCity(
     city,

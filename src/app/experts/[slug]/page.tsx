@@ -2,6 +2,12 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getExpertBySlug, getExperts } from '@/lib/store';
+import {
+  STATIC_EXPORT_PLACEHOLDER,
+  ensureStaticParams,
+  isStaticExportPlaceholder,
+  staticPlaceholderMetadata,
+} from '@/lib/static-params';
 import { VerifiedBadge, PlacementBadge, ToolBadge, BudgetBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
 import { showsPublicLinks } from '@/lib/listing';
 import CaseStudyCard from '@/components/CaseStudyCard';
@@ -23,11 +29,17 @@ interface ExpertProfilePageProps {
 
 export async function generateStaticParams() {
   const experts = await getExperts();
-  return experts.map((e) => ({ slug: e.slug }));
+  return ensureStaticParams(
+    experts.map((e) => ({ slug: e.slug })),
+    { slug: STATIC_EXPORT_PLACEHOLDER },
+  );
 }
 
 export async function generateMetadata({ params }: ExpertProfilePageProps): Promise<Metadata> {
   const { slug } = await params;
+  if (isStaticExportPlaceholder(slug)) {
+    return staticPlaceholderMetadata('Specialist Not Found | Find Ai Pros');
+  }
   const expert = await getExpertBySlug(slug);
 
   if (!expert) {
@@ -50,6 +62,9 @@ export async function generateMetadata({ params }: ExpertProfilePageProps): Prom
 
 export default async function ExpertProfilePage({ params }: ExpertProfilePageProps) {
   const { slug } = await params;
+  if (isStaticExportPlaceholder(slug)) {
+    notFound();
+  }
   const expert = await getExpertBySlug(slug);
 
   if (!expert) {

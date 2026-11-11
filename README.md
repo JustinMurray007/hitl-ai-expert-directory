@@ -55,6 +55,17 @@ Use a **restricted API key** (`rk_test_…` in a [Stripe sandbox](https://docs.s
 | `NEXT_PUBLIC_STRIPE_CHECKOUT_ENABLED` | No | `true` only when the server key is set. Otherwise plan buttons scroll to the application form. |
 | `NEXT_PUBLIC_SITE_URL` | No | Success, cancel, and portal return URLs. |
 | `CRON_SECRET` | Yes | Bearer token for `POST /api/stripe/limit-expired`. |
+| `CLOUDFLARE_DEPLOY_HOOK_URL` | Yes | Pages deploy hook. Rebuilds the static site after a public listing change. |
+
+The public site is a static export, so a newly published, upgraded, downgraded, or expired listing shows up on the next build. Pages Functions POST `CLOUDFLARE_DEPLOY_HOOK_URL` when:
+
+- an admin review publishes a listing or changes verification (`updateExpertReviewStatus`)
+- the Stripe webhook writes `listing_plan` or `profile_mode`
+- `POST /api/stripe/limit-expired` flips profiles to limited (the manual `scripts/limit-expired-listings.ts` script does the same)
+
+Create the hook in the Cloudflare Pages project: **Settings → Builds → Deploy hooks**, branch **`master`**. Copy the URL into an encrypted Production environment variable named `CLOUDFLARE_DEPLOY_HOOK_URL` (Settings → Environment variables). Do not commit it. Functions read it from `context.env` at runtime; the static build does not need it.
+
+If the variable is unset, those actions log `[deploy-hook] skipped` and continue. If the POST fails, they log the failure and still return success. A burst of changes inside 90 seconds collapses to one build: the function claims the window in memory, and Pages Functions in the same location also share that claim through the Workers Cache API. A failed POST drops the claim so the next change can retry.
 
 Subscribe the webhook endpoint to: `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted`, `invoice.paid`, `invoice.payment_failed`, and `charge.refunded` (referral reversals).
 
