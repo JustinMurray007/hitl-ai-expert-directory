@@ -9,8 +9,10 @@ import { applyStripeEvent } from './apply-event';
 import { memoryBillingStore } from './store';
 import { referralCreditCents } from './referral';
 import { expertsToLimit } from './limit-listings';
-import { showsPublicLinks } from '../listing';
-import { handleCheckoutRequest, handleWebhookRequest } from './http';
+import { isPublicDirectoryExpert, showsPublicLinks } from '../listing';
+import { SEED_EXPERTS } from '../seed';
+import { getExperts, isDemoMode } from '../store';
+import { handleCheckoutRequest, handlePortalRequest, handleWebhookRequest } from './http';
 
 test('automatic tax is never enabled', () => {
   assert.equal(AUTOMATIC_TAX_ALLOWED, false);
@@ -427,4 +429,342 @@ test('webhook retrieve expands items.data.price', async () => {
   assert.equal(response.status, 200);
   assert.deepEqual(expand, [...SUBSCRIPTION_ITEM_PRICE_EXPAND]);
   assert.equal(store.experts.get('exp_1')?.stripe_price_lookup_key, 'basic_monthly');
+});
+
+function invoicePaid(status: string, lookupKey: string) {
+  return {
+    id: `evt_invoice_${status}`,
+    type: 'invoice.paid',
+    data: {
+      object: {
+        id: `in_${status}`,
+        currency: 'usd',
+        total_excluding_tax: 1000,
+        customer: 'cus_1',
+        parent: {
+          subscription_details: {
+            subscription: {
+              id: 'sub_1',
+              status,
+              customer: 'cus_1',
+              metadata: { expert_id: 'exp_1', referrer_expert_id: 'exp_ref' },
+              items: {
+                data: [{ quantity: 1, current_period_end: 1800000000, price: { lookup_key: lookupKey } }],
+              },
+            },
+            metadata: { expert_id: 'exp_1', referrer_expert_id: 'exp_ref', listing_tier: 'premium' },
+          },
+        },
+      },
+    },
+  };
+}
+
+test('invoice.paid grants a listing only while the subscription is active or trialing', () => {
+  const trialing = effectForEvent(invoicePaid('trialing', 'premium_monthly'));
+  assert.equal(trialing.action, 'apply');
+  if (trialing.action === 'apply') {
+    assert.equal(trialing.patch.listing_plan, 'premium');
+    assert.equal(trialing.patch.profile_mode, 'full');
+    assert.equal(trialing.patch.subscription_status, 'trialing');
+    assert.equal(trialing.referral?.amountCents, 300);
+  }
+
+  const canceled = effectForEvent(invoicePaid('canceled', 'premium_yearly'));
+  assert.equal(canceled.action, 'apply');
+  if (canceled.action === 'apply') {
+    assert.equal(canceled.patch.listing_plan, 'unpaid');
+    assert.equal(canceled.patch.profile_mode, 'limited');
+    assert.equal(canceled.patch.subscription_status, 'canceled');
+    assert.equal(canceled.referral?.amountCents, 300);
+  }
+
+  const pastDue = effectForEvent(invoicePaid('past_due', 'featured_monthly'));
+  assert.equal(pastDue.action, 'apply');
+  if (pastDue.action === 'apply') {
+    assert.equal(pastDue.patch.listing_plan, undefined);
+    assert.equal(pastDue.patch.profile_mode, undefined);
+    assert.equal(pastDue.patch.subscription_status, 'past_due');
+    assert.equal(pastDue.referral?.amountCents, 300);
+  }
+});
+
+test('invoice.paid after subscription.deleted does not re-upgrade a canceled listing', async () => {
+  const store = memoryBillingStore();
+  store.experts.set('exp_1', {
+    id: 'exp_1',
+    listing_plan: 'featured',
+    profile_mode: 'full',
+    subscription_status: 'active',
+    status: 'published',
+    is_demo: false,
+    categories: [{}],
+    tools: [{}],
+  });
+
+  await applyStripeEvent(
+    {
+      id: 'evt_deleted_first',
+      type: 'customer.subscription.deleted',
+      data: { object: { id: 'sub_1', customer: 'cus_1', status: 'canceled', metadata: { expert_id: 'exp_1' } } },
+    },
+    store,
+  );
+  assert.equal(store.experts.get('exp_1')?.listing_plan, 'unpaid');
+  assert.equal(store.experts.get('exp_1')?.profile_mode, 'limited');
+
+  const retrieved: string[] = [];
+  await applyStripeEvent(
+    {
+      id: 'evt_late_invoice',
+      type: 'invoice.paid',
+      data: {
+        object: {
+          id: 'in_late',
+          currency: 'usd',
+          total_excluding_tax: 1000,
+          customer: 'cus_1',
+          parent: {
+            subscription_details: {
+              subscription: 'sub_1',
+              metadata: { expert_id: 'exp_1', referrer_expert_id: 'exp_ref', listing_tier: 'premium' },
+            },
+          },
+        },
+      },
+    },
+    store,
+    {
+      retrieveSubscription: async (subscriptionId) => {
+        retrieved.push(subscriptionId);
+        return {
+          id: subscriptionId,
+          status: 'canceled',
+          customer: 'cus_1',
+          metadata: { expert_id: 'exp_1', referrer_expert_id: 'exp_ref', listing_tier: 'premium' },
+          items: {
+            data: [{ quantity: 1, current_period_end: 1800000000, price: { lookup_key: 'premium_monthly' } }],
+          },
+        };
+      },
+    },
+  );
+  assert.deepEqual(retrieved, ['sub_1']);
+
+  const expert = store.experts.get('exp_1');
+  assert.equal(expert?.listing_plan, 'unpaid');
+  assert.equal(expert?.profile_mode, 'limited');
+  assert.equal(expert?.subscription_status, 'canceled');
+  assert.equal(showsPublicLinks(expert || {}), false);
+  assert.equal(store.ledger.length, 1);
+  assert.equal(store.ledger[0].amountCents, 300);
+  assert.equal(store.ledger[0].kind, 'credit');
+});
+
+test('subscription.updated limits a canceled subscription and keeps a past_due plan', () => {
+  const canceled = effectForEvent({
+    id: 'evt_sub_canceled',
+    type: 'customer.subscription.updated',
+    data: {
+      object: {
+        id: 'sub_2',
+        customer: 'cus_2',
+        status: 'canceled',
+        metadata: { expert_id: 'exp_2', listing_tier: 'premium' },
+        items: { data: [{ quantity: 1, price: { lookup_key: 'premium_monthly' } }] },
+      },
+    },
+  });
+  assert.equal(canceled.action, 'apply');
+  if (canceled.action === 'apply') {
+    assert.equal(canceled.patch.listing_plan, 'unpaid');
+    assert.equal(canceled.patch.profile_mode, 'limited');
+    assert.equal(canceled.patch.subscription_status, 'canceled');
+  }
+
+  const pastDue = effectForEvent({
+    id: 'evt_sub_past_due',
+    type: 'customer.subscription.updated',
+    data: {
+      object: {
+        id: 'sub_2',
+        customer: 'cus_2',
+        status: 'past_due',
+        metadata: { expert_id: 'exp_2' },
+        items: { data: [{ quantity: 1, price: { lookup_key: 'featured_monthly' } }] },
+      },
+    },
+  });
+  assert.equal(pastDue.action, 'apply');
+  if (pastDue.action === 'apply') {
+    assert.equal(pastDue.patch.listing_plan, 'featured');
+    assert.equal(pastDue.patch.profile_mode, 'full');
+    assert.equal(pastDue.patch.subscription_status, 'past_due');
+  }
+});
+
+test('checkout completion does not grant a listing when the fetched subscription is canceled', () => {
+  const effect = effectForEvent({
+    id: 'evt_checkout_canceled',
+    type: 'checkout.session.completed',
+    data: {
+      object: {
+        payment_status: 'paid',
+        customer: 'cus_1',
+        metadata: { expert_id: 'exp_1', listing_tier: 'premium' },
+        subscription: {
+          id: 'sub_old',
+          status: 'canceled',
+          customer: 'cus_1',
+          metadata: { expert_id: 'exp_1' },
+          items: { data: [{ quantity: 1, price: { lookup_key: 'premium_monthly' } }] },
+        },
+      },
+    },
+  });
+  assert.equal(effect.action, 'apply');
+  if (effect.action === 'apply') {
+    assert.equal(effect.patch.listing_plan, 'unpaid');
+    assert.equal(effect.patch.profile_mode, 'limited');
+    assert.equal(effect.patch.subscription_status, 'canceled');
+  }
+});
+
+test('public directory predicate matches getExperts and keeps the seeded profiles', async () => {
+  assert.equal(isPublicDirectoryExpert({ status: 'pending_review', is_demo: false, categories: [{}], tools: [{}] }), false);
+  assert.equal(isPublicDirectoryExpert({ status: 'published', is_demo: true, categories: [{}], tools: [{}] }), false);
+  assert.equal(isPublicDirectoryExpert({ status: 'rejected', is_demo: false, categories: [{}], tools: [{}] }), false);
+  assert.equal(isPublicDirectoryExpert({ status: 'archived', is_demo: false, categories: [{}], tools: [{}] }), false);
+  assert.equal(isPublicDirectoryExpert({ status: 'published', is_demo: false, categories: [], tools: [{}] }), false);
+  assert.equal(isPublicDirectoryExpert({ status: 'published', is_demo: false, categories: [{}], tools: [] }), false);
+  assert.equal(isPublicDirectoryExpert({ status: 'published', is_demo: false, categories: [{}], tools: [{}] }), true);
+  assert.ok(SEED_EXPERTS.length > 0);
+  assert.ok(SEED_EXPERTS.every((expert) => isPublicDirectoryExpert(expert)));
+  if (isDemoMode()) {
+    const experts = await getExperts();
+    assert.equal(experts.length, SEED_EXPERTS.length);
+    assert.ok(experts.every((expert) => isPublicDirectoryExpert(expert)));
+  }
+});
+
+const STRIPE_SECRET = 'rk_test_SUPERSECRETKEY';
+
+function stripeBoom(message = `Stripe rejected ${STRIPE_SECRET}`): Error {
+  return Object.assign(new Error(message), {
+    type: 'StripeAPIError',
+    code: 'api_error',
+    statusCode: 500,
+    requestId: 'req_test_123',
+    raw: { headers: { Authorization: `Bearer ${STRIPE_SECRET}` } },
+  });
+}
+
+function captureErrors(): { lines: string[]; restore: () => void } {
+  const lines: string[] = [];
+  const original = console.error;
+  console.error = (...args: unknown[]) => {
+    lines.push(args.map((arg) => (typeof arg === 'string' ? arg : JSON.stringify(arg))).join(' '));
+  };
+  return {
+    lines,
+    restore: () => {
+      console.error = original;
+    },
+  };
+}
+
+function assertNoStripeSecrets(lines: string[]) {
+  const logged = lines.join('\n');
+  assert.equal(logged.includes(STRIPE_SECRET), false);
+  assert.equal(logged.includes('Authorization'), false);
+  assert.match(logged, /stripe_request_failed/);
+  assert.match(logged, /\[redacted\]/);
+}
+
+test('checkout returns a handled error when Stripe price lookup or session create fails', async () => {
+  const env = { STRIPE_SECRET_KEY: 'rk_test_dummy', NEXT_PUBLIC_SITE_URL: 'https://findaipros.com' };
+  const jsonRequest = () =>
+    new Request('https://findaipros.com/api/stripe/checkout', {
+      method: 'POST',
+      body: JSON.stringify({ plan: 'basic', interval: 'month', extra_category_quantity: 0 }),
+    });
+  const formRequest = () =>
+    new Request('https://findaipros.com/api/stripe/checkout', {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ plan: 'basic', interval: 'month', extra_category_quantity: '0' }),
+    });
+
+  const logs = captureErrors();
+  try {
+    const listFailed = {
+      prices: { list: async () => { throw stripeBoom(); } },
+    } as unknown as Stripe;
+    const jsonList = await handleCheckoutRequest(jsonRequest(), env, listFailed);
+    assert.equal(jsonList.status, 500);
+    assert.deepEqual(await jsonList.json(), { error: 'stripe_error' });
+
+    const formList = await handleCheckoutRequest(formRequest(), env, listFailed);
+    assert.equal(formList.status, 303);
+    assert.equal(formList.headers.get('location'), 'https://findaipros.com/apply#application');
+
+    const createFailed = {
+      prices: { list: async () => ({ data: [{ id: 'price_basic', lookup_key: 'basic_monthly' }] }) },
+      checkout: { sessions: { create: async () => { throw stripeBoom(); } } },
+    } as unknown as Stripe;
+    const jsonCreate = await handleCheckoutRequest(jsonRequest(), env, createFailed);
+    assert.equal(jsonCreate.status, 500);
+    assert.deepEqual(await jsonCreate.json(), { error: 'stripe_error' });
+    const formCreate = await handleCheckoutRequest(formRequest(), env, createFailed);
+    assert.equal(formCreate.status, 303);
+    assert.equal(formCreate.headers.get('location'), 'https://findaipros.com/apply#application');
+    assertNoStripeSecrets(logs.lines);
+  } finally {
+    logs.restore();
+  }
+});
+
+test('portal returns a handled error when Stripe retrieve or portal create fails', async () => {
+  const env = { STRIPE_SECRET_KEY: 'rk_test_dummy', NEXT_PUBLIC_SITE_URL: 'https://findaipros.com' };
+  const jsonRequest = () =>
+    new Request('https://findaipros.com/api/stripe/portal', {
+      method: 'POST',
+      body: JSON.stringify({ checkout_session_id: 'cs_test' }),
+    });
+  const formRequest = () =>
+    new Request('https://findaipros.com/api/stripe/portal', {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ checkout_session_id: 'cs_test' }),
+    });
+  const logs = captureErrors();
+  try {
+    let creates = 0;
+    const retrieveFailed = {
+      checkout: { sessions: { retrieve: async () => { throw stripeBoom(); } } },
+      billingPortal: { sessions: { create: async () => { creates += 1; return { url: 'https://billing.stripe.com/session' }; } } },
+    } as unknown as Stripe;
+    const jsonRetrieve = await handlePortalRequest(jsonRequest(), env, retrieveFailed);
+    assert.equal(jsonRetrieve.status, 500);
+    assert.deepEqual(await jsonRetrieve.json(), { error: 'stripe_error' });
+    assert.equal(creates, 0);
+    const formRetrieve = await handlePortalRequest(formRequest(), env, retrieveFailed);
+    assert.equal(formRetrieve.status, 303);
+    assert.equal(formRetrieve.headers.get('location'), 'https://findaipros.com/apply#application');
+
+    const createFailed = {
+      checkout: {
+        sessions: {
+          retrieve: async () => ({ id: 'cs_test', payment_status: 'paid', customer: 'cus_1' }),
+        },
+      },
+      billingPortal: { sessions: { create: async () => { throw stripeBoom(); } } },
+    } as unknown as Stripe;
+    const jsonCreate = await handlePortalRequest(jsonRequest(), env, createFailed);
+    assert.equal(jsonCreate.status, 500);
+    assert.deepEqual(await jsonCreate.json(), { error: 'stripe_error' });
+    assertNoStripeSecrets(logs.lines);
+  } finally {
+    logs.restore();
+  }
 });

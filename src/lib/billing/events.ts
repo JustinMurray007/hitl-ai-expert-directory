@@ -145,6 +145,40 @@ function paidPatch(object: Record<string, unknown>, subscription: Record<string,
   return patch;
 }
 
+const PAID_LISTING_STATUSES = new Set(['active', 'trialing']);
+const ENDED_LISTING_STATUSES = new Set(['canceled', 'unpaid', 'incomplete_expired']);
+
+/**
+ * Listing tier and profile mode follow the subscription's current status.
+ * Stripe does not order webhooks, so a paid invoice can arrive after the
+ * subscription is already canceled. Only active and trialing grant a paid
+ * listing. Ended statuses limit it. Any other status is recorded without
+ * upgrading the row.
+ */
+function reconcileListingWithSubscription(
+  patch: BillingPatch,
+  subscription: Record<string, unknown> | null,
+): BillingPatch {
+  if (!subscription) return patch;
+  const status = str(subscription, 'status') || 'active';
+  patch.subscription_status = status;
+  if (PAID_LISTING_STATUSES.has(status)) {
+    patch.profile_mode = 'full';
+    return patch;
+  }
+  if (ENDED_LISTING_STATUSES.has(status)) {
+    patch.listing_plan = 'unpaid';
+    patch.profile_mode = 'limited';
+    return patch;
+  }
+  delete patch.listing_plan;
+  delete patch.profile_mode;
+  delete patch.stripe_price_lookup_key;
+  delete patch.billing_interval;
+  delete patch.extra_category_quantity;
+  return patch;
+}
+
 function subscriptionObject(sessionOrSub: Record<string, unknown>): Record<string, unknown> | null {
   return isRecord(sessionOrSub.subscription) ? sessionOrSub.subscription : null;
 }
@@ -191,7 +225,7 @@ export function effectForEvent(event: StripeEventLike): BillingEffect {
     }
     const subscription = subscriptionObject(object);
     const expertId = expertIdFrom(object, subscription || undefined);
-    const patch = paidPatch(object, subscription);
+    const patch = reconcileListingWithSubscription(paidPatch(object, subscription), subscription);
     const customerId = patch.stripe_customer_id || null;
     const customerMetadata: Record<string, string> = {};
     if (expertId) customerMetadata.expert_id = expertId;
@@ -212,6 +246,10 @@ export function effectForEvent(event: StripeEventLike): BillingEffect {
   if (event.type === 'customer.subscription.created' || event.type === 'customer.subscription.updated') {
     const status = str(object, 'status') || '';
     const expertId = expertIdFrom(object, object);
+    // The event object is the subscription. Ended statuses limit the listing
+    // here, so this handler does not re-grant a paid plan the way invoice.paid
+    // used to after a canceled subscription was fetched. past_due still keeps
+    // the paid plan while Stripe retries.
     if (status === 'canceled' || status === 'unpaid' || status === 'incomplete_expired') {
       return {
         action: 'apply',
@@ -267,17 +305,18 @@ export function effectForEvent(event: StripeEventLike): BillingEffect {
     const subscriptionMeta = details && isRecord(details.metadata) ? details.metadata : {};
     const expertId = str(subscriptionMeta, 'expert_id') || (subscription ? str(meta(subscription), 'expert_id') : null);
     const referrer = str(subscriptionMeta, 'referrer_expert_id') || (subscription ? str(meta(subscription), 'referrer_expert_id') : null);
-    const patch = paidPatch(
-      {
-        ...object,
-        metadata: subscriptionMeta,
-        customer: object.customer,
-        subscription: subscription || idOf(details?.subscription),
-      },
+    const patch = reconcileListingWithSubscription(
+      paidPatch(
+        {
+          ...object,
+          metadata: subscriptionMeta,
+          customer: object.customer,
+          subscription: subscription || idOf(details?.subscription),
+        },
+        subscription,
+      ),
       subscription,
     );
-    if (!patch.subscription_status || patch.subscription_status === 'active') patch.subscription_status = 'active';
-    patch.profile_mode = 'full';
     const invoiceId = str(object, 'id');
     const referral =
       referrer && expertId && invoiceId

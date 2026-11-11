@@ -11,7 +11,10 @@ export type ApplyStripeEventResult = {
   ok: true;
   duplicate?: boolean;
   action: string;
-  /** True only when a stored row's listing_plan or profile_mode was written. */
+  /**
+   * True when listing_plan or profile_mode was written on a row `getExperts()`
+   * would render. Pending, demo, and other non-public rows do not rebuild.
+   */
   publicListingChanged?: boolean;
 };
 
@@ -75,10 +78,14 @@ export async function applyStripeEvent(
     await sideEffects.updateCustomerMetadata(effect.customerId, effect.customerMetadata);
   }
 
+  const publicListingChanged = wrotePublicListing(effect.patch, result)
+    ? await store.directoryVisible(expertId)
+    : false;
+
   await store.markProcessed(event.id, event.type);
   return {
     ok: true,
     action: result === 'missing' ? 'pending_missing_expert' : 'applied',
-    publicListingChanged: wrotePublicListing(effect.patch, result),
+    publicListingChanged,
   };
 }

@@ -67,6 +67,31 @@ export function isMatchEligible(
   return showsPublicLinks(expert, now);
 }
 
+export type DirectoryExpertVisibility = {
+  status?: string | null;
+  is_demo?: boolean | null;
+  categories?: readonly unknown[] | null;
+  tools?: readonly unknown[] | null;
+};
+
+/**
+ * Whether `getExperts()` includes this row in the static export.
+ *
+ * The directory read is published specialists only, with demo rows excluded.
+ * It inner-joins categories and tools, so a row missing either relation is
+ * not rendered. Billing rebuilds use this same predicate.
+ */
+export function isPublicDirectoryExpert(expert: DirectoryExpertVisibility): boolean {
+  return (
+    expert.status === 'published' &&
+    expert.is_demo === false &&
+    Array.isArray(expert.categories) &&
+    expert.categories.length > 0 &&
+    Array.isArray(expert.tools) &&
+    expert.tools.length > 0
+  );
+}
+
 /**
  * Premium Featured, then Featured, then the existing sponsor rank.
  * Case-study count is not a ranking signal.
