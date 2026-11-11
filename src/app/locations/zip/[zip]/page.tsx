@@ -3,6 +3,12 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getExperts } from '@/lib/store';
 import {
+  STATIC_EXPORT_PLACEHOLDER,
+  ensureStaticParams,
+  isStaticExportPlaceholder,
+  staticPlaceholderMetadata,
+} from '@/lib/static-params';
+import {
   getExpertsByZip,
   getLocationsSummary,
   toCitySlug,
@@ -26,11 +32,17 @@ interface ZipPageProps {
 export async function generateStaticParams() {
   const experts = await getExperts();
   const { zips } = getLocationsSummary(experts);
-  return zips.map((z) => ({ zip: z.slug }));
+  return ensureStaticParams(
+    zips.map((z) => ({ zip: z.slug })),
+    { zip: STATIC_EXPORT_PLACEHOLDER },
+  );
 }
 
 export async function generateMetadata({ params }: ZipPageProps): Promise<Metadata> {
   const { zip } = await params;
+  if (isStaticExportPlaceholder(zip)) {
+    return staticPlaceholderMetadata('Zip Code AI Directory | Find Ai Pros');
+  }
   const experts = await getExperts();
   const { zip: postalCode, cityName, stateCode } = getExpertsByZip(zip, experts);
 
@@ -60,6 +72,9 @@ export async function generateMetadata({ params }: ZipPageProps): Promise<Metada
 
 export default async function ZipLocationPage({ params }: ZipPageProps) {
   const { zip } = await params;
+  if (isStaticExportPlaceholder(zip)) {
+    notFound();
+  }
   const allExperts = await getExperts();
   const {
     experts: zipExperts,

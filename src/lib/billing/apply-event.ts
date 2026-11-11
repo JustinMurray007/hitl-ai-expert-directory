@@ -7,11 +7,23 @@ export type StripeSideEffects = {
   retrieveSubscription?: (subscriptionId: string) => Promise<Record<string, unknown>>;
 };
 
+export type ApplyStripeEventResult = {
+  ok: true;
+  duplicate?: boolean;
+  action: string;
+  /** True only when a stored row's listing_plan or profile_mode was written. */
+  publicListingChanged?: boolean;
+};
+
+function wrotePublicListing(patch: { listing_plan?: unknown; profile_mode?: unknown }, result: 'updated' | 'missing'): boolean {
+  return result === 'updated' && (patch.listing_plan !== undefined || patch.profile_mode !== undefined);
+}
+
 export async function applyStripeEvent(
   event: StripeEventLike,
   store: BillingStore,
   sideEffects: StripeSideEffects = {},
-): Promise<{ ok: true; duplicate?: boolean; action: string }> {
+): Promise<ApplyStripeEventResult> {
   if (await store.alreadyProcessed(event.id)) {
     return { ok: true, duplicate: true, action: 'duplicate' };
   }
@@ -64,5 +76,9 @@ export async function applyStripeEvent(
   }
 
   await store.markProcessed(event.id, event.type);
-  return { ok: true, action: result === 'missing' ? 'pending_missing_expert' : 'applied' };
+  return {
+    ok: true,
+    action: result === 'missing' ? 'pending_missing_expert' : 'applied',
+    publicListingChanged: wrotePublicListing(effect.patch, result),
+  };
 }

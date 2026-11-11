@@ -7,6 +7,7 @@
  */
 import { createClient } from '@supabase/supabase-js';
 import { expertsToLimit, type LimitCandidate } from '../src/lib/billing/limit-listings';
+import { requestProductionRebuild } from '../src/lib/deploy-hook';
 
 async function main() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -32,6 +33,7 @@ async function main() {
     .in('id', ids);
   if (updateError) throw updateError;
   console.log(`Limited ${ids.length} listing(s).`);
+  await requestProductionRebuild('limit_expired');
 }
 
 main().catch((error: unknown) => {

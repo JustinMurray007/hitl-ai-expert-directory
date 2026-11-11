@@ -1,8 +1,13 @@
 import { MetadataRoute } from 'next';
 import { getCategories, getExperts } from '@/lib/store';
 import { getLocationsSummary } from '@/lib/locations';
+import { STATIC_EXPORT_PLACEHOLDER } from '@/lib/static-params';
 
 export const dynamic = 'force-static';
+
+function isPublicSegment(slug: string): boolean {
+  return slug !== STATIC_EXPORT_PLACEHOLDER;
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://findaipros.com';
@@ -74,32 +79,38 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Location Hubs: States
-  const stateRoutes: MetadataRoute.Sitemap = states.map((s) => ({
-    url: `${baseUrl}/locations/state/${s.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'daily',
-    priority: 0.85,
-  }));
+  const stateRoutes: MetadataRoute.Sitemap = states
+    .filter((s) => isPublicSegment(s.slug))
+    .map((s) => ({
+      url: `${baseUrl}/locations/state/${s.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.85,
+    }));
 
   // Location Hubs: Cities
-  const cityRoutes: MetadataRoute.Sitemap = cities.map((c) => ({
-    url: `${baseUrl}/locations/city/${c.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'daily',
-    priority: 0.85,
-  }));
+  const cityRoutes: MetadataRoute.Sitemap = cities
+    .filter((c) => isPublicSegment(c.slug))
+    .map((c) => ({
+      url: `${baseUrl}/locations/city/${c.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.85,
+    }));
 
   // Location Hubs: Zip codes
-  const zipRoutes: MetadataRoute.Sitemap = zips.map((z) => ({
-    url: `${baseUrl}/locations/zip/${z.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: 0.8,
-  }));
+  const zipRoutes: MetadataRoute.Sitemap = zips
+    .filter((z) => isPublicSegment(z.slug))
+    .map((z) => ({
+      url: `${baseUrl}/locations/zip/${z.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    }));
 
   // Profiles (strictly excluding demo rows from SEO)
   const profileRoutes: MetadataRoute.Sitemap = experts
-    .filter((e) => !e.is_demo)
+    .filter((e) => !e.is_demo && isPublicSegment(e.slug))
     .map((e) => ({
       url: `${baseUrl}/experts/${e.slug}`,
       lastModified: new Date(e.updated_at || e.created_at || Date.now()),
