@@ -80,7 +80,7 @@ export default function MatchFormClient() {
         <div>
           <h2 className="text-2xl sm:text-3xl font-black text-[#001e00]">Match Request Received</h2>
           <p className="text-base text-[#465a46] mt-3 max-w-md mx-auto font-medium leading-relaxed">
-            Thank you! Our review team has logged your inquiry. We will curate two verified specialists whose past production case studies match your workflow requirements.
+            Thank you! Our review team has logged your inquiry. We will curate two vetted specialists for your workflow. Specialists whose free listing period has ended without a plan are not eligible for a match.
           </p>
         </div>
 
@@ -121,7 +121,7 @@ export default function MatchFormClient() {
           <div className="flex items-center gap-2.5">
             <UserCheck className="w-5 h-5 text-[#2563eb] shrink-0" />
             <span>
-              Specialist Inquired: <strong className="font-bold text-[#1e3a8a]">{paramExpert}</strong>. We will coordinate this introduction with verified case studies.
+              Specialist Inquired: <strong className="font-bold text-[#1e3a8a]">{paramExpert}</strong>. We will coordinate this introduction if they are eligible for a match.
             </span>
           </div>
           <span className="text-xs bg-white text-[#1d4ed8] font-mono font-bold px-3 py-1 rounded-full border border-[#bfdbfe] self-start sm:self-auto">

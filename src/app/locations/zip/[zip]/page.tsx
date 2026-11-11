@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: ZipPageProps): Promise<Metada
   }
 
   const title = `Find An Ai Consultant & Company Near ${postalCode} (${cityName}, ${stateCode}) | Find Ai Pros`;
-  const description = `Hire verified AI automation consultants and AI development companies serving postal code ${postalCode} in ${cityName}, ${stateCode}. 100% human accountability and verified case studies.`;
+  const description = `Hire vetted AI automation consultants and AI development companies serving postal code ${postalCode} in ${cityName}, ${stateCode}. Human accountability and references we can contact.`;
 
   return {
     title,
@@ -214,7 +214,7 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
                 Verified Specialists Serving Zip Code {postalCode}
               </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Audited production case studies, direct booking links, and client safeguards.
+                Human safety checks, and contact links while a listing is inside its free 30 days or on a paid plan.
               </p>
             </div>
           </div>

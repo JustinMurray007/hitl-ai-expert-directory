@@ -8,7 +8,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Find An Ai Consultant & Company Near You | Find Ai Pros',
   description:
-    'Find vetted local AI consultants, automation agencies, and AI developers in your city, state, or zip code. Every expert is verified through 2+ production case studies with built-in human safeguards.',
+    'Find vetted local AI consultants, automation agencies, and AI developers in your city, state, or zip code. Every listed specialist names an accountable person and gives references we can contact.',
   alternates: {
     canonical: 'https://findaipros.com/locations',
   },
@@ -51,7 +51,7 @@ export default async function LocationsMainPage() {
             Find An Ai Consultant &amp; Company Near You
           </h1>
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-            Browse verified local AI consultants, automation architects, and development agencies across cities, states, and zip codes. Every specialist is audited with real client case studies and built-in human safety checkpoints.
+            Browse vetted local AI consultants, automation architects, and development agencies across cities, states, and zip codes. Every specialist is reviewed for human safety checkpoints and references we can contact.
           </p>
 
           {/* Quick Metrics */}

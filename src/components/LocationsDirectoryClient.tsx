@@ -215,7 +215,7 @@ export default function LocationsDirectoryClient({
                 <span>Browse AI Consultants by State</span>
               </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Statewide hubs featuring verified specialists, regional case studies, and city directories.
+                Statewide hubs featuring vetted specialists and city directories.
               </p>
             </div>
             <span className="text-xs font-mono font-bold text-[#2563eb] bg-[#eff6ff] px-3 py-1 rounded-full border border-[#bfdbfe]">

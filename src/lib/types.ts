@@ -1,5 +1,7 @@
 export type ListingStatus = 'pending_review' | 'published' | 'rejected' | 'archived';
 export type VerificationStatus = 'unverified' | 'in_review' | 'verified' | 'rejected';
+/** unpaid = no paid plan. Null on a stored row means billing has not been recorded yet. */
+export type ListingPlan = 'unpaid' | 'basic' | 'featured' | 'premium';
 export type EngagementModel = 'fixed_sprint' | 'monthly_retainer' | 'consulting_audit' | 'hybrid';
 export type BudgetTier = 'under_2500' | '2500_to_5000' | '5000_to_15000' | '15000_plus';
 export type MatchRequestStatus = 'new' | 'reviewing' | 'introduced' | 'closed';
@@ -67,8 +69,16 @@ export interface Expert {
   status: ListingStatus;
   is_verified: boolean;
   verified_at?: string | null;
+  /** Count of optional reviewer-confirmed case studies. Not a verification gate. */
   verified_case_study_count: number;
   sponsor_rank: number;
+  listing_plan?: ListingPlan | null;
+  /** ISO timestamp. Links stay public until this moment when listing_plan is unpaid. */
+  free_period_ends_at?: string | null;
+  profile_mode?: 'full' | 'limited' | null;
+  subscription_status?: string | null;
+  stripe_customer_id?: string | null;
+  stripe_subscription_id?: string | null;
   is_demo: boolean;
   // Associated relations
   categories: Category[];

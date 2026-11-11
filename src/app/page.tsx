@@ -139,9 +139,9 @@ export default async function HomePage() {
                 <CheckCircle2 className="w-5 h-5 text-[#108a00]" />
               </div>
               <div>
-                <h4 className="text-base font-black text-[#001e00]">2+ Case Studies</h4>
+                <h4 className="text-base font-black text-[#001e00]">References we contact</h4>
                 <p className="text-xs sm:text-sm text-[#475569] mt-1 font-normal leading-relaxed">
-                  Real client production deployments with verified ROI data.
+                  We speak with references before listing. Case studies are optional.
                 </p>
               </div>
             </div>
@@ -397,7 +397,7 @@ export default async function HomePage() {
                 Featured Verified AI Experts
               </h2>
               <p className="text-base text-[#475569] mt-2 max-w-2xl font-normal leading-relaxed">
-                Applied AI architects who have proven their systems with reviewed production case studies and documented human oversight protocols.
+                Applied AI architects who name an accountable person and publish how a human steps in when the system is unsure.
               </p>
             </div>
             <Link
@@ -531,7 +531,7 @@ export default async function HomePage() {
                   </div>
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0 mt-0.5" />
-                    <span>≥2 reviewed production case studies with real client ROI</span>
+                    <span>References we can contact before anyone is listed</span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0 mt-0.5" />
@@ -562,7 +562,7 @@ export default async function HomePage() {
                 Let Our Team Handpick 2 Verified Specialists for Your Workflow.
               </h2>
               <p className="text-base text-[#475569] mt-3 leading-relaxed font-normal">
-                Tell us what you want to automate, what software you use, and your budget. We will review your request privately and connect you with two verified experts with proven client case studies.
+                Tell us what you want to automate, what software you use, and your budget. We will review your request privately and connect you with two vetted specialists.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Link

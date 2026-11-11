@@ -1,14 +1,13 @@
 import Link from 'next/link';
 import {
   ShieldCheck,
-  CheckCircle2,
   ArrowRight,
   FileCheck,
 } from 'lucide-react';
 
 export const metadata = {
   title: 'Vetting Standards & The HITL Standard | Find Ai Pros',
-  description: 'Learn why human accountability is the single trust moat in applied AI. Read our two-case-study verification rule and failure safeguard checklist.',
+  description: 'Learn how Find Ai Pros vets specialists: a named accountable person, human safety checks, and references we can contact. Case studies are not required.',
 };
 
 export default function AboutPage() {
@@ -57,40 +56,28 @@ export default function AboutPage() {
       </section>
 
       {/* SECTION 2: THE TWO CASE STUDIES RULE */}
-      <section id="two-case-studies" className="rounded-3xl p-8 sm:p-10 border border-[#e4ebe4] bg-white shadow-xs space-y-6">
+      <section id="references" className="rounded-3xl p-8 sm:p-10 border border-[#e4ebe4] bg-white shadow-xs space-y-6">
         <div className="border-b border-[#f0f3f0] pb-4">
           <span className="text-sm uppercase font-mono tracking-wider text-[#108a00] font-bold">
-            Verification Gate
+            Verification
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-[#001e00] mt-1.5">
-            The Two Case Studies Rule
+            References, not a case-study quota
           </h2>
         </div>
 
         <p className="text-base sm:text-lg text-[#334133] leading-relaxed">
-          The green <strong>Verified Specialist</strong> badge is never sold. Payment never confers verification. To earn the badge, an applicant must have at least <strong>two reviewed production case studies</strong> with demonstrable business outcomes and audited human oversight.
+          The green <strong>Verified Specialist</strong> badge is never sold. Payment never confers verification, and it never skips vetting. Case studies are not required to be listed or to earn the badge. A specialist may still choose to show examples of past work on their profile.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm sm:text-base">
-          <div className="p-6 rounded-2xl bg-[#f9faf9] border border-[#e4ebe4] space-y-2.5">
-            <div className="flex items-center gap-2 font-bold text-[#001e00] text-base">
-              <FileCheck className="w-5 h-5 text-[#108a00]" />
-              <span>Study 1: Primary Workflow</span>
-            </div>
-            <p className="text-[#5e6d55] leading-relaxed font-normal">
-              Submitted at initial application intake. Verifies real client industry, baseline architecture, and quantitative ROI.
-            </p>
+        <div className="p-6 rounded-2xl bg-[#f9faf9] border border-[#e4ebe4] space-y-2.5">
+          <div className="flex items-center gap-2 font-bold text-[#001e00] text-base">
+            <FileCheck className="w-5 h-5 text-[#108a00]" />
+            <span>References we can contact</span>
           </div>
-
-          <div className="p-6 rounded-2xl bg-[#f9faf9] border border-[#e4ebe4] space-y-2.5">
-            <div className="flex items-center gap-2 font-bold text-[#001e00] text-base">
-              <ShieldCheck className="w-5 h-5 text-[#108a00]" />
-              <span>Study 2: Independent Evidence</span>
-            </div>
-            <p className="text-[#5e6d55] leading-relaxed font-normal">
-              Reviewed before granting verification. Confirms repeatable methodology and robust edge-case resilience across diverse clients.
-            </p>
-          </div>
+          <p className="text-[#5e6d55] leading-relaxed font-normal">
+            Before listing, the specialist gives references we can speak with about their work. That remains the proof requirement. A sample written plan and a sample handoff guide are part of the same review.
+          </p>
         </div>
       </section>
 
@@ -125,7 +112,7 @@ export default function AboutPage() {
             <div>
               <h4 className="font-bold text-[#001e00] text-base sm:text-lg">Entity & Identity Confirmation</h4>
               <p className="text-[#5e6d55] text-sm sm:text-base mt-1.5 leading-relaxed font-normal">
-                Active corporate domain, verifiable business entity registration (LLC, S-Corp, etc.), real LinkedIn presence, and verifiable past project ownership.
+                Active corporate domain, a real business identity we can confirm, and references we can contact.
               </p>
             </div>
           </div>
@@ -135,9 +122,9 @@ export default function AboutPage() {
               3
             </span>
             <div>
-              <h4 className="font-bold text-[#001e00] text-base sm:text-lg">Execution Artifact</h4>
+              <h4 className="font-bold text-[#001e00] text-base sm:text-lg">Sample plan and handoff</h4>
               <p className="text-[#5e6d55] text-sm sm:text-base mt-1.5 leading-relaxed font-normal">
-                A Loom walkthrough, code repository review, or live workflow architecture demonstration showing how the solution handles failure states in production.
+                A sample scope in plain language, with the success measures the specialist would agree with a contractor, and a sample handoff guide. This is not a case-study requirement.
               </p>
             </div>
           </div>
@@ -148,68 +135,31 @@ export default function AboutPage() {
       <section className="rounded-3xl p-8 sm:p-10 border border-[#e4ebe4] bg-white shadow-xs space-y-6">
         <div className="border-b border-[#f0f3f0] pb-4">
           <span className="text-sm uppercase font-mono tracking-wider text-[#108a00] font-bold">
-            Monetization Architecture
+            Listing plans
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-[#001e00] mt-1.5">
-            Listing Tiers & Pricing Model
+            Vetting is free. Placement is what you pay for.
           </h2>
           <p className="text-sm sm:text-base text-[#5e6d55] mt-1.5 leading-relaxed font-normal">
-            Pricing is an ongoing hypothesis. Verified status is earned first; monetization scales with verified value.
+            Every listed specialist is vetted the same way. Paying does not buy the badge and does not skip vetting. The Directory does not guarantee results.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          <div className="p-6 sm:p-7 rounded-2xl bg-[#f9faf9] border border-[#e4ebe4] flex flex-col justify-between">
-            <div>
-              <h3 className="font-bold text-[#001e00] text-lg">Community</h3>
-              <p className="text-[#5e6d55] text-xs sm:text-sm mt-1">For budding automation specialists</p>
-              <div className="text-3xl font-black text-[#001e00] mt-4">Free</div>
-              <ul className="mt-5 space-y-3 text-[#334133] text-sm sm:text-base">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" /> Public directory card</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" /> Tool stack tags</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" /> Booking URL integration</li>
-              </ul>
-            </div>
-            <div className="mt-6 pt-4 border-t border-[#e4ebe4] text-xs sm:text-sm text-[#738273]">
-              Basic intake review
-            </div>
-          </div>
+        <ul className="space-y-3 text-[#334133] text-sm sm:text-base leading-relaxed">
+          <li>New profiles are free for the first 30 days in one category. No card required. Nothing is charged automatically. Website and social links show during those 30 days and on any paid plan. If you pay during the 30 days, the paid plan starts that day. It is not a Stripe trial. When a subscription ends, the listing becomes a limited profile.</li>
+          <li><strong>Basic</strong> — $9.99/month or $79/year. One category, including a link to their website.</li>
+          <li><strong>Featured</strong> — $29.99/month or $299.99/year. Labeled Featured, and listed above Basic listings in 4 categories.</li>
+          <li><strong>Premium Featured</strong> — $59.99/month or $599.99/year. Labeled Premium Featured. Homepage listing plus the absolute top of 6 categories.</li>
+          <li>Extra categories are $9.99/month or $79/year each.</li>
+          <li>After 30 days without a plan, the listing stays visible as a limited profile (name, category, and vetted badge). The website link, social links, contact and lead routing, and match eligibility come off. It is not hidden and it is not auto-charged. Reminder emails go out at day 15 and on day 30 if they have not picked a plan.</li>
+        </ul>
 
-          <div className="p-6 sm:p-7 rounded-2xl bg-[#edf7ee] border-2 border-[#108a00] flex flex-col justify-between relative shadow-sm">
-            <span className="absolute -top-3.5 right-4 px-3.5 py-1 rounded-full text-xs font-bold bg-[#108a00] text-white tracking-wide">
-              RECOMMENDED
-            </span>
-            <div>
-              <h3 className="font-bold text-[#001e00] text-lg">Verified HITL Specialist</h3>
-              <p className="text-[#13544e] text-xs sm:text-sm mt-1 font-medium">The accountability trust standard</p>
-              <div className="text-3xl font-black text-[#001e00] mt-4">$29–$79<span className="text-sm text-[#5e6d55] font-normal">/mo</span></div>
-              <ul className="mt-5 space-y-3 text-[#0f3d17] text-sm sm:text-base font-medium">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" /> Verified badge on profile</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" /> Priority category placement</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" /> Founder matchmaking pool</li>
-              </ul>
-            </div>
-            <div className="mt-6 pt-4 border-t border-[#b2e8b8] text-xs sm:text-sm text-[#108a00] font-bold">
-              Requires ≥2 audited case studies
-            </div>
-          </div>
-
-          <div className="p-6 sm:p-7 rounded-2xl bg-[#f9faf9] border border-[#e4ebe4] flex flex-col justify-between">
-            <div>
-              <h3 className="font-bold text-[#001e00] text-lg">Featured Spotlight</h3>
-              <p className="text-[#5e6d55] text-xs sm:text-sm mt-1">Maximum visibility on category hubs</p>
-              <div className="text-3xl font-black text-[#001e00] mt-4">$199<span className="text-sm text-[#5e6d55] font-normal">/mo</span></div>
-              <ul className="mt-5 space-y-3 text-[#334133] text-sm sm:text-base">
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" /> Pinned top of category hub</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" /> Featured newsletter sponsor</li>
-                <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" /> Dedicated case study blast</li>
-              </ul>
-            </div>
-            <div className="mt-6 pt-4 border-t border-[#e4ebe4] text-xs sm:text-sm text-[#738273]">
-              Requires active Verified status
-            </div>
-          </div>
-        </div>
+        <Link
+          href="/apply#pricing"
+          className="inline-flex items-center gap-2 text-[#108a00] font-bold hover:underline"
+        >
+          See plans and apply <ArrowRight className="w-4 h-4" />
+        </Link>
       </section>
 
       {/* CTA Bottom */}

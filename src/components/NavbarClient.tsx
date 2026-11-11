@@ -432,13 +432,13 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                 <div className="rounded-2xl p-6 bg-gradient-to-br from-[#e4f7e6]/90 via-white to-[#eff6ff] border border-[#b2e8b8] shadow-xs">
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#108a00] text-white text-xs font-bold mb-3 shadow-xs">
                     <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>The Find Ai Pros Guarantee</span>
+                    <span>The accountability standard</span>
                   </div>
                   <h4 className="text-base font-black text-[#001e00] leading-snug">
                     Zero Unvetted Claims. Built-In Human Safety Checks.
                   </h4>
                   <p className="mt-2 text-xs text-slate-600 leading-relaxed font-normal">
-                    Unlike open freelance platforms, every specialist has submitted 2 client case studies with verified human checkpoints before anything goes out.
+                    Every listed specialist names one accountable person and gives references we can contact. Case studies are optional. Paying does not skip vetting.
                   </p>
 
                   <div className="mt-4 space-y-2 text-xs text-[#001e00] font-medium">

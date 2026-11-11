@@ -28,7 +28,7 @@ export default function Footer() {
             <div className="pt-2">
               <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#1b3a1b] border border-[#2b522b] text-sm font-semibold text-[#c1eec6]">
                 <span className="w-2 h-2 rounded-full bg-[#14a800] animate-pulse" />
-                Vetting Gate: 2 Case Studies Required
+                Vetting is free. References required.
               </div>
             </div>
           </div>
@@ -99,8 +99,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/about#two-case-studies" className="hover:text-white transition-colors">
-                  Two Case Studies Rule
+                <Link href="/about#references" className="hover:text-white transition-colors">
+                  References we contact
                 </Link>
               </li>
               <li>

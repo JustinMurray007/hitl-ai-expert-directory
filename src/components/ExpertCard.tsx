@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Expert } from '@/lib/types';
-import { VerifiedBadge, SponsorBadge, ToolBadge, BudgetBadge, EngagementBadge } from './Badge';
+import { VerifiedBadge, PlacementBadge, ToolBadge, BudgetBadge, EngagementBadge } from './Badge';
 import { MapPin, ArrowRight, Building, MessageSquareQuote } from 'lucide-react';
 import ExpertLocationLinks from './ExpertLocation';
 
@@ -16,9 +16,9 @@ export default function ExpertCard({
   return (
     <div className="group rounded-2xl p-6 relative flex flex-col justify-between border border-[#e4ebe4] bg-white shadow-xs hover:shadow-md hover:border-[#108a00] transition-all">
       {/* Sponsor badge in top corner if featured */}
-      {featured && expert.sponsor_rank > 0 && (
+      {featured && (expert.listing_plan === 'premium' || expert.listing_plan === 'featured' || expert.sponsor_rank > 0) && (
         <div className="absolute top-5 right-5">
-          <SponsorBadge />
+          <PlacementBadge plan={expert.listing_plan} sponsorRank={expert.sponsor_rank} />
         </div>
       )}
 
@@ -28,13 +28,13 @@ export default function ExpertCard({
           <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
             <div className="flex items-center gap-2">
               {expert.is_verified ? (
-                <VerifiedBadge count={expert.verified_case_study_count} />
+                <VerifiedBadge />
               ) : (
                 <span className="text-sm text-[#5e6d55] font-mono bg-[#f4f6f4] px-3 py-1 rounded-full border border-[#dbe3db]">
                   Community Member
                 </span>
               )}
-              {expert.sponsor_rank > 0 && <SponsorBadge />}
+              <PlacementBadge plan={expert.listing_plan} sponsorRank={expert.sponsor_rank} />
             </div>
             <ExpertLocationLinks expert={expert} />
           </div>

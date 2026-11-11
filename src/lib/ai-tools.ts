@@ -18,6 +18,8 @@ export interface AiTool {
   pricing: string;
   creditDeal?: string; // Verified credit or startup grant
   creditLink?: string; // Direct link to claim or view deal
+  /** Referral or affiliate URL. External links for this tool use rel="sponsored". */
+  sponsored?: boolean;
   isStudentDeal?: boolean; // Student/education-specific deal (excluded from business Save on AI)
   isPopular?: boolean;
   tags: string[];
@@ -174,19 +176,20 @@ export const AI_TOOLS: AiTool[] = [
   // --- Highlighted in prompt ---
   {
     id: 'viktor-ai',
-    name: 'VIKTOR AI',
-    company: 'VIKTOR',
-    websiteUrl: 'https://www.viktor.ai',
+    name: 'Viktor',
+    company: 'Viktor',
+    websiteUrl: 'https://app.viktor.com/signin?ref=ZPNUNuMpzK2T768z68XRat',
     category: 'workflow-automation',
     categoryLabel: 'Automation & Engineering',
-    description: 'The low-code Python application development platform tailored for engineers, architects, and technical teams to automate heavy calculations, CAD/BIM models, and data workflows with AI.',
-    bestFor: 'Engineering calculations, parametric design, BIM/CAD automation, and building internal engineering web tools.',
-    pricing: 'Free Community Tier / Pro & Enterprise',
-    creditDeal: 'Free Community Tier for Engineers & Builders',
-    creditLink: 'https://www.viktor.ai/pricing',
+    description: 'Viktor (viktor.com) is an AI coworker that lives in Slack and Microsoft Teams, and is also available in the web app.',
+    bestFor: 'Teams that want an AI coworker in Slack or Microsoft Teams.',
+    pricing: 'Free to start, then paid plans',
+    creditDeal: 'Free to start, no credit card required',
+    creditLink: 'https://app.viktor.com/signin?ref=ZPNUNuMpzK2T768z68XRat',
+    sponsored: true,
     isPopular: true,
-    tags: ['Engineering', 'Python', 'CAD/BIM', 'Low-Code', 'Calculations'],
-    features: ['Direct Python backend execution', 'Parametric 3D/CAD viewers', 'Automated engineering reports', 'Enterprise role-based security'],
+    tags: ['Slack', 'Microsoft Teams', 'AI coworker'],
+    features: ['Lives in Slack and Microsoft Teams', 'Also available in the web app', 'Connects to tools you choose', 'Asks before high-stakes actions'],
   },
   {
     id: 'claude',
