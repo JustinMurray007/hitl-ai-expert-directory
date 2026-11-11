@@ -188,7 +188,7 @@ export default function AiToolsDirectory() {
                 key={tool.id}
                 href={tool.websiteUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel={tool.sponsored ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
                 className="group p-4 rounded-2xl bg-white border border-[#e4ebe4] hover:border-[#108a00] hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
@@ -288,7 +288,7 @@ export default function AiToolsDirectory() {
                     <a
                       href={tool.websiteUrl}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel={tool.sponsored ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
                       className="p-1.5 rounded-lg text-slate-400 hover:text-[#108a00] hover:bg-[#e4f7e6] transition-colors"
                       title={`Visit ${tool.name}`}
                     >
@@ -340,7 +340,7 @@ export default function AiToolsDirectory() {
                     <a
                       href={tool.creditLink || tool.websiteUrl}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel={tool.sponsored ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
                       className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-[#108a00] hover:bg-[#14a800] text-white text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition-all"
                     >
                       <span>Visit {tool.name}</span>

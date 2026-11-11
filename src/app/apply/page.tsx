@@ -1,8 +1,6 @@
 import { Metadata } from 'next';
 import {
   ShieldCheck,
-  CheckCircle2,
-  Users,
   ExternalLink,
 } from 'lucide-react';
 import Script from 'next/script';
@@ -34,38 +32,6 @@ export default function ApplyPage() {
           Vetting is free. We list specialists who name one accountable person and give references we can contact.
           Case studies are not required. A new profile is free for the first 30 days in one category, no card required, and nothing is charged automatically.
         </p>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
-        <div className="rounded-2xl p-4 bg-white border border-[#e4ebe4] shadow-xs flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#e4f7e6] text-[#108a00] flex items-center justify-center shrink-0">
-            <CheckCircle2 className="w-5 h-5" />
-          </div>
-          <div>
-            <div className="text-xs font-mono uppercase tracking-wider text-[#5e6d55] font-bold">Standard 1</div>
-            <div className="text-sm font-bold text-[#001e00]">Named accountable person</div>
-          </div>
-        </div>
-
-        <div className="rounded-2xl p-4 bg-white border border-[#e4ebe4] shadow-xs flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#eff6ff] text-[#2563eb] flex items-center justify-center shrink-0">
-            <ShieldCheck className="w-5 h-5" />
-          </div>
-          <div>
-            <div className="text-xs font-mono uppercase tracking-wider text-[#5e6d55] font-bold">Standard 2</div>
-            <div className="text-sm font-bold text-[#001e00]">Human Safety Checkpoints</div>
-          </div>
-        </div>
-
-        <div className="rounded-2xl p-4 bg-white border border-[#e4ebe4] shadow-xs flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#fffbeb] text-[#d97706] flex items-center justify-center shrink-0">
-            <Users className="w-5 h-5" />
-          </div>
-          <div>
-            <div className="text-xs font-mono uppercase tracking-wider text-[#5e6d55] font-bold">Standard 3</div>
-            <div className="text-sm font-bold text-[#001e00]">References we can contact</div>
-          </div>
-        </div>
       </div>
 
       <ApplyPricing />
