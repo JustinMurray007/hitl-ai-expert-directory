@@ -81,7 +81,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION 3: VETTING CHECKLIST */}
+      {/* SECTION 3: LISTING CHECKLIST */}
       <section id="guardrail-interview" className="rounded-3xl p-8 sm:p-10 border border-[#e4ebe4] bg-white shadow-xs space-y-6">
         <div className="border-b border-[#f0f3f0] pb-4">
           <span className="text-sm uppercase font-mono tracking-wider text-[#108a00] font-bold">

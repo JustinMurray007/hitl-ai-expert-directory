@@ -418,7 +418,7 @@ export default async function HomePage() {
       </section>
 
       {/* =====================================================================
-          THE TRUST MOAT: SYMMETRICAL 3-COLUMN VETTING MATRIX
+          THE TRUST MOAT: SYMMETRICAL 3-COLUMN COMPARISON
       ====================================================================== */}
       <section className="py-20 border-b border-[#e4ebe4] bg-[#f8faf8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -458,10 +458,6 @@ export default async function HomePage() {
                   <div className="flex items-start gap-2.5">
                     <XCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
                     <span>Self-reported screenshot reviews easily faked</span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <XCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
-                    <span>Anyone can buy monthly &quot;Top Rated&quot; badges</span>
                   </div>
                 </div>
               </div>
