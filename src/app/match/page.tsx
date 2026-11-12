@@ -33,7 +33,7 @@ export default function MatchPage() {
         </div>
         {!CONCIERGE_CHECKOUT_ENABLED && (
           <p className="mt-3 text-sm text-muted-strong">
-            Card checkout is not turned on yet. You can still send the request below.
+            Send your request below and we&apos;ll follow up with payment details.
           </p>
         )}
       </div>
