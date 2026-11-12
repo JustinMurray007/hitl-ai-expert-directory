@@ -3,6 +3,7 @@
 import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle2 } from 'lucide-react';
+import { isExpertId } from '@/lib/billing/pay-link';
 import type { BillingPeriod, CheckoutPlan } from '@/lib/stripe-links';
 import { extraCategoryQuantity, includedCategoryPhrase } from '@/lib/billing/category-cap';
 
@@ -65,14 +66,11 @@ const PLANS: {
   },
 ];
 
-function CheckoutIds() {
+function ApplyPricingFromQuery({ categories }: { categories: PricingCategory[] }) {
   const params = useSearchParams();
-  return (
-    <>
-      <input type="hidden" name="expert_id" value={params.get('expert') || ''} />
-      <input type="hidden" name="referrer_expert_id" value={params.get('ref') || ''} />
-    </>
-  );
+  const rawExpert = params.get('expert');
+  const expertId = isExpertId(rawExpert) ? rawExpert : '';
+  return <ApplyPricingBody categories={categories} expertId={expertId} referrer={params.get('ref') || ''} />;
 }
 
 function extraPriceLabel(period: BillingPeriod, quantity: number): string {
@@ -82,8 +80,25 @@ function extraPriceLabel(period: BillingPeriod, quantity: number): string {
 }
 
 export default function ApplyPricing({ categories = [] }: { categories?: PricingCategory[] }) {
+  return (
+    <Suspense fallback={<ApplyPricingBody categories={categories} expertId="" referrer="" />}>
+      <ApplyPricingFromQuery categories={categories} />
+    </Suspense>
+  );
+}
+
+function ApplyPricingBody({
+  categories,
+  expertId,
+  referrer,
+}: {
+  categories: PricingCategory[];
+  expertId: string;
+  referrer: string;
+}) {
   const [period, setPeriod] = useState<BillingPeriod>('monthly');
   const [selected, setSelected] = useState<string[]>([]);
+  const canCheckout = CHECKOUT_ENABLED && expertId.length > 0;
 
   function toggleCategory(slug: string) {
     setSelected((current) => (
@@ -104,6 +119,11 @@ export default function ApplyPricing({ categories = [] }: { categories?: Pricing
         <div className="inline-flex mt-5 px-4 py-2 rounded-full bg-[#108a00] text-white text-sm font-bold">
           Free for 30 days, no card required
         </div>
+        {!expertId && (
+          <p className="text-sm sm:text-base text-[#5e6d55] mt-4 leading-relaxed">
+            Apply first, at no charge. You can choose a paid plan after the application is saved.
+          </p>
+        )}
       </div>
 
       <div className="flex items-center justify-center gap-3 mb-8">
@@ -169,17 +189,17 @@ export default function ApplyPricing({ categories = [] }: { categories?: Pricing
         ) : (
           <p className="mt-4 text-sm text-[#5e6d55]">Categories are not available right now. Refresh and try again.</p>
         )}
-        {selected.length === 0 && (
+        {canCheckout && selected.length === 0 && (
           <p className="mt-3 text-sm font-semibold text-[#001e00]">Choose at least one category before checkout.</p>
         )}
       </aside>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {PLANS.map((plan) => {
-          const href = CHECKOUT_ENABLED ? undefined : APPLICATION_HREF;
           const included = includedCategoryPhrase(plan.id, categories.length);
           const extra = extraCategoryQuantity(selected.length, plan.id, Math.max(categories.length, selected.length));
-          const buttonLabel = `Get started — ${plan.name === 'Premium Featured' ? 'Premium' : plan.name}`;
+          const planLabel = plan.name === 'Premium Featured' ? 'Premium' : plan.name;
+          const buttonLabel = canCheckout || expertId ? `Get started — ${planLabel}` : 'Apply free first';
           const buttonClass = `w-full inline-flex items-center justify-center px-5 py-3.5 rounded-full font-bold text-sm sm:text-base transition-colors ${
             plan.highlighted
               ? 'bg-[#108a00] hover:bg-[#14a800] text-white shadow-sm'
@@ -227,26 +247,14 @@ export default function ApplyPricing({ categories = [] }: { categories?: Pricing
                     ? 'No extra category charge on this plan.'
                     : 'No extra category charge for this selection.'}
               </p>
-              {href ? (
-                <a
-                  href={href}
-                  className={`mt-6 inline-flex items-center justify-center px-5 py-3.5 rounded-full font-bold text-sm sm:text-base transition-colors ${
-                    plan.highlighted
-                      ? 'bg-[#108a00] hover:bg-[#14a800] text-white shadow-sm'
-                      : 'bg-white hover:bg-[#f2faf3] text-[#108a00] border border-[#108a00]'
-                  }`}
-                >
-                  {buttonLabel}
-                </a>
-              ) : (
+              {canCheckout ? (
                 <form action="/api/stripe/checkout" method="POST" className="mt-6">
                   <input type="hidden" name="plan" value={plan.id} />
                   <input type="hidden" name="interval" value={period === 'yearly' ? 'year' : 'month'} />
                   <input type="hidden" name="category_slugs" value={selected.join(',')} />
                   <input type="hidden" name="extra_category_quantity" value={extra} />
-                  <Suspense fallback={null}>
-                    <CheckoutIds />
-                  </Suspense>
+                  <input type="hidden" name="expert_id" value={expertId} />
+                  <input type="hidden" name="referrer_expert_id" value={referrer} />
                   <button
                     type="submit"
                     disabled={selected.length === 0}
@@ -255,6 +263,13 @@ export default function ApplyPricing({ categories = [] }: { categories?: Pricing
                     {buttonLabel}
                   </button>
                 </form>
+              ) : (
+                <a
+                  href={APPLICATION_HREF}
+                  className={`mt-6 ${buttonClass}`}
+                >
+                  {buttonLabel}
+                </a>
               )}
               <p className="mt-3 text-xs text-[#738273] text-center leading-relaxed">
                 You are only charged when you choose this plan. New profiles are free for 30 days, no card required.

@@ -52,7 +52,7 @@ Use a **restricted API key** (`rk_test_…` in a [Stripe sandbox](https://docs.s
 | `STRIPE_SECRET_KEY` | Yes | Restricted key. Cloudflare secret. Never in git. |
 | `STRIPE_WEBHOOK_SECRET` | Yes | `whsec_…` for `POST /api/stripe/webhook`. |
 | `STRIPE_AUTOMATIC_TAX` | No | Default `false`. This build never sends `automatic_tax.enabled`, even if the value is `true`, until a Stripe Tax registration is active. Prices are tax-exclusive. |
-| `NEXT_PUBLIC_STRIPE_CHECKOUT_ENABLED` | No | `true` only when the server key is set. Otherwise plan buttons scroll to the application form. |
+| `NEXT_PUBLIC_STRIPE_CHECKOUT_ENABLED` | No | `true` only when the server key is set. Plan buttons start checkout only when the URL has `?expert=<expert uuid>`. Otherwise they scroll to the application form. |
 | `NEXT_PUBLIC_SITE_URL` | No | Success, cancel, and portal return URLs. |
 | `CRON_SECRET` | Yes | Bearer token for `POST /api/stripe/limit-expired`. |
 | `CLOUDFLARE_DEPLOY_HOOK_URL` | Yes | Pages deploy hook. Rebuilds the static site after a public listing change. |
@@ -78,6 +78,26 @@ STRIPE_SECRET_KEY=rk_test_... npx tsx scripts/create-stripe-catalog.ts
 The script rejects live keys. Extra categories are $9.99/month (`extra_category_monthly`) or $79/year (`extra_category_yearly`). Referral commissions are 30% of the invoice pre-tax amount, stored in `referral_ledger` for manual payout. Stripe Connect is not used.
 
 One more thing: if you later charge US customers tax, Stripe Tax only collects where you have an active registration. Do not turn on automatic tax before that. See [Collect taxes for recurring payments](https://docs.stripe.com/billing/taxes/collect-taxes.md).
+
+### Apply first, then pay
+
+A visit to `/apply` with no expert id does not open Checkout. The plan buttons say **Apply free first** and go to the form. Checkout runs only from a personal pay link:
+
+```text
+https://findaipros.com/apply?expert=<expert uuid>#pricing
+```
+
+`personalPayLink(expertId)` in `src/lib/billing/pay-link.ts` builds that URL for reminder emails. Replace `<expert uuid>` with `experts.id` for that applicant.
+
+After the form is submitted, Tally should redirect to `/apply/thanks` with the Submission ID. In the form **Nq5NDp** settings, turn on **Redirect on completion** and set:
+
+```text
+https://findaipros.com/apply/thanks?submissionId=
+```
+
+Click at the end of that URL, type `@`, and choose **Submission ID** (Tally’s label: “Unique identifier of a response”). Do not type the id by hand. The thanks page also accepts `?responseId=` for the same value. It looks up only that submission and links to the personal pay URL. If the webhook has not stored an expert yet, the page says the free listing is being reviewed and that a personal pay link will come by email.
+
+No new database migration is required. The lookup uses `tally_submissions.response_id` and `tally_submissions.submission_id`. If a paid Checkout Session still arrives with no `expert_id`, the webhook matches `customer_details.email` to exactly one `applications.contact_email`. Zero matches or more than one expert are logged as `stripe_checkout_unlinked` and left for a manual fix.
 
 ---
 
@@ -110,7 +130,8 @@ Next.js 16.4.1 (App Router)  ─┐
 | `/experts` | Searchable directory with category, tool stack, and budget filters |
 | `/experts/[slug]` | Individual specialist profile with case studies & HITL oversight mechanism |
 | `/categories/[slug]` | Category hub with taxonomy metadata, typical stack, and specialists |
-| `/apply` | Specialist application. A new profile is free for 30 days. Listing prices and category choices sit above the form. |
+| `/apply` | Specialist application. A new profile is free for 30 days. Listing prices sit above the form. Checkout starts only from `?expert=<expert uuid>`. |
+| `/apply/thanks` | Page Tally redirects to after submit. Resolves that submission to a personal pay link. |
 | `/match` | Private founder concierge matchmaking intake form |
 | `/admin` | Administrative review queue with token authentication & verification gate |
 | `/about` | Accountability standard, references requirement, and listing prices |

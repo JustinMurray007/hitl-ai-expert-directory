@@ -1,6 +1,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { isPublicDirectoryExpert } from '@/lib/listing';
 import { getServiceSupabase } from '@/lib/supabase';
+import { applicationEmailIlikePattern, normalizeApplicationEmail } from './link-by-email';
 import { trimCategorySlugs, type CategorySync } from './category-cap';
 import type { BillingPatch } from './events';
 import type { BillingStore, LedgerEntry } from './store';
@@ -185,6 +186,19 @@ export function supabaseBillingStore(env?: SupabaseEnv): BillingStore {
       const { data, error } = await db.from('experts').select('id').eq('stripe_customer_id', customerId).maybeSingle();
       if (error) throw error;
       return data?.id ? String(data.id) : null;
+    },
+    async findExpertIdsByApplicationEmail(email) {
+      const db = client();
+      const normalized = normalizeApplicationEmail(email);
+      if (!db || !normalized) return [];
+      const { data, error } = await db
+        .from('applications')
+        .select('expert_id')
+        .ilike('contact_email', applicationEmailIlikePattern(normalized));
+      if (error) throw error;
+      return (data ?? [])
+        .map((row) => (row.expert_id ? String(row.expert_id) : ''))
+        .filter((id) => id.length > 0);
     },
     async insertLedger(entry: LedgerEntry) {
       const db = client();

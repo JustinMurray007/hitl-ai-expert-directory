@@ -6,6 +6,8 @@ import { buildCheckoutSessionParams, integrationIdentifier } from './checkout-pa
 import { CATALOG_PRICES, isLiveStripeKey, isTestStripeKey } from './catalog';
 import { effectForEvent, SUBSCRIPTION_ITEM_PRICE_EXPAND } from './events';
 import { applyStripeEvent } from './apply-event';
+import { applicationEmailIlikePattern, checkoutCustomerEmail, singleApplicationExpert } from './link-by-email';
+import { isExpertId, personalPayLink, personalPayPath } from './pay-link';
 import { memoryBillingStore } from './store';
 import { referralCreditCents } from './referral';
 import { expertsToLimit } from './limit-listings';
@@ -999,4 +1001,211 @@ test('directory select keeps category rows when an expert has no tools', () => {
   assert.equal(EXPERT_PUBLIC_SELECT.includes('expert_categories!inner'), true);
   assert.equal(EXPERT_PUBLIC_SELECT.includes('expert_tools!inner'), false);
   assert.equal(EXPERT_PUBLIC_SELECT.includes('expert_tools('), true);
+});
+
+const EXPERT_UUID = '11111111-1111-4111-8111-111111111111';
+
+test('personal pay link is the apply page for one expert uuid', () => {
+  assert.equal(isExpertId(EXPERT_UUID), true);
+  assert.equal(isExpertId('exp_1'), false);
+  assert.equal(isExpertId(''), false);
+  assert.equal(personalPayPath(EXPERT_UUID), `/apply?expert=${EXPERT_UUID}#pricing`);
+  assert.equal(
+    personalPayLink(EXPERT_UUID),
+    `https://findaipros.com/apply?expert=${EXPERT_UUID}#pricing`,
+  );
+  assert.equal(
+    personalPayLink(EXPERT_UUID, 'https://findaipros.com/'),
+    `https://findaipros.com/apply?expert=${EXPERT_UUID}#pricing`,
+  );
+  assert.throws(() => personalPayLink('not-a-uuid'), /expert uuid/);
+});
+
+test('checkout email prefers the paid customer details address and escapes ilike wildcards', () => {
+  assert.equal(
+    checkoutCustomerEmail({
+      customer_email: 'other@example.com',
+      customer_details: { email: ' Jane@Example.com ' },
+    }),
+    'jane@example.com',
+  );
+  assert.equal(checkoutCustomerEmail({ customer_email: 'not-an-email' }), null);
+  assert.equal(checkoutCustomerEmail({ customer: { email: 'Owner@Example.com' } }), 'owner@example.com');
+  assert.equal(applicationEmailIlikePattern('jane_doe%@example.com'), 'jane\\_doe\\%@example.com');
+  assert.deepEqual(singleApplicationExpert(['exp_1', 'exp_1', null]), { status: 'one', expertId: 'exp_1', count: 1 });
+  const ambiguous = singleApplicationExpert(['exp_1', 'exp_2']);
+  assert.equal(ambiguous.status, 'ambiguous');
+  if (ambiguous.status === 'ambiguous') assert.deepEqual(ambiguous.expertIds, ['exp_1', 'exp_2']);
+});
+
+test('checkout cancel url keeps a valid expert id and drops anything else', async () => {
+  const captured: { params?: Stripe.Checkout.SessionCreateParams } = {};
+  const stripe = {
+    prices: { list: async () => ({ data: [{ id: 'price_basic', lookup_key: 'basic_monthly' }] }) },
+    checkout: {
+      sessions: {
+        create: async (params: Stripe.Checkout.SessionCreateParams) => {
+          captured.params = params;
+          return { id: 'cs_pay_link', url: 'https://checkout.stripe.com/c/pay/cs_pay_link' };
+        },
+      },
+    },
+  } as unknown as Stripe;
+  const env = { STRIPE_SECRET_KEY: 'rk_test_dummy', NEXT_PUBLIC_SITE_URL: 'https://findaipros.com' };
+  const linked = await handleCheckoutRequest(
+    new Request('https://findaipros.com/api/stripe/checkout', {
+      method: 'POST',
+      body: JSON.stringify({ plan: 'basic', interval: 'month', extra_category_quantity: 0, expert_id: EXPERT_UUID }),
+    }),
+    env,
+    stripe,
+  );
+  assert.equal(linked.status, 200);
+  assert.equal(captured.params?.cancel_url, personalPayLink(EXPERT_UUID));
+  assert.equal(captured.params?.metadata?.expert_id, EXPERT_UUID);
+
+  const plain = await handleCheckoutRequest(
+    new Request('https://findaipros.com/api/stripe/checkout', {
+      method: 'POST',
+      body: JSON.stringify({ plan: 'basic', interval: 'month', extra_category_quantity: 0, expert_id: 'exp_9' }),
+    }),
+    env,
+    stripe,
+  );
+  assert.equal(plain.status, 200);
+  assert.equal(captured.params?.cancel_url, 'https://findaipros.com/apply#pricing');
+});
+
+function paidCheckout(expertId: string | null, email: string | null, eventId = 'evt_email_link', customerId = 'cus_email') {
+  return {
+    id: eventId,
+    type: 'checkout.session.completed',
+    data: {
+      object: {
+        id: `cs_${eventId}`,
+        payment_status: 'paid',
+        customer: customerId,
+        customer_details: email ? { email } : {},
+        metadata: {
+          listing_tier: 'basic',
+          ...(expertId ? { expert_id: expertId } : {}),
+        },
+      },
+    },
+  };
+}
+
+test('completed checkout without expert_id links the one application email and does not guess', async () => {
+  const store = memoryBillingStore();
+  store.experts.set('exp_1', { id: 'exp_1', listing_plan: 'unpaid', contact_email: 'Jane@Example.com' });
+  store.experts.set('exp_2', { id: 'exp_2', listing_plan: 'unpaid', contact_email: 'other@example.com' });
+  const metadataUpdates: Record<string, string>[] = [];
+  const logs = captureErrors();
+  try {
+    const linked = await applyStripeEvent(paidCheckout(null, 'jane@example.com'), store, {
+      updateCustomerMetadata: async (_customerId, metadata) => {
+        metadataUpdates.push(metadata);
+      },
+    });
+    assert.equal(linked.action, 'applied');
+    assert.equal(store.experts.get('exp_1')?.listing_plan, 'basic');
+    assert.equal(store.experts.get('exp_2')?.listing_plan, 'unpaid');
+    assert.equal(store.pending.length, 0);
+    assert.deepEqual(metadataUpdates, [{ expert_id: 'exp_1' }]);
+    assert.equal(logs.lines.some((line) => line.includes('stripe_checkout_unlinked')), false);
+
+    store.experts.set('exp_2', { id: 'exp_2', listing_plan: 'unpaid', contact_email: 'jane@example.com' });
+    const ambiguous = await applyStripeEvent(paidCheckout(null, 'jane@example.com', 'evt_ambiguous', 'cus_ambiguous'), store);
+    assert.equal(ambiguous.action, 'pending_unlinked');
+    assert.equal(store.experts.get('exp_1')?.listing_plan, 'basic');
+    assert.equal(store.experts.get('exp_2')?.listing_plan, 'unpaid');
+    assert.equal(store.pending.length, 1);
+    const ambiguousLog = logs.lines.find((line) => line.includes('ambiguous_email_match'));
+    assert.ok(ambiguousLog);
+    assert.match(ambiguousLog, /jane@example.com/);
+    assert.match(ambiguousLog, /exp_1/);
+    assert.match(ambiguousLog, /exp_2/);
+
+    const none = await applyStripeEvent(paidCheckout(null, 'missing@example.com', 'evt_none', 'cus_none'), store);
+    assert.equal(none.action, 'pending_unlinked');
+    assert.match(logs.lines.join('\n'), /no_email_match/);
+    assert.match(logs.lines.join('\n'), /missing@example.com/);
+
+    const noEmail = await applyStripeEvent(paidCheckout(null, null, 'evt_no_email', 'cus_no_email'), store);
+    assert.equal(noEmail.action, 'pending_unlinked');
+    assert.match(logs.lines.join('\n'), /missing_email/);
+
+    const named = await applyStripeEvent(paidCheckout('exp_2', 'jane@example.com', 'evt_named', 'cus_named'), store);
+    assert.equal(named.action, 'applied');
+    assert.equal(store.experts.get('exp_2')?.listing_plan, 'basic');
+  } finally {
+    logs.restore();
+  }
+});
+
+test('invoice and unpaid checkout do not match an application email', async () => {
+  const store = memoryBillingStore();
+  store.experts.set('exp_1', { id: 'exp_1', listing_plan: 'unpaid', contact_email: 'jane@example.com' });
+  let emailLookups = 0;
+  const original = store.findExpertIdsByApplicationEmail.bind(store);
+  store.findExpertIdsByApplicationEmail = async (email) => {
+    emailLookups += 1;
+    return original(email);
+  };
+  const logs = captureErrors();
+  try {
+    const unpaid = await applyStripeEvent(
+      {
+        id: 'evt_unpaid_email',
+        type: 'checkout.session.completed',
+        data: {
+          object: {
+            payment_status: 'unpaid',
+            customer_details: { email: 'jane@example.com' },
+            metadata: { listing_tier: 'basic' },
+          },
+        },
+      },
+      store,
+    );
+    assert.equal(unpaid.action, 'checkout_not_paid');
+
+    const invoice = effectForEvent({
+      id: 'evt_invoice_email',
+      type: 'invoice.paid',
+      data: {
+        object: {
+          id: 'in_email',
+          customer: 'cus_email',
+          customer_email: 'jane@example.com',
+          customer_details: { email: 'jane@example.com' },
+          parent: { subscription_details: { metadata: { listing_tier: 'featured' } } },
+        },
+      },
+    });
+    assert.equal(invoice.action, 'apply');
+    if (invoice.action === 'apply') assert.equal(invoice.customerEmail, undefined);
+
+    const applied = await applyStripeEvent(
+      {
+        id: 'evt_invoice_email',
+        type: 'invoice.paid',
+        data: {
+          object: {
+            id: 'in_email',
+            customer: 'cus_email',
+            customer_email: 'jane@example.com',
+            parent: { subscription_details: { metadata: { listing_tier: 'featured' } } },
+          },
+        },
+      },
+      store,
+    );
+    assert.equal(applied.action, 'pending_unlinked');
+    assert.equal(store.experts.get('exp_1')?.listing_plan, 'unpaid');
+    assert.equal(emailLookups, 0);
+    assert.equal(logs.lines.some((line) => line.includes('stripe_checkout_unlinked')), false);
+  } finally {
+    logs.restore();
+  }
 });

@@ -2,6 +2,7 @@ import type Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { extraCategoryLookupKey, planLookupKey, type BillingInterval, type CheckoutPlan } from './catalog';
 import { buildCheckoutSessionParams, integrationIdentifier } from './checkout-params';
+import { isExpertId, personalPayLink } from './pay-link';
 import {
   categorySlugsFitInMetadata,
   extraCategoryQuantity,
@@ -202,7 +203,7 @@ export async function handleCheckoutRequest(
     customerId: body.customer_id,
     email: body.email,
     successUrl: `${origin}/apply/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancelUrl: `${origin}/apply#pricing`,
+    cancelUrl: isExpertId(body.expert_id) ? personalPayLink(body.expert_id, origin) : `${origin}/apply#pricing`,
     integrationIdentifier: integrationIdentifier(),
     automaticTaxFlag: env.STRIPE_AUTOMATIC_TAX,
   });
