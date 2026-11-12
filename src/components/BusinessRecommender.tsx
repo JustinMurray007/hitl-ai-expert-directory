@@ -9,6 +9,7 @@ import {
   COMMON_GROWTH_BOTTLENECKS,
 } from '@/lib/recommendations';
 import { ToolBadge } from '@/components/Badge';
+import { businessPath } from '@/lib/business-routes';
 import { isMatchEligible, showsPublicLinks } from '@/lib/listing';
 import ExpertLocationLinks from '@/components/ExpertLocation';
 import {
@@ -69,7 +70,7 @@ export default function BusinessRecommender({
   allExperts,
   initialIndustrySlug,
 }: BusinessRecommenderProps) {
-  const [selectedIndustry, setSelectedIndustry] = useState<IndustryRecommendation>(() => {
+  const [selectedIndustry] = useState<IndustryRecommendation>(() => {
     if (initialIndustrySlug) {
       const match = INDUSTRY_RECOMMENDATIONS.find(
         (i) =>
@@ -83,7 +84,7 @@ export default function BusinessRecommender({
     return INDUSTRY_RECOMMENDATIONS[0];
   });
 
-  const [hasSelectedIndustry, setHasSelectedIndustry] = useState<boolean>(() => {
+  const [hasSelectedIndustry] = useState<boolean>(() => {
     return Boolean(initialIndustrySlug);
   });
 
@@ -102,15 +103,6 @@ export default function BusinessRecommender({
     displayBottlenecks[0];
 
   const workflow = activeBottleneck?.recommendedWorkflow;
-
-  const handleSelectIndustry = (ind: IndustryRecommendation) => {
-    setSelectedIndustry(ind);
-    setSelectedBottleneckId(ind.commonBottlenecks[0]?.id || COMMON_GROWTH_BOTTLENECKS[0].id);
-    setHasSelectedIndustry(true);
-    setTimeout(() => {
-      document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 60);
-  };
 
   const handleSelectBottleneck = (id: string) => {
     setSelectedBottleneckId(id);
@@ -152,10 +144,9 @@ export default function BusinessRecommender({
             const Icon = iconMap[ind.iconName] || Briefcase;
             const isSelected = selectedIndustry.id === ind.id;
             return (
-              <button
+              <Link
                 key={ind.id}
-                type="button"
-                onClick={() => handleSelectIndustry(ind)}
+                href={businessPath(ind.industrySlug)}
                 className={`p-4 sm:p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
                   isSelected
                     ? 'bg-brand-soft border-2 border-brand shadow-sm ring-1 ring-brand/30'
@@ -181,10 +172,10 @@ export default function BusinessRecommender({
                 </div>
                 <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
                   <span className={isSelected ? 'text-brand' : 'text-slate-400'}>
-                    {isSelected ? '● Active Selection' : 'Click to Select'}
+                    {isSelected ? '● Active Selection' : 'Open this business'}
                   </span>
                 </div>
-              </button>
+              </Link>
             );
           })}
         </div>

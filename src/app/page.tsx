@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getCategories, getFeaturedExperts } from '@/lib/store';
 import ExpertCard from '@/components/ExpertCard';
+import { ConciergePayButton, ConciergePrice } from '@/components/ConciergePayButton';
 import {
   ShieldCheck,
   Sparkles,
@@ -14,7 +15,6 @@ import {
   CheckCircle2,
   XCircle,
   AlertTriangle,
-  Lock,
   Target,
   Clock,
 } from 'lucide-react';
@@ -90,7 +90,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col bg-canvas">
       {/* =====================================================================
-          HERO SECTION (Rich Mesh Gradient & Symmetrical Trust Stat Deck)
+          HERO SECTION
       ====================================================================== */}
       <section className="relative pt-20 pb-20 overflow-hidden mesh-gradient-hero border-b border-line">
         {/* Subtle dot overlay */}
@@ -104,14 +104,13 @@ export default async function HomePage() {
           </div>
 
           {/* Symmetrical Heading */}
-          <h1 className="text-4xl sm:text-6xl font-semibold text-ink tracking-tight max-w-4xl mx-auto leading-[1.12]">
-            Hire AI Experts Who Put Real{' '}
-            <span className="text-brand">Human Accountability</span> First.
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-ink tracking-tight max-w-5xl mx-auto leading-[1.12] text-balance">
+            Find the <span className="text-brand">Best AI Experts</span> in the World To Elevate Your Business With the Latest in AI
           </h1>
 
           {/* Controlled Line-Length Paragraph */}
-          <p className="mt-6 text-base sm:text-xl text-ink-soft max-w-2xl mx-auto leading-relaxed font-normal">
-            Generic AI tools make costly mistakes and freelance sites push paid ads. We verify real AI specialists who build dependable business automations with built-in human safety checks — so you stay in complete control.
+          <p className="mt-6 text-base sm:text-xl text-ink-soft max-w-3xl mx-auto leading-relaxed font-normal">
+            Our team has one of the largest databases of AI experts globally and locally for small businesses and corporations to find the best match for their needs.
           </p>
 
           {/* Primary Action Buttons */}
@@ -128,47 +127,8 @@ export default async function HomePage() {
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white hover:bg-canvas-muted text-ink font-bold text-base border border-line-strong shadow-xs transition-all hover:border-brand"
             >
               <Sparkles className="w-5 h-5 text-brand" />
-              Find Your Business
+              Match by Your Business Category
             </Link>
-          </div>
-
-          {/* Symmetrical 3-Column Trust Pillar Deck */}
-          <div className="mt-14 max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-5 text-left">
-            <div className="rounded-2xl p-5 bg-white/90 backdrop-blur-sm border border-line shadow-xs hover:border-brand-line transition-colors flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-brand-soft border border-brand-line flex items-center justify-center shrink-0 mt-0.5">
-                <CheckCircle2 className="w-5 h-5 text-brand" />
-              </div>
-              <div>
-                <h4 className="text-base font-semibold text-ink">References we contact</h4>
-                <p className="text-xs sm:text-sm text-muted-strong mt-1 font-normal leading-relaxed">
-                  We speak with references before listing. Case studies are optional.
-                </p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl p-5 bg-white/90 backdrop-blur-sm border border-line shadow-xs hover:border-brand-line transition-colors flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-brand-soft border border-brand-line flex items-center justify-center shrink-0 mt-0.5">
-                <ShieldCheck className="w-5 h-5 text-brand" />
-              </div>
-              <div>
-                <h4 className="text-base font-semibold text-ink">Human Safety Checks</h4>
-                <p className="text-xs sm:text-sm text-muted-strong mt-1 font-normal leading-relaxed">
-                  Instant staff alerts and human review if the AI is ever unsure.
-                </p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl p-5 bg-white/90 backdrop-blur-sm border border-line shadow-xs hover:border-accent-line transition-colors flex items-start gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-accent-soft border border-accent-line flex items-center justify-center shrink-0 mt-0.5">
-                <Lock className="w-5 h-5 text-accent" />
-              </div>
-              <div>
-                <h4 className="text-base font-semibold text-ink">Zero Bought Stars</h4>
-                <p className="text-xs sm:text-sm text-muted-strong mt-1 font-normal leading-relaxed">
-                  Listed for human safety checks, not self-reported ratings.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -552,27 +512,25 @@ export default async function HomePage() {
           <div className="rounded-3xl p-8 sm:p-14 border border-brand-line bg-gradient-to-r from-brand-soft via-white to-brand-soft shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-10">
             <div className="max-w-2xl">
               <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
-                Personalized Founder Concierge
+                Concierge Match
               </span>
               <h2 className="text-3xl sm:text-4xl font-semibold text-ink mt-2 leading-tight">
-                Let Our Team Handpick 2 Specialists for Your Workflow.
+                Introduce at least 3 experts for your project.
               </h2>
               <p className="text-base text-muted-strong mt-3 leading-relaxed font-normal">
-                Tell us what you want to automate, what software you use, and your budget. We will review your request privately and connect you with two specialists.
+                Tell us about your business process, stack, and budget. We will review your request privately and introduce at least 3 experts that match your needs, within 48 hours.
               </p>
+              <ConciergePrice className="mt-5" />
               <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                <ConciergePayButton
+                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-brand hover:bg-brand-hover text-white font-medium text-base shadow-md"
+                  fallbackLabel="Request Concierge Match"
+                />
                 <Link
-                  href="/match"
-                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-base shadow-md transition-all hover:scale-[1.02]"
+                  href="/about#how-it-works"
+                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white hover:bg-canvas-muted text-ink font-medium text-base border border-line-strong transition-colors"
                 >
-                  <Sparkles className="w-5 h-5" />
-                  Submit Matchmaking Request
-                </Link>
-                <Link
-                  href="/about"
-                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white hover:bg-canvas-muted text-ink font-bold text-base border border-line-strong transition-colors"
-                >
-                  Read the HITL Standard
+                  How it works
                 </Link>
               </div>
             </div>
@@ -583,16 +541,16 @@ export default async function HomePage() {
               </div>
               <div className="space-y-3">
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-600 font-medium">Average Response</span>
-                  <span className="font-bold text-ink">&lt; 24 Hours</span>
+                  <span className="text-slate-600 font-medium">Response time</span>
+                  <span className="font-medium text-ink">Within 48 hours</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-600 font-medium">Curated Candidates</span>
-                  <span className="font-bold text-brand">Exactly 2</span>
+                  <span className="text-slate-600 font-medium">Experts introduced</span>
+                  <span className="font-medium text-brand">At least 3</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-600 font-medium">Placement Escrow</span>
-                  <span className="font-bold text-brand">100% Protected</span>
+                  <span className="text-slate-600 font-medium">Price</span>
+                  <span className="font-medium text-brand">$49.99 one-time</span>
                 </div>
               </div>
               <div className="pt-3 border-t border-slate-100 text-xs text-slate-500 leading-normal">

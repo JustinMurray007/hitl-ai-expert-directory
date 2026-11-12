@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getCategories, getExperts } from '@/lib/store';
 import { getLocationsSummary } from '@/lib/locations';
+import { listBusinessTypes } from '@/lib/business-routes';
 import { STATIC_EXPORT_PLACEHOLDER } from '@/lib/static-params';
 
 export const dynamic = 'force-static';
@@ -39,6 +40,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/tools`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/locations`,
       lastModified: new Date(),
       changeFrequency: 'daily',
@@ -69,6 +76,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
   ];
+
+  const businessRoutes: MetadataRoute.Sitemap = listBusinessTypes()
+    .filter((industry) => isPublicSegment(industry.industrySlug))
+    .map((industry) => ({
+      url: `${baseUrl}/business/${industry.industrySlug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.85,
+    }));
 
   // Category hubs
   const categoryRoutes: MetadataRoute.Sitemap = categories.map((cat) => ({
@@ -120,6 +136,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticRoutes,
+    ...businessRoutes,
     ...categoryRoutes,
     ...stateRoutes,
     ...cityRoutes,

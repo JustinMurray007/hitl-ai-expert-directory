@@ -6,22 +6,62 @@ import {
 } from 'lucide-react';
 
 export const metadata = {
-  title: 'The HITL Standard | Find Ai Pros',
-  description: 'How Find Ai Pros listings work: a named accountable person, human safety checks, references we can contact, and plan-based categories.',
+  title: 'How It Works | Find Ai Pros',
+  description:
+    'Search our database of AI experts directly, or search by your business type and needs, and choose one or multiple options to get estimates or bids for your projects.',
 };
 
 export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+      <section id="how-it-works" className="text-center space-y-8">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-medium text-brand">
+          <ShieldCheck className="w-4 h-4" />
+          <span>How it works</span>
+        </div>
+        <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">
+          How It Works
+        </h1>
+        <p className="text-base sm:text-lg text-muted max-w-2xl mx-auto leading-relaxed font-normal">
+          Search our database of AI experts directly, or search by your business type and needs, and choose one or multiple options to get estimates or bids for your projects.
+        </p>
+        <ol className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+          <li className="rounded-2xl border border-line bg-white p-6">
+            <span className="text-sm font-medium text-brand">1</span>
+            <h2 className="mt-2 text-lg font-medium text-ink">Search experts directly</h2>
+            <p className="mt-2 text-sm text-muted-strong leading-relaxed">Open the directory and look through AI specialists.</p>
+            <Link href="/experts" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand">
+              Browse experts <ArrowRight className="w-4 h-4" />
+            </Link>
+          </li>
+          <li className="rounded-2xl border border-line bg-white p-6">
+            <span className="text-sm font-medium text-brand">2</span>
+            <h2 className="mt-2 text-lg font-medium text-ink">Search by business type</h2>
+            <p className="mt-2 text-sm text-muted-strong leading-relaxed">Start from your industry and the work you need done.</p>
+            <Link href="/recommendations" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand">
+              Match by category <ArrowRight className="w-4 h-4" />
+            </Link>
+          </li>
+          <li className="rounded-2xl border border-line bg-white p-6">
+            <span className="text-sm font-medium text-brand">3</span>
+            <h2 className="mt-2 text-lg font-medium text-ink">Request estimates</h2>
+            <p className="mt-2 text-sm text-muted-strong leading-relaxed">Choose one or several options and ask for bids on the project.</p>
+            <Link href="/match" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand">
+              Concierge match <ArrowRight className="w-4 h-4" />
+            </Link>
+          </li>
+        </ol>
+      </section>
+
       {/* Hero */}
       <div className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand">
           <ShieldCheck className="w-4 h-4" />
           <span>The listing standard</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">
+        <h2 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight leading-tight">
           The Find Ai Pros Standard for Accountable AI
-        </h1>
+        </h2>
         <p className="text-base sm:text-lg text-muted max-w-2xl mx-auto leading-relaxed font-normal">
           We built this directory because small and mid-sized businesses are terrified of handing their brand, finances, and client relationships to hallucinating, zero-touch black boxes.
         </p>

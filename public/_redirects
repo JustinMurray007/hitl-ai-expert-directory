@@ -1,0 +1,4 @@
+# Cloudflare Pages does not match query strings, so ?industry= and ?business=
+# links are redirected in the app (BusinessQueryRedirect). Path aliases:
+/ai-tools /tools 301
+/ai-tools/ /tools 301

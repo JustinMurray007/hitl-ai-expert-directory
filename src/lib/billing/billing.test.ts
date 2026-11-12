@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import type Stripe from 'stripe';
 import { automaticTaxParam, AUTOMATIC_TAX_ALLOWED } from './automatic-tax';
-import { buildCheckoutSessionParams, integrationIdentifier } from './checkout-params';
-import { CATALOG_PRICES, isLiveStripeKey, isTestStripeKey } from './catalog';
+import { buildCheckoutSessionParams, buildConciergeCheckoutParams, integrationIdentifier } from './checkout-params';
+import { CATALOG_PRICES, CONCIERGE_MATCH_LOOKUP_KEY, CONCIERGE_MATCH_PRODUCT, isLiveStripeKey, isTestStripeKey } from './catalog';
 import { effectForEvent, SUBSCRIPTION_ITEM_PRICE_EXPAND } from './events';
 import { applyStripeEvent } from './apply-event';
 import { applicationEmailIlikePattern, checkoutCustomerEmail, singleApplicationExpert } from './link-by-email';
@@ -1208,4 +1208,77 @@ test('invoice and unpaid checkout do not match an application email', async () =
   } finally {
     logs.restore();
   }
+});
+
+test('concierge checkout is a one-time payment and does not change a listing subscription', async () => {
+  const params = buildConciergeCheckoutParams({
+    priceId: 'price_concierge',
+    successUrl: 'https://findaipros.com/match/thanks?session_id={CHECKOUT_SESSION_ID}',
+    cancelUrl: 'https://findaipros.com/match',
+    integrationIdentifier: 'findaipros_checkout_abcdefgh',
+  });
+  assert.equal(params.mode, 'payment');
+  assert.equal(params.line_items?.[0]?.price, 'price_concierge');
+  assert.equal(params.metadata?.product, CONCIERGE_MATCH_PRODUCT);
+  assert.equal(params.metadata?.lookup_key, CONCIERGE_MATCH_LOOKUP_KEY);
+  assert.equal('payment_method_types' in params, false);
+  assert.equal('subscription_data' in params, false);
+  assert.equal('automatic_tax' in params, false);
+
+  const captured: { params?: Stripe.Checkout.SessionCreateParams; lookup?: string[] } = {};
+  const stripe = {
+    prices: {
+      list: async (args: { lookup_keys?: string[] }) => {
+        captured.lookup = args.lookup_keys;
+        return { data: [{ id: 'price_concierge', lookup_key: CONCIERGE_MATCH_LOOKUP_KEY }] };
+      },
+    },
+    checkout: {
+      sessions: {
+        create: async (created: Stripe.Checkout.SessionCreateParams) => {
+          captured.params = created;
+          return { id: 'cs_concierge', url: 'https://checkout.stripe.com/c/pay/cs_concierge' };
+        },
+      },
+    },
+  } as unknown as Stripe;
+
+  const response = await handleCheckoutRequest(
+    new Request('https://findaipros.com/api/stripe/checkout', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ product: 'concierge_match', plan: 'basic' }),
+    }),
+    { STRIPE_SECRET_KEY: 'rk_test_dummy', NEXT_PUBLIC_SITE_URL: 'https://findaipros.com' },
+    stripe,
+  );
+  assert.equal(response.status, 200);
+  assert.deepEqual(captured.lookup, [CONCIERGE_MATCH_LOOKUP_KEY]);
+  assert.equal(captured.params?.mode, 'payment');
+  assert.equal(captured.params?.success_url, 'https://findaipros.com/match/thanks?session_id={CHECKOUT_SESSION_ID}');
+
+  const store = memoryBillingStore();
+  store.experts.set('exp_1', { id: 'exp_1', listing_plan: 'basic', profile_mode: 'full' });
+  const logged = await applyStripeEvent(
+    {
+      id: 'evt_concierge',
+      type: 'checkout.session.completed',
+      data: {
+        object: {
+          id: 'cs_concierge',
+          mode: 'payment',
+          payment_status: 'paid',
+          amount_total: 4999,
+          customer: 'cus_buyer',
+          customer_details: { email: 'buyer@example.com' },
+          metadata: { product: 'concierge_match', lookup_key: 'concierge_match_once' },
+        },
+      },
+    },
+    store,
+  );
+  assert.equal(logged.action, 'concierge_match_logged');
+  assert.equal(logged.publicListingChanged, undefined);
+  assert.equal(store.experts.get('exp_1')?.listing_plan, 'basic');
+  assert.equal(store.experts.get('exp_1')?.profile_mode, 'full');
 });

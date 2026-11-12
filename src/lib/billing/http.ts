@@ -1,7 +1,7 @@
 import type Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
-import { extraCategoryLookupKey, planLookupKey, type BillingInterval, type CheckoutPlan } from './catalog';
-import { buildCheckoutSessionParams, integrationIdentifier } from './checkout-params';
+import { extraCategoryLookupKey, planLookupKey, CONCIERGE_MATCH_LOOKUP_KEY, CONCIERGE_MATCH_PRODUCT, type BillingInterval, type CheckoutPlan } from './catalog';
+import { buildCheckoutSessionParams, buildConciergeCheckoutParams, integrationIdentifier } from './checkout-params';
 import { isExpertId, personalPayLink } from './pay-link';
 import {
   categorySlugsFitInMetadata,
@@ -64,6 +64,10 @@ function formError(env: BillingEnv): Response {
   return Response.redirect(`${siteUrl(env)}/apply#application`, 303);
 }
 
+function conciergeFormError(env: BillingEnv): Response {
+  return Response.redirect(`${siteUrl(env)}/match?checkout=unavailable`, 303);
+}
+
 const STRIPE_SECRET_PATTERN = /\b(?:rk|sk|pk)_(?:live|test)_[A-Za-z0-9]+\b|\bwhsec_[A-Za-z0-9]+\b/g;
 
 function logStripeFailure(operation: string, error: unknown): void {
@@ -116,14 +120,19 @@ export async function handleCheckoutRequest(
   stripe?: Stripe,
 ): Promise<Response> {
   const form = isFormPost(request);
-  if (!env.STRIPE_SECRET_KEY) return form ? formError(env) : json({ error: 'checkout_unconfigured' }, 503);
-  const client = stripe ?? createStripeClient(env.STRIPE_SECRET_KEY);
   let fields: Record<string, string>;
   try {
     fields = await readFields(request);
   } catch {
     return form ? formError(env) : json({ error: 'invalid_json' }, 400);
   }
+  if (fields.product === CONCIERGE_MATCH_PRODUCT) {
+    if (!env.STRIPE_SECRET_KEY) return form ? conciergeFormError(env) : json({ error: 'checkout_unconfigured' }, 503);
+    const client = stripe ?? createStripeClient(env.STRIPE_SECRET_KEY);
+    return createConciergeCheckout(form, env, client, fields.email);
+  }
+  if (!env.STRIPE_SECRET_KEY) return form ? formError(env) : json({ error: 'checkout_unconfigured' }, 503);
+  const client = stripe ?? createStripeClient(env.STRIPE_SECRET_KEY);
   const body: CheckoutBody = {
     plan: fields.plan,
     interval: fields.interval,
@@ -216,6 +225,43 @@ export async function handleCheckoutRequest(
     return stripeFailure(form, env);
   }
   if (!session.url) return form ? formError(env) : json({ error: 'missing_checkout_url' }, 500);
+  if (form) return Response.redirect(session.url, 303);
+  return json({ url: session.url, id: session.id });
+}
+
+async function createConciergeCheckout(
+  form: boolean,
+  env: BillingEnv,
+  client: Stripe,
+  email: string | undefined,
+): Promise<Response> {
+  const origin = siteUrl(env);
+  let prices;
+  try {
+    prices = await client.prices.list({ lookup_keys: [CONCIERGE_MATCH_LOOKUP_KEY], limit: 1 });
+  } catch (error) {
+    logStripeFailure('prices.list', error);
+    return form ? conciergeFormError(env) : json({ error: 'stripe_error' }, 500);
+  }
+  const price = prices.data.find((row) => row.lookup_key === CONCIERGE_MATCH_LOOKUP_KEY);
+  if (!price) return form ? conciergeFormError(env) : json({ error: 'price_not_found' }, 500);
+
+  const params = buildConciergeCheckoutParams({
+    priceId: price.id,
+    successUrl: `${origin}/match/thanks?session_id={CHECKOUT_SESSION_ID}`,
+    cancelUrl: `${origin}/match`,
+    integrationIdentifier: integrationIdentifier(),
+    email: email || undefined,
+  });
+
+  let session;
+  try {
+    session = await client.checkout.sessions.create(params);
+  } catch (error) {
+    logStripeFailure('checkout.sessions.create', error);
+    return form ? conciergeFormError(env) : json({ error: 'stripe_error' }, 500);
+  }
+  if (!session.url) return form ? conciergeFormError(env) : json({ error: 'missing_checkout_url' }, 500);
   if (form) return Response.redirect(session.url, 303);
   return json({ url: session.url, id: session.id });
 }

@@ -18,6 +18,7 @@ export default function robots(): MetadataRoute.Robots {
           `/locations/city/${STATIC_EXPORT_PLACEHOLDER}`,
           `/locations/state/${STATIC_EXPORT_PLACEHOLDER}`,
           `/locations/zip/${STATIC_EXPORT_PLACEHOLDER}`,
+          `/business/${STATIC_EXPORT_PLACEHOLDER}`,
         ],
       },
     ],

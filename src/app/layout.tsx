@@ -20,7 +20,7 @@ const display = Fraunces({
 export const metadata: Metadata = {
   title: 'Find Ai Pros — AI Specialists Directory',
   description:
-    'Find Ai Pros connects businesses with AI specialists who build systems with real human accountability. Find automation architects, conversational voice engineers, and applied AI developers.',
+    'Find the Best AI Experts in the World To Elevate Your Business With the Latest in AI. Our team has one of the largest databases of AI experts globally and locally for small businesses and corporations to find the best match for their needs.',
   keywords: [
     'Find Ai Pros',
     'find ai pros',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Find Ai Pros — AI Specialists Directory',
     description:
-      'AI specialists who build systems with real human accountability. Case studies are not required.',
+      'Find the Best AI Experts in the World To Elevate Your Business With the Latest in AI. Our team has one of the largest databases of AI experts globally and locally for small businesses and corporations to find the best match for their needs.',
     type: 'website',
   },
 };
