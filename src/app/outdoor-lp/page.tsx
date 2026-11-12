@@ -19,7 +19,7 @@ import {
   ExternalLink,
   Compass,
 } from 'lucide-react';
-import Script from 'next/script';
+import DeferredTally from '@/components/DeferredTally';
 
 export const metadata: Metadata = {
   title: 'AI Automation for Landscaping, Pool & Outdoor Living Contractors | Find Ai Pros',
@@ -30,12 +30,6 @@ export const metadata: Metadata = {
 export default function OutdoorLandingPage() {
   return (
     <div className="flex flex-col bg-canvas">
-      {/* Tally Widget Script */}
-      <Script
-        src="https://tally.so/widgets/embed.js"
-        strategy="lazyOnload"
-      />
-
       {/* =====================================================================
           HERO SECTION
       ====================================================================== */}
@@ -48,7 +42,7 @@ export default function OutdoorLandingPage() {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-4xl sm:text-6xl font-semibold text-ink tracking-tight max-w-4xl mx-auto leading-[1.12]">
+          <h1 className="mx-auto max-w-4xl text-3xl font-semibold leading-[1.12] tracking-tight text-ink min-[420px]:text-4xl sm:text-5xl lg:text-6xl">
             Capture Every <span className="text-brand">$30K–$150K Outdoor Living &amp; Pool Lead</span> While You&apos;re On-Site.
           </h1>
 
@@ -112,7 +106,7 @@ export default function OutdoorLandingPage() {
       {/* =====================================================================
           OUTDOOR TRADE REALITY: THE 3 BIGGEST HEADACHES
       ====================================================================== */}
-      <section className="py-20 border-b border-line bg-white">
+      <section data-reveal className="py-20 border-b border-line bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
@@ -178,7 +172,7 @@ export default function OutdoorLandingPage() {
       {/* =====================================================================
           THE 4-PILLAR OUTDOOR AI SYSTEM
       ====================================================================== */}
-      <section className="py-20 border-b border-line bg-canvas">
+      <section data-reveal className="py-20 border-b border-line bg-canvas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
@@ -263,7 +257,7 @@ export default function OutdoorLandingPage() {
       {/* =====================================================================
           REAL PROVEN EVIDENCE: OUTDOOR & POOL SPECIALISTS
       ====================================================================== */}
-      <section className="py-20 border-b border-line bg-white">
+      <section data-reveal className="py-20 border-b border-line bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
@@ -362,7 +356,7 @@ export default function OutdoorLandingPage() {
       {/* =====================================================================
           THE INTAKE FORM: EMBEDDED TALLY FORM CONTAINER
       ====================================================================== */}
-      <section id="intake-form" className="py-20 bg-gradient-to-b from-canvas via-white to-brand-soft border-b border-line">
+      <section id="intake-form" data-reveal className="py-20 bg-gradient-to-b from-canvas via-white to-brand-soft border-b border-line">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-3">
@@ -388,20 +382,11 @@ export default function OutdoorLandingPage() {
             </div>
 
             {/* Embedded Tally Iframe for Outdoor LP */}
-            <div className="w-full min-h-[620px] rounded-2xl overflow-hidden bg-white">
-              <iframe
-                data-tally-src="https://tally.so/embed/vXjVW0?alignLeft=1&transparentBackground=1&dynamicHeight=1&formEventsForwarding=1"
-                src="https://tally.so/embed/vXjVW0?alignLeft=1&transparentBackground=1&dynamicHeight=1&formEventsForwarding=1"
-                loading="lazy"
-                width="100%"
-                height="620"
-                frameBorder="0"
-                marginHeight={0}
-                marginWidth={0}
-                title="Outdoor Living, Landscaping &amp; Pool Contractor AI Intake"
-                className="w-full border-0"
-              />
-            </div>
+            <DeferredTally
+              src="https://tally.so/embed/vXjVW0?alignLeft=1&transparentBackground=1&dynamicHeight=1&formEventsForwarding=1"
+              title="Outdoor Living, Landscaping and Pool Contractor AI Intake"
+              height={620}
+            />
 
             {/* Fallback Direct Link */}
             <div className="mt-4 pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
@@ -422,7 +407,7 @@ export default function OutdoorLandingPage() {
       {/* =====================================================================
           CONTRACTOR FAQS
       ====================================================================== */}
-      <section className="py-20 border-b border-line bg-white">
+      <section data-reveal className="py-20 border-b border-line bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">

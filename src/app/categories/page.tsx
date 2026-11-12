@@ -83,7 +83,7 @@ export default async function CategoriesPage() {
       {/* Header */}
       <section className="mesh-gradient-hero border-b border-line pt-16 pb-14 text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-4 shadow-xs">
+          <div className="mb-4 inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-brand-line bg-brand-soft px-4 py-2 text-center text-sm font-bold text-brand shadow-rest">
             <ShieldCheck className="w-4 h-4 text-brand" />
             <span>Business AI Solutions</span>
           </div>
@@ -112,7 +112,7 @@ export default async function CategoriesPage() {
 
       {/* Symmetrical 3x2 Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
           {categories.map((category) => {
             const Icon = categoryIcons[category.icon_name] || Workflow;
             const theme = categoryThemes[category.slug] || {
@@ -126,7 +126,7 @@ export default async function CategoriesPage() {
               <Link
                 key={category.id}
                 href={`/categories/${category.slug}`}
-                className="group rounded-3xl p-8 bg-white border border-line shadow-xs hover:shadow-xl hover:border-brand/40 transition-all duration-300 flex flex-col justify-between"
+                className="group flex flex-col justify-between rounded-3xl border border-line bg-white p-6 shadow-rest hover:border-brand/40 sm:p-8"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">

@@ -107,8 +107,8 @@ function ApplyPricingBody({
   }
 
   return (
-    <section id="pricing" className="scroll-mt-24 mb-16">
-      <div className="text-center max-w-2xl mx-auto mb-8">
+    <section id="pricing" className="mb-16 scroll-mt-24">
+      <div data-reveal className="mx-auto mb-8 max-w-2xl text-center">
         <h2 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
           Listing plans
         </h2>
@@ -132,8 +132,8 @@ function ApplyPricingBody({
             type="button"
             aria-pressed={period === 'monthly'}
             onClick={() => setPeriod('monthly')}
-            className={`px-4 py-2 rounded-full text-sm font-bold transition-colors ${
-              period === 'monthly' ? 'bg-white text-ink shadow-xs' : 'text-muted'
+            className={`inline-flex min-h-11 items-center rounded-full px-4 py-2 text-sm font-bold ${
+              period === 'monthly' ? 'bg-white text-ink shadow-rest' : 'text-muted'
             }`}
           >
             Monthly
@@ -142,8 +142,8 @@ function ApplyPricingBody({
             type="button"
             aria-pressed={period === 'yearly'}
             onClick={() => setPeriod('yearly')}
-            className={`px-4 py-2 rounded-full text-sm font-bold transition-colors ${
-              period === 'yearly' ? 'bg-white text-ink shadow-xs' : 'text-muted'
+            className={`inline-flex min-h-11 items-center rounded-full px-4 py-2 text-sm font-bold ${
+              period === 'yearly' ? 'bg-white text-ink shadow-rest' : 'text-muted'
             }`}
           >
             Yearly
@@ -170,7 +170,7 @@ function ApplyPricingBody({
                 return (
                   <label
                     key={category.slug}
-                    className={`flex items-start gap-3 rounded-2xl border px-4 py-3 cursor-pointer ${
+                    className={`flex min-h-11 cursor-pointer items-center gap-3 rounded-2xl border px-4 py-3 ${
                       checked ? 'border-brand bg-brand-soft' : 'border-line bg-white'
                     }`}
                   >
@@ -194,7 +194,7 @@ function ApplyPricingBody({
         )}
       </aside>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div data-reveal-stagger className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {PLANS.map((plan) => {
           const included = includedCategoryPhrase(plan.id, categories.length);
           const extra = extraCategoryQuantity(selected.length, plan.id, Math.max(categories.length, selected.length));
@@ -208,7 +208,7 @@ function ApplyPricingBody({
           return (
             <article
               key={plan.id}
-              className={`rounded-3xl p-6 sm:p-7 bg-white flex flex-col ${
+              className={`hover-lift flex flex-col rounded-3xl bg-white p-6 sm:p-7 ${
                 plan.highlighted
                   ? 'border-2 border-brand shadow-md'
                   : 'border border-line shadow-xs'

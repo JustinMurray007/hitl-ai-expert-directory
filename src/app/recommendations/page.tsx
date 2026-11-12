@@ -17,7 +17,7 @@ export default async function RecommendationsPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       {/* Page Header */}
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-4 shadow-xs">
+        <div className="mb-4 inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-brand-line bg-brand-soft px-4 py-2 text-center text-sm font-bold text-brand shadow-rest">
           <Sparkles className="w-5 h-5 text-brand" />
           <span>Find Your Business — Tailored AI Solutions</span>
         </div>

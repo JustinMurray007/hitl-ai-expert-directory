@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getCategories, getFeaturedExperts } from '@/lib/store';
 import ExpertCard from '@/components/ExpertCard';
-import { ConciergePayButton, ConciergePrice } from '@/components/ConciergePayButton';
+import { ConciergeCheckoutNotice, ConciergePayButton, ConciergePrice } from '@/components/ConciergePayButton';
 import {
   ShieldCheck,
   Sparkles,
@@ -98,13 +98,13 @@ export default async function HomePage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           {/* Trust Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-6 shadow-xs">
-            <ShieldCheck className="w-5 h-5 text-brand" />
+          <div className="mb-6 inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-brand-line bg-brand-soft px-4 py-2 text-center text-sm font-bold text-brand shadow-rest">
+            <ShieldCheck className="h-5 w-5 shrink-0 text-brand" />
             <span>Matching Business Owners With The Ai Experts They Need</span>
           </div>
 
           {/* Symmetrical Heading */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-ink tracking-tight max-w-5xl mx-auto leading-[1.12] text-balance">
+          <h1 className="mx-auto max-w-5xl text-3xl font-semibold leading-[1.12] tracking-tight text-ink min-[420px]:text-4xl sm:text-5xl lg:text-6xl">
             Find the <span className="text-brand">Best AI Experts</span> in the World To Elevate Your Business With the Latest in AI
           </h1>
 
@@ -117,14 +117,14 @@ export default async function HomePage() {
           <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/experts"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-base shadow-md transition-all hover:scale-[1.02]"
+              className="inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-brand px-8 py-4 text-base font-bold text-white shadow-raised sm:w-auto"
             >
               Browse AI Experts
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
               href="/recommendations"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white hover:bg-canvas-muted text-ink font-bold text-base border border-line-strong shadow-xs transition-all hover:border-brand"
+              className="inline-flex w-full items-center justify-center gap-2.5 rounded-full border border-line-strong bg-white px-8 py-4 text-base font-bold text-ink shadow-rest hover:border-brand hover:bg-canvas-muted sm:w-auto"
             >
               <Sparkles className="w-5 h-5 text-brand" />
               Match by Your Business Category
@@ -138,7 +138,7 @@ export default async function HomePage() {
       ====================================================================== */}
       <section className="py-20 border-b border-line bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl p-8 sm:p-12 border border-brand-line bg-gradient-to-br from-brand-soft via-white to-brand-soft shadow-sm">
+          <div data-reveal className="rounded-3xl border border-brand-line bg-gradient-to-br from-brand-soft via-white to-brand-soft p-6 shadow-rest sm:p-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               {/* Left Column (Content & Value Proposition) */}
               <div className="lg:col-span-7">
@@ -271,9 +271,9 @@ export default async function HomePage() {
       <section id="categories" className="py-20 border-b border-line bg-canvas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+          <div data-reveal className="mb-12 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-brand">
                 Business Solutions
               </span>
               <h2 className="text-2xl sm:text-4xl font-semibold text-ink mt-1 tracking-tight">
@@ -292,7 +292,7 @@ export default async function HomePage() {
           </div>
 
           {/* Symmetrical 3x2 Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
             {categories.map((category) => {
               const Icon = categoryIcons[category.icon_name] || Workflow;
               const theme = categoryThemes[category.slug] || {
@@ -307,7 +307,7 @@ export default async function HomePage() {
                 <Link
                   key={category.id}
                   href={`/categories/${category.slug}`}
-                  className={`rounded-3xl p-8 group flex flex-col justify-between border border-line bg-white shadow-xs hover:shadow-xl ${theme.hoverBorder} transition-all duration-300`}
+                  className={`group flex flex-col justify-between rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-8 ${theme.hoverBorder}`}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-6">
@@ -347,9 +347,9 @@ export default async function HomePage() {
       ====================================================================== */}
       <section className="py-20 border-b border-line bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+          <div data-reveal className="mb-12 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-soft border border-brand-line text-xs font-bold text-brand mb-2">
+              <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-brand-line bg-brand-soft px-3 py-1.5 text-xs font-bold text-brand">
                 <ShieldCheck className="w-4 h-4" />
                 <span>Human safety checks</span>
               </div>
@@ -369,7 +369,7 @@ export default async function HomePage() {
           </div>
 
           {/* Symmetrical 3x2 Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
             {featuredExperts.map((expert) => (
               <ExpertCard key={expert.id} expert={expert} featured />
             ))}
@@ -382,7 +382,7 @@ export default async function HomePage() {
       ====================================================================== */}
       <section className="py-20 border-b border-line bg-canvas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-14">
+          <div data-reveal className="mx-auto mb-14 max-w-3xl text-center">
             <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
               The Accountability Difference
             </span>
@@ -395,9 +395,9 @@ export default async function HomePage() {
           </div>
 
           {/* 3 Symmetrical Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+          <div data-reveal-stagger className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-3 md:gap-8">
             {/* Card 1: Legacy Freelance Sites */}
-            <div className="rounded-3xl p-8 bg-white border border-rose-200/80 shadow-xs flex flex-col justify-between">
+            <div className="hover-lift flex flex-col justify-between rounded-3xl border border-rose-200/80 bg-white p-6 shadow-rest sm:p-8">
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center mb-6">
                   <XCircle className="w-6 h-6 text-rose-500" />
@@ -428,7 +428,7 @@ export default async function HomePage() {
             </div>
 
             {/* Card 2: Hands-off AI agencies */}
-            <div className="rounded-3xl p-8 bg-white border border-amber-200/80 shadow-xs flex flex-col justify-between">
+            <div className="hover-lift flex flex-col justify-between rounded-3xl border border-amber-200/80 bg-white p-6 shadow-rest sm:p-8">
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center mb-6">
                   <AlertTriangle className="w-6 h-6 text-amber-500" />
@@ -463,7 +463,7 @@ export default async function HomePage() {
             </div>
 
             {/* Card 3: The HITL Standard */}
-            <div className="rounded-3xl p-8 bg-gradient-to-b from-brand-soft/60 via-white to-white border-2 border-brand shadow-md flex flex-col justify-between relative">
+            <div className="hover-lift relative flex flex-col justify-between rounded-3xl border-2 border-brand bg-gradient-to-b from-brand-soft/60 via-white to-white p-6 shadow-raised sm:p-8">
               <div className="absolute -top-3 right-6 bg-brand text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                 Audited Standard
               </div>
@@ -509,7 +509,7 @@ export default async function HomePage() {
       ====================================================================== */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl p-8 sm:p-14 border border-brand-line bg-gradient-to-r from-brand-soft via-white to-brand-soft shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-10">
+          <div data-reveal className="flex flex-col justify-between gap-10 rounded-3xl border border-brand-line bg-gradient-to-r from-brand-soft via-white to-brand-soft p-6 shadow-rest sm:p-14 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
               <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
                 Concierge Match
@@ -533,6 +533,7 @@ export default async function HomePage() {
                   How it works
                 </Link>
               </div>
+              <ConciergeCheckoutNotice className="mt-4 text-sm text-muted-strong" />
             </div>
 
             <div className="rounded-2xl p-6 bg-white/90 backdrop-blur-sm border border-slate-200/80 shadow-xs max-w-sm w-full space-y-4">

@@ -14,7 +14,7 @@ export default function ExpertCard({
   const primaryStudy = expert.case_studies?.[0];
 
   return (
-    <div className="group rounded-2xl p-6 relative flex flex-col justify-between border border-line bg-white shadow-xs hover:shadow-md hover:border-brand transition-all">
+    <div className="hover-lift group relative flex flex-col justify-between rounded-2xl border border-line bg-white p-5 sm:p-6 shadow-rest hover:border-brand">
       {/* Sponsor badge in top corner if featured */}
       {featured && (expert.listing_plan === 'premium' || expert.listing_plan === 'featured' || expert.sponsor_rank > 0) && (
         <div className="absolute top-5 right-5">
@@ -39,8 +39,12 @@ export default function ExpertCard({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={expert.avatar_url}
-              alt={expert.full_name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              alt=""
+              width={224}
+              height={224}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>
           <div className="flex-1 min-w-0 pr-16 sm:pr-0">

@@ -3,8 +3,8 @@ import {
   ShieldCheck,
   ExternalLink,
 } from 'lucide-react';
-import Script from 'next/script';
 import ApplyPricing from '@/components/ApplyPricing';
+import DeferredTally from '@/components/DeferredTally';
 import { getCategories } from '@/lib/store';
 
 export const metadata: Metadata = {
@@ -17,12 +17,7 @@ export default async function ApplyPage() {
   const categories = await getCategories();
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <Script
-        src="https://tally.so/widgets/embed.js"
-        strategy="lazyOnload"
-      />
-
-      <div className="text-center max-w-2xl mx-auto mb-10">
+      <div className="mx-auto mb-10 max-w-2xl text-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-3 shadow-xs">
           <ShieldCheck className="w-4 h-4" />
           <span>Free to apply</span>
@@ -44,20 +39,11 @@ export default async function ApplyPage() {
             Apply at no charge. Choose a paid plan only when you want to.
           </p>
         </div>
-        <div className="w-full min-h-[680px] rounded-2xl overflow-hidden bg-white">
-          <iframe
-            data-tally-src="https://tally.so/embed/Nq5NDp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&formEventsForwarding=1"
-            src="https://tally.so/embed/Nq5NDp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&formEventsForwarding=1"
-            loading="lazy"
-            width="100%"
-            height="680"
-            frameBorder="0"
-            marginHeight={0}
-            marginWidth={0}
-            title="Apply to Be Listed | Find Ai Pros"
-            className="w-full border-0"
-          />
-        </div>
+        <DeferredTally
+          src="https://tally.so/embed/Nq5NDp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&formEventsForwarding=1"
+          title="Apply to Be Listed | Find Ai Pros"
+          height={680}
+        />
 
         <div className="mt-4 pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
           Form not loading properly?{' '}

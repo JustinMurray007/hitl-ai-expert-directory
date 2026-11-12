@@ -5,6 +5,15 @@ export const CONCIERGE_CHECKOUT_ENABLED = process.env.NEXT_PUBLIC_CONCIERGE_CHEC
 
 const PRICE_LABEL = '$49.99';
 
+export function ConciergeCheckoutNotice({ className = '' }: { className?: string }) {
+  if (CONCIERGE_CHECKOUT_ENABLED) return null;
+  return (
+    <p className={className}>
+      Send your request below and we&apos;ll follow up with payment details.
+    </p>
+  );
+}
+
 export function ConciergePrice({ className = '' }: { className?: string }) {
   return (
     <p className={`text-ink ${className}`}>

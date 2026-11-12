@@ -150,7 +150,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-2 text-xs font-semibold text-slate-500 overflow-x-auto whitespace-nowrap">
+        <nav aria-label="Breadcrumb" className="flex max-w-full items-center gap-2 overflow-x-auto whitespace-nowrap text-sm font-semibold text-muted-strong">
           <Link href="/" className="hover:text-brand transition-colors">
             Home
           </Link>
@@ -213,7 +213,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
                 <Link
                   key={z}
                   href={`/locations/zip/${z.toLowerCase()}`}
-                  className="px-2.5 py-1 rounded-md bg-white border border-line-strong hover:border-brand text-xs font-mono font-bold text-brand hover:bg-brand-soft transition-colors"
+                  className="inline-flex min-h-11 items-center rounded-md border border-line-strong bg-white px-3 py-2 font-mono text-sm font-bold text-brand hover:border-brand hover:bg-brand-soft"
                 >
                   {z}
                 </Link>
@@ -235,7 +235,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {cityExperts.map((exp) => (
               <ExpertCard key={exp.id} expert={exp} />
             ))}

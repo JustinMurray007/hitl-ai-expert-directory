@@ -96,7 +96,11 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
               <img
                 src={expert.avatar_url}
                 alt={expert.full_name}
-                className="w-full h-full object-cover"
+                width={224}
+                height={224}
+                decoding="async"
+                fetchPriority="high"
+                className="h-full w-full object-cover"
               />
             </div>
 
@@ -159,7 +163,8 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
                   href={expert.website_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-canvas-muted hover:bg-brand-soft text-ink hover:text-brand border border-line transition-colors"
+                  className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line bg-canvas-muted p-3 text-ink hover:bg-brand-soft hover:text-brand"
+                  aria-label="Visit website"
                   title="Visit Website"
                 >
                   <Globe className="w-4 h-4" />
@@ -170,7 +175,8 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
                   href={expert.linkedin_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-canvas-muted hover:bg-brand-soft text-ink hover:text-brand border border-line transition-colors"
+                  className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line bg-canvas-muted p-3 text-ink hover:bg-brand-soft hover:text-brand"
+                  aria-label="LinkedIn profile"
                   title="LinkedIn Profile"
                 >
                   <LinkedinIcon className="w-4 h-4" />
@@ -181,7 +187,8 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
                   href={expert.github_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-canvas-muted hover:bg-brand-soft text-ink hover:text-brand border border-line transition-colors"
+                  className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line bg-canvas-muted p-3 text-ink hover:bg-brand-soft hover:text-brand"
+                  aria-label="GitHub profile"
                   title="GitHub Profile"
                 >
                   <GithubIcon className="w-4 h-4" />
@@ -229,7 +236,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
       </div>
 
       {expert.case_studies.length > 0 && (
-      <div className="space-y-6">
+      <div data-reveal className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-2 shadow-xs">

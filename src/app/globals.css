@@ -28,7 +28,7 @@
   /* Ink, surfaces, lines */
   --color-ink: #0f172a;
   --color-ink-soft: #334155;
-  --color-muted: #64748b;
+  --color-muted: #526277;
   --color-muted-strong: #475569;
   --color-canvas: #f8fafc;
   --color-canvas-muted: #f1f5f9;
@@ -89,12 +89,25 @@
   --color-hub-indigo-soft: #eef2ff;
   --color-hub-indigo-tint: #e0e7ff;
   --color-hub-indigo-line: #c7d2fe;
+
+  /* Elevation. Reuse these instead of one-off box-shadow values. */
+  --shadow-rest: 0 1px 2px rgb(15 23 42 / 0.05), 0 1px 3px rgb(15 23 42 / 0.04);
+  --shadow-raised: 0 8px 18px -10px rgb(15 23 42 / 0.16), 0 2px 6px -2px rgb(15 23 42 / 0.06);
+  --shadow-lift: 0 18px 34px -18px rgb(29 78 216 / 0.28), 0 10px 18px -14px rgb(15 23 42 / 0.16), 0 1px 2px rgb(15 23 42 / 0.04);
+  --shadow-menu: 0 24px 48px -12px rgb(15 23 42 / 0.16), 0 8px 16px -8px rgb(15 23 42 / 0.08), 0 0 0 1px rgb(15 23 42 / 0.05);
+
+  --ease-lift: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
   :root {
     --background: var(--color-canvas);
     --foreground: var(--color-ink);
+    --duration-hover: 240ms;
+    --duration-reveal: 780ms;
+    --reveal-distance: 14px;
+    --lift-distance: -4px;
   }
 
   html {
@@ -103,6 +116,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
   body {
@@ -110,10 +124,11 @@
     color: var(--color-ink);
     font-family: var(--font-body), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: clip;
     font-size: 1rem;
     line-height: 1.6;
     letter-spacing: -0.011em;
+    overflow-wrap: break-word;
   }
 
   h1,
@@ -121,9 +136,9 @@
   h3,
   h4 {
     font-family: var(--font-display-face), Georgia, "Iowan Old Style", "Palatino Linotype", serif;
-    font-variation-settings: "opsz" 72, "SOFT" 18;
     letter-spacing: -0.022em;
     line-height: 1.15;
+    text-wrap: balance;
   }
 
   ::selection {
@@ -155,19 +170,26 @@
   }
 }
 
+.shadow-rest { box-shadow: var(--shadow-rest); }
+.shadow-raised { box-shadow: var(--shadow-raised); }
+.shadow-lift { box-shadow: var(--shadow-lift); }
+
 .glass-panel {
   background: var(--color-surface);
   border: 1px solid var(--color-line);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.05);
+  box-shadow: var(--shadow-rest);
 }
 
 .glass-panel-hover {
-  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    border-color var(--duration-hover) var(--ease-lift),
+    box-shadow var(--duration-hover) var(--ease-lift),
+    transform var(--duration-hover) var(--ease-lift);
 }
 .glass-panel-hover:hover {
   border-color: var(--color-brand);
-  box-shadow: 0 16px 32px -16px rgba(29, 78, 216, 0.28), 0 4px 10px -6px rgba(15, 23, 42, 0.08);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+  transform: translateY(var(--lift-distance));
 }
 
 .radial-glow {
@@ -199,10 +221,7 @@
 }
 
 .mega-menu-shadow {
-  box-shadow:
-    0 24px 48px -12px rgba(15, 23, 42, 0.16),
-    0 4px 12px -2px rgba(15, 23, 42, 0.06),
-    0 0 0 1px rgba(15, 23, 42, 0.05);
+  box-shadow: var(--shadow-menu);
 }
 
 .tech-grid {
@@ -223,4 +242,190 @@
 
 .animate-gentle-bounce {
   animation: gentle-bounce 2s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Hover, elevation, and scroll reveal
+   Content stays visible without JS: the hidden state only applies after
+   html.js-reveal is set, and never under prefers-reduced-motion.
+   translate (reveal) and transform (hover) are separate so they can coexist
+   without shifting layout.
+   -------------------------------------------------------------------------- */
+
+.hover-lift,
+.group.rounded-2xl.border,
+.group.rounded-3xl.border,
+a.rounded-xl.border:not(.menu-link),
+a.rounded-2xl.border,
+a.rounded-3xl.border,
+button.rounded-2xl.border,
+article.rounded-2xl,
+article.rounded-3xl,
+li.rounded-2xl.border,
+li.rounded-3xl.border {
+  transition:
+    transform var(--duration-hover) var(--ease-lift),
+    box-shadow var(--duration-hover) var(--ease-lift),
+    border-color var(--duration-hover) var(--ease-lift),
+    background-color var(--duration-hover) var(--ease-lift),
+    color var(--duration-hover) var(--ease-lift);
+}
+
+a.rounded-full,
+button.rounded-full {
+  transition:
+    transform var(--duration-hover) var(--ease-lift),
+    box-shadow var(--duration-hover) var(--ease-lift),
+    background-color var(--duration-hover) var(--ease-lift),
+    border-color var(--duration-hover) var(--ease-lift),
+    color var(--duration-hover) var(--ease-lift);
+}
+
+.menu-link,
+.nav-link {
+  min-height: 44px;
+  transition:
+    background-color var(--duration-hover) var(--ease-lift),
+    color var(--duration-hover) var(--ease-lift),
+    border-color var(--duration-hover) var(--ease-lift),
+    transform var(--duration-hover) var(--ease-lift);
+}
+
+main a:not([class*="rounded-"]):not(.brand-link),
+footer a:not([class*="rounded-"]):not(.brand-link) {
+  text-underline-offset: 0.22em;
+  transition:
+    color var(--duration-hover) var(--ease-lift),
+    text-decoration-color var(--duration-hover) var(--ease-lift);
+}
+
+footer li > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+button,
+select,
+summary,
+input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="image"]) {
+  min-height: 44px;
+}
+
+summary {
+  cursor: pointer;
+}
+
+nav.overflow-x-auto {
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Small gray utilities fail WCAG AA on white, canvas, and brand-soft. */
+.text-slate-400,
+.text-slate-500 {
+  color: var(--color-muted-strong);
+}
+
+.hover-lift:hover,
+.group.rounded-2xl.border:hover,
+.group.rounded-3xl.border:hover,
+a.rounded-xl.border:not(.menu-link):hover,
+a.rounded-2xl.border:hover,
+a.rounded-3xl.border:hover,
+button.rounded-2xl.border:hover,
+article.rounded-2xl:hover,
+article.rounded-3xl:hover,
+li.rounded-2xl.border:hover,
+li.rounded-3xl.border:hover {
+  transform: translateY(var(--lift-distance));
+  box-shadow: var(--shadow-lift);
+}
+
+a.rounded-full:hover,
+button.rounded-full:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-raised);
+}
+
+.menu-link:hover {
+  transform: translateX(3px);
+}
+
+.nav-link:hover {
+  background: var(--color-brand-soft);
+  color: var(--color-brand);
+}
+
+main a:not([class*="rounded-"]):not(.brand-link):hover,
+footer a:not([class*="rounded-"]):not(.brand-link):hover {
+  text-decoration-line: underline;
+}
+
+html.js-reveal [data-reveal]:not(.is-in) {
+  opacity: 0;
+  translate: 0 var(--reveal-distance);
+}
+
+[data-reveal] {
+  transition-property: opacity, translate, transform, box-shadow, border-color, background-color, color;
+  transition-duration:
+    var(--duration-reveal),
+    var(--duration-reveal),
+    var(--duration-hover),
+    var(--duration-hover),
+    var(--duration-hover),
+    var(--duration-hover),
+    var(--duration-hover);
+  transition-timing-function:
+    var(--ease-reveal),
+    var(--ease-reveal),
+    var(--ease-lift),
+    var(--ease-lift),
+    var(--ease-lift),
+    var(--ease-lift),
+    var(--ease-lift);
+  transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0s, 0s, 0s, 0s, 0s;
+}
+
+[data-reveal].is-in {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  html.js-reveal [data-reveal]:not(.is-in),
+  [data-reveal],
+  [data-reveal].is-in {
+    opacity: 1 !important;
+    translate: none !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .hover-lift:hover,
+  .group.rounded-2xl.border:hover,
+  .group.rounded-3xl.border:hover,
+  a.rounded-full:hover,
+  button.rounded-full:hover,
+  article.rounded-2xl:hover,
+  article.rounded-3xl:hover,
+  .menu-link:hover,
+  .animate-gentle-bounce {
+    transform: none;
+    animation: none;
+  }
+}
+
+@media (scripting: none) {
+  [data-reveal] {
+    opacity: 1 !important;
+    translate: none !important;
+    transform: none !important;
+  }
 }
