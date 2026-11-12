@@ -1,5 +1,5 @@
 import type Stripe from 'stripe';
-import { includedCategoriesMetadata, type BillingInterval, type CheckoutPlan } from './catalog';
+import { includedCategoriesMetadata, CONCIERGE_MATCH_LOOKUP_KEY, CONCIERGE_MATCH_PRODUCT, type BillingInterval, type CheckoutPlan } from './catalog';
 import { automaticTaxParam } from './automatic-tax';
 import {
   categorySlugsMetadataValue,
@@ -92,5 +92,27 @@ export function buildCheckoutSessionParams(draft: CheckoutDraft): Stripe.Checkou
   const tax = automaticTaxParam(draft.automaticTaxFlag);
   if (tax) params.automatic_tax = tax;
 
+  return params;
+}
+
+export function buildConciergeCheckoutParams(input: {
+  priceId: string;
+  successUrl: string;
+  cancelUrl: string;
+  integrationIdentifier: string;
+  email?: string;
+}): Stripe.Checkout.SessionCreateParams {
+  const params: Stripe.Checkout.SessionCreateParams = {
+    mode: 'payment',
+    line_items: [{ price: input.priceId, quantity: 1 }],
+    success_url: input.successUrl,
+    cancel_url: input.cancelUrl,
+    metadata: {
+      product: CONCIERGE_MATCH_PRODUCT,
+      lookup_key: CONCIERGE_MATCH_LOOKUP_KEY,
+    },
+    integration_identifier: input.integrationIdentifier,
+  };
+  if (input.email) params.customer_email = input.email;
   return params;
 }

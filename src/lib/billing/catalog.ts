@@ -48,6 +48,11 @@ export function extraCategoryLookupKey(interval: BillingInterval): string {
   return interval === 'month' ? 'extra_category_monthly' : 'extra_category_yearly';
 }
 
+/** One-time Concierge Match price. Created in Stripe by lookup key, not by the listing catalog script. */
+export const CONCIERGE_MATCH_LOOKUP_KEY = 'concierge_match_once';
+export const CONCIERGE_MATCH_PRODUCT = 'concierge_match';
+export const CONCIERGE_MATCH_AMOUNT_CENTS = 4999;
+
 export function tierFromLookupKey(lookupKey: string | null | undefined): CheckoutPlan | null {
   if (!lookupKey) return null;
   if (lookupKey.startsWith('basic_')) return 'basic';

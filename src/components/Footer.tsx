@@ -89,7 +89,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/ai-tools" className="hover:text-white transition-colors flex items-center gap-1.5 font-medium text-white">
+                <Link href="/tools" className="hover:text-white transition-colors flex items-center gap-1.5 font-medium text-white">
                   AI Models &amp; Tools Directory <ArrowRight className="w-3.5 h-3.5 text-brand-on-dark" />
                 </Link>
               </li>

@@ -8,6 +8,7 @@ import {
 } from './catalog';
 import { checkoutCustomerEmail } from './link-by-email';
 import { referralCreditCents } from './referral';
+import { CONCIERGE_MATCH_LOOKUP_KEY, CONCIERGE_MATCH_PRODUCT } from './catalog';
 
 export type BillingPatch = {
   listing_plan?: ListingPlan;
@@ -47,7 +48,16 @@ export type BillingEffect =
       referral?: ReferralDraft;
       customerMetadata?: Record<string, string>;
     }
-  | { action: 'reverse_referral'; invoiceId: string | null };
+  | { action: 'reverse_referral'; invoiceId: string | null }
+  | {
+      action: 'log_purchase';
+      product: 'concierge_match';
+      sessionId: string | null;
+      customerId: string | null;
+      email: string | null;
+      amountCents: number | null;
+      paymentStatus: string | null;
+    };
 
 export type StripeEventLike = {
   id: string;
@@ -197,6 +207,11 @@ function subscriptionObject(sessionOrSub: Record<string, unknown>): Record<strin
   return isRecord(sessionOrSub.subscription) ? sessionOrSub.subscription : null;
 }
 
+function isConciergeCheckout(object: Record<string, unknown>): boolean {
+  const metadata = meta(object);
+  return str(metadata, 'product') === CONCIERGE_MATCH_PRODUCT || str(metadata, 'lookup_key') === CONCIERGE_MATCH_LOOKUP_KEY;
+}
+
 function metadataSlugValue(record: Record<string, unknown> | null): string | null {
   if (!record || !isRecord(record.metadata)) return null;
   return str(record.metadata, 'category_slugs');
@@ -260,6 +275,17 @@ export function effectForEvent(event: StripeEventLike): BillingEffect {
     const paymentStatus = str(object, 'payment_status');
     if (event.type === 'checkout.session.completed' && paymentStatus !== 'paid') {
       return { action: 'ignore', reason: 'checkout_not_paid' };
+    }
+    if (isConciergeCheckout(object)) {
+      return {
+        action: 'log_purchase',
+        product: 'concierge_match',
+        sessionId: str(object, 'id'),
+        customerId: idOf(object.customer),
+        email: checkoutCustomerEmail(object),
+        amountCents: num(object, 'amount_total'),
+        paymentStatus,
+      };
     }
     const subscription = subscriptionObject(object);
     const expertId = expertIdFrom(object, subscription || undefined);

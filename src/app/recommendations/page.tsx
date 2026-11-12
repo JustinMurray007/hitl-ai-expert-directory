@@ -1,5 +1,6 @@
 import { getExperts } from '@/lib/store';
 import BusinessRecommender from '@/components/BusinessRecommender';
+import BusinessQueryRedirect from '@/components/BusinessQueryRedirect';
 import { Sparkles } from 'lucide-react';
 import { Suspense } from 'react';
 
@@ -27,6 +28,10 @@ export default async function RecommendationsPage() {
           Select your business type below. We generate a custom AI workflow blueprint, the human-in-the-loop fallback safeguards, and connect you with specialists who are eligible for a match.
         </p>
       </div>
+
+      <Suspense fallback={null}>
+        <BusinessQueryRedirect />
+      </Suspense>
 
       {/* Interactive Recommender */}
       <Suspense fallback={<div className="h-64 rounded-3xl bg-white border border-line animate-pulse" />}>

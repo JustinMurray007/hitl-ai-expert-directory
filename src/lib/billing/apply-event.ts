@@ -89,6 +89,20 @@ export async function applyStripeEvent(
     return { ok: true, action: 'reverse_referral' };
   }
 
+  if (effect.action === 'log_purchase') {
+    console.info('stripe_concierge_match_paid', {
+      eventId: event.id,
+      checkoutSessionId: effect.sessionId,
+      customerId: effect.customerId,
+      email: effect.email,
+      amountCents: effect.amountCents,
+      paymentStatus: effect.paymentStatus,
+      lookupKey: 'concierge_match_once',
+    });
+    await store.markProcessed(event.id, event.type);
+    return { ok: true, action: 'concierge_match_logged' };
+  }
+
   let expertId = effect.expertId;
   if (!expertId && effect.customerId) {
     expertId = await store.findExpertIdByCustomer(effect.customerId);
