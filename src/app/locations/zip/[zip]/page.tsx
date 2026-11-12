@@ -146,7 +146,7 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
   };
 
   return (
-    <div className="bg-[#fcfdfc] min-h-screen py-10">
+    <div className="bg-canvas min-h-screen py-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -159,46 +159,46 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-2 text-xs font-semibold text-slate-500 overflow-x-auto whitespace-nowrap">
-          <Link href="/" className="hover:text-[#108a00] transition-colors">
+          <Link href="/" className="hover:text-brand transition-colors">
             Home
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <Link href="/locations" className="hover:text-[#108a00] transition-colors">
+          <Link href="/locations" className="hover:text-brand transition-colors">
             Locations Near You
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
           <Link
             href={`/locations/state/${stateSlug}`}
-            className="hover:text-[#108a00] transition-colors"
+            className="hover:text-brand transition-colors"
           >
             {stateName}
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
           <Link
             href={`/locations/city/${citySlug}`}
-            className="hover:text-[#108a00] transition-colors"
+            className="hover:text-brand transition-colors"
           >
             {cityName}
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <span className="text-[#001e00] font-bold font-mono">{postalCode}</span>
+          <span className="text-ink font-bold font-mono">{postalCode}</span>
         </nav>
 
         {/* Hero Banner */}
-        <div className="rounded-3xl bg-gradient-to-br from-[#fffbeb] via-white to-[#edf7ee] border border-[#fde68a] p-8 sm:p-12 shadow-xs space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#fde68a] text-xs sm:text-sm font-bold text-[#b45309] shadow-2xs">
-            <MapPin className="w-4 h-4 text-[#d97706]" />
+        <div className="rounded-3xl bg-gradient-to-br from-accent-soft via-white to-brand-soft border border-accent-line p-8 sm:p-12 shadow-xs space-y-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-accent-line text-xs sm:text-sm font-bold text-accent shadow-2xs">
+            <MapPin className="w-4 h-4 text-accent" />
             <span>
               Postal Area • {postalCode} ({cityName}, {stateCode})
             </span>
           </div>
 
           <div className="max-w-3xl space-y-3">
-            <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight leading-[1.15]">
+            <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-[1.15]">
               Find An Ai Consultant &amp; Company Near {postalCode}
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              Local AI automation engineers, CRM integration specialists, and conversational voice AI consultants serving postal code <strong className="text-[#001e00]">{postalCode}</strong> in {cityName}, {stateCode}.
+              Local AI automation engineers, CRM integration specialists, and conversational voice AI consultants serving postal code <strong className="text-ink">{postalCode}</strong> in {cityName}, {stateCode}.
             </p>
           </div>
 
@@ -206,16 +206,16 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
           <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center gap-4 text-xs sm:text-sm font-bold">
             <Link
               href={`/locations/city/${citySlug}`}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-slate-300 text-[#001e00] hover:border-[#108a00] hover:text-[#108a00] transition-colors shadow-2xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-slate-300 text-ink hover:border-brand hover:text-brand transition-colors shadow-2xs"
             >
-              <Compass className="w-4 h-4 text-[#108a00]" />
+              <Compass className="w-4 h-4 text-brand" />
               View {cityName} Metro Hub
             </Link>
             <Link
               href={`/locations/state/${stateSlug}`}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-slate-300 text-[#001e00] hover:border-[#2563eb] hover:text-[#2563eb] transition-colors shadow-2xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-slate-300 text-ink hover:border-brand hover:text-brand transition-colors shadow-2xs"
             >
-              <Building className="w-4 h-4 text-[#2563eb]" />
+              <Building className="w-4 h-4 text-brand" />
               View All {stateName} Experts
             </Link>
           </div>
@@ -223,9 +223,9 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
 
         {/* Specialists serving this zip code */}
         <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-[#e4ebe4] pb-4 flex-wrap gap-2">
+          <div className="flex items-center justify-between border-b border-line pb-4 flex-wrap gap-2">
             <div>
-              <h2 className="text-2xl font-black text-[#001e00]">
+              <h2 className="text-2xl font-semibold text-ink">
                 Specialists Serving Zip Code {postalCode}
               </h2>
               <p className="text-sm text-slate-600 mt-1">
@@ -243,8 +243,8 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
 
         {/* Nearby Zip Codes */}
         {siblingZips.length > 0 && (
-          <section className="rounded-3xl bg-[#f7faf7] border border-[#e2ece2] p-8 space-y-4">
-            <h3 className="text-lg font-black text-[#001e00]">
+          <section className="rounded-3xl bg-canvas border border-line p-8 space-y-4">
+            <h3 className="text-lg font-semibold text-ink">
               Nearby Zip Codes in {stateName}
             </h3>
             <div className="flex flex-wrap gap-2 pt-2">
@@ -252,7 +252,7 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
                 <Link
                   key={sz.zip}
                   href={`/locations/zip/${sz.slug}`}
-                  className="px-3 py-1.5 rounded-xl bg-white border border-[#cbd5cb] hover:border-[#d97706] text-xs font-mono font-bold text-slate-700 hover:text-[#b45309] hover:bg-[#fffbeb] transition-colors shadow-2xs flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded-xl bg-white border border-line-strong hover:border-accent text-xs font-mono font-bold text-slate-700 hover:text-accent hover:bg-accent-soft transition-colors shadow-2xs flex items-center gap-1.5"
                 >
                   <span>{sz.zip}</span>
                   <span className="text-[10px] text-slate-400">({sz.cityName})</span>
@@ -263,13 +263,13 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
         )}
 
         {/* Concierge Matching Card */}
-        <div className="rounded-3xl bg-white border border-[#e4ebe4] p-8 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div className="rounded-3xl bg-white border border-line p-8 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 text-xs font-bold font-mono uppercase tracking-wider text-[#108a00] mb-2">
+            <div className="inline-flex items-center gap-2 text-xs font-bold font-mono uppercase tracking-wider text-brand mb-2">
               <ShieldCheck className="w-4 h-4" />
               <span>Private Concierge Matching</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-black text-[#001e00]">
+            <h3 className="text-xl sm:text-2xl font-semibold text-ink">
               Need an on-site AI expert in or around {postalCode}?
             </h3>
             <p className="text-sm text-slate-600 mt-1 max-w-xl">
@@ -278,7 +278,7 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
           </div>
           <Link
             href={`/match?location=${encodeURIComponent(`${postalCode}, ${cityName}, ${stateCode}`)}`}
-            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-base shadow-sm transition-all shrink-0"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-base shadow-sm transition-all shrink-0"
           >
             Request Intro <ArrowRight className="w-4 h-4" />
           </Link>

@@ -10,7 +10,7 @@ export function PlacementBadge({
 }) {
   if (plan === 'premium') {
     return (
-      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold bg-[#eff6ff] text-[#1e3a8a] border border-[#bfdbfe]">
+      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold bg-brand-soft text-brand-ink border border-brand-line">
         Premium Featured
       </span>
     );
@@ -23,7 +23,7 @@ export function PlacementBadge({
 
 export function SponsorBadge() {
   return (
-    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold bg-[#fef9c3] text-[#854d0e] border border-[#fde047]">
+    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold bg-accent-badge text-accent-badge-ink border border-accent-badge-line">
       ★ Featured
     </span>
   );
@@ -31,7 +31,7 @@ export function SponsorBadge() {
 
 export function ToolBadge({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center px-3 py-1 rounded-lg text-sm bg-[#eff6ff] text-[#1d4ed8] border border-[#bfdbfe] font-semibold hover:bg-[#dbeafe] transition-colors">
+    <span className="inline-flex items-center px-3 py-1 rounded-lg text-sm bg-brand-soft text-brand border border-brand-line font-semibold hover:bg-brand-tint transition-colors">
       {name}
     </span>
   );
@@ -39,7 +39,7 @@ export function ToolBadge({ name }: { name: string }) {
 
 export function CategoryBadge({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center px-3 py-1 rounded-lg text-sm font-bold bg-[#f0f7ff] text-[#1e40af] border border-[#dbeafe]">
+    <span className="inline-flex items-center px-3 py-1 rounded-lg text-sm font-bold bg-brand-soft text-brand-hover border border-brand-tint">
       {name}
     </span>
   );
@@ -47,13 +47,13 @@ export function CategoryBadge({ name }: { name: string }) {
 
 export function BudgetBadge({ tier }: { tier: string }) {
   const map: Record<string, { label: string; color: string }> = {
-    under_2500: { label: '< $2.5k start', color: 'text-[#475569] bg-[#f8fafc] border-[#e2e8f0]' },
-    '2500_to_5000': { label: '$2.5k – $5k', color: 'text-[#1e293b] bg-[#f1f5f9] border-[#cbd5e1]' },
-    '5000_to_15000': { label: '$5k – $15k', color: 'text-[#166534] bg-[#f0fdf4] border-[#bbf7d0]' },
-    '15000_plus': { label: '$15k+ enterprise', color: 'text-[#1e3a8a] bg-[#eff6ff] border-[#bfdbfe]' },
+    under_2500: { label: '< $2.5k start', color: 'text-muted-strong bg-canvas border-line' },
+    '2500_to_5000': { label: '$2.5k – $5k', color: 'text-ink bg-canvas-muted border-line-strong' },
+    '5000_to_15000': { label: '$5k – $15k', color: 'text-success bg-success-soft border-success-line' },
+    '15000_plus': { label: '$15k+ enterprise', color: 'text-brand-ink bg-brand-soft border-brand-line' },
   };
 
-  const item = map[tier] || { label: tier, color: 'text-[#334155] bg-[#f8fafc] border-[#e2e8f0]' };
+  const item = map[tier] || { label: tier, color: 'text-ink-soft bg-canvas border-line' };
 
   return (
     <span className={`inline-flex items-center px-3 py-1 rounded-lg text-sm font-bold border ${item.color}`}>
@@ -71,7 +71,7 @@ export function EngagementBadge({ model }: { model: string }) {
   };
 
   return (
-    <span className="inline-flex items-center px-2.5 py-1 rounded-md text-sm bg-[#f1f5f1] text-[#334133] border border-[#dbe3db] font-medium">
+    <span className="inline-flex items-center px-2.5 py-1 rounded-md text-sm bg-canvas-muted text-ink-soft border border-line font-medium">
       {map[model] || model}
     </span>
   );

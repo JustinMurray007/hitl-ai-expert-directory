@@ -54,9 +54,9 @@ const solutionCategories = [
     desc: '24/7 call answering, booking & live staff transfers',
     href: '/categories/sales-lead-qualification',
     icon: PhoneCall,
-    color: 'text-[#108a00]',
-    bg: 'bg-[#e4f7e6]',
-    border: 'border-[#b2e8b8]',
+    color: 'text-hub-indigo',
+    bg: 'bg-hub-indigo-soft',
+    border: 'border-hub-indigo-line',
   },
   {
     name: 'Customer Support & Knowledge Bases',
@@ -177,7 +177,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/95 border-b border-[#e4ebe4] shadow-xs">
+    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/95 border-b border-line shadow-xs">
 
 
       {/* Main Bar */}
@@ -192,13 +192,13 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               className="w-full h-full object-contain"
             />
           </div>
-          <span className="font-black text-2xl text-[#001e00] tracking-tight leading-none">
-            Find Ai <span className="bg-gradient-to-r from-[#108a00] via-[#0d9488] to-[#0284c7] bg-clip-text text-transparent">PROS</span>
+          <span className="font-display font-semibold text-2xl text-ink tracking-tight leading-none">
+            Find Ai <span className="bg-gradient-to-r from-brand to-hub-sky bg-clip-text text-transparent">PROS</span>
           </span>
         </Link>
 
         {/* Simplified Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8 text-base font-semibold text-[#1e2a1e]">
+        <nav className="hidden lg:flex items-center gap-8 text-base font-semibold text-ink">
           {/* Mega Menu Trigger */}
           <div className="relative">
             <button
@@ -212,15 +212,15 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                 setMegaMenuOpen(true);
                 setAiToolsMenuOpen(false);
               }}
-              className={`inline-flex items-center gap-1.5 py-2 hover:text-[#108a00] transition-colors focus:outline-hidden ${
-                megaMenuOpen ? 'text-[#108a00]' : ''
+              className={`inline-flex items-center gap-1.5 py-2 rounded-lg hover:text-brand transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand/40 ${
+                megaMenuOpen ? 'text-brand' : ''
               }`}
               aria-expanded={megaMenuOpen}
             >
               <span>Find Ai Expert</span>
               <ChevronDown
                 className={`w-4 h-4 transition-transform duration-200 ${
-                  megaMenuOpen ? 'rotate-180 text-[#108a00]' : 'text-slate-400'
+                  megaMenuOpen ? 'rotate-180 text-brand' : 'text-slate-400'
                 }`}
               />
             </button>
@@ -232,9 +232,9 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               setMegaMenuOpen(false);
               setAiToolsMenuOpen(false);
             }}
-            className="hover:text-[#1d4ed8] transition-colors flex items-center gap-1.5 text-[#1e2a1e]"
+            className="hover:text-brand transition-colors flex items-center gap-1.5 text-ink"
           >
-            <Sparkles className="w-4 h-4 text-[#2563eb]" />
+            <Sparkles className="w-4 h-4 text-brand" />
             <span>Find Your Business</span>
           </Link>
 
@@ -251,15 +251,15 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                 setAiToolsMenuOpen(true);
                 setMegaMenuOpen(false);
               }}
-              className={`inline-flex items-center gap-1.5 py-2 hover:text-[#108a00] transition-colors focus:outline-hidden ${
-                aiToolsMenuOpen ? 'text-[#108a00]' : ''
+              className={`inline-flex items-center gap-1.5 py-2 rounded-lg hover:text-brand transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand/40 ${
+                aiToolsMenuOpen ? 'text-brand' : ''
               }`}
               aria-expanded={aiToolsMenuOpen}
             >
               <span>AI Tools</span>
               <ChevronDown
                 className={`w-4 h-4 transition-transform duration-200 ${
-                  aiToolsMenuOpen ? 'rotate-180 text-[#108a00]' : 'text-slate-400'
+                  aiToolsMenuOpen ? 'rotate-180 text-brand' : 'text-slate-400'
                 }`}
               />
             </button>
@@ -271,7 +271,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               setMegaMenuOpen(false);
               setAiToolsMenuOpen(false);
             }}
-            className="hover:text-[#108a00] transition-colors"
+            className="hover:text-brand transition-colors"
           >
             How It Works
           </Link>
@@ -282,7 +282,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               setMegaMenuOpen(false);
               setAiToolsMenuOpen(false);
             }}
-            className="hover:text-[#108a00] transition-colors"
+            className="hover:text-brand transition-colors"
           >
             Concierge Match
           </Link>
@@ -292,7 +292,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
         <div className="hidden sm:flex items-center gap-4 shrink-0">
           <Link
             href="/apply"
-            className="inline-flex items-center gap-2 text-sm font-bold bg-[#108a00] hover:bg-[#14a800] text-white px-5 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 text-sm font-bold bg-brand hover:bg-brand-hover text-white px-5 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
           >
             <UserPlus className="w-4 h-4" />
             Ai Expert? Join Here Free
@@ -303,14 +303,14 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
         <div className="flex items-center gap-2 lg:hidden">
           <Link
             href="/apply"
-            className="text-xs font-bold bg-[#108a00] text-white px-3 py-2 rounded-full"
+            className="text-xs font-bold bg-brand text-white px-3 py-2 rounded-full"
           >
             Join Free
           </Link>
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl text-[#001e00] hover:bg-slate-100 transition-colors"
+            className="p-2 rounded-xl text-ink hover:bg-slate-100 transition-colors"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -325,7 +325,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
         <div
           ref={megaMenuRef}
           onMouseLeave={() => setMegaMenuOpen(false)}
-          className="hidden lg:block absolute top-full left-0 w-full bg-white z-50 border-b border-[#c8d6c8] mega-menu-shadow transition-all duration-200 animate-in fade-in slide-in-from-top-2"
+          className="hidden lg:block absolute top-full left-0 w-full bg-white z-50 border-b border-line-strong mega-menu-shadow transition-all duration-200 animate-in fade-in slide-in-from-top-2"
         >
           <div className="max-w-7xl mx-auto px-6 py-8">
             <div className="grid grid-cols-12 gap-8">
@@ -337,7 +337,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                   </span>
                   <Link
                     href="/categories"
-                    className="text-xs font-bold text-[#108a00] hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-brand hover:underline flex items-center gap-1"
                   >
                     All 6 Categories <ArrowRight className="w-3 h-3" />
                   </Link>
@@ -358,7 +358,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                           <Icon className={`w-4 h-4 ${item.color}`} />
                         </div>
                         <div>
-                          <div className="text-sm font-bold text-[#001e00] group-hover:text-[#108a00] transition-colors">
+                          <div className="text-sm font-bold text-ink group-hover:text-brand transition-colors">
                             {item.name}
                           </div>
                           <p className="text-xs text-slate-500 leading-snug">{item.desc}</p>
@@ -377,7 +377,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                   </span>
                   <Link
                     href="/recommendations"
-                    className="text-xs font-bold text-[#2563eb] hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-brand hover:underline flex items-center gap-1"
                   >
                     AI Blueprints <ArrowRight className="w-3 h-3" />
                   </Link>
@@ -393,8 +393,8 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                         className="group flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 transition-colors"
                       >
                         <div className="flex items-center gap-2.5">
-                          <IndIcon className="w-4 h-4 text-slate-400 group-hover:text-[#108a00] transition-colors" />
-                          <span className="text-sm font-semibold text-[#001e00] group-hover:text-[#108a00] transition-colors">
+                          <IndIcon className="w-4 h-4 text-slate-400 group-hover:text-brand transition-colors" />
+                          <span className="text-sm font-semibold text-ink group-hover:text-brand transition-colors">
                             {ind.name}
                           </span>
                         </div>
@@ -409,14 +409,14 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                 <div className="mt-4 pt-4 border-t border-slate-100">
                   <Link
                     href="/experts"
-                    className="text-sm font-bold text-[#108a00] hover:text-[#14a800] flex items-center justify-between p-2 rounded-lg bg-[#e4f7e6]/50 hover:bg-[#e4f7e6] transition-colors"
+                    className="text-sm font-bold text-brand hover:text-brand-hover flex items-center justify-between p-2 rounded-lg bg-brand-soft/50 hover:bg-brand-soft transition-colors"
                   >
                     <span>Browse All 26+ AI Experts</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
                     href="/locations"
-                    className="text-xs font-bold text-[#2563eb] hover:text-[#1d4ed8] flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 transition-colors mt-1"
+                    className="text-xs font-bold text-brand hover:text-brand flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 transition-colors mt-1"
                   >
                     <span className="flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5" />
@@ -429,43 +429,43 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
 
               {/* Column 3: HITL Guarantee Card (3 cols) */}
               <div className="col-span-3 flex flex-col justify-between">
-                <div className="rounded-2xl p-6 bg-gradient-to-br from-[#e4f7e6]/90 via-white to-[#eff6ff] border border-[#b2e8b8] shadow-xs">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#108a00] text-white text-xs font-bold mb-3 shadow-xs">
+                <div className="rounded-2xl p-6 bg-gradient-to-br from-brand-soft/90 via-white to-brand-soft border border-brand-line shadow-xs">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand text-white text-xs font-bold mb-3 shadow-xs">
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>The accountability standard</span>
                   </div>
-                  <h4 className="text-base font-black text-[#001e00] leading-snug">
+                  <h4 className="text-base font-semibold text-ink leading-snug">
                     Built-In Human Safety Checks.
                   </h4>
                   <p className="mt-2 text-xs text-slate-600 leading-relaxed font-normal">
                     Every listed specialist names one accountable person and gives references we can contact. Case studies are optional.
                   </p>
 
-                  <div className="mt-4 space-y-2 text-xs text-[#001e00] font-medium">
+                  <div className="mt-4 space-y-2 text-xs text-ink font-medium">
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />
                       <span>Code &amp; Systems Audited</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />
                       <span>No Fake 5-Star Paid Reviews</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-[#108a00] shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />
                       <span>Instant Staff Alerts &amp; Human Review</span>
                     </div>
                   </div>
 
-                  <div className="mt-5 pt-4 border-t border-[#b2e8b8]/60 flex flex-col gap-2">
+                  <div className="mt-5 pt-4 border-t border-brand-line/60 flex flex-col gap-2">
                     <Link
                       href="/match"
-                      className="w-full text-center py-2 px-3 rounded-xl bg-[#108a00] hover:bg-[#14a800] text-white text-xs font-bold transition-all shadow-xs"
+                      className="w-full text-center py-2 px-3 rounded-xl bg-brand hover:bg-brand-hover text-white text-xs font-bold transition-all shadow-xs"
                     >
                       Request Founder Match
                     </Link>
                     <Link
                       href="/about"
-                      className="text-center text-xs font-bold text-slate-600 hover:text-[#001e00] transition-colors"
+                      className="text-center text-xs font-bold text-slate-600 hover:text-ink transition-colors"
                     >
                       Read the HITL Standard →
                     </Link>
@@ -484,7 +484,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
         <div
           ref={aiToolsMenuRef}
           onMouseLeave={() => setAiToolsMenuOpen(false)}
-          className="hidden lg:block absolute top-full left-0 w-full bg-white z-50 border-b border-[#c8d6c8] mega-menu-shadow transition-all duration-200 animate-in fade-in slide-in-from-top-2"
+          className="hidden lg:block absolute top-full left-0 w-full bg-white z-50 border-b border-line-strong mega-menu-shadow transition-all duration-200 animate-in fade-in slide-in-from-top-2"
         >
           <div className="max-w-7xl mx-auto px-6 py-8">
             <div className="grid grid-cols-12 gap-8">
@@ -499,7 +499,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                       35+ Models &amp; Tools
                     </span>
                   </div>
-                  <h3 className="text-xl font-black text-[#001e00] tracking-tight">
+                  <h3 className="text-xl font-semibold text-ink tracking-tight">
                     AI Tools Directory
                   </h3>
                   <p className="text-xs text-slate-500 mt-2 leading-relaxed">
@@ -510,39 +510,39 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                     <Link
                       href="/ai-tools"
                       onClick={() => setAiToolsMenuOpen(false)}
-                      className="group flex items-center justify-between p-3 rounded-xl bg-[#f9faf9] border border-[#e4ebe4] hover:border-[#108a00] hover:bg-white transition-all shadow-2xs"
+                      className="group flex items-center justify-between p-3 rounded-xl bg-canvas-muted border border-line hover:border-brand hover:bg-white transition-all shadow-2xs"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-[#e4f7e6] text-[#108a00] flex items-center justify-center font-bold">
+                        <div className="w-8 h-8 rounded-lg bg-brand-soft text-brand flex items-center justify-center font-bold">
                           <Cpu className="w-4 h-4" />
                         </div>
                         <div>
-                          <div className="text-sm font-bold text-[#001e00] group-hover:text-[#108a00] transition-colors">
+                          <div className="text-sm font-bold text-ink group-hover:text-brand transition-colors">
                             Browse All 35+ AI Tools
                           </div>
                           <div className="text-[11px] text-slate-500">Search, filter &amp; compare models</div>
                         </div>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#108a00] transition-colors" />
+                      <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-brand transition-colors" />
                     </Link>
 
                     <Link
                       href="/ai-tools"
                       onClick={() => setAiToolsMenuOpen(false)}
-                      className="group flex items-center justify-between p-3 rounded-xl bg-[#edf7ee] border border-[#b2e8b8] hover:border-[#108a00] hover:bg-[#e4f7e6] transition-all shadow-2xs"
+                      className="group flex items-center justify-between p-3 rounded-xl bg-brand-soft border border-brand-line hover:border-brand hover:bg-brand-soft transition-all shadow-2xs"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-[#108a00] text-white flex items-center justify-center font-bold">
+                        <div className="w-8 h-8 rounded-lg bg-brand text-white flex items-center justify-center font-bold">
                           <Coins className="w-4 h-4" />
                         </div>
                         <div>
-                          <div className="text-sm font-bold text-[#001e00] group-hover:text-[#108a00] transition-colors">
+                          <div className="text-sm font-bold text-ink group-hover:text-brand transition-colors">
                             Save on Ai Hub
                           </div>
-                          <div className="text-[11px] text-[#108a00] font-semibold">Verified business credits &amp; grants</div>
+                          <div className="text-[11px] text-brand font-semibold">Verified business credits &amp; grants</div>
                         </div>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-[#108a00]" />
+                      <ArrowRight className="w-4 h-4 text-brand" />
                     </Link>
                   </div>
                 </div>
@@ -552,7 +552,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                   <Link
                     href="/match"
                     onClick={() => setAiToolsMenuOpen(false)}
-                    className="text-[#108a00] font-bold hover:underline"
+                    className="text-brand font-bold hover:underline"
                   >
                     Need an Expert? →
                   </Link>
@@ -563,8 +563,8 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               <div className="col-span-8">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-extrabold tracking-wider uppercase text-[#108a00] flex items-center gap-1.5">
-                      <Coins className="w-4 h-4 text-[#108a00]" />
+                    <span className="text-xs font-mono font-semibold tracking-wider uppercase text-brand flex items-center gap-1.5">
+                      <Coins className="w-4 h-4 text-brand" />
                       Save on Ai:
                     </span>
                     <span className="text-xs font-bold text-slate-600">
@@ -574,7 +574,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                   <Link
                     href="/ai-tools"
                     onClick={() => setAiToolsMenuOpen(false)}
-                    className="text-xs font-bold text-[#108a00] hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-brand hover:underline flex items-center gap-1"
                   >
                     View in Directory <ArrowRight className="w-3 h-3" />
                   </Link>
@@ -588,18 +588,18 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                       href={deal.claimUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group p-3.5 rounded-xl bg-[#fafbfa] border border-[#e4ebe4] hover:border-[#108a00] hover:bg-white transition-all shadow-2xs hover:shadow-xs flex flex-col justify-between"
+                      className="group p-3.5 rounded-xl bg-canvas border border-line hover:border-brand hover:bg-white transition-all shadow-2xs hover:shadow-xs flex flex-col justify-between"
                     >
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-1.5">
                           <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400">
                             {deal.company}
                           </span>
-                          <span className="text-[10px] font-mono font-extrabold bg-[#edf7ee] border border-[#b2e8b8] text-[#108a00] px-2 py-0.5 rounded-full">
+                          <span className="text-[10px] font-mono font-semibold bg-brand-soft border border-brand-line text-brand px-2 py-0.5 rounded-full">
                             {deal.badge}
                           </span>
                         </div>
-                        <h4 className="text-sm font-bold text-[#001e00] group-hover:text-[#108a00] transition-colors leading-snug">
+                        <h4 className="text-sm font-bold text-ink group-hover:text-brand transition-colors leading-snug">
                           {deal.headline}
                         </h4>
                         <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
@@ -608,7 +608,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                       </div>
                       <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
                         <span className="text-slate-400 font-medium truncate pr-2">{deal.category}</span>
-                        <span className="font-bold text-[#108a00] inline-flex items-center gap-1 shrink-0 group-hover:translate-x-0.5 transition-transform">
+                        <span className="font-bold text-brand inline-flex items-center gap-1 shrink-0 group-hover:translate-x-0.5 transition-transform">
                           Claim <ExternalLink className="w-3 h-3" />
                         </span>
                       </div>
@@ -625,15 +625,15 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           MOBILE DRAWER (SM / MD SCREENS)
       ======================================================================== */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-[#e4ebe4] bg-white px-4 py-6 space-y-6 max-h-[85vh] overflow-y-auto">
+        <div className="lg:hidden border-b border-line bg-white px-4 py-6 space-y-6 max-h-[85vh] overflow-y-auto">
           {/* Quick Links */}
           <div className="space-y-2 pb-4 border-b border-slate-100">
             <Link
               href="/experts"
-              className="flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-bold text-[#001e00]"
+              className="flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-bold text-ink"
             >
               <span>Browse All AI Experts</span>
-              <ArrowRight className="w-4 h-4 text-[#108a00]" />
+              <ArrowRight className="w-4 h-4 text-brand" />
             </Link>
             <Link
               href="/recommendations"
@@ -651,7 +651,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                 <Link
                   href="/ai-tools"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2 font-bold text-purple-950 text-base hover:text-[#108a00]"
+                  className="flex items-center gap-2 font-bold text-purple-950 text-base hover:text-brand"
                 >
                   <Cpu className="w-4 h-4 text-purple-600" />
                   <span>AI Models &amp; Tools</span>
@@ -667,9 +667,9 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
 
               {/* Save on AI sub-list */}
               <div className="pt-2.5 border-t border-purple-200/50">
-                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#108a00] mb-2 flex items-center justify-between">
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-brand mb-2 flex items-center justify-between">
                   <span className="flex items-center gap-1.5">
-                    <Coins className="w-3.5 h-3.5 text-[#108a00]" />
+                    <Coins className="w-3.5 h-3.5 text-brand" />
                     Save on Ai: Credits &amp; Grants
                   </span>
                   <Link
@@ -687,13 +687,13 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                       href={deal.claimUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200/80 text-xs font-semibold text-slate-800 hover:border-[#108a00]"
+                      className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200/80 text-xs font-semibold text-slate-800 hover:border-brand"
                     >
                       <div className="flex items-center gap-1.5 truncate pr-2">
-                        <span className="font-bold text-[#001e00]">{deal.company}:</span>
+                        <span className="font-bold text-ink">{deal.company}:</span>
                         <span className="text-slate-600 truncate">{deal.headline}</span>
                       </div>
-                      <span className="text-[10px] font-extrabold text-[#108a00] bg-[#edf7ee] px-1.5 py-0.5 rounded shrink-0">
+                      <span className="text-[10px] font-semibold text-brand bg-brand-soft px-1.5 py-0.5 rounded shrink-0">
                         {deal.badge}
                       </span>
                     </a>
@@ -703,32 +703,32 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             </div>
             <Link
               href="/match"
-              className="flex items-center justify-between p-3 rounded-xl bg-[#e4f7e6] text-base font-bold text-[#001e00]"
+              className="flex items-center justify-between p-3 rounded-xl bg-brand-soft text-base font-bold text-ink"
             >
               <span>Request Concierge Match</span>
-              <ArrowRight className="w-4 h-4 text-[#108a00]" />
+              <ArrowRight className="w-4 h-4 text-brand" />
             </Link>
             <Link
               href="/about"
-              className="block p-3 text-base font-semibold text-slate-700 hover:text-[#001e00]"
+              className="block p-3 text-base font-semibold text-slate-700 hover:text-ink"
             >
               How It Works & the HITL Standard
             </Link>
             <Link
               href="/categories"
-              className="block p-3 text-base font-semibold text-slate-700 hover:text-[#001e00]"
+              className="block p-3 text-base font-semibold text-slate-700 hover:text-ink"
             >
               Browse Category Hubs
             </Link>
             <Link
               href="/locations"
-              className="flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-bold text-[#001e00] hover:bg-[#e4f7e6]"
+              className="flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-bold text-ink hover:bg-brand-soft"
             >
               <span className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#108a00]" />
+                <MapPin className="w-4 h-4 text-brand" />
                 Find AI Near You (City &amp; State)
               </span>
-              <ArrowRight className="w-4 h-4 text-[#108a00]" />
+              <ArrowRight className="w-4 h-4 text-brand" />
             </Link>
           </div>
 
@@ -760,7 +760,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
             <Link
               href="/apply"
-              className="w-full text-center py-3 rounded-full bg-[#108a00] text-white font-bold text-sm shadow-sm"
+              className="w-full text-center py-3 rounded-full bg-brand text-white font-bold text-sm shadow-sm"
             >
               Ai Expert? Join Here Free
             </Link>

@@ -1,23 +1,100 @@
 @import "tailwindcss";
 
+/* Fonts point at next/font variables so the loaded faces stay swappable in one place. */
+@theme inline {
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-display-face), Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+
+  /* Darken default status hues that fail WCAG AA as small text. */
+  --color-rose-500: #be123c;
+  --color-rose-600: #9f1239;
+  --color-amber-500: #b45309;
+  --color-amber-600: #b45309;
+  --color-teal-600: #0f766e;
+}
+
+@theme {
+  /* Brand — confident blue */
+  --color-brand: #1d4ed8;
+  --color-brand-hover: #1e40af;
+  --color-brand-bright: #2563eb;
+  --color-brand-ink: #1e3a8a;
+  --color-brand-soft: #eff6ff;
+  --color-brand-tint: #dbeafe;
+  --color-brand-line: #bfdbfe;
+  --color-brand-mid: #93c5fd;
+  --color-brand-on-dark: #93c5fd;
+
+  /* Ink, surfaces, lines */
+  --color-ink: #0f172a;
+  --color-ink-soft: #334155;
+  --color-muted: #64748b;
+  --color-muted-strong: #475569;
+  --color-canvas: #f8fafc;
+  --color-canvas-muted: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+  --color-line-soft: #f1f5f9;
+
+  /* Inverse surfaces (footer, dark chips) */
+  --color-inverse: #0b1220;
+  --color-inverse-raised: #162033;
+  --color-inverse-hover: #1e2d45;
+  --color-inverse-line: #2a3a52;
+  --color-inverse-muted: #94a3b8;
+  --color-inverse-text: #cbd5e1;
+
+  /* Warm accent for featured labels and hierarchy */
+  --color-accent: #b45309;
+  --color-accent-ink: #92400e;
+  --color-accent-deep: #78350f;
+  --color-accent-soft: #fffbeb;
+  --color-accent-tint: #fef3c7;
+  --color-accent-line: #fde68a;
+  --color-accent-badge: #fef9c3;
+  --color-accent-badge-ink: #854d0e;
+  --color-accent-badge-line: #fde047;
+
+  /* Semantic success — stays green, separate from brand */
+  --color-success: #166534;
+  --color-success-bright: #15803d;
+  --color-success-ink: #14532d;
+  --color-success-soft: #f0fdf4;
+  --color-success-line: #bbf7d0;
+
+  --color-danger: #9f1239;
+  --color-danger-bright: #be123c;
+  --color-danger-soft: #fff1f2;
+  --color-danger-tint: #ffe4e6;
+  --color-danger-line: #fecdd3;
+
+  /* Category hues. Kept distinct from brand so hubs stay scannable. */
+  --color-hub-teal: #0f766e;
+  --color-hub-teal-ink: #115e59;
+  --color-hub-teal-soft: #f0fdfa;
+  --color-hub-teal-tint: #ccfbf1;
+  --color-hub-teal-line: #99f6e4;
+  --color-hub-violet: #6d28d9;
+  --color-hub-violet-soft: #f5f3ff;
+  --color-hub-violet-tint: #ede9fe;
+  --color-hub-violet-line: #ddd6fe;
+  --color-hub-sky: #0369a1;
+  --color-hub-sky-soft: #f0f9ff;
+  --color-hub-sky-line: #bae6fd;
+  --color-hub-pink: #be185d;
+  --color-hub-pink-soft: #fdf2f8;
+  --color-hub-pink-line: #fbcfe8;
+  --color-hub-indigo: #4338ca;
+  --color-hub-indigo-soft: #eef2ff;
+  --color-hub-indigo-tint: #e0e7ff;
+  --color-hub-indigo-line: #c7d2fe;
+}
+
 @layer base {
   :root {
-    --background: #f9f9fb;
-    --foreground: #001e00;
-    --card: #ffffff;
-    --card-border: #e4ebe4;
-    --primary: #108a00;
-    --primary-hover: #14a800;
-    --primary-light: #e4f7e6;
-    --secondary: #2563eb;
-    --secondary-hover: #1d4ed8;
-    --secondary-light: #eff6ff;
-    --secondary-border: #bfdbfe;
-    --amber: #d97706;
-    --amber-light: #fffbeb;
-    --accent: #13544e;
-    --muted: #5e6d55;
-    --muted-bg: #f2f7f2;
+    --background: var(--color-canvas);
+    --foreground: var(--color-ink);
   }
 
   html {
@@ -29,89 +106,110 @@
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-body), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
     font-size: 1rem;
     line-height: 1.6;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.011em;
   }
 
-  /* Custom subtle scrollbar */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display-face), Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-variation-settings: "opsz" 72, "SOFT" 18;
+    letter-spacing: -0.022em;
+    line-height: 1.15;
+  }
+
+  ::selection {
+    background: var(--color-brand-tint);
+    color: var(--color-ink);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+  }
+
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #f1f3f1;
+    background: var(--color-canvas-muted);
   }
   ::-webkit-scrollbar-thumb {
-    background: #cbd5cb;
+    background: var(--color-line-strong);
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #a3b5a3;
+    background: var(--color-muted);
   }
 }
 
-/* Upwork-style clean card utilities */
 .glass-panel {
-  background: #ffffff;
-  border: 1px solid #e4ebe4;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.05);
 }
 
 .glass-panel-hover {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .glass-panel-hover:hover {
-  border-color: #108a00;
-  box-shadow: 0 10px 25px -5px rgba(16, 138, 0, 0.08), 0 8px 10px -6px rgba(16, 138, 0, 0.04);
+  border-color: var(--color-brand);
+  box-shadow: 0 16px 32px -16px rgba(29, 78, 216, 0.28), 0 4px 10px -6px rgba(15, 23, 42, 0.08);
   transform: translateY(-2px);
 }
 
 .radial-glow {
-  background: radial-gradient(circle at 50% 0%, rgba(20, 168, 0, 0.07) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 0%, rgba(29, 78, 216, 0.08) 0%, transparent 70%);
 }
 
 .mesh-gradient-hero {
-  background: 
-    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(16, 138, 0, 0.08) 0%, transparent 75%),
-    radial-gradient(circle at 85% 15%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 15% 20%, rgba(217, 119, 6, 0.04) 0%, transparent 45%),
-    #ffffff;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% -12%, rgba(29, 78, 216, 0.12) 0%, transparent 72%),
+    radial-gradient(circle at 92% 8%, rgba(3, 105, 161, 0.07) 0%, transparent 42%),
+    radial-gradient(circle at 6% 18%, rgba(180, 83, 9, 0.045) 0%, transparent 38%),
+    var(--color-canvas);
 }
 
 .mesh-gradient-subtle {
-  background: 
-    radial-gradient(ellipse 80% 50% at 50% 50%, rgba(16, 138, 0, 0.03) 0%, transparent 80%),
-    #f8faf8;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 50%, rgba(29, 78, 216, 0.045) 0%, transparent 80%),
+    var(--color-canvas);
 }
 
 .bg-dots {
-  background-image: radial-gradient(circle, rgba(0, 30, 0, 0.06) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(15, 23, 42, 0.07) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
 .bg-dots-blue {
-  background-image: radial-gradient(circle, rgba(37, 99, 235, 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(29, 78, 216, 0.1) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
 .mega-menu-shadow {
-  box-shadow: 
-    0 24px 48px -12px rgba(0, 30, 0, 0.12),
-    0 4px 12px -2px rgba(0, 30, 0, 0.04),
-    0 0 0 1px rgba(0, 30, 0, 0.05);
+  box-shadow:
+    0 24px 48px -12px rgba(15, 23, 42, 0.16),
+    0 4px 12px -2px rgba(15, 23, 42, 0.06),
+    0 0 0 1px rgba(15, 23, 42, 0.05);
 }
 
 .tech-grid {
   background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(0, 30, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 30, 0, 0.03) 1px, transparent 1px);
+  background-image:
+    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
 }
 
 @keyframes gentle-bounce {
@@ -126,5 +224,3 @@
 .animate-gentle-bounce {
   animation: gentle-bounce 2s ease-in-out infinite;
 }
-
-

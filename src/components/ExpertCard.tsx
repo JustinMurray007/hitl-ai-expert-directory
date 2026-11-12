@@ -14,7 +14,7 @@ export default function ExpertCard({
   const primaryStudy = expert.case_studies?.[0];
 
   return (
-    <div className="group rounded-2xl p-6 relative flex flex-col justify-between border border-[#e4ebe4] bg-white shadow-xs hover:shadow-md hover:border-[#108a00] transition-all">
+    <div className="group rounded-2xl p-6 relative flex flex-col justify-between border border-line bg-white shadow-xs hover:shadow-md hover:border-brand transition-all">
       {/* Sponsor badge in top corner if featured */}
       {featured && (expert.listing_plan === 'premium' || expert.listing_plan === 'featured' || expert.sponsor_rank > 0) && (
         <div className="absolute top-5 right-5">
@@ -35,7 +35,7 @@ export default function ExpertCard({
 
         {/* Profile info */}
         <div className="flex items-start gap-4 mb-4">
-          <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-[#f4f6f4] border border-[#e4ebe4] shrink-0">
+          <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-canvas-muted border border-line shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={expert.avatar_url}
@@ -44,15 +44,15 @@ export default function ExpertCard({
             />
           </div>
           <div className="flex-1 min-w-0 pr-16 sm:pr-0">
-            <h3 className="text-lg font-extrabold text-[#001e00] group-hover:text-[#108a00] transition-colors truncate">
+            <h3 className="text-lg font-semibold text-ink group-hover:text-brand transition-colors truncate">
               <Link href={`/experts/${expert.slug}`}>
                 {expert.full_name}
               </Link>
             </h3>
-            <p className="text-sm text-[#108a00] font-bold truncate mt-0.5">{expert.professional_title}</p>
+            <p className="text-sm text-brand font-bold truncate mt-0.5">{expert.professional_title}</p>
             {expert.agency_name && (
-              <p className="text-sm text-[#5e6d55] flex items-center gap-1 mt-1 font-medium">
-                <Building className="w-3.5 h-3.5 text-[#889888]" />
+              <p className="text-sm text-muted flex items-center gap-1 mt-1 font-medium">
+                <Building className="w-3.5 h-3.5 text-muted" />
                 {expert.agency_name}
               </p>
             )}
@@ -60,18 +60,18 @@ export default function ExpertCard({
         </div>
 
         {/* Tagline */}
-        <p className="text-base text-[#223022] line-clamp-2 leading-relaxed mb-4 font-normal">
+        <p className="text-base text-ink-soft line-clamp-2 leading-relaxed mb-4 font-normal">
           {expert.tagline}
         </p>
 
         {/* Core Trust Callout: Expert Thoughts... */}
         {primaryStudy && (
-          <div className="mb-4 rounded-xl bg-[#f2faf3] border border-[#c1eec6] p-4 text-sm">
-            <div className="flex items-center gap-2 text-[#108a00] font-bold mb-1.5 text-sm">
-              <MessageSquareQuote className="w-4 h-4 text-[#108a00]" />
+          <div className="mb-4 rounded-xl bg-brand-soft border border-brand-tint p-4 text-sm">
+            <div className="flex items-center gap-2 text-brand font-bold mb-1.5 text-sm">
+              <MessageSquareQuote className="w-4 h-4 text-brand" />
               <span>Expert Thoughts...</span>
             </div>
-            <p className="text-[#0f3d17] text-sm sm:text-base line-clamp-3 italic font-semibold leading-relaxed">
+            <p className="text-brand-ink text-sm sm:text-base line-clamp-3 italic font-semibold leading-relaxed">
               &quot;{primaryStudy.hitl_oversight_mechanism}&quot;
             </p>
           </div>
@@ -84,7 +84,7 @@ export default function ExpertCard({
               <ToolBadge key={tool.id} name={tool.name} />
             ))}
             {(expert.tools ?? []).length > 4 && (
-              <span className="text-sm font-bold text-[#2563eb] bg-[#eff6ff] px-3 py-1 rounded-md border border-[#bfdbfe] self-center">
+              <span className="text-sm font-bold text-brand bg-brand-soft px-3 py-1 rounded-md border border-brand-line self-center">
                 +{(expert.tools ?? []).length - 4} more
               </span>
             )}
@@ -93,7 +93,7 @@ export default function ExpertCard({
       </div>
 
       {/* Bottom meta & CTA */}
-      <div className="pt-4 border-t border-[#f0f3f0] flex items-center justify-between">
+      <div className="pt-4 border-t border-line-soft flex items-center justify-between">
         {featured ? (
           /* On featured cards: location moved below the safeguard with no prices */
           <ExpertLocationLinks expert={expert} />
@@ -107,7 +107,7 @@ export default function ExpertCard({
 
         <Link
           href={`/experts/${expert.slug}`}
-          className="inline-flex items-center gap-1.5 text-sm font-bold text-[#108a00] hover:text-[#14a800] group-hover:translate-x-1 transition-all"
+          className="inline-flex items-center gap-1.5 text-sm font-bold text-brand hover:text-brand-hover group-hover:translate-x-1 transition-all"
         >
           View Profile <ArrowRight className="w-4 h-4" />
         </Link>

@@ -13,22 +13,22 @@ export default function MatchPage() {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
       <div className="text-center max-w-xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] mb-3">
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-3">
           <Sparkles className="w-4 h-4" />
           <span>Founder Concierge Service</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-black text-[#001e00] tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
           Request AI Specialist Matchmaking
         </h1>
-        <p className="text-base sm:text-lg text-[#5e6d55] mt-3 leading-relaxed font-normal">
+        <p className="text-base sm:text-lg text-muted mt-3 leading-relaxed font-normal">
           Tell us about your business process, stack, and budget. We will review your request privately and introduce specialists. Match eligibility stays on during the free 30 days and on any paid plan.
         </p>
       </div>
 
       <Suspense
         fallback={
-          <div className="rounded-3xl p-12 border border-[#e4ebe4] bg-white text-center text-[#5e6d55]">
-            <div className="w-8 h-8 border-4 border-[#108a00] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="rounded-3xl p-12 border border-line bg-white text-center text-muted">
+            <div className="w-8 h-8 border-4 border-brand border-t-transparent rounded-full animate-spin mx-auto mb-4" />
             Loading matchmaking intake form...
           </div>
         }

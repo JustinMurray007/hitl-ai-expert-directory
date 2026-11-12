@@ -99,7 +99,7 @@ export default function LocationsDirectoryClient({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by city (e.g. San Diego), state (CA), or zip (92101)..."
-            className="w-full pl-12 pr-4 py-3.5 rounded-full bg-white border border-[#d5ded5] shadow-xs text-base text-[#001e00] placeholder:text-slate-400 focus:outline-none focus:border-[#108a00] focus:ring-2 focus:ring-[#108a00]/20 transition-all font-medium"
+            className="w-full pl-12 pr-4 py-3.5 rounded-full bg-white border border-line shadow-xs text-base text-ink placeholder:text-slate-400 focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all font-medium"
           />
           {searchQuery && (
             <button
@@ -119,7 +119,7 @@ export default function LocationsDirectoryClient({
             onClick={() => setActiveTab('all')}
             className={`px-3.5 py-1.5 rounded-full transition-colors cursor-pointer ${
               activeTab === 'all'
-                ? 'bg-[#108a00] text-white shadow-2xs'
+                ? 'bg-brand text-white shadow-2xs'
                 : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
             }`}
           >
@@ -130,7 +130,7 @@ export default function LocationsDirectoryClient({
             onClick={() => setActiveTab('cities')}
             className={`px-3.5 py-1.5 rounded-full transition-colors cursor-pointer ${
               activeTab === 'cities'
-                ? 'bg-[#108a00] text-white shadow-2xs'
+                ? 'bg-brand text-white shadow-2xs'
                 : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
             }`}
           >
@@ -141,7 +141,7 @@ export default function LocationsDirectoryClient({
             onClick={() => setActiveTab('states')}
             className={`px-3.5 py-1.5 rounded-full transition-colors cursor-pointer ${
               activeTab === 'states'
-                ? 'bg-[#108a00] text-white shadow-2xs'
+                ? 'bg-brand text-white shadow-2xs'
                 : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
             }`}
           >
@@ -152,7 +152,7 @@ export default function LocationsDirectoryClient({
             onClick={() => setActiveTab('zips')}
             className={`px-3.5 py-1.5 rounded-full transition-colors cursor-pointer ${
               activeTab === 'zips'
-                ? 'bg-[#108a00] text-white shadow-2xs'
+                ? 'bg-brand text-white shadow-2xs'
                 : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
             }`}
           >
@@ -164,17 +164,17 @@ export default function LocationsDirectoryClient({
       {/* SECTION 1: CITIES DIRECTORY */}
       {(activeTab === 'all' || activeTab === 'cities') && (
         <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-[#e4ebe4] pb-4 flex-wrap gap-2">
+          <div className="flex items-center justify-between border-b border-line pb-4 flex-wrap gap-2">
             <div>
-              <h2 className="text-2xl font-black text-[#001e00] flex items-center gap-2.5">
-                <Compass className="w-6 h-6 text-[#108a00]" />
+              <h2 className="text-2xl font-semibold text-ink flex items-center gap-2.5">
+                <Compass className="w-6 h-6 text-brand" />
                 <span>Browse AI Consultants by City</span>
               </h2>
               <p className="text-sm text-slate-600 mt-1">
                 Explore local AI developers and automation agencies by metropolitan area.
               </p>
             </div>
-            <span className="text-xs font-mono font-bold text-[#108a00] bg-[#e4f7e6] px-3 py-1 rounded-full border border-[#b2e8b8]">
+            <span className="text-xs font-mono font-bold text-brand bg-brand-soft px-3 py-1 rounded-full border border-brand-line">
               {filtered.cities.length} Active Cities
             </span>
           </div>
@@ -184,18 +184,18 @@ export default function LocationsDirectoryClient({
               <Link
                 key={`${city.slug}-${city.stateCode}`}
                 href={`/locations/city/${city.slug}`}
-                className="group p-4 rounded-2xl bg-white border border-[#e4ebe4] hover:border-[#108a00] hover:shadow-md transition-all flex flex-col justify-between"
+                className="group p-4 rounded-2xl bg-white border border-line hover:border-brand hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
-                    <span className="font-mono font-bold text-[#108a00]">{city.stateCode}</span>
+                    <span className="font-mono font-bold text-brand">{city.stateCode}</span>
                     <span className="font-semibold text-slate-500">{city.expertCount} {city.expertCount === 1 ? 'Expert' : 'Experts'}</span>
                   </div>
-                  <h3 className="font-extrabold text-base text-[#001e00] group-hover:text-[#108a00] transition-colors leading-snug">
+                  <h3 className="font-semibold text-base text-ink group-hover:text-brand transition-colors leading-snug">
                     {city.name}
                   </h3>
                 </div>
-                <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#108a00]">
+                <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-brand">
                   <span>Explore City</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -208,17 +208,17 @@ export default function LocationsDirectoryClient({
       {/* SECTION 2: STATES DIRECTORY */}
       {(activeTab === 'all' || activeTab === 'states') && (
         <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-[#e4ebe4] pb-4 flex-wrap gap-2">
+          <div className="flex items-center justify-between border-b border-line pb-4 flex-wrap gap-2">
             <div>
-              <h2 className="text-2xl font-black text-[#001e00] flex items-center gap-2.5">
-                <Building className="w-6 h-6 text-[#2563eb]" />
+              <h2 className="text-2xl font-semibold text-ink flex items-center gap-2.5">
+                <Building className="w-6 h-6 text-brand" />
                 <span>Browse AI Consultants by State</span>
               </h2>
               <p className="text-sm text-slate-600 mt-1">
                 Statewide hubs featuring specialists and city directories.
               </p>
             </div>
-            <span className="text-xs font-mono font-bold text-[#2563eb] bg-[#eff6ff] px-3 py-1 rounded-full border border-[#bfdbfe]">
+            <span className="text-xs font-mono font-bold text-brand bg-brand-soft px-3 py-1 rounded-full border border-brand-line">
               {filtered.states.length} States / Regions
             </span>
           </div>
@@ -228,25 +228,25 @@ export default function LocationsDirectoryClient({
               <Link
                 key={st.code}
                 href={`/locations/state/${st.slug}`}
-                className="group p-5 rounded-2xl bg-white border border-[#e4ebe4] hover:border-[#2563eb] hover:shadow-md transition-all flex flex-col justify-between"
+                className="group p-5 rounded-2xl bg-white border border-line hover:border-brand hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="w-9 h-9 rounded-xl bg-[#eff6ff] text-[#2563eb] font-mono font-black text-sm flex items-center justify-center border border-[#bfdbfe]">
+                    <span className="w-9 h-9 rounded-xl bg-brand-soft text-brand font-mono font-semibold text-sm flex items-center justify-center border border-brand-line">
                       {st.code}
                     </span>
-                    <span className="text-xs font-bold text-[#2563eb] bg-[#eff6ff] px-2.5 py-0.5 rounded-full">
+                    <span className="text-xs font-bold text-brand bg-brand-soft px-2.5 py-0.5 rounded-full">
                       {st.expertCount} {st.expertCount === 1 ? 'Specialist' : 'Specialists'}
                     </span>
                   </div>
-                  <h3 className="font-extrabold text-lg text-[#001e00] group-hover:text-[#2563eb] transition-colors">
+                  <h3 className="font-semibold text-lg text-ink group-hover:text-brand transition-colors">
                     {st.name}
                   </h3>
                   <p className="text-xs text-slate-500 mt-1 line-clamp-1">
                     {st.cities.map((c) => c.name).join(', ')}
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563eb]">
+                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-brand">
                   <span>View State Hub</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -259,17 +259,17 @@ export default function LocationsDirectoryClient({
       {/* SECTION 3: ZIP CODES DIRECTORY */}
       {(activeTab === 'all' || activeTab === 'zips') && (
         <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-[#e4ebe4] pb-4 flex-wrap gap-2">
+          <div className="flex items-center justify-between border-b border-line pb-4 flex-wrap gap-2">
             <div>
-              <h2 className="text-2xl font-black text-[#001e00] flex items-center gap-2.5">
-                <MapPin className="w-6 h-6 text-[#d97706]" />
+              <h2 className="text-2xl font-semibold text-ink flex items-center gap-2.5">
+                <MapPin className="w-6 h-6 text-accent" />
                 <span>Browse by Postal &amp; Zip Code</span>
               </h2>
               <p className="text-sm text-slate-600 mt-1">
                 Postal-level pages for ultra-local AI consulting, on-site audits, and regional support.
               </p>
             </div>
-            <span className="text-xs font-mono font-bold text-[#d97706] bg-[#fffbeb] px-3 py-1 rounded-full border border-[#fde68a]">
+            <span className="text-xs font-mono font-bold text-accent bg-accent-soft px-3 py-1 rounded-full border border-accent-line">
               {filtered.zips.length} Zip Codes
             </span>
           </div>
@@ -279,14 +279,14 @@ export default function LocationsDirectoryClient({
               <Link
                 key={z.zip}
                 href={`/locations/zip/${z.slug}`}
-                className="group inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-[#e4ebe4] hover:border-[#d97706] hover:shadow-xs transition-all text-xs"
+                className="group inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-line hover:border-accent hover:shadow-xs transition-all text-xs"
               >
-                <span className="font-mono font-bold text-[#b45309] group-hover:underline">
+                <span className="font-mono font-bold text-accent group-hover:underline">
                   {z.zip}
                 </span>
                 <span className="text-slate-400">·</span>
                 <span className="text-slate-700 font-medium">{z.cityName}, {z.stateCode}</span>
-                <span className="text-[10px] font-bold text-[#108a00] bg-[#e4f7e6] px-1.5 py-0.5 rounded">
+                <span className="text-[10px] font-bold text-brand bg-brand-soft px-1.5 py-0.5 rounded">
                   {z.expertCount}
                 </span>
               </Link>
@@ -296,10 +296,10 @@ export default function LocationsDirectoryClient({
       )}
 
       {/* SECTION 4: ALL MATCHED LOCAL EXPERTS */}
-      <section className="space-y-6 pt-6 border-t border-[#e4ebe4]">
+      <section className="space-y-6 pt-6 border-t border-line">
         <div className="flex items-center justify-between flex-wrap gap-2">
           <div>
-            <h2 className="text-2xl font-black text-[#001e00]">
+            <h2 className="text-2xl font-semibold text-ink">
               {searchQuery ? `Matched AI Specialists (${filtered.experts.length})` : 'All AI Specialists Across North America'}
             </h2>
             <p className="text-sm text-slate-600 mt-1">

@@ -72,7 +72,7 @@ export default function AiToolsDirectory() {
   return (
     <div className="space-y-12">
       {/* Search and Category Filter Controls */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#e4ebe4] shadow-xs space-y-6">
+      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-line shadow-xs space-y-6">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
           {/* Search Input */}
           <div className="relative flex-1">
@@ -82,7 +82,7 @@ export default function AiToolsDirectory() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search AI models & tools (e.g., Claude, ChatGPT, Viktor, Azure, AWS, Cursor, Make...)"
-              className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/70 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-[#108a00]/30 focus:border-[#108a00] text-sm sm:text-base transition-all"
+              className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50/70 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-brand/30 focus:border-brand text-sm sm:text-base transition-all"
             />
             {searchQuery && (
               <button
@@ -106,8 +106,8 @@ export default function AiToolsDirectory() {
               }}
               className={`inline-flex items-center gap-2 px-4 py-3 rounded-2xl text-xs sm:text-sm font-bold border transition-all cursor-pointer ${
                 onlyCredits
-                  ? 'bg-[#108a00] border-[#108a00] text-white shadow-xs'
-                  : 'bg-[#edf7ee] border-[#b2e8b8] text-[#108a00] hover:bg-[#e1f3e3]'
+                  ? 'bg-brand border-brand text-white shadow-xs'
+                  : 'bg-brand-soft border-brand-line text-brand hover:bg-brand-soft'
               }`}
             >
               <Coins className="w-4 h-4" />
@@ -149,7 +149,7 @@ export default function AiToolsDirectory() {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#108a00] text-white shadow-xs'
+                    ? 'bg-brand text-white shadow-xs'
                     : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700'
                 }`}
               >
@@ -172,8 +172,8 @@ export default function AiToolsDirectory() {
         <div>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#2563eb]" />
-              <h2 className="text-lg sm:text-xl font-black text-[#001e00]">
+              <Sparkles className="w-4 h-4 text-brand" />
+              <h2 className="text-lg sm:text-xl font-semibold text-ink">
                 Featured Marquee AI Models &amp; Tools
               </h2>
             </div>
@@ -189,23 +189,23 @@ export default function AiToolsDirectory() {
                 href={tool.websiteUrl}
                 target="_blank"
                 rel={tool.sponsored ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
-                className="group p-4 rounded-2xl bg-white border border-[#e4ebe4] hover:border-[#108a00] hover:shadow-md transition-all flex flex-col justify-between"
+                className="group p-4 rounded-2xl bg-white border border-line hover:border-brand hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-2">
-                    <span className="text-[11px] font-mono font-bold text-slate-400 group-hover:text-[#108a00] transition-colors">
+                    <span className="text-[11px] font-mono font-bold text-slate-400 group-hover:text-brand transition-colors">
                       {tool.company}
                     </span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#108a00] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-brand transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
-                  <h3 className="font-extrabold text-sm sm:text-base text-[#001e00] leading-snug group-hover:text-[#108a00] transition-colors">
+                  <h3 className="font-semibold text-sm sm:text-base text-ink leading-snug group-hover:text-brand transition-colors">
                     {tool.name}
                   </h3>
                   <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
                     {tool.bestFor}
                   </p>
                 </div>
-                <div className="mt-3 pt-2 border-t border-slate-100 flex items-center text-[11px] font-bold text-[#108a00]">
+                <div className="mt-3 pt-2 border-t border-slate-100 flex items-center text-[11px] font-bold text-brand">
                   Visit Site →
                 </div>
               </a>
@@ -217,13 +217,13 @@ export default function AiToolsDirectory() {
       {/* Tools Grid */}
       <div>
         <div className="flex items-center justify-between mb-6">
-          <div className="text-sm font-bold text-[#475569]">
-            Showing <span className="text-[#001e00] font-black">{filteredTools.length}</span> AI Tools &amp; Models
+          <div className="text-sm font-bold text-muted-strong">
+            Showing <span className="text-ink font-semibold">{filteredTools.length}</span> AI Tools &amp; Models
             {selectedCategory !== 'all' && (
-              <span> in <span className="text-[#108a00] font-black">{AI_TOOL_CATEGORIES.find(c => c.id === selectedCategory)?.label}</span></span>
+              <span> in <span className="text-brand font-semibold">{AI_TOOL_CATEGORIES.find(c => c.id === selectedCategory)?.label}</span></span>
             )}
             {onlyCredits && (
-              <span className="text-[#108a00] font-bold"> (With Free Credits &amp; Grants)</span>
+              <span className="text-brand font-bold"> (With Free Credits &amp; Grants)</span>
             )}
           </div>
           {(searchQuery || selectedCategory !== 'all' || onlyPopular || onlyCredits) && (
@@ -235,7 +235,7 @@ export default function AiToolsDirectory() {
                 setOnlyPopular(false);
                 setOnlyCredits(false);
               }}
-              className="text-xs font-bold text-[#108a00] hover:underline cursor-pointer"
+              className="text-xs font-bold text-brand hover:underline cursor-pointer"
             >
               Reset All Filters
             </button>
@@ -257,7 +257,7 @@ export default function AiToolsDirectory() {
                 setOnlyPopular(false);
                 setOnlyCredits(false);
               }}
-              className="mt-4 px-5 py-2 rounded-full bg-[#108a00] text-white text-xs font-bold hover:bg-[#14a800] transition-colors"
+              className="mt-4 px-5 py-2 rounded-full bg-brand text-white text-xs font-bold hover:bg-brand-hover transition-colors"
             >
               Show All AI Tools
             </button>
@@ -267,7 +267,7 @@ export default function AiToolsDirectory() {
             {filteredTools.map((tool) => (
               <div
                 key={tool.id}
-                className="bg-white rounded-2xl border border-[#e4ebe4] hover:border-[#108a00] hover:shadow-lg transition-all p-6 flex flex-col justify-between group"
+                className="bg-white rounded-2xl border border-line hover:border-brand hover:shadow-lg transition-all p-6 flex flex-col justify-between group"
               >
                 <div>
                   {/* Top Bar: Company & Category */}
@@ -282,14 +282,14 @@ export default function AiToolsDirectory() {
 
                   {/* Title & Website Link */}
                   <div className="flex items-start justify-between gap-3 mb-2.5">
-                    <h3 className="text-xl font-extrabold text-[#001e00] group-hover:text-[#108a00] transition-colors leading-tight">
+                    <h3 className="text-xl font-semibold text-ink group-hover:text-brand transition-colors leading-tight">
                       {tool.name}
                     </h3>
                     <a
                       href={tool.websiteUrl}
                       target="_blank"
                       rel={tool.sponsored ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-[#108a00] hover:bg-[#e4f7e6] transition-colors"
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-brand hover:bg-brand-soft transition-colors"
                       title={`Visit ${tool.name}`}
                     >
                       <ExternalLink className="w-4 h-4" />
@@ -297,14 +297,14 @@ export default function AiToolsDirectory() {
                   </div>
 
                   {/* Description */}
-                  <p className="text-sm text-[#475569] leading-relaxed mb-4">
+                  <p className="text-sm text-muted-strong leading-relaxed mb-4">
                     {tool.description}
                   </p>
 
                   {/* Verified Credit Deal Callout */}
                   {tool.creditDeal && (
-                    <div className="p-3 rounded-xl bg-[#edf7ee] border border-[#b2e8b8] text-xs text-[#1e2a1e] mb-4 leading-snug">
-                      <div className="flex items-center gap-1.5 text-[#108a00] font-extrabold mb-1">
+                    <div className="p-3 rounded-xl bg-brand-soft border border-brand-line text-xs text-ink mb-4 leading-snug">
+                      <div className="flex items-center gap-1.5 text-brand font-semibold mb-1">
                         <Gift className="w-3.5 h-3.5" />
                         <span>Save on Ai Offer:</span>
                       </div>
@@ -314,15 +314,15 @@ export default function AiToolsDirectory() {
 
                   {/* Best For Box */}
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700 mb-4 leading-snug">
-                    <span className="font-bold text-[#001e00] block mb-0.5">🎯 Best For:</span>
+                    <span className="font-bold text-ink block mb-0.5">🎯 Best For:</span>
                     <span>{tool.bestFor}</span>
                   </div>
 
                   {/* Key Features List */}
                   <div className="space-y-1.5 mb-5">
                     {tool.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-xs text-[#1e2a1e] font-medium">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#108a00] shrink-0" />
+                      <div key={idx} className="flex items-center gap-2 text-xs text-ink font-medium">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-brand shrink-0" />
                         <span className="line-clamp-1">{feature}</span>
                       </div>
                     ))}
@@ -333,7 +333,7 @@ export default function AiToolsDirectory() {
                 <div className="pt-4 border-t border-slate-100 space-y-3">
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-slate-400 font-medium">Pricing Model:</span>
-                    <span className="font-bold text-[#001e00]">{tool.pricing}</span>
+                    <span className="font-bold text-ink">{tool.pricing}</span>
                   </div>
 
                   <div className="flex items-center gap-2 pt-1">
@@ -341,14 +341,14 @@ export default function AiToolsDirectory() {
                       href={tool.creditLink || tool.websiteUrl}
                       target="_blank"
                       rel={tool.sponsored ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-[#108a00] hover:bg-[#14a800] text-white text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition-all"
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-brand hover:bg-brand-hover text-white text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition-all"
                     >
                       <span>Visit {tool.name}</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                     <Link
                       href="/recommendations"
-                      className="py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-[#e4f7e6] text-slate-700 hover:text-[#108a00] text-xs font-bold transition-colors"
+                      className="py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-brand-soft text-slate-700 hover:text-brand text-xs font-bold transition-colors"
                       title="See recommended workflows using this tool"
                     >
                       Workflows
@@ -362,31 +362,31 @@ export default function AiToolsDirectory() {
       </div>
 
       {/* Bridge Callout: Tools vs Systems with Specialists */}
-      <div className="rounded-3xl p-8 sm:p-12 border border-[#b2e8b8] bg-gradient-to-br from-[#f0f9f1] via-white to-[#eff6ff] shadow-sm">
+      <div className="rounded-3xl p-8 sm:p-12 border border-brand-line bg-gradient-to-br from-brand-soft via-white to-brand-soft shadow-sm">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-xs font-bold text-[#108a00] shadow-xs">
-              <ShieldCheck className="w-4 h-4 text-[#108a00]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-xs font-bold text-brand shadow-xs">
+              <ShieldCheck className="w-4 h-4 text-brand" />
               <span>The Human-in-the-Loop Advantage</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-[#001e00] tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-semibold text-ink tracking-tight">
               Tools don&apos;t run a business on their own — workflows with a human check do.
             </h3>
-            <p className="text-sm sm:text-base text-[#475569] leading-relaxed max-w-2xl font-normal">
+            <p className="text-sm sm:text-base text-muted-strong leading-relaxed max-w-2xl font-normal">
               Most businesses struggle when deploying raw AI models without safeguard guardrails, team alerts, or proper CRM synchronization. Our directory connects you with specialists who assemble these tools into resilient production systems.
             </p>
           </div>
           <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
             <Link
               href="/recommendations"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-sm shadow-sm transition-all text-center"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-sm shadow-sm transition-all text-center"
             >
               <span>Find Your Business Solution</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/match"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-[#001e00] border border-slate-200 font-bold text-sm transition-all text-center"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-ink border border-slate-200 font-bold text-sm transition-all text-center"
             >
               <span>Get Matched With a Specialist</span>
             </Link>

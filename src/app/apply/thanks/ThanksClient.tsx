@@ -20,28 +20,28 @@ export function ThanksStatus({ phase, expertId }: { phase: Phase; expertId?: str
   const payHref = phase === 'ready' && expertId ? personalPayPath(expertId) : null;
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16">
-      <div className="rounded-3xl border border-[#e4ebe4] bg-white p-8 shadow-xs">
-        <h1 className="text-3xl font-black text-[#001e00]">Application received</h1>
+      <div className="rounded-3xl border border-line bg-white p-8 shadow-xs">
+        <h1 className="text-3xl font-semibold text-ink">Application received</h1>
         {phase === 'waiting' && (
-          <p className="mt-3 text-[#5e6d55] leading-relaxed" aria-live="polite">
+          <p className="mt-3 text-muted leading-relaxed" aria-live="polite">
             Thanks for applying. We&apos;re saving your free listing. This usually takes a few seconds.
           </p>
         )}
         {phase === 'ready' && payHref && (
           <>
-            <p className="mt-3 text-[#5e6d55] leading-relaxed">
+            <p className="mt-3 text-muted leading-relaxed">
               Thanks for applying. Your listing is free for 30 days. Nothing is charged until you choose a plan.
             </p>
             <a
               href={payHref}
-              className="mt-6 inline-flex items-center justify-center px-5 py-3.5 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold"
+              className="mt-6 inline-flex items-center justify-center px-5 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white font-bold"
             >
               Choose a paid plan
             </a>
           </>
         )}
         {phase === 'unresolved' && (
-          <p className="mt-3 text-[#5e6d55] leading-relaxed" aria-live="polite">
+          <p className="mt-3 text-muted leading-relaxed" aria-live="polite">
             Thanks for applying. Your free listing is being reviewed. A personal pay link will come by email if you want a paid plan. Nothing is charged until you use that link.
           </p>
         )}

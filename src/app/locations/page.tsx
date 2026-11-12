@@ -33,7 +33,7 @@ export default async function LocationsMainPage() {
   };
 
   return (
-    <div className="bg-[#fcfdfc] min-h-screen py-14">
+    <div className="bg-canvas min-h-screen py-14">
       {/* Schema.org structured data */}
       <script
         type="application/ld+json"
@@ -43,11 +43,11 @@ export default async function LocationsMainPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] shadow-xs">
-            <MapPin className="w-4 h-4 text-[#108a00]" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand shadow-xs">
+            <MapPin className="w-4 h-4 text-brand" />
             <span>National Local Directory</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">
             Find An Ai Consultant &amp; Company Near You
           </h1>
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
@@ -57,15 +57,15 @@ export default async function LocationsMainPage() {
           {/* Quick Metrics */}
           <div className="flex flex-wrap items-center justify-center gap-6 pt-4 text-xs sm:text-sm font-bold text-slate-700">
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#108a00]" />
+              <CheckCircle2 className="w-4 h-4 text-brand" />
               {cities.length} Metropolitan Hubs
             </span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#108a00]" />
+              <CheckCircle2 className="w-4 h-4 text-brand" />
               {states.length} States &amp; Regions
             </span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#108a00]" />
+              <CheckCircle2 className="w-4 h-4 text-brand" />
               {experts.length} Specialists
             </span>
           </div>

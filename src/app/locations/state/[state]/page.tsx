@@ -130,7 +130,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
   };
 
   return (
-    <div className="bg-[#fcfdfc] min-h-screen py-10">
+    <div className="bg-canvas min-h-screen py-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -143,26 +143,26 @@ export default async function StateLocationPage({ params }: StatePageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-2 text-xs font-semibold text-slate-500 overflow-x-auto whitespace-nowrap">
-          <Link href="/" className="hover:text-[#108a00] transition-colors">
+          <Link href="/" className="hover:text-brand transition-colors">
             Home
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <Link href="/locations" className="hover:text-[#108a00] transition-colors">
+          <Link href="/locations" className="hover:text-brand transition-colors">
             Locations Near You
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <span className="text-[#001e00] font-bold">{stateName}</span>
+          <span className="text-ink font-bold">{stateName}</span>
         </nav>
 
         {/* Hero Banner */}
-        <div className="rounded-3xl bg-gradient-to-br from-[#eff6ff] via-white to-[#edf7ee] border border-[#cbdfe8] p-8 sm:p-12 shadow-xs space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#bfdbfe] text-xs sm:text-sm font-bold text-[#1d4ed8] shadow-2xs">
-            <Building className="w-4 h-4 text-[#2563eb]" />
+        <div className="rounded-3xl bg-gradient-to-br from-brand-soft via-white to-brand-soft border border-line p-8 sm:p-12 shadow-xs space-y-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-brand-line text-xs sm:text-sm font-bold text-brand shadow-2xs">
+            <Building className="w-4 h-4 text-brand" />
             <span>State Hub • {stateName} ({stateCode})</span>
           </div>
 
           <div className="max-w-3xl space-y-3">
-            <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight leading-[1.15]">
+            <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-[1.15]">
               Find An Ai Consultant &amp; Company in {stateName}
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
@@ -173,15 +173,15 @@ export default async function StateLocationPage({ params }: StatePageProps) {
           {/* Quick Metrics */}
           <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center gap-6 text-xs sm:text-sm font-bold text-slate-700">
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#108a00]" />
+              <CheckCircle2 className="w-4 h-4 text-brand" />
               {stateExperts.length} {stateExperts.length === 1 ? 'Specialist' : 'Specialists'} in {stateName}
             </span>
             <span className="flex items-center gap-1.5">
-              <Compass className="w-4 h-4 text-[#2563eb]" />
+              <Compass className="w-4 h-4 text-brand" />
               {cities.length} Active Metro Cities
             </span>
             <span className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-[#108a00]" />
+              <ShieldCheck className="w-4 h-4 text-brand" />
               100% Client-Owned Accounts &amp; Data
             </span>
           </div>
@@ -189,9 +189,9 @@ export default async function StateLocationPage({ params }: StatePageProps) {
 
         {/* Cities Directory inside this state */}
         <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-[#e4ebe4] pb-4 flex-wrap gap-2">
+          <div className="flex items-center justify-between border-b border-line pb-4 flex-wrap gap-2">
             <div>
-              <h2 className="text-2xl font-black text-[#001e00]">
+              <h2 className="text-2xl font-semibold text-ink">
                 Browse by City in {stateName}
               </h2>
               <p className="text-sm text-slate-600 mt-1">
@@ -205,18 +205,18 @@ export default async function StateLocationPage({ params }: StatePageProps) {
               <Link
                 key={city.slug}
                 href={`/locations/city/${city.slug}`}
-                className="group p-5 rounded-2xl bg-white border border-[#e4ebe4] hover:border-[#108a00] hover:shadow-md transition-all flex flex-col justify-between"
+                className="group p-5 rounded-2xl bg-white border border-line hover:border-brand hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
-                    <span className="font-mono font-bold text-[#108a00]">{stateCode}</span>
+                    <span className="font-mono font-bold text-brand">{stateCode}</span>
                     <span className="font-semibold text-slate-500">{city.expertCount} {city.expertCount === 1 ? 'Pro' : 'Pros'}</span>
                   </div>
-                  <h3 className="font-extrabold text-base sm:text-lg text-[#001e00] group-hover:text-[#108a00] transition-colors">
+                  <h3 className="font-semibold text-base sm:text-lg text-ink group-hover:text-brand transition-colors">
                     {city.name}
                   </h3>
                 </div>
-                <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#108a00]">
+                <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-brand">
                   <span>View City Hub</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -227,9 +227,9 @@ export default async function StateLocationPage({ params }: StatePageProps) {
 
         {/* Zip Codes in State */}
         {zips.length > 0 && (
-          <section className="rounded-3xl bg-[#f7faf7] border border-[#e2ece2] p-8 space-y-4">
-            <h3 className="text-lg font-black text-[#001e00] flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-[#d97706]" />
+          <section className="rounded-3xl bg-canvas border border-line p-8 space-y-4">
+            <h3 className="text-lg font-semibold text-ink flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-accent" />
               <span>Served Zip Codes in {stateName}</span>
             </h3>
             <div className="flex flex-wrap gap-2 pt-2">
@@ -237,7 +237,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
                 <Link
                   key={z}
                   href={`/locations/zip/${z.toLowerCase()}`}
-                  className="px-3 py-1.5 rounded-xl bg-white border border-[#cbd5cb] hover:border-[#d97706] text-xs font-mono font-bold text-[#b45309] hover:bg-[#fffbeb] transition-colors shadow-2xs"
+                  className="px-3 py-1.5 rounded-xl bg-white border border-line-strong hover:border-accent text-xs font-mono font-bold text-accent hover:bg-accent-soft transition-colors shadow-2xs"
                 >
                   {z}
                 </Link>
@@ -248,9 +248,9 @@ export default async function StateLocationPage({ params }: StatePageProps) {
 
         {/* Specialists in this state */}
         <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-[#e4ebe4] pb-4 flex-wrap gap-2">
+          <div className="flex items-center justify-between border-b border-line pb-4 flex-wrap gap-2">
             <div>
-              <h2 className="text-2xl font-black text-[#001e00]">
+              <h2 className="text-2xl font-semibold text-ink">
                 All AI Specialists in {stateName} ({stateExperts.length})
               </h2>
               <p className="text-sm text-slate-600 mt-1">
@@ -269,7 +269,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
         {/* Other States Directory */}
         {otherStates.length > 0 && (
           <section className="pt-8 border-t border-slate-200 space-y-4">
-            <h3 className="text-xl font-extrabold text-[#001e00]">
+            <h3 className="text-xl font-semibold text-ink">
               Browse Other States &amp; Regions
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -277,7 +277,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
                 <Link
                   key={st.code}
                   href={`/locations/state/${st.slug}`}
-                  className="px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:border-[#2563eb] text-xs font-semibold text-slate-700 hover:text-[#2563eb] transition-colors"
+                  className="px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:border-brand text-xs font-semibold text-slate-700 hover:text-brand transition-colors"
                 >
                   {st.name} ({st.expertCount})
                 </Link>

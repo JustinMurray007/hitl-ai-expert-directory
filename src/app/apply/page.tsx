@@ -23,24 +23,24 @@ export default async function ApplyPage() {
       />
 
       <div className="text-center max-w-2xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e4f7e6] border border-[#b2e8b8] text-sm font-bold text-[#108a00] mb-3 shadow-xs">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-3 shadow-xs">
           <ShieldCheck className="w-4 h-4" />
           <span>Free to apply</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight">
           Apply to Be Listed
         </h1>
-        <p className="text-base sm:text-lg text-[#5e6d55] mt-3 leading-relaxed font-normal">
+        <p className="text-base sm:text-lg text-muted mt-3 leading-relaxed font-normal">
           Joining is free. Any new profile is free for the first 30 days in one category, no card required, and nothing is charged automatically. But, to retain your profile for over 30 days and for extra categories or featured locations on the website, please pay the affordable options below.
         </p>
       </div>
 
       <ApplyPricing categories={categories.map((category) => ({ slug: category.slug, name: category.name }))} />
 
-      <div id="application" className="scroll-mt-28 rounded-3xl p-4 sm:p-8 border border-[#e4ebe4] bg-white shadow-sm">
+      <div id="application" className="scroll-mt-28 rounded-3xl p-4 sm:p-8 border border-line bg-white shadow-sm">
         <div className="mb-4 px-2">
-          <h2 className="text-2xl font-black text-[#001e00]">Application</h2>
-          <p className="text-sm text-[#5e6d55] mt-1">
+          <h2 className="text-2xl font-semibold text-ink">Application</h2>
+          <p className="text-sm text-muted mt-1">
             Apply at no charge. Choose a paid plan only when you want to.
           </p>
         </div>
@@ -65,7 +65,7 @@ export default async function ApplyPage() {
             href="https://tally.so/r/Nq5NDp"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#108a00] font-bold hover:underline inline-flex items-center gap-1"
+            className="text-brand font-bold hover:underline inline-flex items-center gap-1"
           >
             Open application in new window <ExternalLink className="w-3 h-3" />
           </a>

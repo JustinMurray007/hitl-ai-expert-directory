@@ -12,7 +12,7 @@ export default function SuccessActions() {
       <input type="hidden" name="checkout_session_id" value={sessionId} />
       <button
         type="submit"
-        className="inline-flex items-center justify-center px-5 py-3 rounded-full bg-[#108a00] text-white font-bold"
+        className="inline-flex items-center justify-center px-5 py-3 rounded-full bg-brand text-white font-bold"
       >
         Manage billing
       </button>

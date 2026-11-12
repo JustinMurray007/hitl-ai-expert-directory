@@ -13,8 +13,8 @@ interface ExpertLocationLinksProps {
 
 export default function ExpertLocationLinks({
   expert,
-  className = 'flex items-center gap-1.5 text-sm text-[#5e6d55] font-medium flex-wrap',
-  iconClassName = 'w-4 h-4 text-[#889888] shrink-0',
+  className = 'flex items-center gap-1.5 text-sm text-muted font-medium flex-wrap',
+  iconClassName = 'w-4 h-4 text-muted shrink-0',
   showZipBadge = true,
   showCountry = false,
 }: ExpertLocationLinksProps) {
@@ -32,17 +32,17 @@ export default function ExpertLocationLinks({
       <MapPin className={iconClassName} />
       <Link
         href={`/locations/city/${citySlug}`}
-        className="hover:text-[#108a00] hover:underline font-semibold text-[#1e2a1e] transition-colors"
+        className="hover:text-brand hover:underline font-semibold text-ink transition-colors"
         title={`Find AI consultants and companies near ${expert.city}`}
       >
         {expert.city}
       </Link>
       {stateCode && (
         <>
-          <span className="text-[#a0aba0]">,</span>
+          <span className="text-muted">,</span>
           <Link
             href={`/locations/state/${stateSlug}`}
-            className="hover:text-[#108a00] hover:underline text-[#4a584a] transition-colors font-semibold"
+            className="hover:text-brand hover:underline text-muted-strong transition-colors font-semibold"
             title={`Find AI consultants and companies in ${stateFullName || stateCode}`}
           >
             {stateCode}
@@ -51,14 +51,14 @@ export default function ExpertLocationLinks({
       )}
       {showCountry && expert.country && (
         <>
-          <span className="text-[#a0aba0]">,</span>
-          <span className="text-[#5e6d55]">{expert.country}</span>
+          <span className="text-muted">,</span>
+          <span className="text-muted">{expert.country}</span>
         </>
       )}
       {showZipBadge && zip && (
         <Link
           href={`/locations/zip/${zipSlug}`}
-          className="text-xs font-mono font-bold text-[#108a00] bg-[#e4f7e6] hover:bg-[#d5ebd7] px-2 py-0.5 rounded-md border border-[#b2e8b8] transition-colors ml-1 shadow-2xs"
+          className="text-xs font-mono font-bold text-brand bg-brand-soft hover:bg-brand-tint px-2 py-0.5 rounded-md border border-brand-line transition-colors ml-1 shadow-2xs"
           title={`Find AI consultants and companies near zip code ${zip}`}
         >
           {zip}

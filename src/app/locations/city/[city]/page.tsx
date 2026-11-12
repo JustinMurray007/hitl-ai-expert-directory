@@ -138,7 +138,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
   };
 
   return (
-    <div className="bg-[#fcfdfc] min-h-screen py-10">
+    <div className="bg-canvas min-h-screen py-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -151,35 +151,35 @@ export default async function CityLocationPage({ params }: CityPageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-2 text-xs font-semibold text-slate-500 overflow-x-auto whitespace-nowrap">
-          <Link href="/" className="hover:text-[#108a00] transition-colors">
+          <Link href="/" className="hover:text-brand transition-colors">
             Home
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <Link href="/locations" className="hover:text-[#108a00] transition-colors">
+          <Link href="/locations" className="hover:text-brand transition-colors">
             Locations Near You
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
           <Link
             href={`/locations/state/${stateSlug}`}
-            className="hover:text-[#108a00] transition-colors"
+            className="hover:text-brand transition-colors"
           >
             {stateName}
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <span className="text-[#001e00] font-bold">{cityName}</span>
+          <span className="text-ink font-bold">{cityName}</span>
         </nav>
 
         {/* Hero Banner */}
-        <div className="rounded-3xl bg-gradient-to-br from-[#eef7ee] via-white to-[#f4f8ff] border border-[#d6e5d6] p-8 sm:p-12 shadow-xs space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#b2e8b8] text-xs sm:text-sm font-bold text-[#108a00] shadow-2xs">
-            <MapPin className="w-4 h-4 text-[#108a00]" />
+        <div className="rounded-3xl bg-gradient-to-br from-brand-soft via-white to-brand-soft border border-line p-8 sm:p-12 shadow-xs space-y-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-brand-line text-xs sm:text-sm font-bold text-brand shadow-2xs">
+            <MapPin className="w-4 h-4 text-brand" />
             <span>
               {cityName}, {stateCode} • Local AI Directory
             </span>
           </div>
 
           <div className="max-w-3xl space-y-3">
-            <h1 className="text-3xl sm:text-5xl font-black text-[#001e00] tracking-tight leading-[1.15]">
+            <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-[1.15]">
               Find An Ai Consultant &amp; Company Near {cityName}
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
@@ -188,17 +188,17 @@ export default async function CityLocationPage({ params }: CityPageProps) {
           </div>
 
           {/* Quick Metrics Bar */}
-          <div className="pt-4 border-t border-[#e2ece2] flex flex-wrap items-center gap-6 text-xs sm:text-sm font-bold text-slate-700">
+          <div className="pt-4 border-t border-line flex flex-wrap items-center gap-6 text-xs sm:text-sm font-bold text-slate-700">
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#108a00]" />
+              <CheckCircle2 className="w-4 h-4 text-brand" />
               {cityExperts.length} {cityExperts.length === 1 ? 'Specialist' : 'Specialists'} in {cityName}
             </span>
             <span className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-[#2563eb]" />
+              <ShieldCheck className="w-4 h-4 text-brand" />
               Human-in-the-Loop Safeguards Required
             </span>
             <span className="flex items-center gap-1.5">
-              <Sparkles className="w-4 h-4 text-[#d97706]" />
+              <Sparkles className="w-4 h-4 text-accent" />
               References we contact
             </span>
           </div>
@@ -213,7 +213,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
                 <Link
                   key={z}
                   href={`/locations/zip/${z.toLowerCase()}`}
-                  className="px-2.5 py-1 rounded-md bg-white border border-[#cbd5cb] hover:border-[#108a00] text-xs font-mono font-bold text-[#108a00] hover:bg-[#edf7ee] transition-colors"
+                  className="px-2.5 py-1 rounded-md bg-white border border-line-strong hover:border-brand text-xs font-mono font-bold text-brand hover:bg-brand-soft transition-colors"
                 >
                   {z}
                 </Link>
@@ -224,9 +224,9 @@ export default async function CityLocationPage({ params }: CityPageProps) {
 
         {/* Specialists Grid */}
         <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-[#e4ebe4] pb-4 flex-wrap gap-2">
+          <div className="flex items-center justify-between border-b border-line pb-4 flex-wrap gap-2">
             <div>
-              <h2 className="text-2xl font-black text-[#001e00]">
+              <h2 className="text-2xl font-semibold text-ink">
                 AI Specialists in {cityName}
               </h2>
               <p className="text-sm text-slate-600 mt-1">
@@ -244,8 +244,8 @@ export default async function CityLocationPage({ params }: CityPageProps) {
 
         {/* Sibling Cities in Same State */}
         {siblingCities.length > 0 && (
-          <section className="rounded-3xl bg-[#f7faf7] border border-[#e2ece2] p-8 space-y-4">
-            <h3 className="text-xl font-extrabold text-[#001e00]">
+          <section className="rounded-3xl bg-canvas border border-line p-8 space-y-4">
+            <h3 className="text-xl font-semibold text-ink">
               Other Cities Near You in {stateName}
             </h3>
             <p className="text-sm text-slate-600">
@@ -256,7 +256,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
                 <Link
                   key={sibling.slug}
                   href={`/locations/city/${sibling.slug}`}
-                  className="p-3 rounded-xl bg-white border border-[#dce5dc] hover:border-[#108a00] hover:shadow-xs text-xs font-bold text-[#001e00] hover:text-[#108a00] flex items-center justify-between transition-all"
+                  className="p-3 rounded-xl bg-white border border-line hover:border-brand hover:shadow-xs text-xs font-bold text-ink hover:text-brand flex items-center justify-between transition-all"
                 >
                   <span>{sibling.name}</span>
                   <span className="text-[11px] font-mono text-slate-400">
@@ -269,18 +269,18 @@ export default async function CityLocationPage({ params }: CityPageProps) {
         )}
 
         {/* Local AI Buyer FAQ & Guidance */}
-        <section className="rounded-3xl bg-white border border-[#e4ebe4] p-8 sm:p-10 shadow-xs space-y-6">
-          <div className="flex items-center gap-2.5 text-[#108a00] font-bold text-sm uppercase tracking-wider font-mono">
+        <section className="rounded-3xl bg-white border border-line p-8 sm:p-10 shadow-xs space-y-6">
+          <div className="flex items-center gap-2.5 text-brand font-bold text-sm uppercase tracking-wider font-mono">
             <HelpCircle className="w-4 h-4" />
             <span>Local Implementation Guide</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#001e00]">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-ink">
             Hiring an AI Consultant Near {cityName}, {stateCode}
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm sm:text-base text-slate-700 leading-relaxed">
             <div className="space-y-2">
-              <h4 className="font-extrabold text-[#001e00] text-base sm:text-lg">
+              <h4 className="font-semibold text-ink text-base sm:text-lg">
                 Why hire a local AI consultant near {cityName}?
               </h4>
               <p className="text-slate-600">
@@ -289,7 +289,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
             </div>
 
             <div className="space-y-2">
-              <h4 className="font-extrabold text-[#001e00] text-base sm:text-lg">
+              <h4 className="font-semibold text-ink text-base sm:text-lg">
                 What does &quot;Human-in-the-Loop&quot; mean for your systems?
               </h4>
               <p className="text-slate-600">
@@ -300,7 +300,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
 
           <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h4 className="font-extrabold text-base text-[#001e00]">
+              <h4 className="font-semibold text-base text-ink">
                 Need a custom recommendation in {cityName}?
               </h4>
               <p className="text-xs sm:text-sm text-slate-500">
@@ -309,7 +309,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
             </div>
             <Link
               href={`/match?location=${encodeURIComponent(`${cityName}, ${stateCode}`)}`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-sm shadow-xs transition-all shrink-0"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-sm shadow-xs transition-all shrink-0"
             >
               Request {cityName} Intro <ArrowRight className="w-4 h-4" />
             </Link>

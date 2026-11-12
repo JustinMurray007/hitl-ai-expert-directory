@@ -71,11 +71,11 @@ export default function ExpertsDirectoryClient({
       />
 
       {/* Results Header */}
-      <div className="flex items-center justify-between mb-6 text-sm text-[#5e6d55]">
+      <div className="flex items-center justify-between mb-6 text-sm text-muted">
         <div>
-          Showing <span className="font-bold text-[#001e00]">{filteredExperts.length}</span> AI expert{filteredExperts.length === 1 ? '' : 's'}
+          Showing <span className="font-bold text-ink">{filteredExperts.length}</span> AI expert{filteredExperts.length === 1 ? '' : 's'}
         </div>
-        <div className="text-[#5e6d55] hidden sm:block font-medium">
+        <div className="text-muted hidden sm:block font-medium">
           Ranked by placement
         </div>
       </div>
@@ -88,15 +88,15 @@ export default function ExpertsDirectoryClient({
           ))}
         </div>
       ) : (
-        <div className="rounded-3xl p-12 text-center border border-[#e4ebe4] bg-white max-w-xl mx-auto my-12 shadow-xs">
-          <SearchX className="w-14 h-14 text-[#889888] mx-auto mb-4" />
-          <h3 className="text-xl font-black text-[#001e00] mb-2">No AI Experts Found</h3>
-          <p className="text-base text-[#475569] mb-6 leading-relaxed">
+        <div className="rounded-3xl p-12 text-center border border-line bg-white max-w-xl mx-auto my-12 shadow-xs">
+          <SearchX className="w-14 h-14 text-muted mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-ink mb-2">No AI Experts Found</h3>
+          <p className="text-base text-muted-strong mb-6 leading-relaxed">
             No experts currently match your exact filter combination. Try clearing some filters or search keywords.
           </p>
           <Link
             href="/experts"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#108a00] text-white text-sm font-bold shadow-xs hover:bg-[#14a800] transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-brand text-white text-sm font-bold shadow-xs hover:bg-brand-hover transition-colors"
           >
             Reset All Filters
           </Link>

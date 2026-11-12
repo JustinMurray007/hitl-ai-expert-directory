@@ -140,10 +140,10 @@ export default function BusinessRecommender({
       {/* Step 1: Select Industry */}
       <div>
         <div className="flex items-center gap-2.5 mb-4">
-          <span className="w-7 h-7 rounded-full bg-[#2563eb] text-white text-sm font-black flex items-center justify-center font-mono shadow-xs">
+          <span className="w-7 h-7 rounded-full bg-brand text-white text-sm font-semibold flex items-center justify-center font-mono shadow-xs">
             1
           </span>
-          <h2 className="text-xl sm:text-2xl font-black text-[#001e00]">
+          <h2 className="text-xl sm:text-2xl font-semibold text-ink">
             Select Your Business Type
           </h2>
         </div>
@@ -158,21 +158,21 @@ export default function BusinessRecommender({
                 onClick={() => handleSelectIndustry(ind)}
                 className={`p-4 sm:p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#edf7ee] border-2 border-[#108a00] shadow-sm ring-1 ring-[#108a00]/30'
-                    : 'bg-white border-[#e4ebe4] hover:border-[#108a00]/50 hover:shadow-md shadow-xs'
+                    ? 'bg-brand-soft border-2 border-brand shadow-sm ring-1 ring-brand/30'
+                    : 'bg-white border-line hover:border-brand/50 hover:shadow-md shadow-xs'
                 }`}
               >
                 <div>
                   <div
                     className={`w-11 h-11 rounded-xl flex items-center justify-center mb-3.5 ${
                       isSelected
-                        ? 'bg-[#108a00] text-white'
-                        : 'bg-[#e4f7e6] text-[#108a00]'
+                        ? 'bg-brand text-white'
+                        : 'bg-brand-soft text-brand'
                     }`}
                   >
                     <Icon className="w-5 h-5" />
                   </div>
-                  <h3 className="font-extrabold text-sm sm:text-base text-[#001e00] leading-snug">
+                  <h3 className="font-semibold text-sm sm:text-base text-ink leading-snug">
                     {ind.industryName}
                   </h3>
                   <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
@@ -180,7 +180,7 @@ export default function BusinessRecommender({
                   </p>
                 </div>
                 <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
-                  <span className={isSelected ? 'text-[#108a00]' : 'text-slate-400'}>
+                  <span className={isSelected ? 'text-brand' : 'text-slate-400'}>
                     {isSelected ? '● Active Selection' : 'Click to Select'}
                   </span>
                 </div>
@@ -197,12 +197,12 @@ export default function BusinessRecommender({
               onClick={() => {
                 document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white border-2 border-[#108a00] text-[#001e00] hover:bg-[#edf7ee] shadow-sm transition-all cursor-pointer animate-gentle-bounce group"
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white border-2 border-brand text-ink hover:bg-brand-soft shadow-sm transition-all cursor-pointer animate-gentle-bounce group"
             >
-              <span className="text-sm font-bold text-[#001e00] group-hover:text-[#108a00] transition-colors">
+              <span className="text-sm font-bold text-ink group-hover:text-brand transition-colors">
                 Business Selected — Scroll Down to Step 2
               </span>
-              <div className="w-6 h-6 rounded-full bg-[#108a00] text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+              <div className="w-6 h-6 rounded-full bg-brand text-white flex items-center justify-center group-hover:scale-110 transition-transform">
                 <ArrowDown className="w-3.5 h-3.5 text-white" />
               </div>
             </button>
@@ -213,22 +213,22 @@ export default function BusinessRecommender({
       {/* Step 2: Select Operational Pain Point */}
       <div
         id="step-2"
-        className="scroll-mt-24 rounded-3xl bg-[#f2f7f2] border border-[#d3e3d5] p-6 sm:p-8 shadow-xs space-y-6"
+        className="scroll-mt-24 rounded-3xl bg-canvas-muted border border-line p-6 sm:p-8 shadow-xs space-y-6"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <span className="w-7 h-7 rounded-full bg-[#2563eb] text-white text-sm font-black flex items-center justify-center font-mono shadow-xs">
+            <span className="w-7 h-7 rounded-full bg-brand text-white text-sm font-semibold flex items-center justify-center font-mono shadow-xs">
               2
             </span>
-            <h2 className="text-xl sm:text-2xl font-black text-[#001e00]">
+            <h2 className="text-xl sm:text-2xl font-semibold text-ink">
               What is Your Biggest Operational Bottleneck?
             </h2>
           </div>
-          <span className="inline-flex items-center gap-1.5 self-start sm:self-auto text-xs font-bold text-[#108a00] bg-white px-3 py-1.5 rounded-full border border-[#c3dec6] shadow-2xs">
-            Industry: <strong className="font-black text-[#001e00]">{selectedIndustry.industryName}</strong>
+          <span className="inline-flex items-center gap-1.5 self-start sm:self-auto text-xs font-bold text-brand bg-white px-3 py-1.5 rounded-full border border-line-strong shadow-2xs">
+            Industry: <strong className="font-semibold text-ink">{selectedIndustry.industryName}</strong>
           </span>
         </div>
-        <p className="text-sm text-[#526352] font-medium">
+        <p className="text-sm text-muted font-medium">
           Choose the friction point you want to solve. We will generate the recommended architecture, required staff review checkpoints, and specialists.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -241,36 +241,36 @@ export default function BusinessRecommender({
                 onClick={() => handleSelectBottleneck(b.id)}
                 className={`p-5 sm:p-6 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-white border-2 border-[#108a00] shadow-md ring-2 ring-[#108a00]/20'
-                    : 'bg-white/95 border-[#d0ded2] hover:bg-white hover:border-[#108a00]/50 hover:shadow-md shadow-xs'
+                    ? 'bg-white border-2 border-brand shadow-md ring-2 ring-brand/20'
+                    : 'bg-white/95 border-line hover:bg-white hover:border-brand/50 hover:shadow-md shadow-xs'
                 }`}
               >
                 <div>
                   <div className="flex items-start justify-between gap-3 mb-2.5">
                     {b.badge && (
-                      <span className="text-xs uppercase font-mono font-bold text-[#108a00] bg-[#e4f7e6] px-2.5 py-0.5 rounded-full border border-[#b2e8b8]">
+                      <span className="text-xs uppercase font-mono font-bold text-brand bg-brand-soft px-2.5 py-0.5 rounded-full border border-brand-line">
                         {b.badge}
                       </span>
                     )}
                     <div
                       className={`w-6 h-6 rounded-full border flex items-center justify-center shrink-0 ml-auto ${
                         isSelected
-                          ? 'border-[#108a00] bg-[#108a00] text-white'
-                          : 'border-[#cbd5cb] bg-white'
+                          ? 'border-brand bg-brand text-white'
+                          : 'border-line-strong bg-white'
                       }`}
                     >
                       {isSelected && <CheckCircle2 className="w-4 h-4" />}
                     </div>
                   </div>
-                  <h3 className="font-extrabold text-base sm:text-lg text-[#001e00]">
+                  <h3 className="font-semibold text-base sm:text-lg text-ink">
                     {b.label}
                   </h3>
-                  <p className="text-sm text-[#475569] mt-2 leading-relaxed font-normal">
+                  <p className="text-sm text-muted-strong mt-2 leading-relaxed font-normal">
                     {b.description}
                   </p>
                 </div>
                 <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
-                  <span className={isSelected ? 'text-[#108a00]' : 'text-slate-400'}>
+                  <span className={isSelected ? 'text-brand' : 'text-slate-400'}>
                     {isSelected ? '● Selected Solution' : 'Click to Select'}
                   </span>
                 </div>
@@ -284,26 +284,26 @@ export default function BusinessRecommender({
       {workflow && (
         <div id="step-3" className="scroll-mt-24 space-y-4">
           <div className="flex items-center gap-2.5">
-            <span className="w-7 h-7 rounded-full bg-[#2563eb] text-white text-sm font-black flex items-center justify-center font-mono shadow-xs">
+            <span className="w-7 h-7 rounded-full bg-brand text-white text-sm font-semibold flex items-center justify-center font-mono shadow-xs">
               3
             </span>
-            <h2 className="text-xl sm:text-2xl font-black text-[#001e00]">
+            <h2 className="text-xl sm:text-2xl font-semibold text-ink">
               Your Tailored AI Blueprint &amp; Specialists
             </h2>
           </div>
 
-          <div className="rounded-3xl p-6 sm:p-10 border border-[#dbeafe] bg-gradient-to-b from-[#f8faff] via-white to-[#f2faf3] shadow-sm space-y-8">
+          <div className="rounded-3xl p-6 sm:p-10 border border-brand-tint bg-gradient-to-b from-brand-soft via-white to-brand-soft shadow-sm space-y-8">
             {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 border-b border-[#e2e8f0] pb-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 border-b border-line pb-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#eff6ff] border border-[#bfdbfe] text-sm font-bold text-[#1d4ed8] mb-3 shadow-xs">
-                <Sparkles className="w-4 h-4 text-[#2563eb]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-3 shadow-xs">
+                <Sparkles className="w-4 h-4 text-brand" />
                 <span>Recommended AI Blueprint • {selectedIndustry.industryName}</span>
               </div>
-              <h3 className="text-2xl sm:text-4xl font-black text-[#001e00] tracking-tight">
+              <h3 className="text-2xl sm:text-4xl font-semibold text-ink tracking-tight">
                 {workflow.title}
               </h3>
-              <p className="text-base sm:text-lg text-[#475569] mt-2 font-normal leading-relaxed">
+              <p className="text-base sm:text-lg text-muted-strong mt-2 font-normal leading-relaxed">
                 {workflow.problemSolved}
               </p>
             </div>
@@ -312,7 +312,7 @@ export default function BusinessRecommender({
               href={`/match?category=${workflow.categorySlug}&need=${encodeURIComponent(
                 `Interested in implementing ${workflow.title} for ${selectedIndustry.industryName}`
               )}`}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#108a00] hover:bg-[#14a800] text-white font-bold text-sm sm:text-base shadow-sm transition-all shrink-0 hover:scale-[1.02]"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-sm sm:text-base shadow-sm transition-all shrink-0 hover:scale-[1.02]"
             >
               <Sparkles className="w-4 h-4" />
               Request Implementation Intro
@@ -322,59 +322,59 @@ export default function BusinessRecommender({
           {/* Blueprint Details Grid: Distinct Three-Color Pillar Separation */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* 1. Automated Architecture - Cobalt Blue */}
-            <div className="rounded-2xl bg-[#eff6ff] p-6 border-2 border-[#93c5fd] shadow-xs flex flex-col justify-between">
+            <div className="rounded-2xl bg-brand-soft p-6 border-2 border-brand-mid shadow-xs flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-sm font-extrabold text-[#1d4ed8] uppercase tracking-wider flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-[#2563eb]" />
+                  <h4 className="text-sm font-semibold text-brand uppercase tracking-wider flex items-center gap-2">
+                    <Layers className="w-4 h-4 text-brand" />
                     <span>System Architecture</span>
                   </h4>
-                  <span className="text-sm font-bold text-[#1e40af] bg-white px-3 py-1 rounded-full border border-[#bfdbfe]">
+                  <span className="text-sm font-bold text-brand-hover bg-white px-3 py-1 rounded-full border border-brand-line">
                     Automated
                   </span>
                 </div>
-                <p className="text-base text-[#1e3a8a] leading-relaxed font-normal">
+                <p className="text-base text-brand-ink leading-relaxed font-normal">
                   {workflow.systemArchitecture}
                 </p>
               </div>
             </div>
 
             {/* 2. Human Safety Check - Signature Emerald Green */}
-            <div className="rounded-2xl bg-[#f2faf3] p-6 border-2 border-[#108a00] shadow-xs flex flex-col justify-between">
+            <div className="rounded-2xl bg-brand-soft p-6 border-2 border-brand shadow-xs flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-sm font-extrabold text-[#108a00] uppercase tracking-wider flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[#108a00]" />
+                  <h4 className="text-sm font-semibold text-brand uppercase tracking-wider flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-brand" />
                     <span>Human Safety Checkpoint</span>
                   </h4>
-                  <span className="text-sm font-bold text-[#0f3d17] bg-white px-3 py-1 rounded-full border border-[#b2e8b8]">
+                  <span className="text-sm font-bold text-brand-ink bg-white px-3 py-1 rounded-full border border-brand-line">
                     Staff Review
                   </span>
                 </div>
-                <p className="text-base text-[#0f3d17] leading-relaxed font-bold">
+                <p className="text-base text-brand-ink leading-relaxed font-bold">
                   {workflow.hitlSafeguard}
                 </p>
               </div>
             </div>
 
             {/* 3. Expected Business Impact - Warm Honey Amber */}
-            <div className="rounded-2xl bg-[#fffbeb] p-6 border-2 border-[#fde68a] shadow-xs flex flex-col justify-between">
+            <div className="rounded-2xl bg-accent-soft p-6 border-2 border-accent-line shadow-xs flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-sm font-extrabold text-[#b45309] uppercase tracking-wider flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4 text-[#d97706]" />
+                  <h4 className="text-sm font-semibold text-accent uppercase tracking-wider flex items-center gap-2">
+                    <TrendingUp className="w-4 h-4 text-accent" />
                     <span>Expected Business Impact</span>
                   </h4>
-                  <span className="text-sm font-bold text-[#92400e] bg-white px-3 py-1 rounded-full border border-[#fde68a]">
+                  <span className="text-sm font-bold text-accent-ink bg-white px-3 py-1 rounded-full border border-accent-line">
                     Expected impact
                   </span>
                 </div>
-                <p className="text-base text-[#78350f] leading-relaxed font-extrabold">
+                <p className="text-base text-accent-deep leading-relaxed font-semibold">
                   {workflow.typicalRoi}
                 </p>
               </div>
-              <div className="mt-4 pt-4 border-t border-[#fef3c7]">
-                <span className="text-sm font-bold uppercase tracking-wider text-[#78350f] block mb-2.5">Recommended Tools:</span>
+              <div className="mt-4 pt-4 border-t border-accent-tint">
+                <span className="text-sm font-bold uppercase tracking-wider text-accent-deep block mb-2.5">Recommended Tools:</span>
                 <div className="flex flex-wrap gap-1.5">
                   {workflow.recommendedStack.map((tool) => (
                     <ToolBadge key={tool} name={tool} />
@@ -385,19 +385,19 @@ export default function BusinessRecommender({
           </div>
 
           {/* Matched Experts / Companies Who Can Implement */}
-          <div className="space-y-5 pt-6 border-t border-[#cde8cf]">
+          <div className="space-y-5 pt-6 border-t border-brand-tint">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <h4 className="text-xl sm:text-2xl font-black text-[#001e00]">
+                <h4 className="text-xl sm:text-2xl font-semibold text-ink">
                   Specialists Ready to Build This for You
                 </h4>
-                <p className="text-sm sm:text-base text-[#475569] font-medium mt-0.5">
+                <p className="text-sm sm:text-base text-muted-strong font-medium mt-0.5">
                   These specialists can take a match for this kind of work:
                 </p>
               </div>
               <Link
                 href={`/experts?category=${workflow.categorySlug}`}
-                className="text-sm font-bold text-[#108a00] hover:text-[#14a800] inline-flex items-center gap-1.5 shrink-0"
+                className="text-sm font-bold text-brand hover:text-brand-hover inline-flex items-center gap-1.5 shrink-0"
               >
                 View Category Hub <ArrowRight className="w-4 h-4" />
               </Link>
@@ -407,11 +407,11 @@ export default function BusinessRecommender({
               {fallbackExperts.map((exp) => (
                 <div
                   key={exp.id}
-                  className="rounded-2xl p-6 border border-[#e4ebe4] bg-white shadow-xs flex flex-col justify-between"
+                  className="rounded-2xl p-6 border border-line bg-white shadow-xs flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-start gap-4 mb-4">
-                      <div className="w-16 h-16 rounded-xl overflow-hidden bg-[#f4f6f4] border border-[#e4ebe4] shrink-0">
+                      <div className="w-16 h-16 rounded-xl overflow-hidden bg-canvas-muted border border-line shrink-0">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={exp.avatar_url}
@@ -421,17 +421,17 @@ export default function BusinessRecommender({
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <h5 className="font-extrabold text-base sm:text-lg text-[#001e00] truncate">
-                            <Link href={`/experts/${exp.slug}`} className="hover:text-[#108a00]">
+                          <h5 className="font-semibold text-base sm:text-lg text-ink truncate">
+                            <Link href={`/experts/${exp.slug}`} className="hover:text-brand">
                               {exp.full_name}
                             </Link>
                           </h5>
                         </div>
-                        <p className="text-sm text-[#108a00] font-bold truncate mt-0.5">
+                        <p className="text-sm text-brand font-bold truncate mt-0.5">
                           {exp.professional_title}
                         </p>
                         {exp.agency_name && (
-                          <p className="text-sm text-[#5e6d55] flex items-center gap-1.5 mt-1 font-medium">
+                          <p className="text-sm text-muted flex items-center gap-1.5 mt-1 font-medium">
                             <Building className="w-3.5 h-3.5" />
                             {exp.agency_name}
                           </p>
@@ -439,7 +439,7 @@ export default function BusinessRecommender({
                       </div>
                     </div>
 
-                    <p className="text-base text-[#223022] line-clamp-2 leading-relaxed mb-4 font-normal">
+                    <p className="text-base text-ink-soft line-clamp-2 leading-relaxed mb-4 font-normal">
                       {exp.tagline}
                     </p>
 
@@ -448,14 +448,14 @@ export default function BusinessRecommender({
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-[#f0f3f0] flex items-center justify-between">
-                    <span className="text-sm font-bold text-[#108a00] bg-[#e4f7e6] px-3 py-1 rounded-full border border-[#b2e8b8]">
+                  <div className="pt-4 border-t border-line-soft flex items-center justify-between">
+                    <span className="text-sm font-bold text-brand bg-brand-soft px-3 py-1 rounded-full border border-brand-line">
                       Starting: {exp.starting_budget.replace('_', ' ')}
                     </span>
                     <div className="flex items-center gap-2.5">
                       <Link
                         href={`/experts/${exp.slug}`}
-                        className="text-sm font-bold text-[#001e00] hover:text-[#108a00] px-4 py-2 rounded-full border border-[#d5ded5] hover:border-[#108a00] transition-colors"
+                        className="text-sm font-bold text-ink hover:text-brand px-4 py-2 rounded-full border border-line hover:border-brand transition-colors"
                       >
                         View Profile
                       </Link>
@@ -464,7 +464,7 @@ export default function BusinessRecommender({
                           href={exp.booking_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-sm font-bold text-white bg-[#108a00] hover:bg-[#14a800] px-4 py-2 rounded-full shadow-xs transition-colors"
+                          className="inline-flex items-center gap-1.5 text-sm font-bold text-white bg-brand hover:bg-brand-hover px-4 py-2 rounded-full shadow-xs transition-colors"
                         >
                           <Calendar className="w-4 h-4" />
                           Book Call
@@ -474,7 +474,7 @@ export default function BusinessRecommender({
                           href={`/match?expert=${encodeURIComponent(exp.full_name)}&category=${encodeURIComponent(
                             workflow?.categorySlug || ''
                           )}&budget=${encodeURIComponent(exp.starting_budget)}`}
-                          className="inline-flex items-center gap-1.5 text-sm font-bold text-white bg-[#108a00] hover:bg-[#14a800] px-4 py-2 rounded-full shadow-xs transition-colors"
+                          className="inline-flex items-center gap-1.5 text-sm font-bold text-white bg-brand hover:bg-brand-hover px-4 py-2 rounded-full shadow-xs transition-colors"
                         >
                           Request Match
                         </Link>

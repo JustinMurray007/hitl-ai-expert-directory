@@ -1,14 +1,20 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import { Fraunces, Source_Sans_3 } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-const jakarta = Plus_Jakarta_Sans({
+const body = Source_Sans_3({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-sans',
-  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-body',
+});
+
+const display = Fraunces({
+  subsets: ['latin'],
+  display: 'swap',
+  axes: ['opsz', 'SOFT'],
+  variable: '--font-display-face',
 });
 
 export const metadata: Metadata = {
@@ -47,8 +53,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${jakarta.variable} h-full`}>
-      <body className="min-h-full flex flex-col bg-[#f9f9fb] text-[#001e00] antialiased selection:bg-[#c1eec6] selection:text-[#001e00]">
+    <html lang="en" className={`${body.variable} ${display.variable} h-full`}>
+      <body className="min-h-full flex flex-col bg-canvas text-ink antialiased selection:bg-brand-tint selection:text-ink">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
