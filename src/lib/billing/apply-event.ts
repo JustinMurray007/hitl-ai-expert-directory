@@ -1,5 +1,6 @@
 import { listingCategorySync, parseCategorySlugList } from './category-cap';
-import { categorySlugMetadata, effectForEvent, withExpandedSubscriptions, type StripeEventLike } from './events';
+import { categorySlugMetadata, effectForEvent, withExpandedSubscriptions, type BillingEffect, type StripeEventLike } from './events';
+import { singleApplicationExpert } from './link-by-email';
 import type { BillingStore } from './store';
 
 export type StripeSideEffects = {
@@ -20,6 +21,45 @@ export type ApplyStripeEventResult = {
    */
   publicListingChanged?: boolean;
 };
+
+function sessionId(event: StripeEventLike): string | null {
+  const id = event.data.object.id;
+  return typeof id === 'string' && id.length > 0 ? id : null;
+}
+
+/**
+ * Completed checkout with no expert_id. Match applications.contact_email to
+ * exactly one expert. Any other result is logged and left unlinked.
+ */
+async function linkUnmatchedCheckout(
+  event: StripeEventLike,
+  effect: Extract<BillingEffect, { action: 'apply' }>,
+  store: BillingStore,
+): Promise<string | null> {
+  const email = effect.customerEmail ?? null;
+  const ids = email ? await store.findExpertIdsByApplicationEmail(email) : [];
+  const match = email ? singleApplicationExpert(ids) : { status: 'none' as const, count: 0 as const };
+  if (match.status === 'one') {
+    console.info('stripe_checkout_linked_by_email', {
+      eventId: event.id,
+      checkoutSessionId: sessionId(event),
+      customerId: effect.customerId,
+      email,
+      expertId: match.expertId,
+    });
+    return match.expertId;
+  }
+  console.error('stripe_checkout_unlinked', {
+    eventId: event.id,
+    checkoutSessionId: sessionId(event),
+    customerId: effect.customerId,
+    email,
+    reason: match.status === 'ambiguous' ? 'ambiguous_email_match' : (email ? 'no_email_match' : 'missing_email'),
+    matchCount: match.count,
+    ...(match.status === 'ambiguous' ? { expertIds: match.expertIds } : {}),
+  });
+  return null;
+}
 
 function wrotePublicListing(patch: { listing_plan?: unknown; profile_mode?: unknown }, result: 'updated' | 'missing'): boolean {
   return result === 'updated' && (patch.listing_plan !== undefined || patch.profile_mode !== undefined);
@@ -52,6 +92,9 @@ export async function applyStripeEvent(
   let expertId = effect.expertId;
   if (!expertId && effect.customerId) {
     expertId = await store.findExpertIdByCustomer(effect.customerId);
+  }
+  if (!expertId && effect.customerEmail !== undefined) {
+    expertId = await linkUnmatchedCheckout(event, effect, store);
   }
 
   const chosenSlugs = parseCategorySlugList(categorySlugMetadata(hydrated));
@@ -95,8 +138,11 @@ export async function applyStripeEvent(
     await store.insertLedger({ ...effect.referral, stripeEventId: event.id, kind: 'credit' });
   }
 
-  if (effect.customerMetadata && effect.customerId && sideEffects.updateCustomerMetadata) {
-    await sideEffects.updateCustomerMetadata(effect.customerId, effect.customerMetadata);
+  const customerMetadata = !effect.expertId && expertId
+    ? { ...(effect.customerMetadata ?? {}), expert_id: expertId }
+    : effect.customerMetadata;
+  if (customerMetadata && effect.customerId && sideEffects.updateCustomerMetadata) {
+    await sideEffects.updateCustomerMetadata(effect.customerId, customerMetadata);
   }
 
   const publicListingChanged = (touchesListing || categoriesChanged)

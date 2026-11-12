@@ -19,6 +19,12 @@ export interface BillingStore {
   /** True when this expert is included by getExperts() and rendered in the static export. */
   directoryVisible(expertId: string): Promise<boolean>;
   findExpertIdByCustomer(customerId: string): Promise<string | null>;
+  /**
+   * Expert ids whose applications.contact_email matches this address.
+   * The memory store reads `contact_email` on the expert record, which stands
+   * in for that applications column.
+   */
+  findExpertIdsByApplicationEmail(email: string): Promise<string[]>;
   insertLedger(entry: LedgerEntry): Promise<void>;
   reverseLedger(invoiceId: string, stripeEventId: string): Promise<void>;
   savePending(record: {
@@ -38,6 +44,8 @@ export type BillingExpertRecord = BillingPatch & {
   tools?: readonly unknown[] | null;
   /** Chosen category slugs in selection order. Absent means this row has no stored choice yet. */
   category_slugs?: string[] | null;
+  /** Memory-store stand-in for applications.contact_email. Not a billing patch. */
+  contact_email?: string | null;
 };
 
 export function memoryBillingStore(): BillingStore & {
@@ -95,6 +103,16 @@ export function memoryBillingStore(): BillingStore & {
         if (expert.stripe_customer_id === customerId) return expert.id;
       }
       return null;
+    },
+    async findExpertIdsByApplicationEmail(email) {
+      const needle = email.trim().toLowerCase();
+      if (!needle) return [];
+      const ids: string[] = [];
+      for (const expert of experts.values()) {
+        const stored = expert.contact_email?.trim().toLowerCase() ?? '';
+        if (stored && stored === needle) ids.push(expert.id);
+      }
+      return ids;
     },
     async insertLedger(entry) {
       if (ledger.some((row) => row.stripeEventId === entry.stripeEventId && row.kind === entry.kind)) return;

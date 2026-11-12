@@ -3,6 +3,13 @@ import { createHmac } from 'node:crypto';
 import { describe, test } from 'node:test';
 import { freePeriodEndsAt } from '../listing';
 import { handleTallyWebhook } from './handle';
+import {
+  handleApplicationLookup,
+  resolveOwnSubmission,
+  tallyIdFromSearch,
+  thanksLookupResult,
+  type SubmissionLink,
+} from './lookup';
 import { mapTallySubmission, matchCatalog } from './map';
 import { memoryTallyStore } from './memory-store';
 import { tallySignature } from './signature';
@@ -571,3 +578,92 @@ function createFakeDb(options?: { failSortOrderOnce?: boolean; missingTable?: bo
     },
   };
 }
+
+const OWN_EXPERT = '11111111-1111-4111-8111-111111111111';
+const OTHER_EXPERT = '22222222-2222-4222-8222-222222222222';
+
+function submission(overrides: Partial<SubmissionLink> & Pick<SubmissionLink, 'responseId'>): SubmissionLink {
+  return {
+    submissionId: overrides.submissionId ?? overrides.responseId,
+    expertId: overrides.expertId ?? null,
+    status: overrides.status ?? 'stored',
+    responseId: overrides.responseId,
+  };
+}
+
+describe('tally application lookup', () => {
+  test('reads the submission id Tally inserts, then the response id', () => {
+    const params = new URLSearchParams('responseId=resp123&submissionId=subm123');
+    assert.equal(tallyIdFromSearch(params), 'subm123');
+    assert.equal(tallyIdFromSearch(new URLSearchParams('response_id=resp123')), 'resp123');
+    assert.equal(tallyIdFromSearch(new URLSearchParams('submissionId=no')), null);
+    assert.equal(tallyIdFromSearch(new URLSearchParams('respondentId=person1')), null);
+  });
+
+  test('resolves only the caller submission to its own expert id', () => {
+    const rows = [
+      submission({ responseId: '2wgx4n', expertId: OWN_EXPERT, status: 'stored' }),
+      submission({ responseId: 'other1', submissionId: 'other1', expertId: OTHER_EXPERT, status: 'stored' }),
+    ];
+    assert.deepEqual(resolveOwnSubmission('2wgx4n', rows), { status: 'ready', expertId: OWN_EXPERT });
+    assert.deepEqual(
+      resolveOwnSubmission('other1', [submission({ responseId: 'row-a', submissionId: 'other1', expertId: OTHER_EXPERT })]),
+      { status: 'ready', expertId: OTHER_EXPERT },
+    );
+    assert.deepEqual(resolveOwnSubmission('missing1', rows), { status: 'pending' });
+    assert.deepEqual(
+      resolveOwnSubmission('2wgx4n', [submission({ responseId: '2wgx4n', status: 'received' })]),
+      { status: 'pending' },
+    );
+    assert.deepEqual(
+      resolveOwnSubmission('2wgx4n', [submission({ responseId: '2wgx4n', status: 'needs_review' })]),
+      { status: 'unresolved' },
+    );
+    assert.deepEqual(
+      resolveOwnSubmission('2wgx4n', [
+        submission({ responseId: '2wgx4n', expertId: OWN_EXPERT }),
+        submission({ responseId: '2wgx4n', submissionId: '2wgx4n', expertId: OTHER_EXPERT }),
+      ]),
+      { status: 'unresolved' },
+    );
+    assert.deepEqual(thanksLookupResult({ status: 'ready', expertId: 'expert-1', email: 'jane@example.com' }), {
+      status: 'unresolved',
+    });
+  });
+
+  test('lookup response is only status and that submission expert id', async () => {
+    let calls = 0;
+    const lookup = {
+      async findByTallyId(id: string) {
+        calls += 1;
+        assert.equal(id, '2wgx4n');
+        return [submission({
+          responseId: '2wgx4n',
+          expertId: OWN_EXPERT,
+          status: 'stored',
+        })];
+      },
+    };
+    const ready = await handleApplicationLookup(
+      new Request('https://findaipros.com/api/tally/application?submissionId=2wgx4n'),
+      lookup,
+    );
+    assert.equal(ready.headers.get('cache-control'), 'no-store');
+    const body = await ready.json();
+    assert.deepEqual(body, { status: 'ready', expertId: OWN_EXPERT });
+    assert.equal(JSON.stringify(body).includes('example.com'), false);
+
+    const invalid = await handleApplicationLookup(
+      new Request('https://findaipros.com/api/tally/application?submissionId=nope'),
+      lookup,
+    );
+    assert.deepEqual(await invalid.json(), { status: 'unresolved' });
+    assert.equal(calls, 1);
+
+    const failed = await handleApplicationLookup(
+      new Request('https://findaipros.com/api/tally/application?responseId=2wgx4n'),
+      { findByTallyId: async () => { throw new Error('contact_email jane@example.com'); } },
+    );
+    assert.deepEqual(await failed.json(), { status: 'pending' });
+  });
+});

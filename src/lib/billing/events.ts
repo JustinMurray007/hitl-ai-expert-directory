@@ -6,6 +6,7 @@ import {
   type BillingInterval,
   type CheckoutPlan,
 } from './catalog';
+import { checkoutCustomerEmail } from './link-by-email';
 import { referralCreditCents } from './referral';
 
 export type BillingPatch = {
@@ -32,7 +33,20 @@ export type ReferralDraft = {
 
 export type BillingEffect =
   | { action: 'ignore'; reason: string }
-  | { action: 'apply'; expertId: string | null; customerId: string | null; patch: BillingPatch; referral?: ReferralDraft; customerMetadata?: Record<string, string> }
+  | {
+      action: 'apply';
+      expertId: string | null;
+      customerId: string | null;
+      /**
+       * Set only for a completed Checkout Session. Null means the session had
+       * no usable email. Other events leave this unset so they are not matched
+       * by application email.
+       */
+      customerEmail?: string | null;
+      patch: BillingPatch;
+      referral?: ReferralDraft;
+      customerMetadata?: Record<string, string>;
+    }
   | { action: 'reverse_referral'; invoiceId: string | null };
 
 export type StripeEventLike = {
@@ -258,6 +272,7 @@ export function effectForEvent(event: StripeEventLike): BillingEffect {
       action: 'apply',
       expertId,
       customerId,
+      customerEmail: checkoutCustomerEmail(object),
       patch,
       customerMetadata: Object.keys(customerMetadata).length ? customerMetadata : undefined,
     };
