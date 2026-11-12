@@ -98,14 +98,15 @@ export default function LocationsDirectoryClient({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            aria-label="Search locations by city, state, or zip"
             placeholder="Search by city (e.g. San Diego), state (CA), or zip (92101)..."
-            className="w-full pl-12 pr-4 py-3.5 rounded-full bg-white border border-line shadow-xs text-base text-ink placeholder:text-slate-400 focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all font-medium"
+            className="w-full rounded-full border border-line bg-white py-3.5 pl-12 pr-20 text-base font-medium text-ink shadow-rest placeholder:text-muted focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
           />
           {searchQuery && (
             <button
               type="button"
               onClick={() => setSearchQuery('')}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-slate-600 px-2 py-1 rounded bg-slate-100 cursor-pointer"
+              className="absolute right-2 top-1/2 inline-flex min-h-11 -translate-y-1/2 cursor-pointer items-center rounded-full bg-slate-100 px-3 text-sm font-bold text-muted-strong hover:text-ink"
             >
               Clear
             </button>
@@ -113,7 +114,7 @@ export default function LocationsDirectoryClient({
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex items-center justify-center gap-2 mt-4 text-xs font-bold">
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm font-bold">
           <button
             type="button"
             onClick={() => setActiveTab('all')}
@@ -179,7 +180,7 @@ export default function LocationsDirectoryClient({
             </span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5">
+          <div data-reveal-stagger className="grid grid-cols-1 gap-3.5 min-[420px]:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {filtered.cities.map((city) => (
               <Link
                 key={`${city.slug}-${city.stateCode}`}

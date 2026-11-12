@@ -51,7 +51,7 @@ export default async function BusinessTypePage({ params }: BusinessPageProps) {
         All business types
       </Link>
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-soft border border-brand-line text-sm font-medium text-brand mb-4">
+        <div className="mb-4 inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-brand-line bg-brand-soft px-4 py-2 text-center text-sm font-medium text-brand">
           <Sparkles className="w-5 h-5 text-brand" />
           <span>{industry.industryName}</span>
         </div>

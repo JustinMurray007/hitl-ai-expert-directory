@@ -9,7 +9,7 @@ const GROUPS = AI_TOOL_CATEGORIES.filter((category) => category.id !== 'all');
 
 function ToolCard({ tool }: { tool: AiTool }) {
   return (
-    <article className="bg-white rounded-2xl border border-line hover:border-brand hover:shadow-md transition-all p-6 flex flex-col justify-between">
+    <article className="hover-lift flex flex-col justify-between rounded-2xl border border-line bg-white p-5 sm:p-6 shadow-rest hover:border-brand">
       <div>
         <div className="flex items-center justify-between gap-2 mb-3">
           <span className="text-xs font-medium uppercase tracking-wide text-slate-500">{tool.company}</span>
@@ -63,22 +63,26 @@ export default function ToolsDirectory() {
 
   return (
     <div className="space-y-10">
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-line shadow-xs space-y-5">
+      <div className="space-y-5 rounded-3xl border border-line bg-white p-4 shadow-rest sm:p-8">
         <div className="relative">
-          <Search className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+          <label htmlFor="tool-filter" className="sr-only">
+            Filter tools by name, company, or use
+          </label>
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-strong" />
           <input
+            id="tool-filter"
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Filter tools by name, company, or use"
-            className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50 text-ink placeholder:text-slate-400 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-brand/30 focus:border-brand"
+            className="w-full rounded-2xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-4 text-base text-ink placeholder:text-muted focus:border-brand focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-brand/30"
           />
         </div>
-        <nav aria-label="Jump to a tool category" className="flex flex-wrap gap-2">
+        <nav aria-label="Jump to a tool category" className="flex max-w-full flex-wrap gap-2">
           <button
             type="button"
             onClick={() => setCategory('all')}
-            className={`px-4 py-2 rounded-full text-sm font-medium ${
+            className={`inline-flex min-h-11 items-center rounded-full px-4 py-2 text-sm font-medium ${
               category === 'all' ? 'bg-brand text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
             }`}
           >
@@ -92,8 +96,8 @@ export default function ToolsDirectory() {
                 key={group.id}
                 href={`#${group.id}`}
                 onClick={() => setCategory('all')}
-                className={`px-4 py-2 rounded-full text-sm font-medium ${
-                  selected ? 'bg-brand text-white' : 'bg-brand-soft text-brand border border-brand-line hover:bg-white'
+                className={`inline-flex min-h-11 items-center rounded-full px-4 py-2 text-left text-sm font-medium ${
+                  selected ? 'bg-brand text-white' : 'border border-brand-line bg-brand-soft text-brand hover:bg-white'
                 }`}
               >
                 {group.label} ({count})
@@ -113,11 +117,11 @@ export default function ToolsDirectory() {
       ) : (
         groups.map((group) => (
           <section key={group.id} id={group.id} className="scroll-mt-28">
-            <div className="flex items-end justify-between gap-4 mb-5">
-              <h2 className="text-2xl sm:text-3xl font-semibold text-ink tracking-tight">{group.label}</h2>
-              <span className="text-sm text-slate-500">{group.tools.length} tools</span>
+            <div data-reveal className="mb-5 flex items-end justify-between gap-4">
+              <h2 className="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">{group.label}</h2>
+              <span className="text-sm text-muted-strong">{group.tools.length} tools</span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div data-reveal-stagger className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
               {group.tools.map((tool) => (
                 <ToolCard key={tool.id} tool={tool} />
               ))}

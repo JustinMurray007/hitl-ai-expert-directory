@@ -142,7 +142,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-2 text-xs font-semibold text-slate-500 overflow-x-auto whitespace-nowrap">
+        <nav aria-label="Breadcrumb" className="flex max-w-full items-center gap-2 overflow-x-auto whitespace-nowrap text-sm font-semibold text-muted-strong">
           <Link href="/" className="hover:text-brand transition-colors">
             Home
           </Link>
@@ -259,7 +259,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {stateExperts.map((exp) => (
               <ExpertCard key={exp.id} expert={exp} />
             ))}

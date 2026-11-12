@@ -19,7 +19,7 @@ export default async function ExpertsPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
       <div className="mb-8">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-3 shadow-xs">
+        <div className="mb-3 inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-brand-line bg-brand-soft px-3.5 py-1.5 text-sm font-bold text-brand shadow-rest">
           <ShieldCheck className="w-4 h-4" />
           <span>Curated AI Expert Directory</span>
         </div>

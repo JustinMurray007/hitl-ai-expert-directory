@@ -125,8 +125,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
       {/* Category Hero Banner */}
       <div className="rounded-3xl p-8 sm:p-12 border border-line bg-white mb-10 shadow-xs relative overflow-hidden">
-        <div className="flex flex-col md:flex-row gap-6 items-start justify-between">
-          <div className="flex items-start gap-5">
+        <div className="flex flex-col items-start justify-between gap-6 md:flex-row">
+          <div className="flex flex-col items-start gap-5 min-[480px]:flex-row">
             <div className="w-16 h-16 rounded-2xl bg-brand-soft border border-brand-line flex items-center justify-center shrink-0">
               <Icon className="w-8 h-8 text-brand" />
             </div>
@@ -145,7 +145,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
           <Link
             href={`/match?category=${category.slug}`}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-sm shadow-sm transition-all shrink-0 hover:scale-[1.02]"
+            className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand px-8 py-3.5 text-sm font-bold text-white shadow-rest sm:w-auto"
           >
             <Sparkles className="w-4 h-4" />
             Match in this Category
@@ -155,30 +155,30 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         {/* Taxonomy Metadata Strip */}
         <div className="mt-8 pt-6 border-t border-line-soft grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-5 rounded-2xl bg-canvas-muted border border-line">
-            <h4 className="font-semibold text-ink mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
+            <h2 className="font-semibold text-ink mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
               <CheckCircle2 className="w-4 h-4 text-brand" />
               Core Buyer Problem
-            </h4>
+            </h2>
             <p className="text-muted-strong text-base leading-relaxed font-normal">
               {taxonomyInfo.buyerProblem}
             </p>
           </div>
 
           <div className="p-5 rounded-2xl bg-brand-soft border border-brand-line">
-            <h4 className="font-semibold text-brand mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
+            <h2 className="font-semibold text-brand mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
               <Layers className="w-4 h-4 text-brand" />
               Typical Tech Stack
-            </h4>
+            </h2>
             <p className="text-brand-ink text-base leading-relaxed font-mono font-medium">
               {taxonomyInfo.typicalStack}
             </p>
           </div>
 
           <div className="p-5 rounded-2xl bg-accent-soft border border-accent-line">
-            <h4 className="font-semibold text-accent-ink mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
+            <h2 className="font-semibold text-accent-ink mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
               <span className="w-2.5 h-2.5 rounded-full bg-accent" />
               Required HITL Safeguard Focus
-            </h4>
+            </h2>
             <p className="text-accent-deep text-base leading-relaxed font-normal">
               {taxonomyInfo.commonSafeguards}
             </p>
@@ -196,7 +196,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {experts.map((expert) => (
           <ExpertCard key={expert.id} expert={expert} />
         ))}

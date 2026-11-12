@@ -139,7 +139,7 @@ export default function BusinessRecommender({
             Select Your Business Type
           </h2>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div data-reveal-stagger className="grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
           {INDUSTRY_RECOMMENDATIONS.map((ind) => {
             const Icon = iconMap[ind.iconName] || Briefcase;
             const isSelected = selectedIndustry.id === ind.id;
@@ -204,7 +204,7 @@ export default function BusinessRecommender({
       {/* Step 2: Select Operational Pain Point */}
       <div
         id="step-2"
-        className="scroll-mt-24 rounded-3xl bg-canvas-muted border border-line p-6 sm:p-8 shadow-xs space-y-6"
+        className="scroll-mt-24 space-y-6 rounded-3xl border border-line bg-canvas-muted p-5 shadow-rest sm:p-8"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
@@ -222,7 +222,7 @@ export default function BusinessRecommender({
         <p className="text-sm text-muted font-medium">
           Choose the friction point you want to solve. We will generate the recommended architecture, required staff review checkpoints, and specialists.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div data-reveal-stagger className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {displayBottlenecks.map((b) => {
             const isSelected = selectedBottleneckId === b.id;
             return (
@@ -311,7 +311,7 @@ export default function BusinessRecommender({
           </div>
 
           {/* Blueprint Details Grid: Distinct Three-Color Pillar Separation */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div data-reveal-stagger className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {/* 1. Automated Architecture - Cobalt Blue */}
             <div className="rounded-2xl bg-brand-soft p-6 border-2 border-brand-mid shadow-xs flex flex-col justify-between">
               <div>
@@ -394,11 +394,11 @@ export default function BusinessRecommender({
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div data-reveal-stagger className="grid grid-cols-1 gap-5 md:grid-cols-2">
               {fallbackExperts.map((exp) => (
                 <div
                   key={exp.id}
-                  className="rounded-2xl p-6 border border-line bg-white shadow-xs flex flex-col justify-between"
+                  className="hover-lift flex flex-col justify-between rounded-2xl border border-line bg-white p-5 shadow-rest sm:p-6"
                 >
                   <div>
                     <div className="flex items-start gap-4 mb-4">
@@ -406,8 +406,12 @@ export default function BusinessRecommender({
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={exp.avatar_url}
-                          alt={exp.full_name}
-                          className="w-full h-full object-cover"
+                          alt=""
+                          width={224}
+                          height={224}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover"
                         />
                       </div>
                       <div className="flex-1 min-w-0">

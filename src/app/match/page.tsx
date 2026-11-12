@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import MatchFormClient from './MatchFormClient';
 import { Sparkles } from 'lucide-react';
-import { ConciergePayButton, ConciergePrice, CONCIERGE_CHECKOUT_ENABLED } from '@/components/ConciergePayButton';
+import { ConciergeCheckoutNotice, ConciergePayButton, ConciergePrice, CONCIERGE_CHECKOUT_ENABLED } from '@/components/ConciergePayButton';
 
 export const metadata = {
   title: 'Concierge Match | Find Ai Pros',
@@ -31,11 +31,7 @@ export default function MatchPage() {
             fallbackLabel="Send the request"
           />
         </div>
-        {!CONCIERGE_CHECKOUT_ENABLED && (
-          <p className="mt-3 text-sm text-muted-strong">
-            Card checkout is not turned on yet. You can still send the request below.
-          </p>
-        )}
+        <ConciergeCheckoutNotice className="mt-3 text-sm text-muted-strong" />
       </div>
 
       {CONCIERGE_CHECKOUT_ENABLED ? (
@@ -43,7 +39,7 @@ export default function MatchPage() {
           After payment you land on the request form.
         </p>
       ) : (
-        <div id="request">
+        <div id="request" data-reveal>
           <Suspense
             fallback={
               <div className="rounded-3xl p-12 border border-line bg-white text-center text-muted">

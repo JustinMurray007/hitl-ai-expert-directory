@@ -1,23 +1,17 @@
 import Link from 'next/link';
-import { ShieldCheck, ExternalLink, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { GithubIcon } from '@/components/Icons';
+import Logo from '@/components/Logo';
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-inverse text-inverse-muted pt-16 pb-12">
+    <footer data-reveal className="w-full bg-inverse text-inverse-muted pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-inverse-line">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-inverse-line">
           {/* Col 1: Brand & Positioning */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-10 h-10 flex items-center justify-center group-hover:scale-105 transition-transform">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/logo-icon.png"
-                  alt="Find Ai Pros Logo"
-                  className="w-full h-full object-contain"
-                />
-              </div>
+            <Link href="/" className="brand-link flex items-center gap-3 group">
+              <Logo className="w-10 h-10 group-hover:scale-105 transition-transform" />
               <span className="font-display font-semibold text-white text-xl tracking-tight">
                 Find Ai <span className="text-brand-on-dark">PROS</span>
               </span>
@@ -35,9 +29,9 @@ export default function Footer() {
 
           {/* Col 2: Category Taxonomy */}
           <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+            <h2 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
               Category Hubs
-            </h4>
+            </h2>
             <ul className="space-y-3 text-sm">
               <li>
                 <Link href="/categories/operations-workflow-automation" className="hover:text-white transition-colors">
@@ -74,9 +68,9 @@ export default function Footer() {
 
           {/* Col 3: Platform */}
           <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+            <h2 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
               The HITL Standard
-            </h4>
+            </h2>
             <ul className="space-y-3 text-sm">
               <li>
                 <Link href="/recommendations" className="hover:text-white transition-colors flex items-center gap-1.5 font-bold text-brand-on-dark">
@@ -123,9 +117,9 @@ export default function Footer() {
 
           {/* Col 4: Technical & Admin */}
           <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+            <h2 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
               Governance &amp; Admin
-            </h4>
+            </h2>
             <ul className="space-y-3 text-sm">
               <li>
                 <Link

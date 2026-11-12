@@ -3,7 +3,7 @@ import { ShieldAlert, CheckCircle2, Video, AlertTriangle, TrendingUp, Layers } f
 
 export default function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
-    <div className="rounded-2xl p-6 sm:p-8 border border-line bg-white shadow-xs relative overflow-hidden">
+    <div className="hover-lift relative overflow-hidden rounded-2xl border border-line bg-white p-5 shadow-rest sm:p-8">
       {/* Verification Evidence Ribbon */}
         {study.reviewer_confirmed && (
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-sm font-bold bg-brand-soft text-brand border border-brand-line mb-4 shadow-xs">

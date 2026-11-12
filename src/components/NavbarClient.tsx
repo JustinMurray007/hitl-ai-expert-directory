@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Logo from './Logo';
 import {
   ShieldCheck,
   Sparkles,
@@ -161,35 +162,29 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
 
 
       {/* Main Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Brand Logo: Find Ai Pros emblem and typography */}
-        <Link href="/" className="flex items-center gap-3 group shrink-0">
-          <div className="relative w-11 h-11 flex items-center justify-center group-hover:scale-105 transition-transform">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/logo-icon.png"
-              alt="Find Ai Pros Logo"
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <span className="font-display font-semibold text-2xl text-ink tracking-tight leading-none">
-            Find Ai <span className="bg-gradient-to-r from-brand to-hub-sky bg-clip-text text-transparent">PROS</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 xl:h-20 flex items-center justify-between gap-2">
+        <Link href="/" className="brand-link flex items-center gap-2 sm:gap-3 group shrink min-w-0">
+          <Logo priority className="w-9 h-9 sm:w-11 sm:h-11 shrink-0 group-hover:scale-105 transition-transform" />
+          <span className="font-display font-semibold text-base min-[420px]:text-lg sm:text-xl xl:text-2xl text-ink tracking-tight leading-none truncate">
+            <span className="sm:hidden">Find Ai</span>
+            <span className="hidden sm:inline">
+              Find Ai <span className="bg-gradient-to-r from-brand to-hub-sky bg-clip-text text-transparent">PROS</span>
+            </span>
           </span>
         </Link>
 
-        {/* Simplified Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8 text-base font-semibold text-ink">
-          {/* Mega Menu Trigger */}
+        <nav className="hidden xl:flex items-center gap-1 text-base font-semibold text-ink" aria-label="Primary">
           <div className="relative">
             <button
               ref={buttonRef}
               type="button"
               onClick={() => setMegaMenuOpen(!megaMenuOpen)}
               onMouseEnter={() => setMegaMenuOpen(true)}
-              className={`inline-flex items-center gap-1.5 py-2 rounded-lg hover:text-brand transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand/40 ${
-                megaMenuOpen ? 'text-brand' : ''
+              className={`nav-link inline-flex items-center gap-1.5 px-3 rounded-xl focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand/40 ${
+                megaMenuOpen ? 'text-brand bg-brand-soft' : ''
               }`}
               aria-expanded={megaMenuOpen}
+              aria-controls="desktop-mega-menu"
             >
               <span>Find Ai Expert</span>
               <ChevronDown
@@ -203,7 +198,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           <Link
             href="/recommendations"
             onMouseEnter={() => setMegaMenuOpen(false)}
-            className="hover:text-brand transition-colors flex items-center gap-1.5 text-ink"
+            className="nav-link inline-flex items-center gap-1.5 px-3 rounded-xl text-ink"
           >
             <Sparkles className="w-4 h-4 text-brand" />
             <span>Find Your Business</span>
@@ -212,7 +207,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           <Link
             href="/tools"
             onMouseEnter={() => setMegaMenuOpen(false)}
-            className="hover:text-brand transition-colors"
+            className="nav-link inline-flex items-center px-3 rounded-xl"
           >
             AI Tools
           </Link>
@@ -220,7 +215,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           <Link
             href="/about#how-it-works"
             onMouseEnter={() => setMegaMenuOpen(false)}
-            className="hover:text-brand transition-colors"
+            className="nav-link inline-flex items-center px-3 rounded-xl"
           >
             How It Works
           </Link>
@@ -228,36 +223,36 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           <Link
             href="/match"
             onMouseEnter={() => setMegaMenuOpen(false)}
-            className="hover:text-brand transition-colors"
+            className="nav-link inline-flex items-center px-3 rounded-xl"
           >
             Concierge Match
           </Link>
         </nav>
 
-        {/* Right CTA Actions */}
-        <div className="hidden sm:flex items-center gap-4 shrink-0">
+        <div className="hidden xl:flex items-center gap-4 shrink-0">
           <Link
             href="/apply"
-            className="inline-flex items-center gap-2 text-sm font-bold bg-brand hover:bg-brand-hover text-white px-5 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 text-sm font-bold bg-brand hover:bg-brand-hover text-white px-5 py-2.5 rounded-full shadow-rest"
           >
             <UserPlus className="w-4 h-4" />
             Ai Expert? Join Here Free
           </Link>
         </div>
 
-        {/* Mobile Hamburger Toggle */}
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-2 xl:hidden">
           <Link
             href="/apply"
-            className="text-xs font-bold bg-brand text-white px-3 py-2 rounded-full"
+            className="inline-flex items-center justify-center min-h-11 px-3.5 text-sm font-bold bg-brand text-white rounded-full"
           >
             Join Free
           </Link>
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl text-ink hover:bg-slate-100 transition-colors"
-            aria-label="Toggle Navigation Menu"
+            className="inline-flex items-center justify-center min-h-11 min-w-11 rounded-xl text-ink hover:bg-slate-100"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -271,7 +266,8 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
         <div
           ref={megaMenuRef}
           onMouseLeave={() => setMegaMenuOpen(false)}
-          className="hidden lg:block absolute top-full left-0 w-full bg-white z-50 border-b border-line-strong mega-menu-shadow transition-all duration-200 animate-in fade-in slide-in-from-top-2"
+          id="desktop-mega-menu"
+          className="hidden xl:block absolute top-full left-0 w-full bg-white z-50 border-b border-line-strong mega-menu-shadow"
         >
           <div className="max-w-7xl mx-auto px-6 py-8">
             <div className="grid grid-cols-12 gap-8">
@@ -296,7 +292,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                       <Link
                         key={item.name}
                         href={item.href}
-                        className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-200/60"
+                        className="menu-link group flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200/60"
                       >
                         <div
                           className={`w-9 h-9 rounded-lg ${item.bg} border ${item.border} flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform`}
@@ -336,16 +332,11 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                       <Link
                         key={ind.name}
                         href={ind.href}
-                        className="group flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 transition-colors"
+                        className="menu-link group flex items-center gap-2.5 rounded-lg px-2.5 py-2 hover:bg-slate-50"
                       >
-                        <div className="flex items-center gap-2.5">
-                          <IndIcon className="w-4 h-4 text-slate-400 group-hover:text-brand transition-colors" />
-                          <span className="text-base font-medium text-ink group-hover:text-brand transition-colors">
-                            {ind.name}
-                          </span>
-                        </div>
-                        <span className="text-sm font-normal text-slate-500 group-hover:text-slate-600">
-                          {ind.desc}
+                        <IndIcon className="w-4 h-4 shrink-0 text-slate-400 group-hover:text-brand" />
+                        <span className="text-base font-medium text-ink group-hover:text-brand">
+                          {ind.name}
                         </span>
                       </Link>
                     );
@@ -427,19 +418,19 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           MOBILE DRAWER (SM / MD SCREENS)
       ======================================================================== */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-line bg-white px-4 py-6 space-y-6 max-h-[85vh] overflow-y-auto">
+        <div id="mobile-nav" className="xl:hidden border-b border-line bg-white px-4 py-4 space-y-6 max-h-[calc(100vh-4rem)] overflow-y-auto">
           {/* Quick Links */}
           <div className="space-y-2 pb-4 border-b border-slate-100">
             <Link
               href="/experts"
-              className="flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-bold text-ink"
+              className="menu-link flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-bold text-ink"
             >
               <span>Browse All AI Experts</span>
               <ArrowRight className="w-4 h-4 text-brand" />
             </Link>
             <Link
               href="/recommendations"
-              className="flex items-center justify-between p-3 rounded-xl bg-blue-50 text-base font-bold text-blue-900"
+              className="menu-link flex items-center justify-between p-3 rounded-xl bg-blue-50 text-base font-bold text-blue-900"
             >
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-blue-600" />
@@ -449,33 +440,33 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             </Link>
             <Link
               href="/tools"
-              className="flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-medium text-ink"
+              className="menu-link flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-medium text-ink"
             >
               <span>AI Tools</span>
               <ArrowRight className="w-4 h-4 text-brand" />
             </Link>
             <Link
               href="/match"
-              className="flex items-center justify-between p-3 rounded-xl bg-brand-soft text-base font-bold text-ink"
+              className="menu-link flex items-center justify-between p-3 rounded-xl bg-brand-soft text-base font-bold text-ink"
             >
               <span>Request Concierge Match</span>
               <ArrowRight className="w-4 h-4 text-brand" />
             </Link>
             <Link
               href="/about#how-it-works"
-              className="block p-3 text-base font-medium text-slate-700 hover:text-ink"
+              className="menu-link flex items-center p-3 text-base font-medium text-slate-700 hover:text-ink"
             >
               How It Works
             </Link>
             <Link
               href="/categories"
-              className="block p-3 text-base font-semibold text-slate-700 hover:text-ink"
+              className="menu-link flex items-center p-3 text-base font-semibold text-slate-700 hover:text-ink"
             >
               Browse Category Hubs
             </Link>
             <Link
               href="/locations"
-              className="flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-bold text-ink hover:bg-brand-soft"
+              className="menu-link flex items-center justify-between p-3 rounded-xl bg-slate-50 text-base font-bold text-ink hover:bg-brand-soft"
             >
               <span className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-brand" />
@@ -497,7 +488,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 text-base font-medium text-slate-800"
+                    className="menu-link flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 text-base font-medium text-slate-800"
                   >
                     <div className={`w-8 h-8 rounded-lg ${item.bg} flex items-center justify-center shrink-0`}>
                       <Icon className={`w-4 h-4 ${item.color}`} />
@@ -509,11 +500,35 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             </div>
           </div>
 
+          <div>
+            <div className="text-sm font-mono font-medium uppercase tracking-wider text-slate-500 mb-3">
+              Explore by industry
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+              {industryVerticals.map((ind) => {
+                const IndIcon = ind.icon;
+                return (
+                  <Link
+                    key={ind.name}
+                    href={ind.href}
+                    className="menu-link flex items-center gap-3 rounded-xl px-2.5 py-2 text-base font-medium text-ink hover:bg-slate-50"
+                  >
+                    <IndIcon className="w-4 h-4 text-slate-400 shrink-0" />
+                    <span className="min-w-0">
+                      <span className="block">{ind.name}</span>
+                      <span className="block text-sm font-normal text-muted-strong">{ind.desc}</span>
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Bottom Actions */}
           <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
             <Link
               href="/apply"
-              className="w-full text-center py-3 rounded-full bg-brand text-white font-bold text-sm shadow-sm"
+              className="inline-flex w-full items-center justify-center min-h-11 py-3 rounded-full bg-brand text-white font-bold text-base shadow-rest"
             >
               Ai Expert? Join Here Free
             </Link>

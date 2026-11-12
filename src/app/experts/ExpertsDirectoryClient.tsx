@@ -82,7 +82,7 @@ export default function ExpertsDirectoryClient({
 
       {/* Grid */}
       {filteredExperts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {filteredExperts.map((expert) => (
             <ExpertCard key={expert.id} expert={expert} />
           ))}

@@ -25,7 +25,7 @@ export default function AboutPage() {
         <p className="text-base sm:text-lg text-muted max-w-2xl mx-auto leading-relaxed font-normal">
           Search our database of AI experts directly, or search by your business type and needs, and choose one or multiple options to get estimates or bids for your projects.
         </p>
-        <ol className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+        <ol data-reveal-stagger className="grid grid-cols-1 gap-4 text-left sm:grid-cols-3">
           <li className="rounded-2xl border border-line bg-white p-6">
             <span className="text-sm font-medium text-brand">1</span>
             <h2 className="mt-2 text-lg font-medium text-ink">Search experts directly</h2>
@@ -68,7 +68,7 @@ export default function AboutPage() {
       </div>
 
       {/* SECTION 1: THE CORE TRUST MOAT */}
-      <section id="the-standard" className="rounded-3xl p-8 sm:p-10 border border-line bg-white shadow-xs space-y-6">
+      <section id="the-standard" data-reveal className="space-y-6 rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-10">
         <div className="border-b border-line-soft pb-4">
           <span className="text-sm uppercase font-mono tracking-wider text-brand font-bold">
             Our Differentiator
@@ -96,7 +96,7 @@ export default function AboutPage() {
       </section>
 
       {/* SECTION 2: THE TWO CASE STUDIES RULE */}
-      <section id="references" className="rounded-3xl p-8 sm:p-10 border border-line bg-white shadow-xs space-y-6">
+      <section id="references" data-reveal className="space-y-6 rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-10">
         <div className="border-b border-line-soft pb-4">
           <span className="text-sm uppercase font-mono tracking-wider text-brand font-bold">
             Verification
@@ -122,7 +122,7 @@ export default function AboutPage() {
       </section>
 
       {/* SECTION 3: LISTING CHECKLIST */}
-      <section id="guardrail-interview" className="rounded-3xl p-8 sm:p-10 border border-line bg-white shadow-xs space-y-6">
+      <section id="guardrail-interview" data-reveal className="space-y-6 rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-10">
         <div className="border-b border-line-soft pb-4">
           <span className="text-sm uppercase font-mono tracking-wider text-brand font-bold">
             Rigorous Criteria
@@ -172,7 +172,7 @@ export default function AboutPage() {
       </section>
 
       {/* SECTION 4: LISTING TIERS & PRICING HYPOTHESIS */}
-      <section className="rounded-3xl p-8 sm:p-10 border border-line bg-white shadow-xs space-y-6">
+      <section data-reveal className="space-y-6 rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-10">
         <div className="border-b border-line-soft pb-4">
           <span className="text-sm uppercase font-mono tracking-wider text-brand font-bold">
             Listing plans

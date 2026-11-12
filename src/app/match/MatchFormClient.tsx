@@ -151,10 +151,11 @@ export default function MatchFormClient() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="block text-sm font-bold text-ink mb-1.5">
+          <label htmlFor="requester-name" className="block text-sm font-bold text-ink mb-1.5">
             Your Name <span className="text-rose-500">*</span>
           </label>
           <input
+            id="requester-name"
             type="text"
             name="requesterName"
             required
@@ -164,10 +165,11 @@ export default function MatchFormClient() {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-ink mb-1.5">
+          <label htmlFor="requester-email" className="block text-sm font-bold text-ink mb-1.5">
             Work Email <span className="text-rose-500">*</span>
           </label>
           <input
+            id="requester-email"
             type="email"
             name="requesterEmail"
             required
@@ -178,10 +180,11 @@ export default function MatchFormClient() {
       </div>
 
       <div>
-        <label className="block text-sm font-bold text-ink mb-1.5">
+        <label htmlFor="requester-company" className="block text-sm font-bold text-ink mb-1.5">
           Company or Organization Name
         </label>
         <input
+          id="requester-company"
           type="text"
           name="company"
           placeholder="e.g. Summit Logistics Group"
@@ -190,13 +193,14 @@ export default function MatchFormClient() {
       </div>
 
       <div>
-        <label className="block text-sm font-bold text-ink mb-1.5">
+        <label htmlFor="need-description" className="block text-sm font-bold text-ink mb-1.5">
           Describe Your Operational Bottleneck or AI Need <span className="text-rose-500">*</span>
         </label>
         <p className="text-sm text-muted mb-2 leading-relaxed">
           Explain what process you want to automate, what software you use, and what failure risks worry you most.
         </p>
         <textarea
+          id="need-description"
           name="needDescription"
           required
           rows={4}
@@ -209,10 +213,11 @@ export default function MatchFormClient() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="block text-sm font-bold text-ink mb-1.5">
+          <label htmlFor="budget-range" className="block text-sm font-bold text-ink mb-1.5">
             Approximate Budget Range
           </label>
           <select
+            id="budget-range"
             name="budgetRange"
             value={budgetRange}
             onChange={(e) => setBudgetRange(e.target.value)}
@@ -226,10 +231,11 @@ export default function MatchFormClient() {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-ink mb-1.5">
+          <label htmlFor="target-timeline" className="block text-sm font-bold text-ink mb-1.5">
             Target Timeline <span className="text-rose-500">*</span>
           </label>
           <input
+            id="target-timeline"
             type="text"
             name="timeline"
             required
