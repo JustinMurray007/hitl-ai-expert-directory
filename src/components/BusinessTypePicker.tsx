@@ -43,12 +43,7 @@ const iconMap: Record<string, LucideIcon> = {
 export default function BusinessTypePicker() {
   return (
     <div>
-      <div className="mb-4 flex items-center gap-2.5">
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand font-mono text-sm font-semibold text-white shadow-xs">
-          1
-        </span>
-        <h2 className="text-xl font-semibold text-ink sm:text-2xl">Select Your Business Type</h2>
-      </div>
+      <h2 className="mb-4 text-xl font-semibold text-ink sm:text-2xl">Select Your Business Type</h2>
       <p className="mb-5 max-w-3xl text-sm font-medium text-muted">
         Each business type opens its own page. From there you can pick the operational bottlenecks or areas to improve.
       </p>

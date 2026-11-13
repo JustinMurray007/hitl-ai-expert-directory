@@ -175,8 +175,8 @@ export default function LocationsDirectoryClient({
                 Explore local AI developers and automation agencies by metropolitan area.
               </p>
             </div>
-            <span className="text-xs font-mono font-bold text-brand bg-brand-soft px-3 py-1 rounded-full border border-brand-line">
-              {filtered.cities.length} Active Cities
+            <span className="text-sm text-muted">
+              {filtered.cities.length} cities
             </span>
           </div>
 
@@ -187,19 +187,12 @@ export default function LocationsDirectoryClient({
                 href={`/locations/city/${city.slug}`}
                 className="group p-4 rounded-2xl bg-white border border-line hover:border-brand hover:shadow-md transition-all flex flex-col justify-between"
               >
-                <div>
-                  <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
-                    <span className="font-mono font-bold text-brand">{city.stateCode}</span>
-                    <span className="font-semibold text-slate-500">{city.expertCount} {city.expertCount === 1 ? 'Expert' : 'Experts'}</span>
-                  </div>
-                  <h3 className="font-semibold text-base text-ink group-hover:text-brand transition-colors leading-snug">
-                    {city.name}
-                  </h3>
-                </div>
-                <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-brand">
-                  <span>Explore City</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </div>
+                <h3 className="font-semibold text-base text-ink group-hover:text-brand">
+                  {city.name}
+                </h3>
+                <p className="mt-1 text-sm text-muted">
+                  {city.stateCode}. {city.expertCount} {city.expertCount === 1 ? 'expert' : 'experts'}
+                </p>
               </Link>
             ))}
           </div>
@@ -219,8 +212,8 @@ export default function LocationsDirectoryClient({
                 Statewide hubs featuring specialists and city directories.
               </p>
             </div>
-            <span className="text-xs font-mono font-bold text-brand bg-brand-soft px-3 py-1 rounded-full border border-brand-line">
-              {filtered.states.length} States / Regions
+            <span className="text-sm text-muted">
+              {filtered.states.length} states
             </span>
           </div>
 
@@ -231,26 +224,15 @@ export default function LocationsDirectoryClient({
                 href={`/locations/state/${st.slug}`}
                 className="group p-5 rounded-2xl bg-white border border-line hover:border-brand hover:shadow-md transition-all flex flex-col justify-between"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="w-9 h-9 rounded-xl bg-brand-soft text-brand font-mono font-semibold text-sm flex items-center justify-center border border-brand-line">
-                      {st.code}
-                    </span>
-                    <span className="text-xs font-bold text-brand bg-brand-soft px-2.5 py-0.5 rounded-full">
-                      {st.expertCount} {st.expertCount === 1 ? 'Specialist' : 'Specialists'}
-                    </span>
-                  </div>
-                  <h3 className="font-semibold text-lg text-ink group-hover:text-brand transition-colors">
-                    {st.name}
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-1 line-clamp-1">
-                    {st.cities.map((c) => c.name).join(', ')}
-                  </p>
-                </div>
-                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-brand">
-                  <span>View State Hub</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </div>
+                <h3 className="font-semibold text-lg text-ink group-hover:text-brand">
+                  {st.name}
+                </h3>
+                <p className="mt-1 text-sm text-muted">
+                  {st.code}. {st.expertCount} {st.expertCount === 1 ? 'specialist' : 'specialists'}
+                </p>
+                <p className="mt-2 line-clamp-2 text-sm text-muted">
+                  {st.cities.map((c) => c.name).join(', ')}
+                </p>
               </Link>
             ))}
           </div>
@@ -270,8 +252,8 @@ export default function LocationsDirectoryClient({
                 Postal-level pages for ultra-local AI consulting, on-site audits, and regional support.
               </p>
             </div>
-            <span className="text-xs font-mono font-bold text-accent bg-accent-soft px-3 py-1 rounded-full border border-accent-line">
-              {filtered.zips.length} Zip Codes
+            <span className="text-sm text-muted">
+              {filtered.zips.length} zip codes
             </span>
           </div>
 
@@ -280,16 +262,9 @@ export default function LocationsDirectoryClient({
               <Link
                 key={z.zip}
                 href={`/locations/zip/${z.slug}`}
-                className="group inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-line hover:border-accent hover:shadow-xs transition-all text-xs"
+                className="text-sm text-ink hover:text-brand"
               >
-                <span className="font-mono font-bold text-accent group-hover:underline">
-                  {z.zip}
-                </span>
-                <span className="text-slate-400">·</span>
-                <span className="text-slate-700 font-medium">{z.cityName}, {z.stateCode}</span>
-                <span className="text-[10px] font-bold text-brand bg-brand-soft px-1.5 py-0.5 rounded">
-                  {z.expertCount}
-                </span>
+                {z.zip}, {z.cityName}, {z.stateCode} ({z.expertCount})
               </Link>
             ))}
           </div>

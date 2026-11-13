@@ -12,7 +12,7 @@ import {
   isStaticExportPlaceholder,
   staticPlaceholderMetadata,
 } from '@/lib/static-params';
-import { PlacementBadge, ToolBadge, BudgetBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
+import { ToolBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
 import { expertForPage, showsPublicLinks } from '@/lib/listing';
 import ExpertLocationLinks from '@/components/ExpertLocation';
 import {
@@ -139,12 +139,9 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
 
             {/* Info */}
             <div className="space-y-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl sm:text-3xl font-semibold text-ink">
-                  {expert.full_name}
-                </h1>
-                <PlacementBadge plan={expert.listing_plan} sponsorRank={expert.sponsor_rank} />
-              </div>
+              <h1 className="text-2xl sm:text-3xl font-semibold text-ink">
+                {expert.full_name}
+              </h1>
 
               <p className="text-base sm:text-lg font-bold text-brand mt-1">
                 {expert.professional_title}
@@ -183,7 +180,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
               <Link
                 href={`/match?expert=${encodeURIComponent(expert.full_name)}&category=${encodeURIComponent(
                   expert.categories[0]?.slug || ''
-                )}&budget=${encodeURIComponent(expert.starting_budget)}`}
+                )}`}
                 className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-base shadow-sm transition-all text-center hover:scale-[1.02]"
               >
                 Inquire via Matchmaking
@@ -245,9 +242,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
         {/* Pricing & Engagement Badges */}
         <div className="mt-6 pt-6 border-t border-line-soft flex flex-wrap items-center justify-between gap-4 text-sm sm:text-base">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="text-muted-strong font-semibold">Starting Budget:</span>
-            <BudgetBadge tier={expert.starting_budget} />
-            <span className="text-muted-strong ml-2 font-semibold">Engagement:</span>
+            <span className="text-muted-strong font-semibold">Engagement:</span>
             <EngagementBadge model={expert.primary_engagement} />
           </div>
 

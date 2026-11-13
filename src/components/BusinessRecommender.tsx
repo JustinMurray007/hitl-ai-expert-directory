@@ -60,17 +60,7 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
   return (
     <div className="space-y-12">
       <div id="areas" className="scroll-mt-24 space-y-6 rounded-3xl border border-line bg-canvas-muted p-5 shadow-rest sm:p-8">
-        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-          <div className="flex min-w-0 items-start gap-2.5 sm:items-center">
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand font-mono text-sm font-semibold text-white shadow-xs">
-              1
-            </span>
-            <h2 className="min-w-0 text-xl font-semibold text-ink sm:text-2xl">Operational Bottlenecks or Areas To Improve</h2>
-          </div>
-          <span className="inline-flex items-center gap-1.5 self-start rounded-full border border-line-strong bg-white px-3 py-1.5 text-xs font-bold text-brand shadow-2xs sm:self-auto">
-            Industry: <strong className="font-semibold text-ink">{industry.industryName}</strong>
-          </span>
-        </div>
+        <h2 className="text-xl font-semibold text-ink sm:text-2xl">Operational bottlenecks or areas to improve</h2>
         <p className="text-sm font-medium text-muted">
           Select every area you want to improve. Tool recommendations stack for each one, grouped under that area.
         </p>
@@ -99,16 +89,9 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
                 }`}
               >
                 <div>
-                  <div className="mb-2.5 flex items-start justify-between gap-3">
-                    {bottleneck.badge ? (
-                      <span className="rounded-full border border-brand-line bg-brand-soft px-2.5 py-0.5 font-mono text-xs font-bold uppercase text-brand">
-                        {bottleneck.badge}
-                      </span>
-                    ) : (
-                      <span className="sr-only">Area</span>
-                    )}
+                  <div className="mb-3 flex justify-end">
                     <div
-                      className={`ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-md border ${
+                      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md border ${
                         isSelected ? 'border-brand bg-brand text-white' : 'border-line-strong bg-white'
                       }`}
                     >
@@ -130,12 +113,7 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
       </div>
 
       <div id="results" className="scroll-mt-24 space-y-6">
-        <div className="flex items-center gap-2.5">
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand font-mono text-sm font-semibold text-white shadow-xs">
-            2
-          </span>
-          <h2 className="text-xl font-semibold text-ink sm:text-2xl">Your Tailored AI Blueprint &amp; Specialists</h2>
-        </div>
+        <h2 className="text-xl font-semibold text-ink sm:text-2xl">Your tailored AI blueprint and specialists</h2>
 
         {groups.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-line bg-white p-8 text-center shadow-rest">
@@ -150,12 +128,6 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
             >
               <div className="flex flex-col justify-between gap-5 border-b border-line pb-6 md:flex-row md:items-center">
                 <div>
-                  <div className="mb-3 inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-brand-line bg-brand-soft px-3.5 py-1.5 text-left text-sm font-bold text-brand shadow-xs">
-                    <Sparkles className="h-4 w-4 text-brand" />
-                    <span>
-                      {industry.industryName} · {group.label}
-                    </span>
-                  </div>
                   <h3 className="text-2xl font-semibold tracking-tight text-ink sm:text-4xl">{group.workflow.title}</h3>
                   <p className="mt-2 text-base font-normal leading-relaxed text-muted-strong sm:text-lg">{group.workflow.problemSolved}</p>
                 </div>
@@ -173,30 +145,14 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
               <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
                 <div className="flex flex-col justify-between rounded-2xl border-2 border-brand-mid bg-brand-soft p-6 shadow-xs">
                   <div>
-                    <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                      <h4 className="flex items-center gap-2 text-sm font-semibold text-brand">
-                        <Layers className="h-4 w-4 shrink-0 text-brand" />
-                        <span>Ai Solution that May Fit</span>
-                      </h4>
-                      <span className="rounded-full border border-brand-line bg-white px-3 py-1 text-sm font-bold text-brand-hover">
-                        Automated
-                      </span>
-                    </div>
+                    <h4 className="mb-3 text-base font-semibold text-ink">AI solution that may fit</h4>
                     <p className="text-base font-normal leading-relaxed text-brand-ink">{group.workflow.systemArchitecture}</p>
                   </div>
                 </div>
 
                 <div className="flex flex-col justify-between rounded-2xl border-2 border-brand bg-brand-soft p-6 shadow-xs">
                   <div>
-                    <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                      <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-brand">
-                        <Wrench className="h-4 w-4 shrink-0 text-brand" />
-                        <span>Recommended Tools</span>
-                      </h4>
-                      <span className="rounded-full border border-brand-line bg-white px-3 py-1 text-sm font-bold text-brand-ink">
-                        Stack
-                      </span>
-                    </div>
+                    <h4 className="mb-3 text-base font-semibold text-ink">Recommended tools</h4>
                     <div className="flex flex-wrap gap-1.5">
                       {group.tools.map((tool) => (
                         <ToolBadge key={tool.slug ?? tool.name} name={tool.name} href={tool.slug ? toolPath(tool.slug) : undefined} />
@@ -207,15 +163,7 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
 
                 <div className="flex flex-col justify-between rounded-2xl border-2 border-accent-line bg-accent-soft p-6 shadow-xs">
                   <div>
-                    <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                      <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-accent">
-                        <TrendingUp className="h-4 w-4 shrink-0 text-accent" />
-                        <span>Expected Business Impact</span>
-                      </h4>
-                      <span className="rounded-full border border-accent-line bg-white px-3 py-1 text-sm font-bold text-accent-ink">
-                        Expected impact
-                      </span>
-                    </div>
+                    <h4 className="mb-3 text-base font-semibold text-ink">Expected business impact</h4>
                     <p className="text-base font-semibold leading-relaxed text-accent-deep">{group.workflow.typicalRoi}</p>
                   </div>
                 </div>
@@ -281,36 +229,28 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
                       <ExpertLocationLinks expert={expert} />
                     </div>
                   </div>
-                  <div className="flex items-center justify-between border-t border-line-soft pt-4">
-                    <span className="rounded-full border border-brand-line bg-brand-soft px-3 py-1 text-sm font-bold text-brand">
-                      Starting: {expert.starting_budget.replace('_', ' ')}
-                    </span>
-                    <div className="flex items-center gap-2.5">
-                      <Link
-                        href={`/experts/${expert.slug}`}
-                        className="rounded-full border border-line px-4 py-2 text-sm font-bold text-ink transition-colors hover:border-brand hover:text-brand"
+                  <div className="flex items-center justify-end gap-3 border-t border-line-soft pt-4">
+                    {showsPublicLinks(expert) && expert.booking_url ? (
+                      <a
+                        href={expert.booking_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-medium text-brand hover:text-brand-hover"
                       >
-                        View Profile
+                        Book a call
+                      </a>
+                    ) : showsPublicLinks(expert) ? (
+                      <Link
+                        href={`/match?expert=${encodeURIComponent(expert.full_name)}&category=${encodeURIComponent(categorySlug)}`}
+                        className="text-sm font-medium text-brand hover:text-brand-hover"
+                      >
+                        Request a match
                       </Link>
-                      {showsPublicLinks(expert) && expert.booking_url ? (
-                        <a
-                          href={expert.booking_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 text-sm font-bold text-white shadow-xs transition-colors hover:bg-brand-hover"
-                        >
-                          <Calendar className="h-4 w-4" />
-                          Book Call
-                        </a>
-                      ) : showsPublicLinks(expert) ? (
-                        <Link
-                          href={`/match?expert=${encodeURIComponent(expert.full_name)}&category=${encodeURIComponent(categorySlug)}&budget=${encodeURIComponent(expert.starting_budget)}`}
-                          className="inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 text-sm font-bold text-white shadow-xs transition-colors hover:bg-brand-hover"
-                        >
-                          Request Match
-                        </Link>
-                      ) : null}
-                    </div>
+                    ) : (
+                      <Link href={`/experts/${expert.slug}`} className="text-sm font-medium text-brand hover:text-brand-hover">
+                        View profile
+                      </Link>
+                    )}
                   </div>
                 </div>
               ))}

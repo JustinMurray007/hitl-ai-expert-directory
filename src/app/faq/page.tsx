@@ -20,7 +20,7 @@ export default function FaqPage() {
           },
           {
             question: 'How much does it cost to hire an AI expert?',
-            answer: 'Each profile lists a starting budget. The concierge introduction is $49.99 and does not include the build. See the cost guide for the current budget counts.',
+            answer: 'The concierge introduction is $49.99 and does not include the build. Project prices are whatever you agree with the consultant. The cost guide cites third-party hourly and project ranges.',
           },
           {
             question: 'Can I list my AI agency on Find AI Pros?',
@@ -28,7 +28,7 @@ export default function FaqPage() {
           },
           {
             question: 'What do I get for $49.99?',
-            answer: 'A private review of your process, tools, and budget, and an introduction to at least 3 experts within 48 hours. You do not have to hire any of them.',
+            answer: 'A private review of your process and tools, and an introduction to at least 3 experts within 48 hours. You do not have to hire any of them.',
           },
           {
             question: 'Are listings paid?',

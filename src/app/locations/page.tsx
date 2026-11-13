@@ -9,7 +9,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Find an AI Consultant Near You: US and Canada',
   description:
-    'Find an AI consultant by city. Compare budgets and tools, or get matched in 48 hours. Remote experts can serve your city too.',
+    'Find an AI consultant by city. Compare tools, or get matched in 48 hours. Remote experts can serve your city too.',
   alternates: {
     canonical: 'https://findaipros.com/locations',
   },
@@ -44,10 +44,6 @@ export default async function LocationsMainPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand shadow-xs">
-            <MapPin className="w-4 h-4 text-brand" />
-            <span>National Local Directory</span>
-          </div>
           <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">
             Find an AI Consultant Near You: US and Canada
           </h1>

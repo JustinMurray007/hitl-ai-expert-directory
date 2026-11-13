@@ -96,10 +96,20 @@ export function isRetiredExpertSlug(slug: string | null | undefined): boolean {
  * Supabase row is still published.
  */
 /** Drop listing-review fields before an expert object is sent to the browser. */
-export type PublicExpert = Omit<Expert, 'case_studies' | 'is_verified' | 'verified_at' | 'verified_case_study_count'>;
+export type PublicExpert = Omit<
+  Expert,
+  'case_studies' | 'is_verified' | 'verified_at' | 'verified_case_study_count' | 'starting_budget'
+>;
 
 export function expertForPage(expert: Expert): PublicExpert {
-  const { case_studies: _caseStudies, is_verified: _verified, verified_at: _verifiedAt, verified_case_study_count: _verifiedCount, ...rest } = expert;
+  const {
+    case_studies: _caseStudies,
+    is_verified: _verified,
+    verified_at: _verifiedAt,
+    verified_case_study_count: _verifiedCount,
+    starting_budget: _startingBudget,
+    ...rest
+  } = expert;
   return rest;
 }
 
@@ -113,20 +123,7 @@ export function isPublicDirectoryExpert(expert: DirectoryExpertVisibility): bool
   );
 }
 
-/**
- * Premium Featured, then Featured, then the existing sponsor rank.
- * Case-study count is not a ranking signal.
- * Legacy rows with no listing_plan keep the previous sponsor_rank order.
- */
+/** Public directory order ignores paid placement. */
 export function compareDirectoryExperts(a: Expert, b: Expert): number {
-  const tier = (expert: Expert) => {
-    if (expert.listing_plan === 'premium') return 3;
-    if (expert.listing_plan === 'featured') return 2;
-    return 0;
-  };
-  const byPlan = tier(b) - tier(a);
-  if (byPlan !== 0) return byPlan;
-  const bySponsor = (b.sponsor_rank || 0) - (a.sponsor_rank || 0);
-  if (bySponsor !== 0) return bySponsor;
-  return Number(b.is_verified) - Number(a.is_verified);
+  return a.full_name.localeCompare(b.full_name);
 }

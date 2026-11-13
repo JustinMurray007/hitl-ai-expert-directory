@@ -23,7 +23,7 @@ export default function Footer() {
 
           {/* Col 2: Category Taxonomy */}
           <div>
-            <h2 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+            <h2 className="mb-5 text-sm font-semibold text-white">
               Category Hubs
             </h2>
             <ul className="space-y-3 text-sm">
@@ -62,7 +62,7 @@ export default function Footer() {
 
           {/* Col 3: Platform */}
           <div>
-            <h2 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+            <h2 className="mb-5 text-sm font-semibold text-white">
               Directory
             </h2>
             <ul className="space-y-3 text-sm">

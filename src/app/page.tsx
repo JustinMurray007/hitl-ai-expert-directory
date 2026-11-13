@@ -12,8 +12,6 @@ import { getCategories, getFeaturedExperts } from '@/lib/store';
 import ExpertCard from '@/components/ExpertCard';
 import { ConciergeCheckoutNotice, ConciergePayButton, ConciergePrice } from '@/components/ConciergePayButton';
 import {
-  ShieldCheck,
-  Sparkles,
   ArrowRight,
   Workflow,
   PhoneCall,
@@ -25,7 +23,6 @@ import {
   XCircle,
   AlertTriangle,
   Target,
-  Clock,
 } from 'lucide-react';
 
 const categoryIcons: Record<string, any> = {
@@ -106,13 +103,6 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-dots pointer-events-none opacity-40" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          {/* Trust Badge */}
-          <div className="mb-6 inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-brand-line bg-brand-soft px-4 py-2 text-center text-sm font-bold text-brand shadow-rest">
-            <ShieldCheck className="h-5 w-5 shrink-0 text-brand" />
-            <span>Matching Business Owners With The Ai Experts They Need</span>
-          </div>
-
-          {/* Symmetrical Heading */}
           <h1 className="mx-auto max-w-5xl text-3xl font-semibold leading-[1.12] tracking-tight text-ink min-[420px]:text-4xl sm:text-5xl lg:text-6xl">
             Hire AI Consultants and Automation Experts
           </h1>
@@ -122,7 +112,7 @@ export default async function HomePage() {
           </p>
 
           {/* Primary Action Buttons */}
-          <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-9 flex flex-col items-center justify-center gap-4">
             <Link
               href="/experts"
               className="inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-brand px-8 py-4 text-base font-bold text-white shadow-raised sm:w-auto"
@@ -130,12 +120,8 @@ export default async function HomePage() {
               Browse AI Experts
               <ArrowRight className="w-5 h-5" />
             </Link>
-            <Link
-              href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
-              className="inline-flex w-full items-center justify-center gap-2.5 rounded-full border border-line-strong bg-white px-8 py-4 text-base font-bold text-ink shadow-rest hover:border-brand hover:bg-canvas-muted sm:w-auto"
-            >
-              <Sparkles className="w-5 h-5 text-brand" />
-              Match by Your Business Category
+            <Link href={AI_SOLUTIONS_BY_INDUSTRY_PATH} className="text-base font-medium text-brand hover:text-brand-hover">
+              Match by your business category
             </Link>
           </div>
         </div>
@@ -150,10 +136,6 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               {/* Left Column (Content & Value Proposition) */}
               <div className="lg:col-span-7">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-xs font-bold text-brand mb-4 shadow-xs">
-                  <Sparkles className="w-4 h-4 text-brand" />
-                  <span>AI Solutions by Industry</span>
-                </div>
                 <h2 className="text-2xl sm:text-4xl font-semibold text-ink tracking-tight leading-tight">
                   AI Solutions by Industry
                 </h2>
@@ -177,19 +159,16 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                <div className="mt-8 flex flex-col items-start gap-4">
                   <Link
                     href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
-                    className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-base shadow-sm transition-all hover:scale-[1.02]"
+                    className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-base shadow-sm"
                   >
                     <span>AI Solutions by Industry</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
-                  <Link
-                    href="/match"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-ink font-bold text-sm border border-slate-300 transition-colors"
-                  >
-                    <span>Need Custom Match?</span>
+                  <Link href="/match" className="text-sm font-medium text-brand hover:text-brand-hover">
+                    Need a custom match?
                   </Link>
                 </div>
               </div>
@@ -197,20 +176,7 @@ export default async function HomePage() {
               {/* Right Column: Common AI Integrations List with Checkmarks */}
               <div className="lg:col-span-5">
                 <div className="rounded-2xl p-6 bg-white border border-line-strong shadow-md space-y-4">
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-xl bg-brand-soft border border-brand-line flex items-center justify-center">
-                        <Sparkles className="w-4 h-4 text-brand" />
-                      </div>
-                      <div>
-                        <div className="text-xs uppercase font-mono font-bold text-slate-400">Proven Automations</div>
-                        <div className="text-sm font-bold text-ink">Common AI Integrations</div>
-                      </div>
-                    </div>
-                    <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-brand-soft text-brand border border-brand-line">
-                      Popular
-                    </span>
-                  </div>
+                  <h3 className="border-b border-line pb-3 text-base font-semibold text-ink">Common AI integrations</h3>
 
                   {/* Checkmarked List of Common Integrations */}
                   <div className="space-y-3">
@@ -255,17 +221,7 @@ export default async function HomePage() {
                     </div>
                   </div>
 
-                  <div className="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-100">
-                    <span className="flex items-center gap-1 font-semibold text-brand">
-                      <Clock className="w-3.5 h-3.5" /> 1–3 week setup
-                    </span>
-                    <Link
-                      href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
-                      className="font-bold text-brand hover:underline flex items-center gap-1"
-                    >
-                      See Your Industry Solution →
-                    </Link>
-                  </div>
+                  <p className="border-t border-line pt-3 text-sm text-muted">Typical setup is 1–3 weeks.</p>
                 </div>
               </div>
             </div>
@@ -281,10 +237,7 @@ export default async function HomePage() {
           {/* Section Header */}
           <div data-reveal className="mb-12 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-brand">
-                Business Solutions
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-semibold text-ink mt-1 tracking-tight">
+              <h2 className="text-2xl sm:text-4xl font-semibold text-ink tracking-tight">
                 Browse by Business Need
               </h2>
               <p className="text-base text-muted-strong mt-2 max-w-2xl font-normal leading-relaxed">
@@ -324,8 +277,8 @@ export default async function HomePage() {
                       >
                         <Icon className={`w-7 h-7 ${theme.text}`} />
                       </div>
-                      <span className={`text-xs font-mono font-bold px-2.5 py-1 rounded-full ${theme.badge}`}>
-                        {category.expert_count ?? 0} Listed
+                      <span className="text-sm text-muted">
+                        {category.expert_count ?? 0} listed
                       </span>
                     </div>
 
@@ -357,15 +310,11 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div data-reveal className="mb-12 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-brand-line bg-brand-soft px-3 py-1.5 text-xs font-bold text-brand">
-                <ShieldCheck className="w-4 h-4" />
-                <span>Featured listings</span>
-              </div>
               <h2 className="text-2xl sm:text-4xl font-semibold text-ink tracking-tight">
-                Featured AI Experts
+                AI Experts
               </h2>
               <p className="text-base text-muted-strong mt-2 max-w-2xl font-normal leading-relaxed">
-                Consultants and agencies in the directory, with starting budgets and the tools they list.
+                Consultants and agencies in the directory, with the tools they list.
               </p>
             </div>
             <Link
@@ -379,7 +328,7 @@ export default async function HomePage() {
           {/* Symmetrical 3x2 Grid */}
           <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
             {featuredExperts.map((expert) => (
-              <ExpertCard key={expert.id} expert={expertForPage(expert)} featured />
+              <ExpertCard key={expert.id} expert={expertForPage(expert)} compact />
             ))}
           </div>
         </div>
@@ -391,10 +340,7 @@ export default async function HomePage() {
       <section className="py-20 border-b border-line bg-canvas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div data-reveal className="mx-auto mb-14 max-w-3xl text-center">
-            <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
-              The Accountability Difference
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-semibold text-ink mt-2 tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-semibold text-ink tracking-tight">
               Why Generic Freelance Sites Fail for AI Systems
             </h2>
             <p className="text-base text-muted-strong mt-3 font-normal leading-relaxed max-w-2xl mx-auto">
@@ -410,10 +356,7 @@ export default async function HomePage() {
                 <div className="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center mb-6">
                   <XCircle className="w-6 h-6 text-rose-500" />
                 </div>
-                <span className="text-xs font-mono font-bold text-rose-600 uppercase tracking-wider">
-                  Legacy Platforms
-                </span>
-                <h3 className="text-xl font-semibold text-ink mt-1">Generic Freelance Sites</h3>
+                <h3 className="text-xl font-semibold text-ink">Generic Freelance Sites</h3>
                 <p className="text-sm text-slate-500 mt-2 font-normal leading-relaxed">
                   Upwork, Fiverr, and standard directories that rank by self-reported claims.
                 </p>
@@ -441,10 +384,7 @@ export default async function HomePage() {
                 <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center mb-6">
                   <AlertTriangle className="w-6 h-6 text-amber-500" />
                 </div>
-                <span className="text-xs font-mono font-bold text-amber-600 uppercase tracking-wider">
-                  Unchecked Automation
-                </span>
-                <h3 className="text-xl font-semibold text-ink mt-1">Hands-off AI Agencies</h3>
+                <h3 className="text-xl font-semibold text-ink">Hands-off AI Agencies</h3>
                 <p className="text-sm text-slate-500 mt-2 font-normal leading-relaxed">
                   Agencies selling &quot;100% hands-off AI&quot; with zero error protection.
                 </p>
@@ -475,18 +415,15 @@ export default async function HomePage() {
                 <div className="w-12 h-12 rounded-2xl bg-brand-soft border border-brand-line flex items-center justify-center mb-6">
                   <CheckCircle2 className="w-6 h-6 text-brand" />
                 </div>
-                <span className="text-xs font-mono font-bold text-brand uppercase tracking-wider">
-                  This directory
-                </span>
-                <h3 className="text-xl font-semibold text-ink mt-1">Browse or get introductions</h3>
+                <h3 className="text-xl font-semibold text-ink">Browse or get introductions</h3>
                 <p className="text-sm text-slate-500 mt-2 font-normal leading-relaxed">
-                  Profiles list a starting budget, tools, categories, and a city. You can browse them or pay for a match.
+                  Profiles list tools, categories, and a city. You can browse them or pay for a match.
                 </p>
 
                 <div className="mt-6 space-y-3 text-sm text-ink font-semibold">
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-0.5" />
-                    <span>Filter by category, tool, budget, and city</span>
+                    <span>Filter by category, tool, and city</span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-0.5" />
@@ -514,35 +451,26 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div data-reveal className="flex flex-col justify-between gap-10 rounded-3xl border border-brand-line bg-gradient-to-r from-brand-soft via-white to-brand-soft p-6 shadow-rest sm:p-14 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
-                Concierge Match
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-semibold text-ink mt-2 leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-semibold text-ink leading-tight">
                 Introduce at least 3 experts for your project.
               </h2>
               <p className="text-base text-muted-strong mt-3 leading-relaxed font-normal">
-                Tell us about your business process, stack, and budget. We will review your request privately and introduce at least 3 experts that match your needs, within 48 hours.
+                Tell us about your business process and stack. We will review your request privately and introduce at least 3 experts that match your needs, within 48 hours.
               </p>
               <ConciergePrice className="mt-5" />
-              <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <div className="mt-8 flex flex-col items-start gap-4">
                 <ConciergePayButton
                   className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-brand hover:bg-brand-hover text-white font-medium text-base shadow-md"
                   fallbackLabel="Request Concierge Match"
                 />
-                <Link
-                  href="/about#how-it-works"
-                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white hover:bg-canvas-muted text-ink font-medium text-base border border-line-strong transition-colors"
-                >
+                <Link href="/about#how-it-works" className="text-sm font-medium text-brand hover:text-brand-hover">
                   How it works
                 </Link>
               </div>
               <ConciergeCheckoutNotice className="mt-4 text-sm text-muted-strong" />
             </div>
 
-            <div className="rounded-2xl p-6 bg-white/90 backdrop-blur-sm border border-slate-200/80 shadow-xs max-w-sm w-full space-y-4">
-              <div className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
-                Founder Concierge Stats
-              </div>
+            <div className="rounded-2xl p-6 bg-white border border-line max-w-sm w-full space-y-4">
               <div className="space-y-3">
                 <div className="flex justify-between items-center text-sm">
                   <span className="text-slate-600 font-medium">Response time</span>

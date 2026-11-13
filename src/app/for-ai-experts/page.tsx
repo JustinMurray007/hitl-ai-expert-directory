@@ -25,7 +25,7 @@ export default function ForAiExpertsPage() {
       <ul className="mt-6 space-y-2 text-base text-ink">
         {monthly.map((price) => (
           <li key={price.lookupKey}>
-            {price.nickname}: {dollars(price.unitAmount)} per month
+            {price.tier === 'basic' ? 'Basic' : price.tier === 'premium' ? '$59.99 plan' : '$29.99 plan'}: {dollars(price.unitAmount)} per month
           </li>
         ))}
       </ul>
@@ -38,9 +38,6 @@ export default function ForAiExpertsPage() {
           /apply
         </Link>
         .
-      </p>
-      <p className="mt-4 text-sm text-muted">
-        TODO: competitor commission rates (directories that charge a percentage of the project) are not documented in this repo. Do not add those percentages until there is a source.
       </p>
       <FaqList
         entries={[

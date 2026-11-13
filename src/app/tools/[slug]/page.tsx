@@ -89,15 +89,11 @@ export default async function ToolPage({ params }: ToolPageProps) {
       </Link>
 
       <article className="rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-10">
-        <div className="mb-4 flex flex-wrap items-center gap-2">
-          {tool.company && (
-            <span className="text-xs font-medium uppercase tracking-wide text-muted">{tool.company}</span>
-          )}
-          <span className="rounded-full border border-brand-line bg-brand-soft px-2.5 py-0.5 text-xs font-medium text-brand">
-            {tool.category}
-          </span>
-        </div>
         <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-5xl">{tool.name}</h1>
+        <p className="mt-3 text-sm text-muted">
+          {tool.company ? `${tool.company}. ` : ''}
+          {tool.category}.
+        </p>
         <p className="mt-4 text-base font-normal leading-relaxed text-muted-strong sm:text-lg">{tool.description}</p>
         {tool.bestFor && (
           <p className="mt-4 text-base text-ink">

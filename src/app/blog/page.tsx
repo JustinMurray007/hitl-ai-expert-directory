@@ -18,12 +18,12 @@ export default function BlogPage() {
       <ul className="mt-8 space-y-4">
         {GUIDES.map((guide) => (
           <li key={guide.slug} className="rounded-2xl border border-line bg-white p-5">
-            <p className="text-sm text-muted">{GUIDE_DATE}</p>
-            <h2 className="mt-1 text-xl font-semibold text-ink">
+            <h2 className="text-xl font-semibold text-ink">
               <Link href={`/blog/${guide.slug}`} className="hover:text-brand">
                 {guide.title}
               </Link>
             </h2>
+            <p className="mt-1 text-sm text-muted">{GUIDE_DATE}</p>
             <p className="mt-2 text-base leading-relaxed text-muted-strong">{guide.description}</p>
           </li>
         ))}

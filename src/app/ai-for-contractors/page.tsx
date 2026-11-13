@@ -21,9 +21,6 @@ export default function AiForContractorsPage() {
           AI for home services and trades
         </Link>
       </p>
-      <p className="mt-4 text-sm text-muted">
-        TODO: an unsourced &quot;74% of the time&quot; claim appeared on the contractor landing pages. It is not repeated here. Add a statistic only with a citation.
-      </p>
       <FaqList
         entries={[
           {

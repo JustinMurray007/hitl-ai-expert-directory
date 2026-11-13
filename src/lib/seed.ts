@@ -102,7 +102,7 @@ export const SEED_EXPERTS: Expert[] = [
     is_verified: true,
     verified_at: '2026-03-10T12:00:00Z',
     verified_case_study_count: 1,
-    sponsor_rank: 1,
+    sponsor_rank: 0,
     is_demo: false,
     categories: [
       SEED_CATEGORIES[0], // Operations & Workflow Automation
@@ -128,7 +128,7 @@ export const SEED_EXPERTS: Expert[] = [
         outcomes_roi: 'Under 60-second speed-to-lead response time; 42% increase in booked in-home remodeling estimate consultations.',
         demo_video_url: 'https://ghl.yotomations.com/case-studies/yelp-gohighlevel-lead-integration-remodeling-contractor/',
         reviewer_confirmed: true,
-        is_featured: true,
+        is_featured: false,
       },
     ],
   },
@@ -156,7 +156,7 @@ export const SEED_EXPERTS: Expert[] = [
     is_verified: true,
     verified_at: '2026-03-08T10:00:00Z',
     verified_case_study_count: 1,
-    sponsor_rank: 2,
+    sponsor_rank: 0,
     is_demo: false,
     categories: [
       SEED_CATEGORIES[0], // Operations & Workflow Automation
@@ -182,7 +182,7 @@ export const SEED_EXPERTS: Expert[] = [
         outcomes_roi: 'Recovers 15+ after-hours customer inquiries monthly; increases quote acceptance rate by 34% within 45 days.',
         demo_video_url: 'https://barrana.ai/case-studies/contractor-mississauga',
         reviewer_confirmed: true,
-        is_featured: true,
+        is_featured: false,
       },
     ],
   },
@@ -210,7 +210,7 @@ export const SEED_EXPERTS: Expert[] = [
     is_verified: true,
     verified_at: '2026-03-05T14:30:00Z',
     verified_case_study_count: 1,
-    sponsor_rank: 3,
+    sponsor_rank: 0,
     is_demo: false,
     categories: [
       SEED_CATEGORIES[1], // Sales & Lead Qualification
@@ -236,7 +236,7 @@ export const SEED_EXPERTS: Expert[] = [
         outcomes_roi: 'Zero missed inbound calls across 2+ years of continuous production; captured over $85,000 in seasonal painting jobs that previously went to voicemail.',
         demo_video_url: 'https://voxeai.com/case-studies/clean-cut-painting',
         reviewer_confirmed: true,
-        is_featured: true,
+        is_featured: false,
       },
     ],
   },
@@ -265,7 +265,7 @@ export const SEED_EXPERTS: Expert[] = [
     is_verified: true,
     verified_at: '2026-03-01T09:00:00Z',
     verified_case_study_count: 1,
-    sponsor_rank: 4,
+    sponsor_rank: 0,
     is_demo: false,
     categories: [
       SEED_CATEGORIES[1], // Sales & Lead Qualification
@@ -291,7 +291,7 @@ export const SEED_EXPERTS: Expert[] = [
         outcomes_roi: '94% first-call answer rate; 51% appointment booking conversion on incoming web inquiries over 12 months.',
         demo_video_url: 'https://www.explained.consulting/case-studies/grout-medic',
         reviewer_confirmed: true,
-        is_featured: true,
+        is_featured: false,
       },
     ],
   },
@@ -319,7 +319,7 @@ export const SEED_EXPERTS: Expert[] = [
     is_verified: true,
     verified_at: '2026-02-25T11:00:00Z',
     verified_case_study_count: 1,
-    sponsor_rank: 5,
+    sponsor_rank: 0,
     is_demo: false,
     categories: [
       SEED_CATEGORIES[0], // Operations & Workflow Automation
@@ -373,7 +373,7 @@ export const SEED_EXPERTS: Expert[] = [
     is_verified: true,
     verified_at: '2026-02-20T16:00:00Z',
     verified_case_study_count: 1,
-    sponsor_rank: 6,
+    sponsor_rank: 0,
     is_demo: false,
     categories: [
       SEED_CATEGORIES[1], // Sales & Lead Qualification

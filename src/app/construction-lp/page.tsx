@@ -3,14 +3,12 @@ import { withCanonical } from '@/lib/seo';
 import Link from 'next/link';
 import {
   Hammer,
-  HardHat,
   PhoneCall,
   Clock,
   ShieldCheck,
   CheckCircle2,
   TrendingUp,
   ArrowRight,
-  Sparkles,
   Calendar,
   MessageSquare,
   Building,
@@ -37,13 +35,6 @@ export default function ConstructionLandingPage() {
       ====================================================================== */}
       <section className="relative pt-16 pb-20 overflow-hidden bg-gradient-to-b from-canvas via-white to-canvas border-b border-line">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          {/* Industry Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-6 shadow-xs">
-            <HardHat className="w-4 h-4 text-brand" />
-            <span>Built for General Contractors, Kitchen &amp; Bath Remodelers &amp; Builders</span>
-          </div>
-
-          {/* Main Headline */}
           <h1 className="mx-auto max-w-4xl text-3xl font-semibold leading-[1.12] tracking-tight text-ink min-[420px]:text-4xl sm:text-5xl lg:text-6xl">
             Stop Losing <span className="text-brand">$50,000+ Remodel Jobs</span> While You&apos;re On The Jobsite.
           </h1>
@@ -64,9 +55,9 @@ export default function ConstructionLandingPage() {
             </a>
             <Link
               href="/experts"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white hover:bg-canvas-muted text-ink font-bold text-base border border-line-strong shadow-xs transition-all hover:border-brand"
+              className="text-base font-medium text-brand hover:text-brand-hover"
             >
-              Browse Construction AI Specialists
+              Browse construction AI specialists
             </Link>
           </div>
 
@@ -111,10 +102,7 @@ export default function ConstructionLandingPage() {
       <section data-reveal className="py-20 border-b border-line bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
-              The Cost of Business as Usual
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-semibold text-ink mt-2 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
               Where Construction Companies Lose Leads Every Week
             </h2>
             <p className="text-base text-muted-strong mt-3 font-normal leading-relaxed max-w-2xl mx-auto">
@@ -177,10 +165,7 @@ export default function ConstructionLandingPage() {
       <section data-reveal className="py-20 border-b border-line bg-canvas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
-              Automated Business Systems
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-semibold text-ink mt-2 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
               What Our Construction AI Specialists Build For You
             </h2>
             <p className="text-base text-muted-strong mt-3 font-normal leading-relaxed max-w-2xl mx-auto">
@@ -262,10 +247,7 @@ export default function ConstructionLandingPage() {
       <section data-reveal className="py-20 border-b border-line bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
-              Examples from listed specialists
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-semibold text-ink mt-2 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
               Real Builds Implemented for Construction Companies
             </h2>
             <p className="text-base text-muted-strong mt-3 font-normal leading-relaxed max-w-2xl mx-auto">
@@ -277,10 +259,7 @@ export default function ConstructionLandingPage() {
             {/* Case Study 1: Yotomations */}
             <div className="rounded-3xl p-7 bg-canvas border border-line shadow-xs flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold font-mono uppercase text-brand">Remodeling &amp; Roofing</span>
-                  <span className="text-xs text-slate-500 font-semibold">Tampa, FL</span>
-                </div>
+                <p className="mb-4 text-sm text-muted">Tampa, FL</p>
                 <h3 className="text-xl font-semibold text-ink">Yotomations LLC</h3>
                 <p className="text-xs text-brand font-bold mt-0.5">Koby (Yaakov) Oranski</p>
                 <p className="text-sm text-muted-strong mt-3 leading-relaxed">
@@ -303,10 +282,7 @@ export default function ConstructionLandingPage() {
             {/* Case Study 2: Barrana.ai */}
             <div className="rounded-3xl p-7 bg-canvas border border-line shadow-xs flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold font-mono uppercase text-brand">Contractors (Renovation)</span>
-                  <span className="text-xs text-slate-500 font-semibold">Toronto, ON</span>
-                </div>
+                <p className="mb-4 text-sm text-muted">Toronto, ON</p>
                 <h3 className="text-xl font-semibold text-ink">Barrana.ai</h3>
                 <p className="text-xs text-brand font-bold mt-0.5">Ikram Rana</p>
                 <p className="text-sm text-muted-strong mt-3 leading-relaxed">
@@ -329,10 +305,7 @@ export default function ConstructionLandingPage() {
             {/* Case Study 3: Voxe AI */}
             <div className="rounded-3xl p-7 bg-canvas border border-line shadow-xs flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold font-mono uppercase text-brand">Home Services &amp; Remodel</span>
-                  <span className="text-xs text-slate-500 font-semibold">Orlando, FL</span>
-                </div>
+                <p className="mb-4 text-sm text-muted">Orlando, FL</p>
                 <h3 className="text-xl font-semibold text-ink">Voxe AI</h3>
                 <p className="text-xs text-brand font-bold mt-0.5">Matt Aponte</p>
                 <p className="text-sm text-muted-strong mt-3 leading-relaxed">
@@ -361,10 +334,6 @@ export default function ConstructionLandingPage() {
       <section id="intake-form" data-reveal className="py-20 bg-gradient-to-b from-canvas via-white to-canvas border-b border-line">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-3">
-              <Sparkles className="w-4 h-4" />
-              <span>Get Your Construction AI Blueprint</span>
-            </div>
             <h2 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight">
               Tell Us About Your Business
             </h2>
@@ -412,10 +381,7 @@ export default function ConstructionLandingPage() {
       <section data-reveal className="py-20 border-b border-line bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
-              Contractor Questions
-            </span>
-            <h2 className="text-3xl font-semibold text-ink mt-2 tracking-tight">
+            <h2 className="text-3xl font-semibold text-ink tracking-tight">
               Frequently Asked Questions
             </h2>
             <JsonLd

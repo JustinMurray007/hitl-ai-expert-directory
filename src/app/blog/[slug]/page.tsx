@@ -47,13 +47,11 @@ export default async function GuidePage({ params }: GuidePageProps) {
           mainEntityOfPage: url,
         })}
       />
-      <p className="text-sm font-medium text-brand">
-        <Link href="/blog" className="hover:underline">
-          Guides
-        </Link>
-        <span className="text-muted"> · {GUIDE_DATE}</span>
-      </p>
+      <Link href="/blog" className="text-sm font-medium text-brand hover:underline">
+        Guides
+      </Link>
       <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">{guide.title}</h1>
+      <p className="mt-3 text-sm text-muted">{GUIDE_DATE}</p>
       {guide.sections.map((section) => (
         <section key={section.heading} className="mt-10">
           <h2 className="text-2xl font-semibold text-ink">{section.heading}</h2>

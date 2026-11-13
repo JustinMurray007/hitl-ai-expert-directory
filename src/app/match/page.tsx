@@ -5,13 +5,12 @@ import { graph } from '@/lib/schema';
 import { withCanonical } from '@/lib/seo';
 import { absoluteUrl } from '@/lib/site-url';
 import MatchFormClient from './MatchFormClient';
-import { Sparkles } from 'lucide-react';
 import { ConciergeCheckoutNotice, ConciergePayButton, ConciergePrice, CONCIERGE_CHECKOUT_ENABLED } from '@/components/ConciergePayButton';
 
 export const metadata = withCanonical('/match', {
   title: 'AI Consultant Matching: 3 Experts in 48 Hours',
   description:
-    'Tell us your process, tools, and budget. We review it privately and introduce at least 3 AI experts within 48 hours. $49.99 one-time.',
+    'Tell us your process and tools. We review it privately and introduce at least 3 AI experts within 48 hours. $49.99 one-time.',
 });
 
 export default function MatchPage() {
@@ -32,18 +31,14 @@ export default function MatchPage() {
         })}
       />
       <div className="text-center max-w-xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-medium text-brand mb-3">
-          <Sparkles className="w-4 h-4" />
-          <span>Concierge Match</span>
-        </div>
         <h1 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
           Get Matched With 3 AI Experts in 48 Hours
         </h1>
         <p className="text-base text-muted-strong mt-3 leading-relaxed">
-          Concierge Match costs $49.99 one time. You describe your process, tools, and budget. Within 48 hours Find AI Pros introduces at least 3 AI experts. You are not obligated to hire any of them.
+          Concierge Match costs $49.99 one time. You describe your process and tools. Within 48 hours Find AI Pros introduces at least 3 AI experts. You are not obligated to hire any of them.
         </p>
         <p className="text-base sm:text-lg text-muted mt-3 leading-relaxed font-normal">
-          Tell us about your business process, stack, and budget. We will review your request privately and introduce at least 3 experts that match your needs, within 48 hours.
+          Tell us about your business process and stack. We will review your request privately and introduce at least 3 experts that match your needs, within 48 hours.
         </p>
         <ConciergePrice className="mt-6" />
         <div className="mt-6 flex justify-center">

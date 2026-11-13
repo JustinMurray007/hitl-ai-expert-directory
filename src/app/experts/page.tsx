@@ -6,12 +6,10 @@ import { getLocationsSummary } from '@/lib/locations';
 import { breadcrumbList, graph, itemList } from '@/lib/schema';
 import { withCanonical } from '@/lib/seo';
 import { expertForPage, isPublicDirectoryExpert } from '@/lib/listing';
-import { ShieldCheck } from 'lucide-react';
-
 export const metadata = withCanonical('/experts', {
   title: 'AI Experts Directory: Consultants and Agencies',
   description:
-    'Browse AI consultants, voice AI builders, and automation agencies. Filter by category, tools, budget, and city.',
+    'Browse AI consultants, voice AI builders, and automation agencies. Filter by category, tools, and city.',
 });
 
 export default async function ExpertsPage() {
@@ -40,15 +38,11 @@ export default async function ExpertsPage() {
       />
       {/* Header */}
       <div className="mb-8">
-        <div className="mb-3 inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-brand-line bg-brand-soft px-3.5 py-1.5 text-sm font-bold text-brand shadow-rest">
-          <ShieldCheck className="w-4 h-4" />
-          <span>Curated AI Expert Directory</span>
-        </div>
         <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight">
           AI Experts Directory: Consultants and Agencies
         </h1>
         <p className="text-base sm:text-lg text-muted-strong mt-3 max-w-3xl leading-relaxed font-normal">
-          The Find AI Pros directory lists AI consultants and automation agencies. Every profile shows a starting budget, tools, categories, and location.
+          The Find AI Pros directory lists AI consultants and automation agencies. Every profile shows tools, categories, and location.
         </p>
       </div>
 

@@ -1,10 +1,7 @@
 import Link from 'next/link';
 import { withCanonical } from '@/lib/seo';
 import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
-import {
-  ShieldCheck,
-  ArrowRight,
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const metadata = withCanonical('/about', {
   title: 'How Find AI Pros Works',
@@ -16,10 +13,6 @@ export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
       <section id="how-it-works" className="text-center space-y-8">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-medium text-brand">
-          <ShieldCheck className="w-4 h-4" />
-          <span>How it works</span>
-        </div>
         <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">
           How Find AI Pros Works
         </h1>
@@ -57,10 +50,7 @@ export default function AboutPage() {
       {/* Listing plans */}
       <section data-reveal className="space-y-6 rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-10">
         <div className="border-b border-line-soft pb-4">
-          <span className="text-sm uppercase font-mono tracking-wider text-brand font-bold">
-            Listing plans
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-ink mt-1.5">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-ink">
             Placement is what you pay for.
           </h2>
           <p className="text-sm sm:text-base text-muted mt-1.5 leading-relaxed font-normal">
@@ -71,9 +61,9 @@ export default function AboutPage() {
         <ul className="space-y-3 text-ink-soft text-sm sm:text-base leading-relaxed">
           <li>New profiles are free for the first 30 days in one category. No card required. Nothing is charged automatically. Website and social links show during those 30 days and on any paid plan. If you pay during the 30 days, the paid plan starts that day. It is not a Stripe trial. When a subscription ends, the listing becomes a limited profile.</li>
           <li><strong>Basic</strong> — $9.99/month or $79/year. One category, including a link to their website.</li>
-          <li><strong>Featured</strong> — $29.99/month or $299.99/year. Labeled Featured, and listed above Basic listings in 3 categories.</li>
-          <li><strong>Premium Featured</strong> — $59.99/month or $599.99/year. Labeled Premium Featured. Homepage listing plus the top of every category.</li>
-          <li>Extra categories are $9.99/month or $79/year each. Basic includes 1, Featured includes 3, and Premium Featured includes every category, so Premium does not need extras.</li>
+          <li><strong>$29.99 plan</strong> — $29.99/month or $299.99/year. Listed in 3 categories.</li>
+          <li><strong>$59.99 plan</strong> — $59.99/month or $599.99/year. Homepage listing plus the top of every category.</li>
+          <li>Extra categories are $9.99/month or $79/year each. Basic includes 1, the $29.99 plan includes 3, and the $59.99 plan includes every category, so the $59.99 plan does not need extras.</li>
           <li>After 30 days without a plan, the listing stays visible as a limited profile (name and category). The website link, social links, contact and lead routing, and match eligibility come off. It is not hidden and it is not auto-charged. Reminder emails go out at day 15 and on day 30 if they have not picked a plan.</li>
         </ul>
 

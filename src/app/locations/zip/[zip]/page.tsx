@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: ZipPageProps): Promise<Metada
   }
 
   const title = `Find An Ai Consultant & Company Near ${postalCode} (${cityName}, ${stateCode}) | Find Ai Pros`;
-  const description = `Find AI consultants and developers serving postal code ${postalCode} in ${cityName}, ${stateCode}. Compare budgets and tools, or get matched in 48 hours.`;
+  const description = `Find AI consultants and developers serving postal code ${postalCode} in ${cityName}, ${stateCode}. Compare tools, or get matched in 48 hours.`;
 
   return {
     title,
@@ -186,14 +186,7 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
         </nav>
 
         {/* Hero Banner */}
-        <div className="rounded-3xl bg-gradient-to-br from-accent-soft via-white to-brand-soft border border-accent-line p-8 sm:p-12 shadow-xs space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-accent-line text-xs sm:text-sm font-bold text-accent shadow-2xs">
-            <MapPin className="w-4 h-4 text-accent" />
-            <span>
-              Postal Area • {postalCode} ({cityName}, {stateCode})
-            </span>
-          </div>
-
+        <div className="rounded-3xl border border-line bg-white p-8 sm:p-12 space-y-6">
           <div className="max-w-3xl space-y-3">
             <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-[1.15]">
               Find An Ai Consultant &amp; Company Near {postalCode}
@@ -266,15 +259,11 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
         {/* Concierge Matching Card */}
         <div className="rounded-3xl bg-white border border-line p-8 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 text-xs font-bold font-mono uppercase tracking-wider text-brand mb-2">
-              <ShieldCheck className="w-4 h-4" />
-              <span>Private Concierge Matching</span>
-            </div>
             <h3 className="text-xl sm:text-2xl font-semibold text-ink">
               Need an on-site AI expert in or around {postalCode}?
             </h3>
             <p className="text-sm text-slate-600 mt-1 max-w-xl">
-              Tell us your software stack and operational bottleneck. We introduce 2 audited specialists who match your budget tier and location requirements.
+              Tell us your software stack and operational bottleneck. We introduce specialists who can work with that location.
             </p>
           </div>
           <Link

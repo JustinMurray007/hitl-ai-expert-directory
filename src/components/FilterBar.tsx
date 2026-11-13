@@ -9,7 +9,6 @@ interface FilterBarProps {
   tools: Tool[];
   initialCategory?: string;
   initialTool?: string;
-  initialBudget?: string;
   initialEngagement?: string;
   initialQuery?: string;
 }
@@ -19,34 +18,29 @@ export default function FilterBar({
   tools,
   initialCategory = '',
   initialTool = '',
-  initialBudget = 'all',
   initialEngagement = 'all',
   initialQuery = '',
 }: FilterBarProps) {
   const [search, setSearch] = useState(initialQuery);
   const [selectedCat, setSelectedCat] = useState(initialCategory);
   const [selectedTool, setSelectedTool] = useState(initialTool);
-  const [selectedBudget, setSelectedBudget] = useState(initialBudget);
   const [selectedEngagement, setSelectedEngagement] = useState(initialEngagement);
 
   const applyFilters = (overrides?: Partial<{
     query: string;
     cat: string;
     tool: string;
-    budget: string;
     engagement: string;
   }>) => {
     const q = overrides?.query !== undefined ? overrides.query : search;
     const cat = overrides?.cat !== undefined ? overrides.cat : selectedCat;
     const tool = overrides?.tool !== undefined ? overrides.tool : selectedTool;
-    const b = overrides?.budget !== undefined ? overrides.budget : selectedBudget;
     const eng = overrides?.engagement !== undefined ? overrides.engagement : selectedEngagement;
 
     const params = new URLSearchParams();
     if (q.trim()) params.set('q', q.trim());
     if (cat) params.set('category', cat);
     if (tool) params.set('tool', tool);
-    if (b && b !== 'all') params.set('budget', b);
     if (eng && eng !== 'all') params.set('engagement', eng);
 
     const next = params.toString();
@@ -58,14 +52,13 @@ export default function FilterBar({
     setSearch('');
     setSelectedCat('');
     setSelectedTool('');
-    setSelectedBudget('all');
     setSelectedEngagement('all');
     window.history.pushState(null, '', '/experts');
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   const hasActiveFilters = Boolean(
-    search || selectedCat || selectedTool || (selectedBudget && selectedBudget !== 'all') || (selectedEngagement && selectedEngagement !== 'all')
+    search || selectedCat || selectedTool || (selectedEngagement && selectedEngagement !== 'all')
   );
 
   return (
@@ -131,23 +124,6 @@ export default function FilterBar({
               {t.name}
             </option>
           ))}
-        </select>
-
-        {/* Budget */}
-        <select
-          value={selectedBudget}
-          onChange={(e) => {
-            setSelectedBudget(e.target.value);
-            applyFilters({ budget: e.target.value });
-          }}
-          aria-label="Filter by starting budget"
-          className="w-full rounded-xl border border-line bg-canvas-muted px-4 py-2.5 text-base font-semibold text-ink focus:border-brand focus:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2"
-        >
-          <option value="all">Any Starting Budget</option>
-          <option value="under_2500">Under $2,500</option>
-          <option value="2500_to_5000">$2,500 – $5,000</option>
-          <option value="5000_to_15000">$5,000 – $15,000</option>
-          <option value="15000_plus">$15,000+</option>
         </select>
 
         {/* Engagement */}

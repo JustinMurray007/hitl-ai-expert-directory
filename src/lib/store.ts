@@ -134,8 +134,7 @@ export async function getExperts(filters?: DirectoryFilters): Promise<Expert[]> 
         .select(EXPERT_PUBLIC_SELECT)
         .eq('status', 'published')
         .eq('is_demo', false)
-        .order('sponsor_rank', { ascending: false })
-        .order('is_verified', { ascending: false });
+        .order('full_name', { ascending: true });
 
       if (filters?.budget && filters.budget !== 'all') {
         query = query.eq('starting_budget', filters.budget);

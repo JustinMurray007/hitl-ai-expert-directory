@@ -20,7 +20,6 @@ export type PricingCategory = {
 const PLANS: {
   id: CheckoutPlan;
   name: string;
-  ribbon: string;
   monthly: string;
   yearly: string;
   yearlyNote: string;
@@ -30,7 +29,6 @@ const PLANS: {
   {
     id: 'basic',
     name: 'Basic',
-    ribbon: 'One category',
     monthly: '$9.99',
     yearly: '$79',
     yearlyNote: '$6.58 / month, billed yearly',
@@ -41,29 +39,25 @@ const PLANS: {
   },
   {
     id: 'featured',
-    name: 'Featured',
-    ribbon: '3 categories · labeled Featured',
+    name: '$29.99 plan',
     monthly: '$29.99',
     yearly: '$299.99',
     yearlyNote: '$25.00 / month, billed yearly',
     highlighted: true,
     points: [
-      'Listed above Basic listings in 3 categories',
-      'Always labeled Featured',
+      'Listed in 3 categories',
       'Everything in Basic, including your website link',
     ],
   },
   {
     id: 'premium',
-    name: 'Premium Featured',
-    ribbon: 'Homepage · every category',
+    name: '$59.99 plan',
     monthly: '$59.99',
     yearly: '$599.99',
     yearlyNote: '$50.00 / month, billed yearly',
     points: [
       'Homepage listing, plus the top of every category',
-      'Always labeled Premium Featured',
-      'Everything in Featured, including your website link',
+      'Everything in the $29.99 plan, including your website link',
     ],
   },
 ];
@@ -159,7 +153,7 @@ function ApplyPricingBody({
           Each category has its own page, and people can filter and search the directory by category. The more categories you&apos;re in, the more of those pages and filters you show up in.
         </p>
         <p className="text-muted mt-2 leading-relaxed">
-          Extra categories are <strong className="text-ink">$9.99/month</strong> or <strong className="text-ink">$79/year</strong> each, on top of your plan. Basic includes 1 category, Featured includes 3, and Premium Featured includes every category. You are only charged for categories past the ones your plan includes.
+          Extra categories are <strong className="text-ink">$9.99/month</strong> or <strong className="text-ink">$79/year</strong> each, on top of your plan. Basic includes 1 category, the $29.99 plan includes 3, and the $59.99 plan includes every category. You are only charged for categories past the ones your plan includes.
         </p>
         {categories.length > 0 ? (
           <fieldset className="mt-4">
@@ -200,7 +194,7 @@ function ApplyPricingBody({
         {PLANS.map((plan) => {
           const included = includedCategoryPhrase(plan.id, categories.length);
           const extra = extraCategoryQuantity(selected.length, plan.id, Math.max(categories.length, selected.length));
-          const planLabel = plan.name === 'Premium Featured' ? 'Premium' : plan.name;
+          const planLabel = plan.name;
           const buttonLabel = canCheckout || expertId ? `Get started — ${planLabel}` : 'Apply free first';
           const buttonClass = `w-full inline-flex items-center justify-center px-5 py-3.5 rounded-full font-bold text-sm sm:text-base transition-colors ${
             plan.highlighted
@@ -216,10 +210,7 @@ function ApplyPricingBody({
                   : 'border border-line shadow-xs'
               }`}
             >
-              <p className="text-xs font-mono uppercase tracking-wider text-brand font-bold">
-                {plan.ribbon}
-              </p>
-              <h3 className="text-2xl font-semibold text-ink mt-2">{plan.name}</h3>
+              <h3 className="text-2xl font-semibold text-ink">{plan.name}</h3>
               <div className="mt-4 flex items-baseline gap-1">
                 <span className="text-4xl font-semibold tracking-tight text-ink">
                   {period === 'monthly' ? plan.monthly : plan.yearly}
@@ -297,7 +288,7 @@ function ApplyPricingBody({
             <strong>After 30 days, if you have not picked a plan,</strong> the listing stays visible as a limited profile: your name and category remain public. Your website link, social links, contact and lead routing, and match eligibility come off until you start a plan. The listing is not hidden, and you are not charged automatically.
           </li>
           <li>
-            <strong>Featured and Premium Featured are paid placements, and they are clearly labeled.</strong> They change where you appear.
+            <strong>The $29.99 and $59.99 plans are paid placements.</strong> They change where you appear. Profiles are not labeled with a placement tag.
           </li>
           <li>
             A specialist who breaks the standard can be suspended or removed, including on a paid placement.
@@ -322,11 +313,11 @@ function ApplyPricingBody({
               {
                 question: 'Why would I add more categories?',
                 answer:
-                  'Each category has its own page. Your plan includes a set number of categories. Categories past that number are $9.99/month or $79/year each. Premium Featured includes every category.',
+                  'Each category has its own page. Your plan includes a set number of categories. Categories past that number are $9.99/month or $79/year each. The $59.99 plan includes every category.',
               },
               {
-                question: 'How are Featured and Premium Featured labeled?',
-                answer: 'Paid placements are labeled Featured or Premium Featured on the profile and on expert cards.',
+                question: 'Do profiles show a placement label?',
+                answer: 'No. Profiles and expert cards do not show a placement tag.',
               },
               {
                 question: 'Do contractors pay to use the Directory?',
@@ -339,7 +330,7 @@ function ApplyPricingBody({
           <summary className="cursor-pointer font-bold text-ink">What happens after 30 days?</summary>
           <p className="mt-2 text-sm sm:text-base text-muted leading-relaxed">
             Nothing is charged automatically. You get a reminder email at day 15, and another on day 30 if you have not picked a plan.
-            If you are on Basic, Featured, or Premium Featured, that plan continues, and your website and social links stay visible.
+            If you are on Basic, the $29.99 plan, or the $59.99 plan, that plan continues, and your website and social links stay visible.
             If you have not picked a plan, your listing stays on the site as a limited profile: your name and category stay public.
             Your website link, social links, contact and lead routing, and match eligibility come off until you start a plan.
             The listing is not hidden. The same limited profile applies when a paid subscription ends.
@@ -354,13 +345,13 @@ function ApplyPricingBody({
         <details className="border-t border-line py-4">
           <summary className="cursor-pointer font-bold text-ink">Why would I add more categories?</summary>
           <p className="mt-2 text-sm sm:text-base text-muted leading-relaxed">
-            Each category has its own page, and people can filter and search the directory by category. The more categories you&apos;re in, the more of those pages and filters you show up in. Your plan includes a set number of categories. Choose which ones you want to appear in. Categories past that number are $9.99/month or $79/year each. Premium Featured includes every category.
+            Each category has its own page, and people can filter and search the directory by category. The more categories you&apos;re in, the more of those pages and filters you show up in. Your plan includes a set number of categories. Choose which ones you want to appear in. Categories past that number are $9.99/month or $79/year each. The $59.99 plan includes every category.
           </p>
         </details>
         <details className="border-t border-line py-4">
-          <summary className="cursor-pointer font-bold text-ink">How are Featured and Premium Featured labeled?</summary>
+          <summary className="cursor-pointer font-bold text-ink">Do profiles show a placement label?</summary>
           <p className="mt-2 text-sm sm:text-base text-muted leading-relaxed">
-            Paid placements are labeled Featured or Premium Featured on the profile and on expert cards, so a contractor can tell them from a Basic listing.
+            No. Profiles and expert cards do not show a placement tag.
           </p>
         </details>
         <details className="border-t border-line py-4">

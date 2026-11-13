@@ -1,9 +1,6 @@
 import { Metadata } from 'next';
 import { withCanonical } from '@/lib/seo';
-import {
-  ShieldCheck,
-  ExternalLink,
-} from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import ApplyPricing from '@/components/ApplyPricing';
 import DeferredTally from '@/components/DeferredTally';
 import { getCategories } from '@/lib/store';
@@ -19,15 +16,11 @@ export default async function ApplyPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mx-auto mb-10 max-w-2xl text-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-3 shadow-xs">
-          <ShieldCheck className="w-4 h-4" />
-          <span>Free to apply</span>
-        </div>
         <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight">
           List Your AI Consulting Business: Free for 30 Days
         </h1>
         <p className="text-base sm:text-lg text-muted mt-3 leading-relaxed font-normal">
-          Joining is free. Any new profile is free for the first 30 days in one category, no card required, and nothing is charged automatically. But, to retain your profile for over 30 days and for extra categories or featured locations on the website, please pay the affordable options below.
+          Joining is free. Any new profile is free for the first 30 days in one category, no card required, and nothing is charged automatically. But, to retain your profile for over 30 days and for extra categories or homepage placement, please pay the affordable options below.
         </p>
       </div>
 
