@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
-import { listPublicPages, sitemapValidationErrors, SITEMAP_GROUPS, toSitemapUrls } from './public-sitemap';
+import { execFileSync } from 'node:child_process';
+import { listPublicPages, resolveLastmod, sitemapValidationErrors, SITEMAP_GROUPS, toSitemapUrls } from './public-sitemap';
 import { SITE_ORIGIN } from './site-url';
+import { faqPage, organizationAndWebsite } from './schema';
 
 test('public sitemap lists canonical pages once and skips redirects', async () => {
   const pages = await listPublicPages();
@@ -14,16 +16,12 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
     '/',
     '/about',
     '/apply',
-    '/apply/success',
     '/match',
     '/tools',
     '/ai-solutions-by-industry',
     '/ai-solutions-by-industry/healthcare-dental',
     '/ai-solutions-by-industry/home-services-trades',
     '/ai-solutions-by-industry/logistics-freight',
-    '/business/healthcare-dental',
-    '/business/home-services-trades',
-    '/business/logistics-freight',
     '/tools/claude',
     '/tools/vapi',
     '/categories',
@@ -40,9 +38,13 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
   for (const path of [
     '/admin',
     '/ai-tools',
+    '/apply/success',
     '/apply/thanks',
     '/match/thanks',
     '/how-it-works',
+    '/business/healthcare-dental',
+    '/business/home-services-trades',
+    '/business/logistics-freight',
     '/business/freight_logistics',
     '/recommendations',
     '/recommendations/healthcare-dental',
@@ -68,13 +70,22 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
 
   const groups = new Set(pages.map((entry) => entry.group));
   for (const group of SITEMAP_GROUPS) assert.equal(groups.has(group.id), true, group.id);
-  assert.ok(pages.filter((entry) => entry.group === 'business').length >= 16);
-  assert.equal(
-    pages.filter((entry) => entry.group === 'business').length,
-    pages.filter((entry) => entry.group === 'ai-solutions').length,
-  );
+  assert.equal(pages.filter((entry) => entry.path.startsWith('/business/')).length, 0);
+  assert.ok(pages.filter((entry) => entry.group === 'ai-solutions').length >= 16);
   assert.ok(pages.some((entry) => entry.group === 'experts'));
   assert.ok(pages.some((entry) => entry.group === 'tools' && entry.path === '/tools/make'));
+
+  const homeGit = execFileSync('git', ['log', '-1', '--format=%cs', '--', 'src/app/page.tsx'], { encoding: 'utf8' }).trim();
+  assert.equal(pages.find((entry) => entry.path === '/')?.lastmod, homeGit);
+  assert.equal(resolveLastmod('2024-05-01T15:00:00Z', 'src/app/page.tsx'), '2024-05-01');
+});
+
+test('sitewide schema is valid JSON with the directory search action', () => {
+  const data = organizationAndWebsite();
+  const parsed = JSON.parse(JSON.stringify(data)) as { '@graph': Array<Record<string, unknown>> };
+  assert.equal(parsed['@graph'][1].potentialAction && (parsed['@graph'][1].potentialAction as { '@type': string })['@type'], 'SearchAction');
+  const faq = faqPage([{ question: 'How are experts vetted?', answer: 'Each expert names a human fallback.' }]);
+  assert.equal(JSON.parse(JSON.stringify(faq)).mainEntity.length, 1);
 });
 
 test('withn-tech redirects permanently to jake-read', () => {

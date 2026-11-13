@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { withCanonical } from '@/lib/seo';
 import Link from 'next/link';
 import {
   Hammer,
@@ -19,12 +20,14 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import DeferredTally from '@/components/DeferredTally';
+import JsonLd from '@/components/JsonLd';
+import { faqPage, graph } from '@/lib/schema';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical('/construction-lp', {
   title: 'AI Automation for Construction & Remodeling Contractors | Find Ai Pros',
   description:
     'Stop losing high-ticket remodeling jobs while you are on the jobsite. 24/7 AI voice dispatch, speed-to-lead text-back, and automated estimate follow-up built specifically for construction and remodeling businesses.',
-};
+});
 
 export default function ConstructionLandingPage() {
   return (
@@ -415,6 +418,32 @@ export default function ConstructionLandingPage() {
             <h2 className="text-3xl font-semibold text-ink mt-2 tracking-tight">
               Frequently Asked Questions
             </h2>
+            <JsonLd
+              data={graph(
+                faqPage([
+                  {
+                    question: 'Will the AI give homeowners prices or estimates without my permission?',
+                    answer:
+                      'No. The AI only collects homeowner square footage, material preferences, timeline, and address. Only you or your licensed estimator certify and approve numbers before proposals are delivered.',
+                  },
+                  {
+                    question: 'Does this integrate with Jobber, JobNimbus, or BuilderTrend?',
+                    answer:
+                      'Yes. Specialists on the directory connect voice agents and SMS workflows directly into standard contractor CRMs via webhooks and Make/Zapier.',
+                  },
+                  {
+                    question: 'What happens when a caller has an emergency or complex question?',
+                    answer:
+                      'The system has a built-in live transfer protocol. If a caller requests the owner or reports an emergency, the AI transfers the call to your mobile phone with a transcribed summary.',
+                  },
+                  {
+                    question: 'How quickly can an AI system be running for my remodeling business?',
+                    answer:
+                      'Most specialists complete setup within 1 to 3 weeks, including call testing, prompt calibration, and CRM connection.',
+                  },
+                ]),
+              )}
+            />
           </div>
 
           <div className="space-y-4">

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { withCanonical } from '@/lib/seo';
 import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 import {
   ShieldCheck,
@@ -6,11 +7,11 @@ import {
   FileCheck,
 } from 'lucide-react';
 
-export const metadata = {
+export const metadata = withCanonical('/about', {
   title: 'How It Works | Find Ai Pros',
   description:
     'Search our database of AI experts directly, or search by your business type and needs, and choose one or multiple options to get estimates or bids for your projects.',
-};
+});
 
 export default function AboutPage() {
   return (

@@ -6,6 +6,8 @@ import { CheckCircle2 } from 'lucide-react';
 import { isExpertId } from '@/lib/billing/pay-link';
 import type { BillingPeriod, CheckoutPlan } from '@/lib/stripe-links';
 import { extraCategoryQuantity, includedCategoryPhrase } from '@/lib/billing/category-cap';
+import JsonLd from '@/components/JsonLd';
+import { faqPage, graph } from '@/lib/schema';
 
 const APPLICATION_HREF = '#application';
 const CHECKOUT_ENABLED = process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_ENABLED === 'true';
@@ -305,6 +307,34 @@ function ApplyPricingBody({
 
       <div className="mt-5 rounded-3xl p-6 sm:p-8 bg-white border border-line shadow-xs">
         <h3 className="text-xl font-semibold text-ink mb-2">FAQ</h3>
+        <JsonLd
+          data={graph(
+            faqPage([
+              {
+                question: 'What happens after 30 days?',
+                answer:
+                  'Nothing is charged automatically. If you have not picked a plan, the listing stays visible as a limited profile: name and category stay public, and website, social, contact, and match eligibility come off until you start a plan.',
+              },
+              {
+                question: 'If I pay during the 30 free days, when does the plan start?',
+                answer: 'The paid plan starts immediately. The free 30 days are not a Stripe trial. You are only charged when you pay.',
+              },
+              {
+                question: 'Why would I add more categories?',
+                answer:
+                  'Each category has its own page. Your plan includes a set number of categories. Categories past that number are $9.99/month or $79/year each. Premium Featured includes every category.',
+              },
+              {
+                question: 'How are Featured and Premium Featured labeled?',
+                answer: 'Paid placements are labeled Featured or Premium Featured on the profile and on expert cards.',
+              },
+              {
+                question: 'Do contractors pay to use the Directory?',
+                answer: 'No. Contractors can browse and request a match at no charge.',
+              },
+            ]),
+          )}
+        />
         <details open className="border-t border-line py-4 group">
           <summary className="cursor-pointer font-bold text-ink">What happens after 30 days?</summary>
           <p className="mt-2 text-sm sm:text-base text-muted leading-relaxed">

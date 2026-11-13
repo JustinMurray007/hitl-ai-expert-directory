@@ -12,6 +12,9 @@ import {
   toolStaticSlugs,
 } from '@/lib/tool-catalog';
 import PathRedirect from '@/components/PathRedirect';
+import JsonLd from '@/components/JsonLd';
+import { breadcrumbList, graph } from '@/lib/schema';
+import { absoluteUrl } from '@/lib/site-url';
 import {
   STATIC_EXPORT_PLACEHOLDER,
   ensureStaticParams,
@@ -43,7 +46,7 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
   return {
     title,
     description,
-    alternates: { canonical: path },
+    alternates: { canonical: absoluteUrl(path) },
     robots: alias ? { index: false, follow: true } : undefined,
     openGraph: { title, description, type: 'website' },
   };
@@ -63,6 +66,23 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
+      <JsonLd
+        data={graph(
+          {
+            '@type': 'SoftwareApplication',
+            name: tool.name,
+            applicationCategory: tool.category,
+            description: tool.description,
+            url: absoluteUrl(toolPath(tool.slug)),
+            ...(tool.websiteUrl ? { installUrl: tool.websiteUrl } : {}),
+          },
+          breadcrumbList([
+            { name: 'Home', path: '/' },
+            { name: 'AI tools', path: '/tools' },
+            { name: tool.name, path: toolPath(tool.slug) },
+          ]),
+        )}
+      />
       <Link href="/tools" className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand-hover">
         <ArrowLeft className="h-4 w-4" />
         All tools

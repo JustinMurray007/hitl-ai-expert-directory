@@ -1,4 +1,8 @@
 import { notFound } from 'next/navigation';
+import JsonLd from '@/components/JsonLd';
+import { breadcrumbList, graph } from '@/lib/schema';
+import { withCanonical } from '@/lib/seo';
+import { absoluteUrl } from '@/lib/site-url';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getExpertBySlug, getExperts } from '@/lib/store';
@@ -48,7 +52,7 @@ export async function generateMetadata({ params }: ExpertProfilePageProps): Prom
     };
   }
 
-  return {
+  return withCanonical(`/experts/${expert.slug}`, {
     title: `${expert.full_name} — ${expert.professional_title} | Find Ai Pros`,
     description: expert.tagline,
     robots: expert.is_demo ? { index: false, follow: false } : undefined,
@@ -57,7 +61,7 @@ export async function generateMetadata({ params }: ExpertProfilePageProps): Prom
       description: expert.tagline,
       images: [expert.avatar_url],
     },
-  };
+  });
 }
 
 export default async function ExpertProfilePage({ params }: ExpertProfilePageProps) {
@@ -73,8 +77,38 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
 
   const linksVisible = showsPublicLinks(expert);
 
+  const sameAs = [expert.linkedin_url, expert.website_url, expert.github_url].filter((url): url is string => Boolean(url));
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <JsonLd
+        data={graph(
+          {
+            '@type': 'ProfilePage',
+            url: absoluteUrl(`/experts/${expert.slug}`),
+            mainEntity: {
+              '@type': 'Person',
+              name: expert.full_name,
+              jobTitle: expert.professional_title,
+              description: expert.tagline,
+              url: absoluteUrl(`/experts/${expert.slug}`),
+              ...(expert.agency_name ? { worksFor: { '@type': 'Organization', name: expert.agency_name } } : {}),
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: expert.city,
+                addressRegion: expert.state_region,
+                addressCountry: expert.country,
+              },
+              knowsAbout: expert.categories.map((category) => category.name),
+              ...(sameAs.length > 0 ? { sameAs } : {}),
+            },
+          },
+          breadcrumbList([
+            { name: 'Home', path: '/' },
+            { name: 'Experts', path: '/experts' },
+            { name: expert.full_name, path: `/experts/${expert.slug}` },
+          ]),
+        )}
+      />
       {/* Back button */}
       <div className="mb-6">
         <Link

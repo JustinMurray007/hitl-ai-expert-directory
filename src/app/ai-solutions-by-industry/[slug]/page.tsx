@@ -5,15 +5,17 @@ import { ArrowLeft, Sparkles } from 'lucide-react';
 import { getExperts } from '@/lib/store';
 import BusinessRecommender from '@/components/BusinessRecommender';
 import PathRedirect from '@/components/PathRedirect';
+import JsonLd from '@/components/JsonLd';
+import { breadcrumbList, graph, itemList } from '@/lib/schema';
 import {
   AI_SOLUTIONS_BY_INDUSTRY_PATH,
-  businessOverviewPath,
   businessPath,
   businessStaticSlugs,
   businessTypeBySlug,
   canonicalBusinessSlug,
 } from '@/lib/business-routes';
 import { absoluteUrl } from '@/lib/site-url';
+import { bottlenecksForBusiness } from '@/lib/recommendation-selection';
 import {
   STATIC_EXPORT_PLACEHOLDER,
   ensureStaticParams,
@@ -61,16 +63,37 @@ export default async function AiSolutionsBusinessPage({ params }: AiSolutionsBus
   const industry = businessTypeBySlug(canonical);
   if (!industry) notFound();
   const experts = await getExperts();
+  const categorySlugs = new Set(bottlenecksForBusiness(industry).map((item) => item.recommendedWorkflow.categorySlug));
+  const industryExperts = experts.filter((expert) => expert.categories.some((category) => categorySlugs.has(category.slug)));
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <JsonLd
+        data={graph(
+          {
+            '@type': 'Service',
+            name: `AI solutions for ${industry.industryName}`,
+            serviceType: 'AI consulting',
+            url: absoluteUrl(businessPath(canonical)),
+            description: industry.industryDescription,
+            audience: { '@type': 'BusinessAudience', name: industry.industryName },
+            provider: { '@type': 'Organization', name: 'Find AI Pros' },
+          },
+          itemList(
+            `Experts for ${industry.industryName}`,
+            industryExperts.map((expert) => ({ name: expert.full_name, path: `/experts/${expert.slug}` })),
+          ),
+          breadcrumbList([
+            { name: 'Home', path: '/' },
+            { name: 'AI solutions by industry', path: AI_SOLUTIONS_BY_INDUSTRY_PATH },
+            { name: industry.industryName, path: businessPath(canonical) },
+          ]),
+        )}
+      />
       <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
         <Link href={AI_SOLUTIONS_BY_INDUSTRY_PATH} className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand-hover">
           <ArrowLeft className="h-4 w-4" />
           AI Solutions by Industry
-        </Link>
-        <Link href={businessOverviewPath(canonical)} className="text-sm font-medium text-brand hover:text-brand-hover">
-          Business type overview
         </Link>
       </div>
       <div className="mx-auto mb-12 max-w-3xl text-center">

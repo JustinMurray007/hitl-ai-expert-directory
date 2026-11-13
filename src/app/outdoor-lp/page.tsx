@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { withCanonical } from '@/lib/seo';
 import Link from 'next/link';
 import {
   Trees,
@@ -20,12 +21,14 @@ import {
   Compass,
 } from 'lucide-react';
 import DeferredTally from '@/components/DeferredTally';
+import JsonLd from '@/components/JsonLd';
+import { faqPage, graph } from '@/lib/schema';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical('/outdoor-lp', {
   title: 'AI Automation for Landscaping, Pool & Outdoor Living Contractors | Find Ai Pros',
   description:
     'Capture every high-ticket outdoor living, pool, and landscaping lead automatically. 24/7 AI voice answering, automated weather delay notifications, and Jobber/Skimmer/LMN CRM syncing built for outdoor contractors.',
-};
+});
 
 export default function OutdoorLandingPage() {
   return (
@@ -416,6 +419,31 @@ export default function OutdoorLandingPage() {
             <h2 className="text-3xl font-semibold text-ink mt-2 tracking-tight">
               Questions from Outdoor Living Contractors
             </h2>
+            <JsonLd
+              data={graph(
+                faqPage([
+                  {
+                    question: 'Can the AI differentiate between high-ticket pool/patio builds and simple lawn care?',
+                    answer:
+                      'Yes. Callers asking about large pool, outdoor kitchen, or patio projects are routed into a design consultation calendar, while routine maintenance inquiries use a separate workflow.',
+                  },
+                  {
+                    question: 'Does this work with Skimmer, Jobber, LMN, or Aspire?',
+                    answer:
+                      'Yes. Pool companies on Skimmer or Jobber, and landscapers on Aspire or LMN, can sync new lead inquiries, addresses, and call summaries into their customer records.',
+                  },
+                  {
+                    question: 'How does the automated weather reschedule feature work?',
+                    answer:
+                      'An authorized crew lead or dispatcher can trigger one batch update that texts every customer on that day’s route with their rescheduled service day.',
+                  },
+                  {
+                    question: 'Who owns the automation setup and customer phone numbers?',
+                    answer: 'You retain ownership. Specialists build inside your own accounts, including Twilio, GoHighLevel, Make, and Jobber.',
+                  },
+                ]),
+              )}
+            />
           </div>
 
           <div className="space-y-4">

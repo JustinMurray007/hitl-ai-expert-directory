@@ -1,16 +1,22 @@
 # Cloudflare Pages does not match query strings. A 301 keeps the query string,
-# and BusinessQueryRedirect sends ?industry= / ?business= to the business page.
-# Canonical overview pages are /business/<slug>.
-# /recommendations moved to /ai-solutions-by-industry (rules at the bottom).
+# and BusinessQueryRedirect sends ?industry= / ?business= to the industry page.
+# /business and /recommendations both 301 to /ai-solutions-by-industry.
+# Specific legacy aliases are listed before the splats.
 /ai-tools /tools 301
 /ai-tools/ /tools 301
 
-/business/freight_logistics /business/logistics-freight 301
-/business/medical_dental /business/healthcare-dental 301
-/business/home_services_trade /business/home-services-trades 301
-/business/legal_accounting /business/legal-finance-consulting 301
-/business/ecommerce_retail /business/ecommerce-retail 301
-/business/real_estate_property /business/real-estate-property 301
+/business/freight_logistics /ai-solutions-by-industry/logistics-freight 301
+/business/freight_logistics/ /ai-solutions-by-industry/logistics-freight 301
+/business/medical_dental /ai-solutions-by-industry/healthcare-dental 301
+/business/medical_dental/ /ai-solutions-by-industry/healthcare-dental 301
+/business/home_services_trade /ai-solutions-by-industry/home-services-trades 301
+/business/home_services_trade/ /ai-solutions-by-industry/home-services-trades 301
+/business/legal_accounting /ai-solutions-by-industry/legal-finance-consulting 301
+/business/legal_accounting/ /ai-solutions-by-industry/legal-finance-consulting 301
+/business/ecommerce_retail /ai-solutions-by-industry/ecommerce-retail 301
+/business/ecommerce_retail/ /ai-solutions-by-industry/ecommerce-retail 301
+/business/real_estate_property /ai-solutions-by-industry/real-estate-property 301
+/business/real_estate_property/ /ai-solutions-by-industry/real-estate-property 301
 
 /recommendations/freight_logistics /ai-solutions-by-industry/logistics-freight 301
 /recommendations/freight_logistics/ /ai-solutions-by-industry/logistics-freight 301
@@ -38,3 +44,9 @@
 /recommendations/ /ai-solutions-by-industry 301
 /recommendations/:slug /ai-solutions-by-industry/:slug 301
 /recommendations/:slug/ /ai-solutions-by-industry/:slug 301
+
+# Duplicate business-type pages. Specific legacy aliases above win over the splat.
+/business /ai-solutions-by-industry 301
+/business/ /ai-solutions-by-industry 301
+/business/:slug /ai-solutions-by-industry/:slug 301
+/business/:slug/ /ai-solutions-by-industry/:slug 301

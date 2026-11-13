@@ -1,4 +1,8 @@
 import { notFound } from 'next/navigation';
+import JsonLd from '@/components/JsonLd';
+import { breadcrumbList, graph, itemList } from '@/lib/schema';
+import { withCanonical } from '@/lib/seo';
+import { absoluteUrl } from '@/lib/site-url';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getCategoryBySlug, getCategories, getExperts } from '@/lib/store';
@@ -86,10 +90,10 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     return { title: 'Category Not Found | Find Ai Pros' };
   }
 
-  return {
+  return withCanonical(`/categories/${category.slug}`, {
     title: `${category.name} — AI Specialists | Find Ai Pros`,
     description: `Hire AI experts in ${category.name}. Every specialist names how a human steps in when the system is unsure.`,
-  };
+  });
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
@@ -112,6 +116,27 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <JsonLd
+        data={graph(
+          {
+            '@type': 'Service',
+            name: category.name,
+            serviceType: category.name,
+            url: absoluteUrl(`/categories/${category.slug}`),
+            description: category.description,
+            provider: { '@type': 'Organization', name: 'Find AI Pros' },
+          },
+          itemList(
+            `${category.name} experts`,
+            experts.map((expert) => ({ name: expert.full_name, path: `/experts/${expert.slug}` })),
+          ),
+          breadcrumbList([
+            { name: 'Home', path: '/' },
+            { name: 'Categories', path: '/categories' },
+            { name: category.name, path: `/categories/${category.slug}` },
+          ]),
+        )}
+      />
       {/* Breadcrumb */}
       <div className="mb-6">
         <Link

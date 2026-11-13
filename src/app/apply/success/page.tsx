@@ -1,11 +1,13 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import SuccessActions from './SuccessActions';
+import { withCanonical } from '@/lib/seo';
 
-export const metadata = {
+export const metadata = withCanonical('/apply/success', {
   title: 'Payment received | Find Ai Pros',
   description: 'Stripe confirms the listing subscription from a webhook.',
-};
+  robots: { index: false, follow: false },
+});
 
 export default function ApplySuccessPage() {
   return (

@@ -1,12 +1,13 @@
 import { Cpu } from 'lucide-react';
+import { withCanonical } from '@/lib/seo';
 import ToolsDirectory from '@/components/ToolsDirectory';
 import RecommendationToolLinks from '@/components/RecommendationToolLinks';
 
-export const metadata = {
+export const metadata = withCanonical('/tools', {
   title: 'AI Tools Directory | Find Ai Pros',
   description:
     'A directory of AI models and tools grouped by category, including frontier models, automation, voice, coding, design, and business operations.',
-};
+});
 
 export default function ToolsPage() {
   return (
