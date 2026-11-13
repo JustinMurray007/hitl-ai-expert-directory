@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="space-y-4">
             <Link href="/" className="brand-link flex items-center gap-3 group">
               <Logo className="w-10 h-10 group-hover:scale-105 transition-transform" />
-              <span className="font-display font-semibold text-white text-xl tracking-tight">
+              <span className="wordmark font-bold text-white text-xl tracking-tight">
                 Find Ai <span className="text-brand-on-dark">PROS</span>
               </span>
             </Link>

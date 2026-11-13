@@ -2,8 +2,8 @@
 
 /* Fonts point at next/font variables so the loaded faces stay swappable in one place. */
 @theme inline {
-  --font-sans: var(--font-body), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-display-face), Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  --font-sans: var(--font-work), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Darken default status hues that fail WCAG AA as small text. */
   --color-rose-500: #be123c;
@@ -131,7 +131,9 @@
   body {
     background-color: var(--color-canvas);
     color: var(--color-ink);
-    font-family: var(--font-body), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: var(--font-work), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-weight: 400;
+    font-synthesis: none;
     min-height: 100vh;
     overflow-x: clip;
     font-size: 1rem;
@@ -149,8 +151,11 @@
   h1,
   h2,
   h3,
-  h4 {
-    font-family: var(--font-display-face), Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-weight: 700;
     letter-spacing: -0.022em;
     line-height: 1.15;
     text-wrap: balance;
@@ -450,4 +455,26 @@ html.js-reveal [data-reveal]:not([data-revealed]) {
     translate: none !important;
     transform: none !important;
   }
+}
+
+/* Unlayered so these beat Tailwind weight utilities. */
+:is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 700;
+}
+
+:is(p, li, label, input, textarea, select) {
+  font-family: var(--font-work), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+}
+
+.wordmark {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+:is(button, .nav-link, .menu-link, summary, a.rounded-full) {
+  font-family: var(--font-work), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 500;
 }
