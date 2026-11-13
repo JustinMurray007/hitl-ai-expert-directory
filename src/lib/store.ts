@@ -23,7 +23,12 @@ import {
   AdminReviewActionInput,
 } from './validation';
 import { requestProductionRebuild } from './deploy-hook';
-import { compareDirectoryExperts, freePeriodEndsAt, isPublicDirectoryExpert } from './listing';
+import {
+  compareDirectoryExperts,
+  freePeriodEndsAt,
+  isPublicDirectoryExpert,
+  isRetiredExpertSlug,
+} from './listing';
 
 /**
  * Categories stay an inner join so a specialist with no category is omitted.
@@ -215,6 +220,7 @@ export async function getFeaturedExperts(): Promise<Expert[]> {
 }
 
 export async function getExpertBySlug(slug: string): Promise<Expert | null> {
+  if (isRetiredExpertSlug(slug)) return null;
   if (isSupabaseConfigured && supabase) {
     try {
       const { data, error } = await supabase
