@@ -22,6 +22,7 @@ import {
   MatchRequestInput,
   AdminReviewActionInput,
 } from './validation';
+import { configuredAdminToken, tokensMatch } from './admin-gate';
 import { requestProductionRebuild } from './deploy-hook';
 import {
   compareDirectoryExperts,
@@ -78,8 +79,9 @@ export function isDemoMode(): boolean {
 }
 
 export function verifyAdminToken(token: string): boolean {
-  const expectedToken = process.env.ADMIN_REVIEW_TOKEN || 'hitl-admin-secret-2026';
-  return Boolean(token && token.trim() === expectedToken.trim());
+  const expectedToken = configuredAdminToken(process.env.ADMIN_REVIEW_TOKEN);
+  if (!expectedToken) return false;
+  return tokensMatch(token ?? '', expectedToken);
 }
 
 // ----------------------------------------------------------------------------

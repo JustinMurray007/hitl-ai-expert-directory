@@ -31,7 +31,7 @@ Open [http://localhost:3000](http://localhost:3000). A yellow **Demo mode** bann
    NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
    SUPABASE_SERVICE_ROLE_KEY=your-service-role-key  # Server-side only
-   ADMIN_REVIEW_TOKEN=your-secure-admin-token
+   ADMIN_REVIEW_TOKEN=          # required; no default. A long random value.
    NEXT_PUBLIC_SITE_URL=https://your-domain.com
    ```
 4. Restart `npm run dev`. The demo banner disappears and all reads/writes hit your Supabase instance.
@@ -133,7 +133,7 @@ Next.js 16.4.1 (App Router)  ─┐
 | `/apply` | Specialist application. A new profile is free for 30 days. Listing prices sit above the form. Checkout starts only from `?expert=<expert uuid>`. |
 | `/apply/thanks` | Page Tally redirects to after submit. Resolves that submission to a personal pay link. |
 | `/match` | Private founder concierge matchmaking intake form |
-| `/admin` | Administrative review queue with token authentication & verification gate |
+| `/admin` | Private review page. Cloudflare Pages requires `ADMIN_REVIEW_TOKEN` before the HTML is served. |
 | `/about` | Accountability standard, references requirement, and listing prices |
 | `/api/experts` | Public REST API endpoint for filtering published specialists |
 | `/api/categories` | Public REST API endpoint for category hubs taxonomy |
@@ -146,6 +146,4 @@ Next.js 16.4.1 (App Router)  ─┐
 
 ## 🔐 Administrative Review Access
 
-Visit `/admin` to access the review queue:
-- **Default Local Secret:** `hitl-admin-secret-2026`
-- **Actions:** Publish, reject, archive, adjust sponsor rank, optionally confirm case studies, and apply verified status when references are on file.
+`/admin` is not linked from the public site. On Cloudflare Pages, `functions/_middleware.ts` refuses the route unless `ADMIN_REVIEW_TOKEN` is set, then asks for that token before serving the page. Review actions in the data layer use the same variable and fail when it is missing. Set a long random value in the Cloudflare Pages environment. Do not commit it.

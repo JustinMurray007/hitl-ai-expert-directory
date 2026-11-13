@@ -301,13 +301,25 @@ test('referral reversal does not request a rebuild', async () => {
 
 test('admin publish requests a rebuild and a failed hook still succeeds', async () => {
   resetDeployHookForTests();
-  const token = process.env.ADMIN_REVIEW_TOKEN || 'hitl-admin-secret-2026';
+  const previousToken = process.env.ADMIN_REVIEW_TOKEN;
+  const token = 'test-admin-token';
+  process.env.ADMIN_REVIEW_TOKEN = token;
   const previous = process.env.CLOUDFLARE_DEPLOY_HOOK_URL;
   process.env.CLOUDFLARE_DEPLOY_HOOK_URL = HOOK;
   const fetchMock = installFetch(() => {
     throw new Error('hook down');
   });
   try {
+    delete process.env.ADMIN_REVIEW_TOKEN;
+    const closed = await updateExpertReviewStatus({
+      token,
+      expertId: 'exp-1',
+      status: 'published',
+      reviewedBy: 'tester',
+    });
+    assert.equal(closed.success, false);
+    process.env.ADMIN_REVIEW_TOKEN = token;
+
     const denied = await updateExpertReviewStatus({
       token: 'wrong-token',
       expertId: 'exp-1',
@@ -350,6 +362,8 @@ test('admin publish requests a rebuild and a failed hook still succeeds', async 
     resetDeployHookForTests();
     if (previous === undefined) delete process.env.CLOUDFLARE_DEPLOY_HOOK_URL;
     else process.env.CLOUDFLARE_DEPLOY_HOOK_URL = previous;
+    if (previousToken === undefined) delete process.env.ADMIN_REVIEW_TOKEN;
+    else process.env.ADMIN_REVIEW_TOKEN = previousToken;
   }
 });
 
