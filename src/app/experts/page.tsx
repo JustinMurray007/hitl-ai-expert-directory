@@ -1,21 +1,20 @@
 import Link from 'next/link';
-import { getCategories, getTools, getExperts } from '@/lib/store';
+import { getCategories, getExperts } from '@/lib/store';
 import ExpertsDirectoryClient from './ExpertsDirectoryClient';
 import JsonLd from '@/components/JsonLd';
 import { getLocationsSummary } from '@/lib/locations';
 import { breadcrumbList, graph, itemList } from '@/lib/schema';
 import { withCanonical } from '@/lib/seo';
-import { expertForPage, isPublicDirectoryExpert } from '@/lib/listing';
+import { expertForDirectory, isPublicDirectoryExpert } from '@/lib/listing';
 export const metadata = withCanonical('/experts', {
   title: 'AI Experts Directory: Consultants and Agencies',
   description:
-    'Browse AI consultants, voice AI builders, and automation agencies. Filter by category, tools, and city.',
+    'Browse AI consultants, voice AI builders, and automation agencies. Filter by category and city.',
 });
 
 export default async function ExpertsPage() {
-  const [categories, tools, experts] = await Promise.all([
+  const [categories, experts] = await Promise.all([
     getCategories(),
-    getTools(),
     getExperts(),
   ]);
   const published = experts.filter((expert) => isPublicDirectoryExpert(expert));
@@ -70,9 +69,8 @@ export default async function ExpertsPage() {
       </nav>
 
       <ExpertsDirectoryClient
-        allExperts={published.map(expertForPage)}
+        allExperts={published.map(expertForDirectory)}
         categories={categories}
-        tools={tools}
       />
     </div>
   );

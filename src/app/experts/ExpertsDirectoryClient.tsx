@@ -1,8 +1,8 @@
 'use client';
 
 import { useMemo, useSyncExternalStore } from 'react';
-import { Category, Tool } from '@/lib/types';
-import type { PublicExpert } from '@/lib/listing';
+import { Category } from '@/lib/types';
+import type { DirectoryExpert } from '@/lib/listing';
 import ExpertCard from '@/components/ExpertCard';
 import FilterBar from '@/components/FilterBar';
 import { SearchX } from 'lucide-react';
@@ -14,21 +14,17 @@ function subscribeToSearch(onStoreChange: () => void) {
 }
 
 interface ExpertsDirectoryClientProps {
-  allExperts: PublicExpert[];
+  allExperts: DirectoryExpert[];
   categories: Category[];
-  tools: Tool[];
 }
 
 export default function ExpertsDirectoryClient({
   allExperts,
   categories,
-  tools,
 }: ExpertsDirectoryClientProps) {
   const search = useSyncExternalStore(subscribeToSearch, () => window.location.search, () => '');
   const params = new URLSearchParams(search);
   const category = params.get('category') || '';
-  const tool = params.get('tool') || '';
-  const engagement = params.get('engagement') || 'all';
   const query = params.get('q') || '';
 
   const filteredExperts = useMemo(() => {
@@ -37,27 +33,19 @@ export default function ExpertsDirectoryClient({
     if (category) {
       list = list.filter((e) => e.categories.some((c) => c.slug === category));
     }
-    if (tool) {
-      list = list.filter((e) => (e.tools ?? []).some((t) => t.slug === tool));
-    }
-    if (engagement && engagement !== 'all') {
-      list = list.filter((e) => e.primary_engagement === engagement);
-    }
     if (query) {
       const q = query.toLowerCase().trim();
       list = list.filter(
         (e) =>
           e.full_name.toLowerCase().includes(q) ||
           e.tagline.toLowerCase().includes(q) ||
-          e.bio.toLowerCase().includes(q) ||
           (e.agency_name && e.agency_name.toLowerCase().includes(q)) ||
           e.city.toLowerCase().includes(q) ||
-          e.categories.some((c) => c.name.toLowerCase().includes(q)) ||
-          (e.tools ?? []).some((t) => t.name.toLowerCase().includes(q))
+          e.categories.some((c) => c.name.toLowerCase().includes(q))
       );
     }
     return list;
-  }, [allExperts, category, tool, engagement, query]);
+  }, [allExperts, category, query]);
 
   return (
     <>
@@ -65,10 +53,7 @@ export default function ExpertsDirectoryClient({
       <FilterBar
         key={search || 'all'}
         categories={categories}
-        tools={tools}
         initialCategory={category}
-        initialTool={tool}
-        initialEngagement={engagement}
         initialQuery={query}
       />
 

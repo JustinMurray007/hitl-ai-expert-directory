@@ -1,47 +1,33 @@
 'use client';
 
 import { useState } from 'react';
-import { Category, Tool } from '@/lib/types';
+import { Category } from '@/lib/types';
 import { Search, X } from 'lucide-react';
 
 interface FilterBarProps {
   categories: Category[];
-  tools: Tool[];
   initialCategory?: string;
-  initialTool?: string;
-  initialEngagement?: string;
   initialQuery?: string;
 }
 
 export default function FilterBar({
   categories,
-  tools,
   initialCategory = '',
-  initialTool = '',
-  initialEngagement = 'all',
   initialQuery = '',
 }: FilterBarProps) {
   const [search, setSearch] = useState(initialQuery);
   const [selectedCat, setSelectedCat] = useState(initialCategory);
-  const [selectedTool, setSelectedTool] = useState(initialTool);
-  const [selectedEngagement, setSelectedEngagement] = useState(initialEngagement);
 
   const applyFilters = (overrides?: Partial<{
     query: string;
     cat: string;
-    tool: string;
-    engagement: string;
   }>) => {
     const q = overrides?.query !== undefined ? overrides.query : search;
     const cat = overrides?.cat !== undefined ? overrides.cat : selectedCat;
-    const tool = overrides?.tool !== undefined ? overrides.tool : selectedTool;
-    const eng = overrides?.engagement !== undefined ? overrides.engagement : selectedEngagement;
 
     const params = new URLSearchParams();
     if (q.trim()) params.set('q', q.trim());
     if (cat) params.set('category', cat);
-    if (tool) params.set('tool', tool);
-    if (eng && eng !== 'all') params.set('engagement', eng);
 
     const next = params.toString();
     window.history.pushState(null, '', next ? `/experts?${next}` : '/experts');
@@ -51,15 +37,11 @@ export default function FilterBar({
   const handleReset = () => {
     setSearch('');
     setSelectedCat('');
-    setSelectedTool('');
-    setSelectedEngagement('all');
     window.history.pushState(null, '', '/experts');
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
-  const hasActiveFilters = Boolean(
-    search || selectedCat || selectedTool || (selectedEngagement && selectedEngagement !== 'all')
-  );
+  const hasActiveFilters = Boolean(search || selectedCat);
 
   return (
     <div className="rounded-2xl p-5 mb-8 border border-line bg-white shadow-xs space-y-4">
@@ -70,7 +52,7 @@ export default function FilterBar({
           <input
             type="search"
             aria-label="Search specialists"
-            placeholder="Search by specialist name, tool, agency, city, or keyword..."
+            placeholder="Search by specialist name, agency, city, or keyword..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => {
@@ -88,8 +70,7 @@ export default function FilterBar({
         </button>
       </div>
 
-      {/* Filter Row: Category, Tool, Budget, Engagement */}
-      <div className="grid grid-cols-1 gap-3.5 border-t border-line-soft pt-3 min-[520px]:grid-cols-2 lg:grid-cols-4">
+      <div className="border-t border-line-soft pt-3">
         {/* Category */}
         <select
           value={selectedCat}
@@ -107,41 +88,6 @@ export default function FilterBar({
             </option>
           ))}
         </select>
-
-        {/* Tool */}
-        <select
-          value={selectedTool}
-          onChange={(e) => {
-            setSelectedTool(e.target.value);
-            applyFilters({ tool: e.target.value });
-          }}
-          aria-label="Filter by tool"
-          className="w-full rounded-xl border border-line bg-canvas-muted px-4 py-2.5 text-base font-semibold text-ink focus:border-brand focus:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2"
-        >
-          <option value="">All Tools</option>
-          {tools.map((t) => (
-            <option key={t.id} value={t.slug}>
-              {t.name}
-            </option>
-          ))}
-        </select>
-
-        {/* Engagement */}
-        <select
-          value={selectedEngagement}
-          onChange={(e) => {
-            setSelectedEngagement(e.target.value);
-            applyFilters({ engagement: e.target.value });
-          }}
-          aria-label="Filter by engagement model"
-          className="w-full rounded-xl border border-line bg-canvas-muted px-4 py-2.5 text-base font-semibold text-ink focus:border-brand focus:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2"
-        >
-          <option value="all">All Engagement Models</option>
-          <option value="fixed_sprint">Fixed Sprint</option>
-          <option value="monthly_retainer">Monthly Retainer</option>
-          <option value="consulting_audit">Consulting Audit</option>
-          <option value="hybrid">Hybrid</option>
-        </select>
       </div>
 
       {/* Active filter tags & reset */}
@@ -157,11 +103,6 @@ export default function FilterBar({
             {selectedCat && (
               <span className="px-3 py-1 rounded-full bg-canvas-muted text-ink border border-line font-semibold">
                 Category: {categories.find((c) => c.slug === selectedCat)?.name || selectedCat}
-              </span>
-            )}
-            {selectedTool && (
-              <span className="px-3 py-1 rounded-full bg-brand-soft text-brand border border-brand-line font-semibold">
-                Tool: {tools.find((t) => t.slug === selectedTool)?.name || selectedTool}
               </span>
             )}
           </div>

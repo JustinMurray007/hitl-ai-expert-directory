@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { getExperts } from '@/lib/store';
-import { expertForPage } from '@/lib/listing';
+import { expertForDirectory } from '@/lib/listing';
 import BusinessRecommender from '@/components/BusinessRecommender';
 import PathRedirect from '@/components/PathRedirect';
 import JsonLd from '@/components/JsonLd';
@@ -105,7 +105,7 @@ export default async function AiSolutionsBusinessPage({ params }: AiSolutionsBus
           {industry.industryDescription} Choose one or more operational bottlenecks or areas to improve. Each area stacks its own AI solution and tools below.
         </p>
       </div>
-      <BusinessRecommender key={industry.industrySlug} allExperts={experts.map(expertForPage)} industry={industry} />
+      <BusinessRecommender key={industry.industrySlug} allExperts={experts.map(expertForDirectory)} industry={industry} />
     </div>
   );
 }

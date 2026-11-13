@@ -7,7 +7,7 @@ import {
   Building,
   Compass,
 } from 'lucide-react';
-import type { PublicExpert } from '@/lib/listing';
+import type { DirectoryExpert } from '@/lib/listing';
 import {
   LocationStateSummary,
   LocationCitySummary,
@@ -17,7 +17,7 @@ import ExpertCard from '@/components/ExpertCard';
 interface LocationsDirectoryClientProps {
   states: LocationStateSummary[];
   cities: LocationCitySummary[];
-  experts: PublicExpert[];
+  experts: DirectoryExpert[];
 }
 
 export default function LocationsDirectoryClient({

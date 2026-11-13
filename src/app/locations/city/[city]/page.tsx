@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { expertForPage } from '@/lib/listing';
+import { expertForDirectory } from '@/lib/listing';
 import { getExperts } from '@/lib/store';
 import {
   STATIC_EXPORT_PLACEHOLDER,
@@ -205,7 +205,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
 
           <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {cityExperts.map((exp) => (
-              <ExpertCard key={exp.id} expert={expertForPage(exp)} />
+              <ExpertCard key={exp.id} expert={expertForDirectory(exp)} />
             ))}
           </div>
         </section>

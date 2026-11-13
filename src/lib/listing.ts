@@ -95,10 +95,13 @@ export function isRetiredExpertSlug(slug: string | null | undefined): boolean {
  * rebuilds use this same predicate. Retired slugs stay out even if a
  * Supabase row is still published.
  */
-/** Drop listing-review fields before an expert object is sent to the browser. */
+/**
+ * Drop listing-review fields before an expert object is sent to the browser.
+ * Engagement is stored on the row and is not shown or sent.
+ */
 export type PublicExpert = Omit<
   Expert,
-  'case_studies' | 'is_verified' | 'verified_at' | 'verified_case_study_count' | 'starting_budget'
+  'case_studies' | 'is_verified' | 'verified_at' | 'verified_case_study_count' | 'starting_budget' | 'primary_engagement'
 >;
 
 export function expertForPage(expert: Expert): PublicExpert {
@@ -108,8 +111,17 @@ export function expertForPage(expert: Expert): PublicExpert {
     verified_at: _verifiedAt,
     verified_case_study_count: _verifiedCount,
     starting_budget: _startingBudget,
+    primary_engagement: _engagement,
     ...rest
   } = expert;
+  return rest;
+}
+
+/** List pages do not show skill or tool tags, so those names stay off the page. */
+export type DirectoryExpert = Omit<PublicExpert, 'tools' | 'bio'>;
+
+export function expertForDirectory(expert: Expert): DirectoryExpert {
+  const { tools: _tools, bio: _bio, ...rest } = expertForPage(expert);
   return rest;
 }
 

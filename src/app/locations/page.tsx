@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { getExperts } from '@/lib/store';
-import { expertForPage } from '@/lib/listing';
+import { expertForDirectory } from '@/lib/listing';
 import { getLocationsSummary } from '@/lib/locations';
 import LocationsDirectoryClient from '@/components/LocationsDirectoryClient';
 import { MapPin, ShieldCheck, Sparkles, Building, CheckCircle2 } from 'lucide-react';
@@ -71,7 +71,7 @@ export default async function LocationsMainPage() {
         <LocationsDirectoryClient
           states={states}
           cities={cities}
-          experts={experts.map(expertForPage)}
+          experts={experts.map(expertForDirectory)}
         />
       </div>
     </div>

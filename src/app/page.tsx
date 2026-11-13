@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { expertForPage } from '@/lib/listing';
+import { expertForDirectory } from '@/lib/listing';
 import { withCanonical } from '@/lib/seo';
 
 export const metadata = withCanonical('/', {
@@ -302,7 +302,7 @@ export default async function HomePage() {
           {/* Symmetrical 3x2 Grid */}
           <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
             {featuredExperts.map((expert) => (
-              <ExpertCard key={expert.id} expert={expertForPage(expert)} compact />
+              <ExpertCard key={expert.id} expert={expertForDirectory(expert)} compact />
             ))}
           </div>
         </div>

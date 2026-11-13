@@ -21,18 +21,3 @@ export function CategoryBadge({ name }: { name: string }) {
     </span>
   );
 }
-
-export function EngagementBadge({ model }: { model: string }) {
-  const map: Record<string, string> = {
-    fixed_sprint: 'Fixed Sprint',
-    monthly_retainer: 'Monthly Retainer',
-    consulting_audit: 'Consulting Audit',
-    hybrid: 'Hybrid Sprint + Retainer',
-  };
-
-  return (
-    <span className="inline-flex items-center px-2.5 py-1 rounded-md text-sm bg-canvas-muted text-ink-soft border border-line font-medium">
-      {map[model] || model}
-    </span>
-  );
-}
