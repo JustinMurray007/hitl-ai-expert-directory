@@ -114,7 +114,10 @@ export function expertForPage(expert: Expert): PublicExpert {
     primary_engagement: _engagement,
     ...rest
   } = expert;
-  return rest;
+  const row = rest as typeof rest & { expert_tools?: unknown; expert_categories?: unknown };
+  delete row.expert_tools;
+  delete row.expert_categories;
+  return row;
 }
 
 /** List pages do not show skill or tool tags, so those names stay off the page. */
