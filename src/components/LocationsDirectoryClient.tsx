@@ -3,41 +3,30 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import {
-  MapPin,
   Search,
   Building,
-  ShieldCheck,
-  ArrowRight,
-  ExternalLink,
-  Sparkles,
   Compass,
 } from 'lucide-react';
-import type { PublicExpert } from '@/lib/listing';
+import type { DirectoryExpert } from '@/lib/listing';
 import {
   LocationStateSummary,
   LocationCitySummary,
-  LocationZipSummary,
-  toCitySlug,
-  toStateSlug,
-  toZipSlug,
 } from '@/lib/locations';
 import ExpertCard from '@/components/ExpertCard';
 
 interface LocationsDirectoryClientProps {
   states: LocationStateSummary[];
   cities: LocationCitySummary[];
-  zips: LocationZipSummary[];
-  experts: PublicExpert[];
+  experts: DirectoryExpert[];
 }
 
 export default function LocationsDirectoryClient({
   states,
   cities,
-  zips,
   experts,
 }: LocationsDirectoryClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState<'all' | 'cities' | 'states' | 'zips'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'cities' | 'states'>('all');
 
   const filtered = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
@@ -45,7 +34,6 @@ export default function LocationsDirectoryClient({
       return {
         states,
         cities,
-        zips,
         experts,
       };
     }
@@ -63,30 +51,21 @@ export default function LocationsDirectoryClient({
         c.stateCode.toLowerCase().includes(q)
     );
 
-    const matchedZips = zips.filter(
-      (z) =>
-        z.zip.toLowerCase().includes(q) ||
-        z.cityName.toLowerCase().includes(q) ||
-        z.stateCode.toLowerCase().includes(q)
-    );
-
     const matchedExperts = experts.filter(
       (e) =>
         e.full_name.toLowerCase().includes(q) ||
         e.agency_name?.toLowerCase().includes(q) ||
         e.city.toLowerCase().includes(q) ||
         e.state_region?.toLowerCase().includes(q) ||
-        e.postal_code?.toLowerCase().includes(q) ||
         e.professional_title.toLowerCase().includes(q)
     );
 
     return {
       states: matchedStates,
       cities: matchedCities,
-      zips: matchedZips,
       experts: matchedExperts,
     };
-  }, [searchQuery, states, cities, zips, experts]);
+  }, [searchQuery, states, cities, experts]);
 
   return (
     <div className="space-y-14">
@@ -98,8 +77,8 @@ export default function LocationsDirectoryClient({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            aria-label="Search locations by city, state, or zip"
-            placeholder="Search by city (e.g. San Diego), state (CA), or zip (92101)..."
+            aria-label="Search locations by city or state"
+            placeholder="Search by city (e.g. San Diego) or state (CA)..."
             className="w-full rounded-full border border-line bg-white py-3.5 pl-12 pr-20 text-base font-medium text-ink shadow-rest placeholder:text-muted focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
           />
           {searchQuery && (
@@ -147,17 +126,6 @@ export default function LocationsDirectoryClient({
             }`}
           >
             States ({filtered.states.length})
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('zips')}
-            className={`px-3.5 py-1.5 rounded-full transition-colors cursor-pointer ${
-              activeTab === 'zips'
-                ? 'bg-brand text-white shadow-2xs'
-                : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
-            }`}
-          >
-            Zip Codes ({filtered.zips.length})
           </button>
         </div>
       </div>
@@ -239,39 +207,7 @@ export default function LocationsDirectoryClient({
         </section>
       )}
 
-      {/* SECTION 3: ZIP CODES DIRECTORY */}
-      {(activeTab === 'all' || activeTab === 'zips') && (
-        <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-line pb-4 flex-wrap gap-2">
-            <div>
-              <h2 className="text-2xl font-semibold text-ink flex items-center gap-2.5">
-                <MapPin className="w-6 h-6 text-accent" />
-                <span>Browse by Postal &amp; Zip Code</span>
-              </h2>
-              <p className="text-sm text-slate-600 mt-1">
-                Postal-level pages for ultra-local AI consulting, on-site audits, and regional support.
-              </p>
-            </div>
-            <span className="text-sm text-muted">
-              {filtered.zips.length} zip codes
-            </span>
-          </div>
-
-          <div className="flex flex-wrap gap-2.5">
-            {filtered.zips.map((z) => (
-              <Link
-                key={z.zip}
-                href={`/locations/zip/${z.slug}`}
-                className="text-sm text-ink hover:text-brand"
-              >
-                {z.zip}, {z.cityName}, {z.stateCode} ({z.expertCount})
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* SECTION 4: ALL MATCHED LOCAL EXPERTS */}
+      {/* SECTION 3: ALL MATCHED LOCAL EXPERTS */}
       <section className="space-y-6 pt-6 border-t border-line">
         <div className="flex items-center justify-between flex-wrap gap-2">
           <div>
@@ -279,7 +215,7 @@ export default function LocationsDirectoryClient({
               {searchQuery ? `Matched AI Specialists (${filtered.experts.length})` : 'All AI Specialists Across North America'}
             </h2>
             <p className="text-sm text-slate-600 mt-1">
-              Click any city, state, or zip code on an expert card to navigate to their dedicated location hub.
+              Click a city or state on an expert card to open that location page.
             </p>
           </div>
         </div>

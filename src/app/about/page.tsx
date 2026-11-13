@@ -51,7 +51,7 @@ export default function AboutPage() {
       <section data-reveal className="space-y-6 rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-10">
         <div className="border-b border-line-soft pb-4">
           <h2 className="text-2xl sm:text-3xl font-semibold text-ink">
-            Placement is what you pay for.
+            Listing plans
           </h2>
           <p className="text-sm sm:text-base text-muted mt-1.5 leading-relaxed font-normal">
             Each category has its own page, and people can filter and search the directory by category. The more categories you&apos;re in, the more of those pages and filters you show up in. Your plan includes a set number of categories. Choose which ones you want to appear in.

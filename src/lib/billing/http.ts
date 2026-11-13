@@ -6,6 +6,7 @@ import { isExpertId, personalPayLink } from './pay-link';
 import {
   categorySlugsFitInMetadata,
   extraCategoryQuantity,
+  includedCategoryCount,
   parseCategorySlugList,
 } from './category-cap';
 import { applyStripeEvent } from './apply-event';
@@ -126,6 +127,9 @@ export async function handleCheckoutRequest(
   } catch {
     return form ? formError(env) : json({ error: 'invalid_json' }, 400);
   }
+  if (fields.plan === 'free') {
+    return form ? formError(env) : json({ error: 'free_plan_no_checkout' }, 400);
+  }
   if (fields.product === CONCIERGE_MATCH_PRODUCT) {
     if (!env.STRIPE_SECRET_KEY) return form ? conciergeFormError(env) : json({ error: 'checkout_unconfigured' }, 503);
     const client = stripe ?? createStripeClient(env.STRIPE_SECRET_KEY);
@@ -171,6 +175,10 @@ export async function handleCheckoutRequest(
     }
     if (!categorySlugsFitInMetadata(selected)) {
       return form ? formError(env) : json({ error: 'category_slugs_too_long' }, 400);
+    }
+    const cap = includedCategoryCount(plan, known.length);
+    if (selected.length > cap) {
+      return form ? formError(env) : json({ error: 'too_many_categories' }, 400);
     }
     catalogSize = known.length;
     categorySlugs = selected;

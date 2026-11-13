@@ -12,7 +12,7 @@ import {
   isStaticExportPlaceholder,
   staticPlaceholderMetadata,
 } from '@/lib/static-params';
-import { ToolBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
+import { ToolBadge, CategoryBadge } from '@/components/Badge';
 import { expertForPage, showsPublicLinks } from '@/lib/listing';
 import ExpertLocationLinks from '@/components/ExpertLocation';
 import {
@@ -239,19 +239,11 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
           </p>
         </div>
 
-        {/* Pricing & Engagement Badges */}
-        <div className="mt-6 pt-6 border-t border-line-soft flex flex-wrap items-center justify-between gap-4 text-sm sm:text-base">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="text-muted-strong font-semibold">Engagement:</span>
-            <EngagementBadge model={expert.primary_engagement} />
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="text-muted-strong font-semibold">Categories:</span>
-            {expert.categories.map((c) => (
-              <CategoryBadge key={c.id} name={c.name} />
-            ))}
-          </div>
+        <div className="mt-6 pt-6 border-t border-line-soft flex flex-wrap items-center gap-2 text-sm sm:text-base">
+          <span className="text-muted-strong font-semibold">Categories:</span>
+          {expert.categories.map((c) => (
+            <CategoryBadge key={c.id} name={c.name} />
+          ))}
         </div>
 
         {/* Tools Stack */}

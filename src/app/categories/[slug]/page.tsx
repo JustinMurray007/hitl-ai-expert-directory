@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
 import { breadcrumbList, graph, itemList } from '@/lib/schema';
-import { expertForPage } from '@/lib/listing';
+import { expertForDirectory } from '@/lib/listing';
 import { withCanonical } from '@/lib/seo';
 import { absoluteUrl } from '@/lib/site-url';
 import { Metadata } from 'next';
@@ -229,7 +229,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
       <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {experts.map((expert) => (
-          <ExpertCard key={expert.id} expert={expertForPage(expert)} />
+          <ExpertCard key={expert.id} expert={expertForDirectory(expert)} />
         ))}
       </div>
     </div>

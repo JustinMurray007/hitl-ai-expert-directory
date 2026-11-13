@@ -55,6 +55,8 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
     '/recommendations/healthcare-dental',
     '/recommendations/medical_dental',
     '/tools/anthropic-claude',
+    '/locations/zip/02108',
+    '/locations/zip/10001',
     '/experts/withn-tech',
     '/experts/withn-tech/',
     '/experts/build-placeholder',

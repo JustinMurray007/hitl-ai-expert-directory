@@ -7,7 +7,6 @@ import Logo from './Logo';
 import { AI_SOLUTIONS_BY_INDUSTRY_PATH, businessPath } from '@/lib/business-routes';
 import {
   ShieldCheck,
-  Sparkles,
   UserPlus,
   ChevronDown,
   Workflow,
@@ -199,9 +198,8 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           <Link
             href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
             onMouseEnter={() => setMegaMenuOpen(false)}
-            className="nav-link inline-flex items-center gap-1.5 px-3 rounded-xl text-ink"
+            className="nav-link inline-flex items-center px-3 rounded-xl text-ink"
           >
-            <Sparkles className="w-4 h-4 text-brand" />
             <span>AI Solutions by Industry</span>
           </Link>
 
@@ -429,10 +427,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
               className="menu-link flex items-center justify-between p-3 rounded-xl bg-blue-50 text-base font-bold text-blue-900"
             >
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-blue-600" />
-                <span>AI Solutions by Industry</span>
-              </div>
+              <span>AI Solutions by Industry</span>
               <span className="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full">Free Tool</span>
             </Link>
             <Link

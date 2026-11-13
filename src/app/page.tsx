@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { expertForPage } from '@/lib/listing';
+import { expertForDirectory } from '@/lib/listing';
 import { withCanonical } from '@/lib/seo';
 
 export const metadata = withCanonical('/', {
@@ -20,8 +20,6 @@ import {
   UserCheck,
   Cpu,
   CheckCircle2,
-  XCircle,
-  AlertTriangle,
   Target,
 } from 'lucide-react';
 
@@ -182,46 +180,25 @@ export default async function HomePage() {
                   <div className="space-y-3">
                     <div className="p-3 rounded-xl bg-canvas border border-slate-100 hover:border-brand-line transition-colors flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-brand shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-sm font-bold text-ink">CRM Ai Integrations</div>
-                        <p className="text-xs text-slate-600 mt-0.5 leading-relaxed font-normal">
-                          Auto-sync customer notes, update deal stages, and trigger personalized follow-ups without manual data entry.
-                        </p>
-                      </div>
+                      <div className="text-sm font-bold text-ink">CRM Ai Integrations</div>
                     </div>
 
                     <div className="p-3 rounded-xl bg-canvas border border-slate-100 hover:border-brand-line transition-colors flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-brand shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-sm font-bold text-ink">Ai Voice Agents / Dispatch</div>
-                        <p className="text-xs text-slate-600 mt-0.5 leading-relaxed font-normal">
-                          Answer calls 24/7, book appointments into your calendar, and transfer urgent callers directly to live staff.
-                        </p>
-                      </div>
+                      <div className="text-sm font-bold text-ink">Ai Voice Agents / Dispatch</div>
                     </div>
 
                     <div className="p-3 rounded-xl bg-canvas border border-slate-100 hover:border-brand-line transition-colors flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-brand shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-sm font-bold text-ink">Ai Competitor Research</div>
-                        <p className="text-xs text-slate-600 mt-0.5 leading-relaxed font-normal">
-                          Track competitor pricing, monitor local market changes, and spot new customer opportunities automatically.
-                        </p>
-                      </div>
+                      <div className="text-sm font-bold text-ink">Ai Competitor Research</div>
                     </div>
 
                     <div className="p-3 rounded-xl bg-canvas border border-slate-100 hover:border-brand-line transition-colors flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-brand shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-sm font-bold text-ink">Ai Marketing &amp; Ad Management</div>
-                        <p className="text-xs text-slate-600 mt-0.5 leading-relaxed font-normal">
-                          Generate high-converting ads, write targeted local content, and protect ad budgets from wasted spend.
-                        </p>
-                      </div>
+                      <div className="text-sm font-bold text-ink">Ai Marketing &amp; Ad Management</div>
                     </div>
                   </div>
 
-                  <p className="border-t border-line pt-3 text-sm text-muted">Typical setup is 1–3 weeks.</p>
                 </div>
               </div>
             </div>
@@ -285,9 +262,6 @@ export default async function HomePage() {
                     <h3 className="text-xl font-semibold text-ink group-hover:text-brand transition-colors">
                       {category.name}
                     </h3>
-                    <p className="text-sm sm:text-base text-muted-strong mt-3 leading-relaxed font-normal">
-                      {category.description}
-                    </p>
                   </div>
 
                   <div className="mt-8 pt-5 border-t border-line-soft flex items-center justify-between text-sm text-muted">
@@ -328,118 +302,8 @@ export default async function HomePage() {
           {/* Symmetrical 3x2 Grid */}
           <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
             {featuredExperts.map((expert) => (
-              <ExpertCard key={expert.id} expert={expertForPage(expert)} compact />
+              <ExpertCard key={expert.id} expert={expertForDirectory(expert)} compact />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================================
-          THE TRUST MOAT: SYMMETRICAL 3-COLUMN COMPARISON
-      ====================================================================== */}
-      <section className="py-20 border-b border-line bg-canvas">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div data-reveal className="mx-auto mb-14 max-w-3xl text-center">
-            <h2 className="text-2xl sm:text-4xl font-semibold text-ink tracking-tight">
-              Why Generic Freelance Sites Fail for AI Systems
-            </h2>
-            <p className="text-base text-muted-strong mt-3 font-normal leading-relaxed max-w-2xl mx-auto">
-              Freelance marketplaces and this directory are different ways to look for help. Here you can browse profiles or pay for introductions.
-            </p>
-          </div>
-
-          {/* 3 Symmetrical Cards */}
-          <div data-reveal-stagger className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-3 md:gap-8">
-            {/* Card 1: Legacy Freelance Sites */}
-            <div className="hover-lift flex flex-col justify-between rounded-3xl border border-rose-200/80 bg-white p-6 shadow-rest sm:p-8">
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center mb-6">
-                  <XCircle className="w-6 h-6 text-rose-500" />
-                </div>
-                <h3 className="text-xl font-semibold text-ink">Generic Freelance Sites</h3>
-                <p className="text-sm text-slate-500 mt-2 font-normal leading-relaxed">
-                  Upwork, Fiverr, and standard directories that rank by self-reported claims.
-                </p>
-
-                <div className="mt-6 space-y-3 text-sm text-slate-700">
-                  <div className="flex items-start gap-2.5">
-                    <XCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
-                    <span>No exception handling or fallback protocols required</span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <XCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
-                    <span>Self-reported screenshot reviews easily faked</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 pt-4 border-t border-slate-100 text-xs font-semibold text-rose-600">
-                Outcome: Expensive abandonments after deployment.
-              </div>
-            </div>
-
-            {/* Card 2: Hands-off AI agencies */}
-            <div className="hover-lift flex flex-col justify-between rounded-3xl border border-amber-200/80 bg-white p-6 shadow-rest sm:p-8">
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center mb-6">
-                  <AlertTriangle className="w-6 h-6 text-amber-500" />
-                </div>
-                <h3 className="text-xl font-semibold text-ink">Hands-off AI Agencies</h3>
-                <p className="text-sm text-slate-500 mt-2 font-normal leading-relaxed">
-                  Agencies selling &quot;100% hands-off AI&quot; with zero error protection.
-                </p>
-
-                <div className="mt-6 space-y-3 text-sm text-slate-700">
-                  <div className="flex items-start gap-2.5">
-                    <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                    <span>AI errors and wrong answers sent directly to your paying clients</span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                    <span>Callers trapped in repetitive voice loops with no way to reach staff</span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                    <span>Zero staff alerts or approval steps when the AI gets confused</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 pt-4 border-t border-slate-100 text-xs font-semibold text-amber-700">
-                Outcome: Reputational damage &amp; lost customer trust.
-              </div>
-            </div>
-
-            <div className="hover-lift relative flex flex-col justify-between rounded-3xl border-2 border-brand bg-gradient-to-b from-brand-soft/60 via-white to-white p-6 shadow-raised sm:p-8">
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-brand-soft border border-brand-line flex items-center justify-center mb-6">
-                  <CheckCircle2 className="w-6 h-6 text-brand" />
-                </div>
-                <h3 className="text-xl font-semibold text-ink">Browse or get introductions</h3>
-                <p className="text-sm text-slate-500 mt-2 font-normal leading-relaxed">
-                  Profiles list tools, categories, and a city. You can browse them or pay for a match.
-                </p>
-
-                <div className="mt-6 space-y-3 text-sm text-ink font-semibold">
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-0.5" />
-                    <span>Filter by category, tool, and city</span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-0.5" />
-                    <span>$49.99 for at least 3 introductions in 48 hours</span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-0.5" />
-                    <span>Experts pay a flat listing fee, not a commission</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 pt-4 border-t border-brand-line text-xs font-bold text-brand">
-                You do not have to hire anyone you are introduced to.
-              </div>
-            </div>
           </div>
         </div>
       </section>
