@@ -6,7 +6,7 @@ import { withCanonical } from '@/lib/seo';
 export const metadata: Metadata = withCanonical('/ai-consultant-for-small-business', {
   title: 'AI Consultant for a Small Business | Find AI Pros',
   description:
-    'How a small business can hire a vetted AI consultant: browse the directory, compare starting budgets, or get 3 introductions in 48 hours.',
+    'How a small business can hire an AI consultant: browse the directory, compare starting budgets, or get 3 introductions in 48 hours.',
 });
 
 export default function SmallBusinessPage() {
@@ -14,7 +14,7 @@ export default function SmallBusinessPage() {
     <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">
       <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-5xl">AI consultant for a small business</h1>
       <p className="mt-4 text-base leading-relaxed text-muted-strong sm:text-lg">
-        A small business can hire from the Find AI Pros directory by browsing specialists, comparing the starting budget and tools on each profile, or paying $49.99 for at least three introductions within 48 hours. Every listed expert names a human fallback for when the AI is unsure.
+        A small business can hire from the Find AI Pros directory by browsing specialists, comparing the starting budget and tools on each profile, or paying $49.99 for at least three introductions within 48 hours.
       </p>
       <ul className="mt-6 space-y-2 text-base">
         <li>

@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { expertForPage } from '@/lib/listing';
 import { getExperts } from '@/lib/store';
 import {
   STATIC_EXPORT_PLACEHOLDER,
@@ -55,7 +56,7 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
   }
 
   const title = `AI Consultants in ${cityName}, ${stateCode} | Find AI Pros`;
-  const description = `Hire a vetted AI consultant in ${cityName} for voice receptionists, CRM automation, and workflows. Compare budgets and tools, or get matched in 48 hours.`;
+  const description = `Find an AI consultant in ${cityName} for voice receptionists, CRM automation, and workflows. Compare budgets and tools, or get matched in 48 hours.`;
 
   return {
     title,
@@ -195,11 +196,11 @@ export default async function CityLocationPage({ params }: CityPageProps) {
             </span>
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-brand" />
-              Human-in-the-Loop Safeguards Required
+              Profiles list a starting budget
             </span>
             <span className="flex items-center gap-1.5">
               <Sparkles className="w-4 h-4 text-accent" />
-              References we contact
+              Remote experts can serve {cityName}
             </span>
           </div>
 
@@ -237,7 +238,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
 
           <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {cityExperts.map((exp) => (
-              <ExpertCard key={exp.id} expert={exp} />
+              <ExpertCard key={exp.id} expert={expertForPage(exp)} />
             ))}
           </div>
         </section>
@@ -290,10 +291,10 @@ export default async function CityLocationPage({ params }: CityPageProps) {
 
             <div className="space-y-2">
               <h4 className="font-semibold text-ink text-base sm:text-lg">
-                What does &quot;Human-in-the-Loop&quot; mean for your systems?
+                Can someone outside {cityName} do the work?
               </h4>
               <p className="text-slate-600">
-                Every specialist on Find Ai Pros builds automations with mandatory safety stops. Autonomous AI agents never send unapproved contracts or execute high-stakes client communication without your team having final sign-off.
+                Yes. Profiles from other cities can still take work in {cityName}. The directory also has a $49.99 match if you want introductions instead of browsing.
               </p>
             </div>
           </div>
@@ -304,7 +305,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
                 Need a custom recommendation in {cityName}?
               </h4>
               <p className="text-xs sm:text-sm text-slate-500">
-                Our concierge matching team reviews your business operational bottleneck and introduces two audited specialists.
+                Concierge Match is $49.99 and introduces at least 3 experts within 48 hours. You do not have to hire any of them.
               </p>
             </div>
             <Link

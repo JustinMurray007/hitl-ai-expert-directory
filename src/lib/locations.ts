@@ -151,7 +151,7 @@ export interface LocationZipSummary {
 }
 
 export function getLocationsSummary(experts: Expert[]) {
-  const stateMap: Record<string, { code: string; name: string; slug: string; experts: Expert[]; citiesMap: Record<string, LocationCitySummary>; zips: Set<string> }> = {};
+  const stateMap: Record<string, { code: string; name: string; slug: string; experts: Expert[]; citiesMap: Record<string, LocationCitySummary & { experts: Expert[] }>; zips: Set<string> }> = {};
   const cityMap: Record<string, LocationCitySummary & { experts: Expert[] }> = {};
   const zipMap: Record<string, LocationZipSummary & { experts: Expert[] }> = {};
 
@@ -220,25 +220,37 @@ export function getLocationsSummary(experts: Expert[]) {
     }
   }
 
-  // Convert to sorted lists
+  const publicCity = (city: LocationCitySummary & { experts: Expert[] }): LocationCitySummary => {
+    const { experts: _experts, ...rest } = city;
+    return rest;
+  };
+  const publicZip = (zip: LocationZipSummary & { experts: Expert[] }): LocationZipSummary => {
+    const { experts: _experts, ...rest } = zip;
+    return rest;
+  };
+
+  // Convert to sorted lists. Expert rows stay on the directory prop, not inside
+  // each city or zip, so listing-review fields are not serialized into the page.
   const states: LocationStateSummary[] = Object.values(stateMap)
     .map((s) => ({
       code: s.code,
       name: s.name,
       slug: s.slug,
       expertCount: s.experts.length,
-      cities: Object.values(s.citiesMap).sort((a, b) => b.expertCount - a.expertCount),
+      cities: Object.values(s.citiesMap)
+        .map(publicCity)
+        .sort((a, b) => b.expertCount - a.expertCount),
       zips: Array.from(s.zips).sort(),
     }))
     .sort((a, b) => b.expertCount - a.expertCount || a.name.localeCompare(b.name));
 
-  const cities: LocationCitySummary[] = Object.values(cityMap).sort(
-    (a, b) => b.expertCount - a.expertCount || a.name.localeCompare(b.name)
-  );
+  const cities: LocationCitySummary[] = Object.values(cityMap)
+    .map(publicCity)
+    .sort((a, b) => b.expertCount - a.expertCount || a.name.localeCompare(b.name));
 
-  const zips: LocationZipSummary[] = Object.values(zipMap).sort(
-    (a, b) => b.expertCount - a.expertCount || a.zip.localeCompare(b.zip)
-  );
+  const zips: LocationZipSummary[] = Object.values(zipMap)
+    .map(publicZip)
+    .sort((a, b) => b.expertCount - a.expertCount || a.zip.localeCompare(b.zip));
 
   return {
     states,

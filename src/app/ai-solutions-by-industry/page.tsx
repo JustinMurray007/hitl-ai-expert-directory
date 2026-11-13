@@ -8,7 +8,7 @@ import { Suspense } from 'react';
 export const metadata = {
   title: 'AI Solutions by Industry: Tools and Experts for Your Business',
   description:
-    'Pick your industry to see the AI solutions that fit your bottlenecks, the tools behind them, and vetted specialists who can build them.',
+    'Pick your industry to see the AI solutions that fit your bottlenecks, the tools behind them, and specialists who build them.',
   alternates: { canonical: absoluteUrl(AI_SOLUTIONS_BY_INDUSTRY_PATH) },
   openGraph: {
     title: 'AI Solutions by Industry | Find Ai Pros',

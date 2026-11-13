@@ -45,6 +45,10 @@
 /recommendations/:slug /ai-solutions-by-industry/:slug 301
 /recommendations/:slug/ /ai-solutions-by-industry/:slug 301
 
+# Retired HITL page. The how-it-works content lives at /about.
+/hitl-standard /about 301
+/hitl-standard/ /about 301
+
 # Duplicate business-type pages. Specific legacy aliases above win over the splat.
 /business /ai-solutions-by-industry 301
 /business/ /ai-solutions-by-industry 301

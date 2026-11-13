@@ -1,5 +1,5 @@
 import { CaseStudy } from '@/lib/types';
-import { ShieldAlert, CheckCircle2, Video, AlertTriangle, TrendingUp, Layers } from 'lucide-react';
+import { CheckCircle2, Video, AlertTriangle, TrendingUp, Layers } from 'lucide-react';
 
 export default function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
@@ -55,17 +55,6 @@ export default function CaseStudyCard({ study }: { study: CaseStudy }) {
             {study.solution_architecture}
           </p>
         </div>
-      </div>
-
-      {/* THE TRUST MOAT: MANDATORY HITL MECHANISM CONTAINER */}
-      <div className="rounded-2xl bg-brand-soft border-2 border-brand-line p-6 mb-6">
-        <div className="flex items-center gap-2 text-brand font-bold text-sm uppercase tracking-wider mb-2.5">
-          <ShieldAlert className="w-5 h-5 text-brand" />
-          <span>The Human-in-the-Loop Oversight Mechanism</span>
-        </div>
-        <p className="text-base sm:text-lg text-brand-ink leading-relaxed font-bold">
-          &quot;{study.hitl_oversight_mechanism}&quot;
-        </p>
       </div>
 
       {(study.failure_safeguards || study.outcomes_roi) && (

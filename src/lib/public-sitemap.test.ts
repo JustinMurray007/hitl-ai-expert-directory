@@ -32,7 +32,7 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
     '/construction-lp',
     '/outdoor-lp',
     '/blog',
-    '/hitl-standard',
+    '/blog/ai-consultant-cost',
     '/ai-consultant-cost',
     '/for-ai-experts',
   ]) {
@@ -40,6 +40,7 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
   }
 
   for (const path of [
+    '/hitl-standard',
     '/admin',
     '/ai-tools',
     '/apply/success',
@@ -88,7 +89,7 @@ test('sitewide schema is valid JSON with the directory search action', () => {
   const data = organizationAndWebsite();
   const parsed = JSON.parse(JSON.stringify(data)) as { '@graph': Array<Record<string, unknown>> };
   assert.equal(parsed['@graph'][1].potentialAction && (parsed['@graph'][1].potentialAction as { '@type': string })['@type'], 'SearchAction');
-  const faq = faqPage([{ question: 'How are experts vetted?', answer: 'Each expert names a human fallback.' }]);
+  const faq = faqPage([{ question: 'How much does a match cost?', answer: 'The concierge introduction is $49.99.' }]);
   assert.equal(JSON.parse(JSON.stringify(faq)).mainEntity.length, 1);
 });
 

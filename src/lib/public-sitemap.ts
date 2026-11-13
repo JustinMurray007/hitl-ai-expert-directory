@@ -4,6 +4,7 @@ import { getExpertsByCity, getExpertsByState, getExpertsByZip, getLocationsSumma
 import { AI_SOLUTIONS_BY_INDUSTRY_PATH, businessPath, listBusinessTypes } from './business-routes';
 import { listPublicTools } from './tool-catalog';
 import { absoluteUrl, SITE_ORIGIN } from './site-url';
+import { GUIDES, GUIDE_DATE } from './guides';
 import { isRetiredExpertSlug } from './listing';
 import type { Expert } from './types';
 import { isStaticExportPlaceholder, STATIC_EXPORT_PLACEHOLDER } from './static-params';
@@ -130,8 +131,10 @@ export async function listPublicPages(): Promise<PublicPage[]> {
     page('/sitemap', 'Sitemap', 'main', 'weekly', 0.3, null, 'src/app/sitemap/page.tsx'),
     page('/ai-consultant-cost', 'AI consultant cost', 'main', 'monthly', 0.8, null, 'src/app/ai-consultant-cost/page.tsx'),
     page('/for-ai-experts', 'For AI experts', 'main', 'monthly', 0.8, null, 'src/app/for-ai-experts/page.tsx'),
-    page('/hitl-standard', 'HITL Standard', 'main', 'monthly', 0.7, null, 'src/app/hitl-standard/page.tsx'),
-    page('/blog', 'Guides', 'main', 'weekly', 0.6, null, 'src/app/blog/page.tsx'),
+    page('/blog', 'Guides', 'main', 'weekly', 0.6, GUIDE_DATE, 'src/app/blog/page.tsx'),
+    ...GUIDES.map((guide) =>
+      page(`/blog/${guide.slug}`, guide.title, 'main', 'monthly', 0.6, GUIDE_DATE, 'src/lib/guides.ts'),
+    ),
     page('/ai-consultant-for-small-business', 'AI consultant for small business', 'main', 'monthly', 0.7, null, 'src/app/ai-consultant-for-small-business/page.tsx'),
     page('/compare/upwork-vs-find-ai-pros', 'Find AI Pros vs freelance sites', 'main', 'monthly', 0.5, null, 'src/app/compare/upwork-vs-find-ai-pros/page.tsx'),
     page('/faq', 'FAQ', 'main', 'monthly', 0.5, null, 'src/app/faq/page.tsx'),

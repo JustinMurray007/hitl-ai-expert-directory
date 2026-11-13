@@ -13,15 +13,13 @@ import {
   staticPlaceholderMetadata,
 } from '@/lib/static-params';
 import { PlacementBadge, ToolBadge, BudgetBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
-import { showsPublicLinks } from '@/lib/listing';
-import CaseStudyCard from '@/components/CaseStudyCard';
+import { expertForPage, showsPublicLinks } from '@/lib/listing';
 import ExpertLocationLinks from '@/components/ExpertLocation';
 import {
   MapPin,
   Clock,
   Globe,
   Calendar,
-  ShieldCheck,
   Building,
   ArrowLeft,
 } from 'lucide-react';
@@ -160,7 +158,7 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
               )}
 
               <div className="flex flex-wrap items-center gap-5 text-sm text-muted-strong pt-2 font-medium">
-                <ExpertLocationLinks expert={expert} showCountry={true} />
+                <ExpertLocationLinks expert={expertForPage(expert)} showCountry={true} />
                 <span className="flex items-center gap-1.5">
                   <Clock className="w-4 h-4 text-muted" />
                   {expert.timezone}
@@ -270,30 +268,6 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
         </div>
       </div>
 
-      {expert.case_studies.length > 0 && (
-      <div data-reveal className="space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-2 shadow-xs">
-              <ShieldCheck className="w-4 h-4" />
-              <span>Optional examples</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-semibold text-ink">
-              Examples of past work
-            </h2>
-            <p className="text-base text-muted-strong mt-2 font-normal">
-              Case studies are optional. They are not required to be listed. When a specialist chooses to show one, it describes the work and the human checks in it.
-            </p>
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          {expert.case_studies.map((study) => (
-            <CaseStudyCard key={study.id} study={study} />
-          ))}
-        </div>
-      </div>
-      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
 import { breadcrumbList, graph, itemList } from '@/lib/schema';
+import { expertForPage } from '@/lib/listing';
 import { withCanonical } from '@/lib/seo';
 import { absoluteUrl } from '@/lib/site-url';
 import { Metadata } from 'next';
@@ -58,7 +59,7 @@ const categoryTaxonomyDetails: Record<
   'customer-support-knowledge-base': {
     buyerProblem: 'Answering customer questions from your company manuals, policy documents, and ticket triage.',
     typicalStack: 'PostgreSQL, Claude, Zendesk AI, Intercom AI',
-    commonSafeguards: 'Strict source document verification with staff review before any new policy answers are sent.',
+    commonSafeguards: 'Staff check answers against source documents before any new policy answers are sent.',
   },
   'marketing-programmatic-content': {
     buyerProblem: '5-star review generation, local Google rankings, and automated quote follow-ups.',
@@ -94,7 +95,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     return withCanonical(`/categories/${category.slug}`, {
       title: 'Hire an AI Voice Receptionist & Lead Follow-Up Expert',
       description:
-        'Vetted builders of AI receptionists, missed-call text-back, and speed-to-lead follow-up. See budgets, tools, and how each hands off to your staff.',
+        'Builders of AI receptionists, missed-call text-back, and speed-to-lead follow-up. See budgets, tools, and how each hands off to your staff.',
     });
   }
   return withCanonical(`/categories/${category.slug}`, {
@@ -213,7 +214,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <div className="p-5 rounded-2xl bg-accent-soft border border-accent-line">
             <h2 className="font-semibold text-accent-ink mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
               <span className="w-2.5 h-2.5 rounded-full bg-accent" />
-              Required HITL Safeguard Focus
+              Common handoff
             </h2>
             <p className="text-accent-deep text-base leading-relaxed font-normal">
               {taxonomyInfo.commonSafeguards}
@@ -234,7 +235,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
       <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {experts.map((expert) => (
-          <ExpertCard key={expert.id} expert={expert} />
+          <ExpertCard key={expert.id} expert={expertForPage(expert)} />
         ))}
       </div>
     </div>

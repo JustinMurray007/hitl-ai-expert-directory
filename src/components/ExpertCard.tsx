@@ -1,18 +1,16 @@
 import Link from 'next/link';
-import { Expert } from '@/lib/types';
+import type { PublicExpert } from '@/lib/listing';
 import { PlacementBadge, ToolBadge, BudgetBadge, EngagementBadge } from './Badge';
-import { MapPin, ArrowRight, Building, MessageSquareQuote } from 'lucide-react';
+import { MapPin, ArrowRight, Building } from 'lucide-react';
 import ExpertLocationLinks from './ExpertLocation';
 
 export default function ExpertCard({
   expert,
   featured = false,
 }: {
-  expert: Expert;
+  expert: PublicExpert;
   featured?: boolean;
 }) {
-  const primaryStudy = expert.case_studies?.[0];
-
   return (
     <div className="hover-lift group relative flex flex-col justify-between rounded-2xl border border-line bg-white p-5 sm:p-6 shadow-rest hover:border-brand">
       {/* Sponsor badge in top corner if featured */}
@@ -67,19 +65,6 @@ export default function ExpertCard({
         <p className="text-base text-ink-soft line-clamp-2 leading-relaxed mb-4 font-normal">
           {expert.tagline}
         </p>
-
-        {/* Core Trust Callout: Expert Thoughts... */}
-        {primaryStudy && (
-          <div className="mb-4 rounded-xl bg-brand-soft border border-brand-tint p-4 text-sm">
-            <div className="flex items-center gap-2 text-brand font-bold mb-1.5 text-sm">
-              <MessageSquareQuote className="w-4 h-4 text-brand" />
-              <span>Expert Thoughts...</span>
-            </div>
-            <p className="text-brand-ink text-sm sm:text-base line-clamp-3 italic font-semibold leading-relaxed">
-              &quot;{primaryStudy.hitl_oversight_mechanism}&quot;
-            </p>
-          </div>
-        )}
 
         {/* Tools tags: only shown on standard directory pages, omitted on featured cards */}
         {!featured && (

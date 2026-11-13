@@ -19,12 +19,6 @@ export default function Footer() {
             <p className="text-sm text-inverse-text leading-relaxed">
               The directory of AI specialists who build systems with real human accountability. We reject zero-touch hallucination black boxes.
             </p>
-            <div className="pt-2">
-              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-inverse-raised border border-inverse-line text-sm font-semibold text-brand-tint">
-                <span className="w-2 h-2 rounded-full bg-brand-on-dark animate-pulse" />
-                References required.
-              </div>
-            </div>
           </div>
 
           {/* Col 2: Category Taxonomy */}
@@ -69,7 +63,7 @@ export default function Footer() {
           {/* Col 3: Platform */}
           <div>
             <h2 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
-              The HITL Standard
+              Directory
             </h2>
             <ul className="space-y-3 text-sm">
               <li>
@@ -88,18 +82,18 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/hitl-standard" className="hover:text-white transition-colors">
-                  The HITL Standard
+                <Link href="/about" className="hover:text-white transition-colors">
+                  How it works
                 </Link>
               </li>
               <li>
-                <Link href="/about#references" className="hover:text-white transition-colors">
-                  References we contact
+                <Link href="/blog" className="hover:text-white transition-colors">
+                  Guides
                 </Link>
               </li>
               <li>
-                <Link href="/about#guardrail-interview" className="hover:text-white transition-colors">
-                  Failure Safeguards Checklist
+                <Link href="/ai-consultant-cost" className="hover:text-white transition-colors">
+                  What AI consultants charge
                 </Link>
               </li>
               <li>

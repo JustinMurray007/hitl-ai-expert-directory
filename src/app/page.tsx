@@ -1,10 +1,11 @@
 import Link from 'next/link';
+import { expertForPage } from '@/lib/listing';
 import { withCanonical } from '@/lib/seo';
 
 export const metadata = withCanonical('/', {
-  title: 'Hire Vetted AI Consultants & Automation Pros | Find AI Pros',
+  title: 'Hire AI Consultants and Automation Pros | Find AI Pros',
   description:
-    'Find vetted AI consultants and automation experts for your business. Browse by industry, need, or city, or get 3 matched experts in 48 hours.',
+    'Find AI consultants and automation experts for your business. Browse by industry, need, or city, or get 3 matched experts in 48 hours.',
 });
 import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 import { getCategories, getFeaturedExperts } from '@/lib/store';
@@ -113,11 +114,11 @@ export default async function HomePage() {
 
           {/* Symmetrical Heading */}
           <h1 className="mx-auto max-w-5xl text-3xl font-semibold leading-[1.12] tracking-tight text-ink min-[420px]:text-4xl sm:text-5xl lg:text-6xl">
-            Hire Vetted AI Consultants and Automation Experts
+            Hire AI Consultants and Automation Experts
           </h1>
 
           <p className="mt-6 text-base sm:text-xl text-ink-soft max-w-3xl mx-auto leading-relaxed font-normal">
-            Find AI Pros is a directory of vetted AI consultants and automation agencies for small and mid-sized businesses. Every listed expert names an accountable person and a human fallback for when the AI is unsure. Browse by industry, business need, or city, or pay $49.99 to be introduced to at least 3 matched experts within 48 hours.
+            Find AI Pros is a directory of AI consultants and automation agencies for small and mid-sized businesses. Browse by industry, business need, or city, or pay $49.99 to be introduced to at least 3 matched experts within 48 hours.
           </p>
 
           {/* Primary Action Buttons */}
@@ -358,13 +359,13 @@ export default async function HomePage() {
             <div>
               <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-brand-line bg-brand-soft px-3 py-1.5 text-xs font-bold text-brand">
                 <ShieldCheck className="w-4 h-4" />
-                <span>Human safety checks</span>
+                <span>Featured listings</span>
               </div>
               <h2 className="text-2xl sm:text-4xl font-semibold text-ink tracking-tight">
                 Featured AI Experts
               </h2>
               <p className="text-base text-muted-strong mt-2 max-w-2xl font-normal leading-relaxed">
-                Applied AI architects who name an accountable person and publish how a human steps in when the system is unsure.
+                Consultants and agencies in the directory, with starting budgets and the tools they list.
               </p>
             </div>
             <Link
@@ -378,7 +379,7 @@ export default async function HomePage() {
           {/* Symmetrical 3x2 Grid */}
           <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
             {featuredExperts.map((expert) => (
-              <ExpertCard key={expert.id} expert={expert} featured />
+              <ExpertCard key={expert.id} expert={expertForPage(expert)} featured />
             ))}
           </div>
         </div>
@@ -397,7 +398,7 @@ export default async function HomePage() {
               Why Generic Freelance Sites Fail for AI Systems
             </h2>
             <p className="text-base text-muted-strong mt-3 font-normal leading-relaxed max-w-2xl mx-auto">
-              Autonomous AI will occasionally hallucinate or hit edge cases. The difference between failure and enterprise ROI is whether human fallback safeguards are built in.
+              Freelance marketplaces and this directory are different ways to look for help. Here you can browse profiles or pay for introductions.
             </p>
           </div>
 
@@ -469,42 +470,37 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {/* Card 3: The HITL Standard */}
             <div className="hover-lift relative flex flex-col justify-between rounded-3xl border-2 border-brand bg-gradient-to-b from-brand-soft/60 via-white to-white p-6 shadow-raised sm:p-8">
-              <div className="absolute -top-3 right-6 bg-brand text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                Audited Standard
-              </div>
-
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-brand-soft border border-brand-line flex items-center justify-center mb-6">
                   <CheckCircle2 className="w-6 h-6 text-brand" />
                 </div>
                 <span className="text-xs font-mono font-bold text-brand uppercase tracking-wider">
-                  The HITL Standard
+                  This directory
                 </span>
-                <h3 className="text-xl font-semibold text-ink mt-1">Human-in-the-Loop</h3>
+                <h3 className="text-xl font-semibold text-ink mt-1">Browse or get introductions</h3>
                 <p className="text-sm text-slate-500 mt-2 font-normal leading-relaxed">
-                  Every specialist describes production reliability and fail-safes.
+                  Profiles list a starting budget, tools, categories, and a city. You can browse them or pay for a match.
                 </p>
 
                 <div className="mt-6 space-y-3 text-sm text-ink font-semibold">
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-0.5" />
-                    <span>Built-in human safety checks (instant staff alerts &amp; live phone transfers)</span>
+                    <span>Filter by category, tool, budget, and city</span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-0.5" />
-                    <span>References we can contact before anyone is listed</span>
+                    <span>$49.99 for at least 3 introductions in 48 hours</span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-0.5" />
-                    <span>A paid plan does not change the human safety checks</span>
+                    <span>Experts pay a flat listing fee, not a commission</span>
                   </div>
                 </div>
               </div>
 
               <div className="mt-8 pt-4 border-t border-brand-line text-xs font-bold text-brand">
-                Outcome: Predictable, scalable automation that protects your business.
+                You do not have to hire anyone you are introduced to.
               </div>
             </div>
           </div>

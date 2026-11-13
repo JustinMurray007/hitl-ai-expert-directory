@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { expertForPage } from '@/lib/listing';
 import { getExperts } from '@/lib/store';
 import {
   STATIC_EXPORT_PLACEHOLDER,
@@ -166,7 +167,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
               Find An Ai Consultant &amp; Company in {stateName}
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              Connect with automation specialists, CRM architects, and custom AI developers across {stateName}. Every listed specialist names an accountable person.
+              Browse automation specialists, CRM architects, and custom AI developers across {stateName}. Remote experts can serve this state too.
             </p>
           </div>
 
@@ -254,14 +255,14 @@ export default async function StateLocationPage({ params }: StatePageProps) {
                 All AI Specialists in {stateName} ({stateExperts.length})
               </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Consultants who name an accountable person and give references we can contact.
+                Profiles in {stateName}, with a starting budget and tools on each one.
               </p>
             </div>
           </div>
 
           <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {stateExperts.map((exp) => (
-              <ExpertCard key={exp.id} expert={exp} />
+              <ExpertCard key={exp.id} expert={expertForPage(exp)} />
             ))}
           </div>
         </section>
