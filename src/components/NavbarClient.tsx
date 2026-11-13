@@ -425,9 +425,9 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             </Link>
             <Link
               href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
-              className="menu-link flex items-center justify-between p-3 rounded-xl bg-blue-50 text-base font-bold text-blue-900"
+              className="menu-link flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-blue-50 text-base font-bold text-blue-900"
             >
-              <span>AI Solutions by Industry</span>
+              <span className="min-w-0">AI Solutions by Industry</span>
               <span className="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full">Free Tool</span>
             </Link>
             <Link

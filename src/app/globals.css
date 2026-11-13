@@ -98,6 +98,12 @@
 
   --ease-lift: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Nothing on the site is set smaller than body text. */
+  --text-xs: 1rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 1rem;
+  --text-sm--line-height: 1.5;
 }
 
 @layer base {
@@ -129,6 +135,12 @@
     line-height: 1.6;
     letter-spacing: -0.011em;
     overflow-wrap: break-word;
+  }
+
+  small,
+  sub,
+  sup {
+    font-size: 1rem;
   }
 
   h1,

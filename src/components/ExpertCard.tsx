@@ -56,7 +56,7 @@ export default function ExpertCard({
         )}
       </div>
 
-      <div className={`pt-4 border-t border-line-soft flex items-center ${compact ? 'justify-between' : 'justify-end'}`}>
+      <div className={`pt-4 border-t border-line-soft flex flex-wrap items-center gap-3 ${compact ? 'justify-between' : 'justify-end'}`}>
         {compact && <ExpertLocationLinks expert={expert} />}
 
         <Link

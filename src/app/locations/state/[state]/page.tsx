@@ -203,7 +203,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
                 className="group p-5 rounded-2xl bg-white border border-line hover:border-brand hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
+                  <div className="flex flex-wrap items-center justify-between gap-1 text-xs text-slate-400 mb-1">
                     <span className="font-mono font-bold text-brand">{stateCode}</span>
                     <span className="font-semibold text-slate-500">{city.expertCount} {city.expertCount === 1 ? 'Pro' : 'Pros'}</span>
                   </div>
@@ -211,7 +211,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
                     {city.name}
                   </h3>
                 </div>
-                <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-brand">
+                <div className="mt-4 pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-brand">
                   <span>View City Hub</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>

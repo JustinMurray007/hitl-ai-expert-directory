@@ -224,10 +224,10 @@ export default async function CityLocationPage({ params }: CityPageProps) {
                 <Link
                   key={sibling.slug}
                   href={`/locations/city/${sibling.slug}`}
-                  className="p-3 rounded-xl bg-white border border-line hover:border-brand hover:shadow-xs text-xs font-bold text-ink hover:text-brand flex items-center justify-between transition-all"
+                  className="p-3 rounded-xl bg-white border border-line hover:border-brand hover:shadow-xs text-xs font-bold text-ink hover:text-brand flex flex-wrap items-center justify-between gap-2 transition-all"
                 >
-                  <span>{sibling.name}</span>
-                  <span className="text-[11px] font-mono text-slate-400">
+                  <span className="min-w-0">{sibling.name}</span>
+                  <span className="shrink-0 text-base font-mono text-slate-400">
                     {sibling.expertCount} {sibling.expertCount === 1 ? 'pro' : 'pros'}
                   </span>
                 </Link>
