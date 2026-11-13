@@ -1,7 +1,8 @@
 'use client';
 
 import { useMemo, useSyncExternalStore } from 'react';
-import { Expert, Category, Tool } from '@/lib/types';
+import { Category, Tool } from '@/lib/types';
+import type { PublicExpert } from '@/lib/listing';
 import ExpertCard from '@/components/ExpertCard';
 import FilterBar from '@/components/FilterBar';
 import { SearchX } from 'lucide-react';
@@ -13,7 +14,7 @@ function subscribeToSearch(onStoreChange: () => void) {
 }
 
 interface ExpertsDirectoryClientProps {
-  allExperts: Expert[];
+  allExperts: PublicExpert[];
   categories: Category[];
   tools: Tool[];
 }

@@ -614,18 +614,7 @@ export async function updateExpertReviewStatus(
     expert.verified_case_study_count = expert.case_studies.filter((cs) => cs.reviewer_confirmed).length;
   }
 
-  // Case studies are optional and are not a verification gate.
-  // References remain required when an application record exists.
-  // Sponsor rank / payment never sets is_verified.
   if (verificationStatus === 'verified') {
-    const applicationForGate = memStore.applications.find((a) => a.expert_id === expertId);
-    if (applicationForGate && !applicationForGate.references_provided) {
-      return {
-        success: false,
-        error:
-          'Listing requires at least one reference we can contact. Case studies are not required, and payment does not change that requirement.',
-      };
-    }
     expert.is_verified = true;
     expert.verified_at = new Date().toISOString();
   } else if (verificationStatus) {

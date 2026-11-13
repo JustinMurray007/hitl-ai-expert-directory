@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { expertForPage } from '@/lib/listing';
 import { getExperts } from '@/lib/store';
 import {
   STATIC_EXPORT_PLACEHOLDER,
@@ -53,7 +54,7 @@ export async function generateMetadata({ params }: ZipPageProps): Promise<Metada
   }
 
   const title = `Find An Ai Consultant & Company Near ${postalCode} (${cityName}, ${stateCode}) | Find Ai Pros`;
-  const description = `Hire AI automation consultants and AI development companies serving postal code ${postalCode} in ${cityName}, ${stateCode}. Human accountability and references we can contact.`;
+  const description = `Find AI consultants and developers serving postal code ${postalCode} in ${cityName}, ${stateCode}. Compare budgets and tools, or get matched in 48 hours.`;
 
   return {
     title,
@@ -229,14 +230,14 @@ export default async function ZipLocationPage({ params }: ZipPageProps) {
                 Specialists Serving Zip Code {postalCode}
               </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Human safety checks, and contact links while a listing is inside its free 30 days or on a paid plan.
+                Contact links while a listing is inside its free 30 days or on a paid plan.
               </p>
             </div>
           </div>
 
           <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {zipExperts.map((exp) => (
-              <ExpertCard key={exp.id} expert={exp} />
+              <ExpertCard key={exp.id} expert={expertForPage(exp)} />
             ))}
           </div>
         </section>

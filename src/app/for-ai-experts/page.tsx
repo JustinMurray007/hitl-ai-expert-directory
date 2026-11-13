@@ -33,11 +33,7 @@ export default function ForAiExpertsPage() {
         Extra categories past the plan&apos;s included set are priced on the apply page. Yearly prices are there too.
       </p>
       <p className="mt-6 text-base leading-relaxed text-muted-strong">
-        Every applicant has to describe the human fallback in their AI systems. That rule is the{' '}
-        <Link href="/hitl-standard" className="font-medium text-brand">
-          HITL Standard
-        </Link>
-        . The form stays on{' '}
+        The application form stays on{' '}
         <Link href="/apply" className="font-medium text-brand">
           /apply
         </Link>

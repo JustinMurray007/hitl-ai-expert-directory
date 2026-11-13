@@ -37,7 +37,7 @@ test('selected areas stack in click order and collapse duplicate tools inside an
       title: 'Duplicate stack',
       problemSolved: 'Dedupes inside the area.',
       systemArchitecture: 'One architecture.',
-      hitlSafeguard: 'Unused in the results view.',
+      staffHandoff: 'Unused in the results view.',
       typicalRoi: 'Cleaner list.',
       recommendedStack: ['Make', 'Make', 'Anthropic Claude', 'Claude 3.5 Sonnet'],
       categorySlug: 'operations-workflow-automation',

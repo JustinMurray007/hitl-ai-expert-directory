@@ -47,16 +47,16 @@ const revealArmScript = `(function(){
       for(var n=0;n<nodes.length;n++){show(nodes[n]);nodes[n].setAttribute('data-reveal-ready','')}
       return;
     }
-    if(!window.__hitlRevealIO){
-      window.__hitlRevealIO=new IntersectionObserver(function(entries){
+    if(!window.__revealOnScroll){
+      window.__revealOnScroll=new IntersectionObserver(function(entries){
         for(var e=0;e<entries.length;e++){
           if(!entries[e].isIntersecting) continue;
           show(entries[e].target);
-          window.__hitlRevealIO.unobserve(entries[e].target);
+          window.__revealOnScroll.unobserve(entries[e].target);
         }
       },{threshold:0.12,rootMargin:'0px 0px -4% 0px'});
     }
-    var io=window.__hitlRevealIO;
+    var io=window.__revealOnScroll;
     var viewH=window.innerHeight||800;
     for(var j=0;j<nodes.length;j++){
       var el=nodes[j];
@@ -91,7 +91,6 @@ export const metadata: Metadata = {
     'find ai pros',
     'AI expert directory',
     'hire AI specialist',
-    'human in the loop',
     'AI automation consultant',
     'voice AI developer',
     'enterprise RAG consultant',

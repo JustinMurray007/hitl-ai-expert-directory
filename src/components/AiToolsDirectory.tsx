@@ -368,13 +368,13 @@ export default function AiToolsDirectory() {
           <div className="lg:col-span-8 space-y-3">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-xs font-bold text-brand shadow-xs">
               <ShieldCheck className="w-4 h-4 text-brand" />
-              <span>The Human-in-the-Loop Advantage</span>
+              <span>From a tool to a workflow</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-semibold text-ink tracking-tight">
-              Tools don&apos;t run a business on their own — workflows with a human check do.
+              A tool page names what the software does. A specialist still has to install it.
             </h3>
             <p className="text-sm sm:text-base text-muted-strong leading-relaxed max-w-2xl font-normal">
-              Most businesses struggle when deploying raw AI models without safeguard guardrails, team alerts, or proper CRM synchronization. Our directory connects you with specialists who assemble these tools into resilient production systems.
+              Use the industry pages to see which tools show up for a business type, then open a profile or ask for a match.
             </p>
           </div>
           <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">

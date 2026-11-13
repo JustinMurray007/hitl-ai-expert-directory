@@ -21,7 +21,7 @@ import {
 export const metadata = withCanonical('/categories', {
   title: 'AI Experts by Business Need | Find AI Pros',
   description:
-    'Browse vetted AI specialists by the job you need done, from voice receptionists to workflow automation. Each hub shows who is listed.',
+    'Browse AI specialists by the job you need done, from voice receptionists to workflow automation. Each hub shows who is listed.',
 });
 
 const categoryIcons: Record<string, any> = {
@@ -108,7 +108,7 @@ export default async function CategoriesPage() {
             Browse AI Specialists by the Job You Need Done
           </h1>
           <p className="mt-4 text-base sm:text-lg text-muted-strong max-w-2xl mx-auto leading-relaxed font-normal">
-            Every category hub groups specialists and the human safety checks they commit to.
+            Every category hub groups specialists by the job they do.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm font-semibold">
@@ -117,11 +117,11 @@ export default async function CategoriesPage() {
             </span>
             <span className="text-slate-300">•</span>
             <span className="text-muted flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-brand" /> References we contact
+              <CheckCircle2 className="w-4 h-4 text-brand" /> Starting budgets on each profile
             </span>
             <span className="text-slate-300">•</span>
             <span className="text-muted flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-brand" /> Built-In Human Safety Checks
+              <CheckCircle2 className="w-4 h-4 text-brand" /> Tools listed on each profile
             </span>
           </div>
         </div>
@@ -187,7 +187,7 @@ export default async function CategoriesPage() {
               Not sure which solution fits your business best?
             </h3>
             <p className="mt-2 text-base text-muted-strong font-normal">
-              Take our interactive 2-minute business assessment to get an instant AI recommendation with built-in human safety checks.
+              Take the 2-minute business assessment for a recommendation matched to your industry.
             </p>
           </div>
           <Link

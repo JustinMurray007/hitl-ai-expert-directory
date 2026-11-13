@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getExperts } from '@/lib/store';
+import { expertForPage } from '@/lib/listing';
 import { getLocationsSummary } from '@/lib/locations';
 import LocationsDirectoryClient from '@/components/LocationsDirectoryClient';
 import { MapPin, ShieldCheck, Sparkles, Building, CheckCircle2 } from 'lucide-react';
@@ -8,7 +9,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Find an AI Consultant Near You: US and Canada',
   description:
-    'Hire a vetted AI consultant by city. Compare budgets and tools, or get matched in 48 hours. Remote experts can serve your city too.',
+    'Find an AI consultant by city. Compare budgets and tools, or get matched in 48 hours. Remote experts can serve your city too.',
   alternates: {
     canonical: 'https://findaipros.com/locations',
   },
@@ -51,7 +52,7 @@ export default async function LocationsMainPage() {
             Find an AI Consultant Near You: US and Canada
           </h1>
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-            Browse local AI consultants, automation architects, and development agencies across cities, states, and zip codes. Every specialist names human safety checkpoints and references we can contact.
+            Browse AI consultants, automation agencies, and developers across cities, states, and zip codes. Remote experts can also serve your city.
           </p>
 
           {/* Quick Metrics */}
@@ -76,7 +77,7 @@ export default async function LocationsMainPage() {
           states={states}
           cities={cities}
           zips={zips}
-          experts={experts}
+          experts={experts.map(expertForPage)}
         />
       </div>
     </div>

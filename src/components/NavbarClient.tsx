@@ -370,27 +370,27 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                 <div className="rounded-2xl p-6 bg-gradient-to-br from-brand-soft/90 via-white to-brand-soft border border-brand-line shadow-xs">
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand text-white text-xs font-bold mb-3 shadow-xs">
                     <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>The accountability standard</span>
+                    <span>Two ways to look</span>
                   </div>
                   <h4 className="text-lg font-medium text-ink leading-snug">
-                    Built-In Human Safety Checks.
+                    Browse profiles or ask for introductions.
                   </h4>
                   <p className="mt-2 text-sm text-slate-600 leading-relaxed font-normal">
-                    Every listed specialist names one accountable person and gives references we can contact. Case studies are optional.
+                    Each profile shows a starting budget, tools, categories, and a city. Concierge Match is $49.99 for at least 3 introductions in 48 hours.
                   </p>
 
                   <div className="mt-4 space-y-2 text-sm text-ink font-normal">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />
-                      <span>Code &amp; Systems Audited</span>
+                      <span>Filter by category, tool, and budget</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />
-                      <span>No Fake 5-Star Paid Reviews</span>
+                      <span>Experts pay a flat listing fee</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />
-                      <span>Instant Staff Alerts &amp; Human Review</span>
+                      <span>You do not have to hire anyone</span>
                     </div>
                   </div>
 
@@ -405,7 +405,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                       href="/about"
                       className="text-center text-sm font-medium text-slate-600 hover:text-ink transition-colors"
                     >
-                      Read the HITL Standard →
+                      How it works →
                     </Link>
                   </div>
                 </div>

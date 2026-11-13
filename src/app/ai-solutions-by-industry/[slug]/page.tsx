@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, Sparkles } from 'lucide-react';
 import { getExperts } from '@/lib/store';
+import { expertForPage } from '@/lib/listing';
 import BusinessRecommender from '@/components/BusinessRecommender';
 import PathRedirect from '@/components/PathRedirect';
 import JsonLd from '@/components/JsonLd';
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: AiSolutionsBusinessPageProps)
   if (!canonical || !industry) return { title: 'Business type not found | Find Ai Pros' };
   const path = businessPath(canonical);
   const title = `AI for ${industry.industryName}: Solutions and Experts`;
-  const description = `How ${industry.industryName} can use AI, the tools behind those jobs, and vetted experts who build them. ${industry.industryDescription}`;
+  const description = `How ${industry.industryName} can use AI, the tools behind those jobs, and experts who build them. ${industry.industryDescription}`;
   return {
     title,
     description,
@@ -108,7 +109,7 @@ export default async function AiSolutionsBusinessPage({ params }: AiSolutionsBus
           {industry.industryDescription} Choose one or more operational bottlenecks or areas to improve. Each area stacks its own AI solution and tools below.
         </p>
       </div>
-      <BusinessRecommender key={industry.industrySlug} allExperts={experts} industry={industry} />
+      <BusinessRecommender key={industry.industrySlug} allExperts={experts.map(expertForPage)} industry={industry} />
     </div>
   );
 }

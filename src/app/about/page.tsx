@@ -4,13 +4,12 @@ import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 import {
   ShieldCheck,
   ArrowRight,
-  FileCheck,
 } from 'lucide-react';
 
 export const metadata = withCanonical('/about', {
-  title: 'How Find AI Pros Works: Vetted AI Experts, Human Oversight',
+  title: 'How Find AI Pros Works',
   description:
-    'How we vet AI consultants: a named accountable person, a human fallback for every system, and references we contact. Browse, compare, or get matched.',
+    'Browse AI consultants by industry, need, or city, or pay $49.99 for introductions within 48 hours. Listing plans for experts start after 30 free days.',
 });
 
 export default function AboutPage() {
@@ -55,125 +54,7 @@ export default function AboutPage() {
         </ol>
       </section>
 
-      {/* Hero */}
-      <div className="text-center space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand">
-          <ShieldCheck className="w-4 h-4" />
-          <span>The listing standard</span>
-        </div>
-        <h2 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight leading-tight">
-          The Find Ai Pros Standard for Accountable AI
-        </h2>
-        <p className="text-base sm:text-lg text-muted max-w-2xl mx-auto leading-relaxed font-normal">
-          We built this directory because small and mid-sized businesses are terrified of handing their brand, finances, and client relationships to hallucinating, zero-touch black boxes.
-        </p>
-      </div>
-
-      {/* SECTION 1: THE CORE TRUST MOAT */}
-      <section id="the-standard" data-reveal className="space-y-6 rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-10">
-        <div className="border-b border-line-soft pb-4">
-          <span className="text-sm uppercase font-mono tracking-wider text-brand font-bold">
-            Our Differentiator
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-ink mt-1.5">
-            The Single Question No Other Directory Enforces
-          </h2>
-        </div>
-
-        <p className="text-base sm:text-lg text-ink-soft leading-relaxed">
-          On Upwork, Clutch, and generic AI directories, agencies compete by listing the newest foundation model they wired up. They promise &quot;100% autonomous, zero-human, set-and-forget&quot; systems. In production, these systems inevitably encounter edge cases, drift, or hallucinate.
-        </p>
-
-        <div className="p-6 sm:p-7 rounded-2xl bg-brand-soft border-2 border-brand-line space-y-3">
-          <span className="text-sm font-bold text-brand uppercase tracking-wider block">
-            The Mandatory HITL Standard:
-          </span>
-          <blockquote className="text-lg sm:text-xl font-bold text-brand-ink italic leading-snug">
-            &quot;What is the exact mechanism deployed when your AI system is uncertain, wrong, or encounters an edge case?&quot;
-          </blockquote>
-          <p className="text-sm sm:text-base text-hub-teal-ink pt-1 font-medium leading-relaxed">
-            This question filters out unreliable, generic AI agencies before they ever get listed. If an applicant cannot describe a concrete human safety check (a team approval alert, an error review dashboard, or an immediate live phone handoff to staff), their application is automatically rejected.
-          </p>
-        </div>
-      </section>
-
-      {/* SECTION 2: THE TWO CASE STUDIES RULE */}
-      <section id="references" data-reveal className="space-y-6 rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-10">
-        <div className="border-b border-line-soft pb-4">
-          <span className="text-sm uppercase font-mono tracking-wider text-brand font-bold">
-            Verification
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-ink mt-1.5">
-            References, not a case-study quota
-          </h2>
-        </div>
-
-        <p className="text-base sm:text-lg text-ink-soft leading-relaxed">
-          Case studies are not required to be listed. A specialist may still choose to show examples of past work on their profile. References we can contact remain part of the listing standard.
-        </p>
-
-        <div className="p-6 rounded-2xl bg-canvas-muted border border-line space-y-2.5">
-          <div className="flex items-center gap-2 font-bold text-ink text-base">
-            <FileCheck className="w-5 h-5 text-brand" />
-            <span>References we can contact</span>
-          </div>
-          <p className="text-muted leading-relaxed font-normal">
-            Before listing, the specialist gives references we can speak with about their work. That remains the proof requirement. A sample written plan and a sample handoff guide are part of the same review.
-          </p>
-        </div>
-      </section>
-
-      {/* SECTION 3: LISTING CHECKLIST */}
-      <section id="guardrail-interview" data-reveal className="space-y-6 rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-10">
-        <div className="border-b border-line-soft pb-4">
-          <span className="text-sm uppercase font-mono tracking-wider text-brand font-bold">
-            Rigorous Criteria
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-ink mt-1.5">
-            The Three-Part Listing Checklist
-          </h2>
-        </div>
-
-        <div className="space-y-4">
-          <div className="p-6 rounded-2xl bg-canvas-muted border border-line flex items-start gap-4">
-            <span className="w-8 h-8 rounded-full bg-brand-soft text-brand font-mono font-bold flex items-center justify-center shrink-0 text-sm">
-              1
-            </span>
-            <div>
-              <h4 className="font-bold text-ink text-base sm:text-lg">Human Safety Checks &amp; Error Prevention</h4>
-              <p className="text-muted text-sm sm:text-base mt-1.5 leading-relaxed font-normal">
-                The specialist articulates concrete human checkpoints: staff alerts, review dashboards, and error-prevention steps before any action affects a customer or database. Submissions claiming &quot;100% autonomous zero-touch&quot; are automatically rejected.
-              </p>
-            </div>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-canvas-muted border border-line flex items-start gap-4">
-            <span className="w-8 h-8 rounded-full bg-brand-soft text-brand font-mono font-bold flex items-center justify-center shrink-0 text-sm">
-              2
-            </span>
-            <div>
-              <h4 className="font-bold text-ink text-base sm:text-lg">Entity & Identity Confirmation</h4>
-              <p className="text-muted text-sm sm:text-base mt-1.5 leading-relaxed font-normal">
-                Active corporate domain, a real business identity we can confirm, and references we can contact.
-              </p>
-            </div>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-canvas-muted border border-line flex items-start gap-4">
-            <span className="w-8 h-8 rounded-full bg-brand-soft text-brand font-mono font-bold flex items-center justify-center shrink-0 text-sm">
-              3
-            </span>
-            <div>
-              <h4 className="font-bold text-ink text-base sm:text-lg">Sample plan and handoff</h4>
-              <p className="text-muted text-sm sm:text-base mt-1.5 leading-relaxed font-normal">
-                A sample scope in plain language, with the success measures the specialist would agree with a contractor, and a sample handoff guide. This is not a case-study requirement.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 4: LISTING TIERS & PRICING HYPOTHESIS */}
+      {/* Listing plans */}
       <section data-reveal className="space-y-6 rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-10">
         <div className="border-b border-line-soft pb-4">
           <span className="text-sm uppercase font-mono tracking-wider text-brand font-bold">

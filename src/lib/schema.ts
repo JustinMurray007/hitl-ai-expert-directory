@@ -56,7 +56,7 @@ export function organizationAndWebsite(): Json {
         url: SITE_ORIGIN,
         logo: absoluteUrl('/logo-full.png'),
         description:
-          'Directory of vetted AI consultants and automation agencies for small and mid-sized businesses. Every listed expert names an accountable person and a human fallback.',
+          'Directory of AI consultants and automation agencies for small and mid-sized businesses.',
         founder: { '@type': 'Person', name: 'Justin Murray' },
       },
       {

@@ -269,7 +269,7 @@ export default function ConstructionLandingPage() {
               Real Builds Implemented for Construction Companies
             </h2>
             <p className="text-base text-muted-strong mt-3 font-normal leading-relaxed max-w-2xl mx-auto">
-              Specialists here follow the same listing standard as the rest of the directory: a named person, human safety checks, and references we can contact. Some also choose to show an example of past work.
+              The home-services industry page lists specialists and the tools they use. You can also ask for a $49.99 match.
             </p>
           </div>
 

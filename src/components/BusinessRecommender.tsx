@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Expert } from '@/lib/types';
+import type { PublicExpert } from '@/lib/listing';
 import { type IndustryRecommendation } from '@/lib/recommendations';
 import {
   bottlenecksForBusiness,
@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 
 interface BusinessRecommenderProps {
-  allExperts: Expert[];
+  allExperts: PublicExpert[];
   industry: IndustryRecommendation;
 }
 
@@ -42,7 +42,7 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
 
   const eligibleExperts = allExperts.filter((exp) => isMatchEligible(exp));
   const seenExpertIds = new Set<string>();
-  const matchedSpecialists: { expert: Expert; categorySlug: string }[] = [];
+  const matchedSpecialists: { expert: PublicExpert; categorySlug: string }[] = [];
   for (const group of groups) {
     const workflow = group.workflow;
     const direct = eligibleExperts.filter((exp) => workflow.matchingExpertSlugs.includes(exp.slug));

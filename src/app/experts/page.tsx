@@ -5,13 +5,13 @@ import JsonLd from '@/components/JsonLd';
 import { getLocationsSummary } from '@/lib/locations';
 import { breadcrumbList, graph, itemList } from '@/lib/schema';
 import { withCanonical } from '@/lib/seo';
-import { isPublicDirectoryExpert } from '@/lib/listing';
+import { expertForPage, isPublicDirectoryExpert } from '@/lib/listing';
 import { ShieldCheck } from 'lucide-react';
 
 export const metadata = withCanonical('/experts', {
-  title: 'AI Experts Directory: Vetted AI Consultants & Agencies',
+  title: 'AI Experts Directory: Consultants and Agencies',
   description:
-    'Browse vetted AI consultants, voice AI builders, and automation agencies. Filter by category, tools, budget, and city. Each names a human fallback.',
+    'Browse AI consultants, voice AI builders, and automation agencies. Filter by category, tools, budget, and city.',
 });
 
 export default async function ExpertsPage() {
@@ -45,10 +45,10 @@ export default async function ExpertsPage() {
           <span>Curated AI Expert Directory</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight">
-          AI Experts Directory: Vetted AI Consultants and Agencies
+          AI Experts Directory: Consultants and Agencies
         </h1>
         <p className="text-base sm:text-lg text-muted-strong mt-3 max-w-3xl leading-relaxed font-normal">
-          The Find AI Pros directory lists vetted AI consultants and automation agencies. Every profile shows a starting budget, tools, categories, location, and the human fallback the expert uses when their AI system is unsure.
+          The Find AI Pros directory lists AI consultants and automation agencies. Every profile shows a starting budget, tools, categories, and location.
         </p>
       </div>
 
@@ -76,7 +76,7 @@ export default async function ExpertsPage() {
       </nav>
 
       <ExpertsDirectoryClient
-        allExperts={published}
+        allExperts={published.map(expertForPage)}
         categories={categories}
         tools={tools}
       />

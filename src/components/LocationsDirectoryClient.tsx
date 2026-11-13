@@ -12,7 +12,7 @@ import {
   Sparkles,
   Compass,
 } from 'lucide-react';
-import { Expert } from '@/lib/types';
+import type { PublicExpert } from '@/lib/listing';
 import {
   LocationStateSummary,
   LocationCitySummary,
@@ -27,7 +27,7 @@ interface LocationsDirectoryClientProps {
   states: LocationStateSummary[];
   cities: LocationCitySummary[];
   zips: LocationZipSummary[];
-  experts: Expert[];
+  experts: PublicExpert[];
 }
 
 export default function LocationsDirectoryClient({
