@@ -134,6 +134,12 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
   const megaMenuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
+  const expertsActive = pathname.startsWith('/experts') || pathname.startsWith('/categories') || pathname.startsWith('/locations');
+  const industryActive = pathname.startsWith('/ai-solutions-by-industry');
+  const toolsActive = pathname.startsWith('/tools');
+  const howActive = pathname.startsWith('/about');
+  const matchActive = pathname.startsWith('/match');
+  const activeNav = 'text-warm shadow-[inset_0_-2px_0_0_var(--color-warm)]';
 
   // Close menus on route change
   useEffect(() => {
@@ -181,7 +187,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               onClick={() => setMegaMenuOpen(!megaMenuOpen)}
               onMouseEnter={() => setMegaMenuOpen(true)}
               className={`nav-link inline-flex items-center gap-1.5 px-3 rounded-xl focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand/40 ${
-                megaMenuOpen ? 'text-brand bg-brand-soft' : ''
+                megaMenuOpen ? 'text-brand bg-brand-soft' : expertsActive ? activeNav : ''
               }`}
               aria-expanded={megaMenuOpen}
               aria-controls="desktop-mega-menu"
@@ -198,7 +204,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           <Link
             href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
             onMouseEnter={() => setMegaMenuOpen(false)}
-            className="nav-link inline-flex items-center px-3 rounded-xl text-ink"
+            className={`nav-link inline-flex items-center px-3 rounded-xl text-ink ${industryActive ? activeNav : ''}`}
           >
             <span>AI Solutions by Industry</span>
           </Link>
@@ -206,7 +212,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           <Link
             href="/tools"
             onMouseEnter={() => setMegaMenuOpen(false)}
-            className="nav-link inline-flex items-center px-3 rounded-xl"
+            className={`nav-link inline-flex items-center px-3 rounded-xl ${toolsActive ? activeNav : ''}`}
           >
             AI Tools
           </Link>
@@ -214,7 +220,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           <Link
             href="/about#how-it-works"
             onMouseEnter={() => setMegaMenuOpen(false)}
-            className="nav-link inline-flex items-center px-3 rounded-xl"
+            className={`nav-link inline-flex items-center px-3 rounded-xl ${howActive ? activeNav : ''}`}
           >
             How It Works
           </Link>
@@ -222,7 +228,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           <Link
             href="/match"
             onMouseEnter={() => setMegaMenuOpen(false)}
-            className="nav-link inline-flex items-center px-3 rounded-xl"
+            className={`nav-link inline-flex items-center px-3 rounded-xl ${matchActive ? activeNav : ''}`}
           >
             Concierge Match
           </Link>
@@ -425,9 +431,9 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             </Link>
             <Link
               href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
-              className="menu-link flex items-center justify-between p-3 rounded-xl bg-blue-50 text-base font-bold text-blue-900"
+              className="menu-link flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-blue-50 text-base font-bold text-blue-900"
             >
-              <span>AI Solutions by Industry</span>
+              <span className="min-w-0">AI Solutions by Industry</span>
               <span className="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full">Free Tool</span>
             </Link>
             <Link

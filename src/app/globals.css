@@ -25,6 +25,9 @@
   --color-brand-mid: #93c5fd;
   --color-brand-on-dark: #93c5fd;
 
+  /* One warm accent. Orange-700: white text and icons on canvas both clear WCAG AA. */
+  --color-warm: #c2410c;
+
   /* Ink, surfaces, lines */
   --color-ink: #0f172a;
   --color-ink-soft: #334155;
@@ -98,6 +101,12 @@
 
   --ease-lift: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Nothing on the site is set smaller than body text. */
+  --text-xs: 1rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 1rem;
+  --text-sm--line-height: 1.5;
 }
 
 @layer base {
@@ -129,6 +138,12 @@
     line-height: 1.6;
     letter-spacing: -0.011em;
     overflow-wrap: break-word;
+  }
+
+  small,
+  sub,
+  sup {
+    font-size: 1rem;
   }
 
   h1,
@@ -346,6 +361,11 @@ a.rounded-full:hover,
 button.rounded-full:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-raised);
+}
+
+a.bg-warm:hover,
+button.bg-warm:hover {
+  filter: brightness(0.92);
 }
 
 .menu-link:hover {

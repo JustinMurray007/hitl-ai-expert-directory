@@ -155,7 +155,7 @@ export default function AiToolsDirectory() {
               >
                 <span>{cat.label}</span>
                 <span
-                  className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${
+                  className={`text-base px-1.5 py-0.5 rounded-full font-mono ${
                     isSelected ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600'
                   }`}
                 >
@@ -187,7 +187,7 @@ export default function AiToolsDirectory() {
               >
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-2">
-                    <span className="text-[11px] font-mono font-bold text-slate-400 group-hover:text-brand transition-colors">
+                    <span className="text-base font-mono font-bold text-slate-400 group-hover:text-brand transition-colors">
                       {tool.company}
                     </span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-brand transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -199,7 +199,7 @@ export default function AiToolsDirectory() {
                     {tool.bestFor}
                   </p>
                 </div>
-                <div className="mt-3 pt-2 border-t border-slate-100 flex items-center text-[11px] font-bold text-brand">
+                <div className="mt-3 pt-2 border-t border-slate-100 flex items-center text-base font-bold text-brand">
                   Visit Site →
                 </div>
               </a>

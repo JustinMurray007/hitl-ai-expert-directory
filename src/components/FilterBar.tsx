@@ -64,7 +64,7 @@ export default function FilterBar({
 
         <button
           onClick={() => applyFilters()}
-          className="inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full bg-brand px-7 py-3 text-base font-bold text-white shadow-rest hover:bg-brand-hover"
+          className="inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full bg-warm px-7 py-3 text-base font-bold text-white shadow-rest"
         >
           Apply Filters
         </button>

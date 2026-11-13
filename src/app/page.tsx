@@ -113,7 +113,7 @@ export default async function HomePage() {
           <div className="mt-9 flex flex-col items-center justify-center gap-4">
             <Link
               href="/experts"
-              className="inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-brand px-8 py-4 text-base font-bold text-white shadow-raised sm:w-auto"
+              className="inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-warm px-8 py-4 text-base font-bold text-white shadow-raised sm:w-auto"
             >
               Browse AI Experts
               <ArrowRight className="w-5 h-5" />
@@ -144,15 +144,15 @@ export default async function HomePage() {
                 {/* Key Features List */}
                 <div className="mt-6 space-y-2.5 max-w-lg">
                   <div className="flex items-center gap-3 text-sm text-ink font-semibold">
-                    <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-warm shrink-0" />
                     <span>Tailored Industry Solutions (Logistics, Dental, HVAC, Retail, Wellness, Legal, Hospitality...)</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-ink font-semibold">
-                    <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-warm shrink-0" />
                     <span>Recommended tools for each operational bottleneck, with a page for every tool</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-ink font-semibold">
-                    <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-warm shrink-0" />
                     <span>Direct Links to AI Specialists Ready to Build It</span>
                   </div>
                 </div>
@@ -179,22 +179,22 @@ export default async function HomePage() {
                   {/* Checkmarked List of Common Integrations */}
                   <div className="space-y-3">
                     <div className="p-3 rounded-xl bg-canvas border border-slate-100 hover:border-brand-line transition-colors flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-brand shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-warm shrink-0 mt-0.5" />
                       <div className="text-sm font-bold text-ink">CRM Ai Integrations</div>
                     </div>
 
                     <div className="p-3 rounded-xl bg-canvas border border-slate-100 hover:border-brand-line transition-colors flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-brand shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-warm shrink-0 mt-0.5" />
                       <div className="text-sm font-bold text-ink">Ai Voice Agents / Dispatch</div>
                     </div>
 
                     <div className="p-3 rounded-xl bg-canvas border border-slate-100 hover:border-brand-line transition-colors flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-brand shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-warm shrink-0 mt-0.5" />
                       <div className="text-sm font-bold text-ink">Ai Competitor Research</div>
                     </div>
 
                     <div className="p-3 rounded-xl bg-canvas border border-slate-100 hover:border-brand-line transition-colors flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-brand shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-warm shrink-0 mt-0.5" />
                       <div className="text-sm font-bold text-ink">Ai Marketing &amp; Ad Management</div>
                     </div>
                   </div>

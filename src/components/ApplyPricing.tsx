@@ -211,7 +211,7 @@ function ApplyPricingBody({
                 onClick={() => choosePlan(plan.id)}
                 className={`mt-6 w-full inline-flex items-center justify-center px-5 py-3.5 rounded-full font-bold text-sm sm:text-base transition-colors ${
                   chosen
-                    ? 'bg-brand text-white shadow-sm'
+                    ? 'bg-warm text-white shadow-sm'
                     : 'bg-white text-brand border border-brand hover:bg-brand-soft'
                 }`}
               >
@@ -277,7 +277,7 @@ function ApplyPricingBody({
           <button
             type="submit"
             disabled={selected.length === 0}
-            className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white shadow-sm disabled:cursor-not-allowed disabled:opacity-50 sm:text-base"
+            className="inline-flex items-center justify-center rounded-full bg-warm px-6 py-3.5 text-sm font-bold text-white shadow-sm disabled:cursor-not-allowed disabled:opacity-50 sm:text-base"
           >
             Get started — {activePlan.name}
           </button>
@@ -289,7 +289,7 @@ function ApplyPricingBody({
         <div className="mt-5">
           <a
             href={APPLICATION_HREF}
-            className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white shadow-sm sm:text-base"
+            className="inline-flex items-center justify-center rounded-full bg-warm px-6 py-3.5 text-sm font-bold text-white shadow-sm sm:text-base"
           >
             Continue to the application
           </a>
