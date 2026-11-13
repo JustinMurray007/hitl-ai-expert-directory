@@ -169,9 +169,9 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
 
       {/* Main Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 xl:h-20 flex items-center justify-between gap-2">
-        <Link href="/" className="brand-link flex items-center gap-2 sm:gap-3 group shrink min-w-0">
+        <Link href="/" className="brand-link flex items-center gap-2 sm:gap-3 group shrink-0">
           <Logo priority className="w-9 h-9 sm:w-11 sm:h-11 shrink-0 group-hover:scale-105 transition-transform" />
-          <span className="font-sans font-bold text-base min-[420px]:text-lg sm:text-xl xl:text-2xl text-ink tracking-tight leading-none truncate">
+          <span className="wordmark font-bold text-base min-[420px]:text-lg sm:text-xl xl:text-2xl text-ink tracking-tight leading-none truncate">
             <span className="sm:hidden">Find Ai</span>
             <span className="hidden sm:inline">
               Find Ai <span className="bg-gradient-to-r from-brand to-hub-sky bg-clip-text text-transparent">PROS</span>
