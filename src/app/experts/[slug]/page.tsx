@@ -12,7 +12,7 @@ import {
   isStaticExportPlaceholder,
   staticPlaceholderMetadata,
 } from '@/lib/static-params';
-import { PlacementBadge, ToolBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
+import { ToolBadge, EngagementBadge, CategoryBadge } from '@/components/Badge';
 import { expertForPage, showsPublicLinks } from '@/lib/listing';
 import ExpertLocationLinks from '@/components/ExpertLocation';
 import {
@@ -139,12 +139,9 @@ export default async function ExpertProfilePage({ params }: ExpertProfilePagePro
 
             {/* Info */}
             <div className="space-y-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl sm:text-3xl font-semibold text-ink">
-                  {expert.full_name}
-                </h1>
-                <PlacementBadge plan={expert.listing_plan} sponsorRank={expert.sponsor_rank} />
-              </div>
+              <h1 className="text-2xl sm:text-3xl font-semibold text-ink">
+                {expert.full_name}
+              </h1>
 
               <p className="text-base sm:text-lg font-bold text-brand mt-1">
                 {expert.professional_title}

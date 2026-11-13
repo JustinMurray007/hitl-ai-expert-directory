@@ -14,8 +14,7 @@ const READ = 'November 13, 2026';
 export default function AiConsultantCostPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">
-      <p className="text-sm font-medium text-brand">Figures read {READ}</p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">What AI consultants charge</h1>
+      <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-5xl">What AI consultants charge</h1>
       <p className="mt-4 text-base leading-relaxed text-muted-strong sm:text-lg">
         Published ranges differ by whether you are hiring a freelancer, looking at an employed salary, or hiring a firm. The numbers below are copied from pages read on {READ}. They are not quotes from Find AI Pros, and they are not a price for your project. Glassdoor and Indeed did not load, so those sites are not included.
       </p>

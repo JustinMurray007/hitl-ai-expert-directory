@@ -5,7 +5,6 @@ import Link from 'next/link';
 import {
   Search,
   ExternalLink,
-  Sparkles,
   CheckCircle2,
   Filter,
   ArrowRight,
@@ -172,15 +171,9 @@ export default function AiToolsDirectory() {
       {selectedCategory === 'all' && !searchQuery && !onlyPopular && !onlyCredits && (
         <div>
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-brand" />
-              <h2 className="text-lg sm:text-xl font-semibold text-ink">
-                Featured Marquee AI Models &amp; Tools
-              </h2>
-            </div>
-            <span className="text-xs text-slate-500 font-semibold hidden sm:inline">
-              Core platforms requested by founders &amp; specialists
-            </span>
+            <h2 className="text-lg sm:text-xl font-semibold text-ink">
+              AI models and tools
+            </h2>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
@@ -322,10 +315,12 @@ export default function AiToolsDirectory() {
 
                 {/* Card Footer: Pricing & Action Button */}
                 <div className="pt-4 border-t border-slate-100 space-y-3">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-400 font-medium">Pricing Model:</span>
-                    <span className="font-bold text-ink">{tool.pricing}</span>
-                  </div>
+                  {tool.pricing ? (
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-slate-400 font-medium">Pricing Model:</span>
+                      <span className="font-bold text-ink">{tool.pricing}</span>
+                    </div>
+                  ) : null}
 
                   <div className="flex items-center gap-2 pt-1">
                     <a

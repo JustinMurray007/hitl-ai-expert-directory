@@ -1,32 +1,21 @@
 import Link from 'next/link';
 import type { PublicExpert } from '@/lib/listing';
-import { PlacementBadge, ToolBadge, EngagementBadge } from './Badge';
-import { MapPin, ArrowRight, Building } from 'lucide-react';
+import { ToolBadge, EngagementBadge } from './Badge';
+import { ArrowRight, Building } from 'lucide-react';
 import ExpertLocationLinks from './ExpertLocation';
 
 export default function ExpertCard({
   expert,
-  featured = false,
+  compact = false,
 }: {
   expert: PublicExpert;
-  featured?: boolean;
+  compact?: boolean;
 }) {
   return (
     <div className="hover-lift group relative flex flex-col justify-between rounded-2xl border border-line bg-white p-5 sm:p-6 shadow-rest hover:border-brand">
-      {/* Sponsor badge in top corner if featured */}
-      {featured && (expert.listing_plan === 'premium' || expert.listing_plan === 'featured' || expert.sponsor_rank > 0) && (
-        <div className="absolute top-5 right-5">
-          <PlacementBadge plan={expert.listing_plan} sponsorRank={expert.sponsor_rank} />
-        </div>
-      )}
-
       <div>
-        {/* Standard top bar (hidden on featured homepage cards) */}
-        {!featured && (
-          <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
-            <div className="flex items-center gap-2">
-              <PlacementBadge plan={expert.listing_plan} sponsorRank={expert.sponsor_rank} />
-            </div>
+        {!compact && (
+          <div className="mb-4">
             <ExpertLocationLinks expert={expert} />
           </div>
         )}
@@ -66,8 +55,8 @@ export default function ExpertCard({
           {expert.tagline}
         </p>
 
-        {/* Tools tags: only shown on standard directory pages, omitted on featured cards */}
-        {!featured && (
+        {/* Tools tags: only shown on standard directory pages, omitted on compact cards */}
+        {!compact && (
           <div className="flex flex-wrap gap-2 mb-5">
             {(expert.tools ?? []).slice(0, 4).map((tool) => (
               <ToolBadge key={tool.id} name={tool.name} />
@@ -83,8 +72,8 @@ export default function ExpertCard({
 
       {/* Bottom meta & CTA */}
       <div className="pt-4 border-t border-line-soft flex items-center justify-between">
-        {featured ? (
-          /* On featured cards: location moved below the safeguard with no prices */
+        {compact ? (
+          /* On compact cards: location moved below the safeguard with no prices */
           <ExpertLocationLinks expert={expert} />
         ) : (
           /* On standard directory search cards: prices & engagement tier */

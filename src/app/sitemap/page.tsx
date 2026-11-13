@@ -23,8 +23,7 @@ export default async function HtmlSitemapPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="mx-auto mb-12 max-w-3xl">
-        <p className="text-sm font-medium text-brand">Find Ai Pros</p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">Sitemap</h1>
+        <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-5xl">Sitemap</h1>
         <p className="mt-4 text-base leading-relaxed text-muted-strong sm:text-lg">
           {pages.length} public pages, grouped so you can jump to an industry solution, a tool, or a specialist.
         </p>

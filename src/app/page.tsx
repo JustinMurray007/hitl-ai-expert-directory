@@ -311,7 +311,7 @@ export default async function HomePage() {
           <div data-reveal className="mb-12 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <h2 className="text-2xl sm:text-4xl font-semibold text-ink tracking-tight">
-                Featured AI Experts
+                AI Experts
               </h2>
               <p className="text-base text-muted-strong mt-2 max-w-2xl font-normal leading-relaxed">
                 Consultants and agencies in the directory, with the tools they list.
@@ -328,7 +328,7 @@ export default async function HomePage() {
           {/* Symmetrical 3x2 Grid */}
           <div data-reveal-stagger className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
             {featuredExperts.map((expert) => (
-              <ExpertCard key={expert.id} expert={expertForPage(expert)} featured />
+              <ExpertCard key={expert.id} expert={expertForPage(expert)} compact />
             ))}
           </div>
         </div>

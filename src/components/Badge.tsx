@@ -1,34 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import type { ListingPlan } from '@/lib/types';
-
-export function PlacementBadge({
-  plan,
-  sponsorRank = 0,
-}: {
-  plan?: ListingPlan | null;
-  sponsorRank?: number;
-}) {
-  if (plan === 'premium') {
-    return (
-      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold bg-brand-soft text-brand-ink border border-brand-line">
-        Premium Featured
-      </span>
-    );
-  }
-  if (plan === 'featured' || sponsorRank > 0) {
-    return <SponsorBadge />;
-  }
-  return null;
-}
-
-export function SponsorBadge() {
-  return (
-    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold bg-accent-badge text-accent-badge-ink border border-accent-badge-line">
-      ★ Featured
-    </span>
-  );
-}
 
 export function ToolBadge({ name, href }: { name: string; href?: string }) {
   const className =

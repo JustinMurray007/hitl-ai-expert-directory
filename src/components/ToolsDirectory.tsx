@@ -24,7 +24,7 @@ function ToolCard({ tool }: { tool: AiTool }) {
         </p>
       </div>
       <div className="pt-4 mt-5 border-t border-line flex items-center justify-between gap-3">
-        <span className="text-sm text-slate-600">{tool.pricing}</span>
+        {tool.pricing ? <span className="text-sm text-slate-600">{tool.pricing}</span> : <span />}
         <a
           href={tool.websiteUrl}
           target="_blank"
