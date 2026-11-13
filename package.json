@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx --test src/lib/billing/billing.test.ts src/lib/deploy-hook.test.ts src/lib/static-params.test.ts src/lib/tally/tally.test.ts src/lib/business-routes.test.ts"
+    "test": "tsx --test src/lib/billing/billing.test.ts src/lib/deploy-hook.test.ts src/lib/static-params.test.ts src/lib/tally/tally.test.ts src/lib/business-routes.test.ts src/lib/recommendation-selection.test.ts src/lib/tool-catalog.test.ts src/lib/public-sitemap.test.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",

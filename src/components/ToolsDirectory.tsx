@@ -17,7 +17,11 @@ function ToolCard({ tool }: { tool: AiTool }) {
             {tool.categoryLabel}
           </span>
         </div>
-        <h3 className="text-xl font-semibold text-ink leading-tight">{tool.name}</h3>
+        <h3 className="text-xl font-semibold text-ink leading-tight">
+          <Link href={`/tools/${tool.id}`} className="hover:text-brand">
+            {tool.name}
+          </Link>
+        </h3>
         <p className="text-sm text-muted-strong leading-relaxed mt-3">{tool.description}</p>
         <p className="text-sm text-ink mt-3">
           <span className="font-medium">Best for: </span>

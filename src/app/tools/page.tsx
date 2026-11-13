@@ -1,5 +1,6 @@
 import { Cpu } from 'lucide-react';
 import ToolsDirectory from '@/components/ToolsDirectory';
+import RecommendationToolLinks from '@/components/RecommendationToolLinks';
 
 export const metadata = {
   title: 'AI Tools Directory | Find Ai Pros',
@@ -23,6 +24,7 @@ export default function ToolsPage() {
         </p>
       </div>
       <ToolsDirectory />
+      <RecommendationToolLinks />
     </div>
   );
 }

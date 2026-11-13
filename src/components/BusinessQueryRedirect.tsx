@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { businessPath, canonicalBusinessSlug } from '@/lib/business-routes';
 
-/** Static export cannot match query strings in `_redirects`. Send old `?industry=` links to `/business/<slug>`. */
+/** Static export cannot match query strings in `_redirects`. Send old `?industry=` and `?business=` links to `/recommendations/<slug>`. */
 export default function BusinessQueryRedirect() {
   const params = useSearchParams();
   const router = useRouter();

@@ -11,7 +11,29 @@ const LEGACY_INDUSTRY_ALIASES: Record<string, string> = {
 };
 
 export function businessPath(slug: string): string {
+  return `/recommendations/${slug}`;
+}
+
+export function businessOverviewPath(slug: string): string {
   return `/business/${slug}`;
+}
+
+export function legacyBusinessSlugs(): string[] {
+  return Object.keys(LEGACY_INDUSTRY_ALIASES);
+}
+
+/** Canonical business pages plus legacy aliases that should still resolve. */
+export function businessStaticSlugs(): string[] {
+  return [
+    ...new Set([
+      ...listBusinessTypes().map((item) => item.industrySlug),
+      ...legacyBusinessSlugs(),
+    ]),
+  ];
+}
+
+export function recommendationPagePaths(): string[] {
+  return listBusinessTypes().map((item) => businessPath(item.industrySlug));
 }
 
 export function listBusinessTypes(): IndustryRecommendation[] {

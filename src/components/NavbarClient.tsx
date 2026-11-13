@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from './Logo';
+import { businessPath } from '@/lib/business-routes';
 import {
   ShieldCheck,
   Sparkles,
@@ -93,37 +94,37 @@ const industryVerticals = [
   {
     name: 'Freight & Logistics',
     desc: 'Bill parsing & automated quarantine',
-    href: '/business/logistics-freight',
+    href: businessPath('logistics-freight'),
     icon: Truck,
   },
   {
     name: 'Medical & Dental',
     desc: 'Emergency intake & patient routing',
-    href: '/business/healthcare-dental',
+    href: businessPath('healthcare-dental'),
     icon: Stethoscope,
   },
   {
     name: 'Home Services & Trades',
     desc: 'Estimate follow-ups & dispatch',
-    href: '/business/home-services-trades',
+    href: businessPath('home-services-trades'),
     icon: Wrench,
   },
   {
     name: 'Legal & Accounting',
     desc: 'Citation checks & contract intake',
-    href: '/business/legal-finance-consulting',
+    href: businessPath('legal-finance-consulting'),
     icon: Scale,
   },
   {
     name: 'E-Commerce & Retail',
     desc: 'Inventory reconciliation & returns',
-    href: '/business/ecommerce-retail',
+    href: businessPath('ecommerce-retail'),
     icon: ShoppingBag,
   },
   {
     name: 'Real Estate & Property',
     desc: 'Tenant triage & maintenance calls',
-    href: '/business/real-estate-property',
+    href: businessPath('real-estate-property'),
     icon: Building2,
   },
 ];

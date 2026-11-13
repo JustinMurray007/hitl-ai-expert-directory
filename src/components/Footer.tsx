@@ -112,6 +112,11 @@ export default function Footer() {
                   Ai Expert? Join Here Free
                 </Link>
               </li>
+              <li>
+                <Link href="/sitemap" className="hover:text-white transition-colors">
+                  Sitemap
+                </Link>
+              </li>
             </ul>
           </div>
 
