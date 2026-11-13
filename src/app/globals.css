@@ -2,8 +2,8 @@
 
 /* Fonts point at next/font variables so the loaded faces stay swappable in one place. */
 @theme inline {
-  --font-sans: var(--font-body), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-display-face), Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* Darken default status hues that fail WCAG AA as small text. */
   --color-rose-500: #be123c;
@@ -131,7 +131,7 @@
   body {
     background-color: var(--color-canvas);
     color: var(--color-ink);
-    font-family: var(--font-body), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     min-height: 100vh;
     overflow-x: clip;
     font-size: 1rem;
@@ -150,7 +150,7 @@
   h2,
   h3,
   h4 {
-    font-family: var(--font-display-face), Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     letter-spacing: -0.022em;
     line-height: 1.15;
     text-wrap: balance;

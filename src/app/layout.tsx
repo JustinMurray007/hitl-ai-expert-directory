@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Fraunces, Source_Sans_3 } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -8,20 +8,11 @@ import JsonLd from '@/components/JsonLd';
 import { organizationAndWebsite } from '@/lib/schema';
 import { SITE_ORIGIN } from '@/lib/site-url';
 
-const body = Source_Sans_3({
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  weight: 'variable',
-  variable: '--font-body',
-  preload: true,
-  adjustFontFallback: true,
-});
-
-const display = Fraunces({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: 'variable',
-  variable: '--font-display-face',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-inter',
   preload: true,
   adjustFontFallback: true,
 });
@@ -117,7 +108,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${body.variable} ${display.variable} h-full`} data-scroll-behavior="smooth">
+    <html lang="en" className={`${inter.variable} h-full`} data-scroll-behavior="smooth">
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
