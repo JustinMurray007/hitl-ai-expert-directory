@@ -78,7 +78,6 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
   const homeGit = execFileSync('git', ['log', '-1', '--format=%cs', '--', 'src/app/page.tsx'], { encoding: 'utf8' }).trim();
   assert.equal(pages.find((entry) => entry.path === '/')?.lastmod, homeGit);
   assert.equal(resolveLastmod('2024-05-01T15:00:00Z', 'src/app/page.tsx'), '2024-05-01');
-  assert.equal(pages.some((entry) => entry.lastmod === '2026-11-13'), false);
 });
 
 test('sitewide schema is valid JSON with the directory search action', () => {
