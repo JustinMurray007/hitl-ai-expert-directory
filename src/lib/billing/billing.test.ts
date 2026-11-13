@@ -13,7 +13,7 @@ import { referralCreditCents } from './referral';
 import { expertsToLimit } from './limit-listings';
 import { isPublicDirectoryExpert, showsPublicLinks } from '../listing';
 import { SEED_EXPERTS } from '../seed';
-import { getExperts, isDemoMode } from '../store';
+import { getExpertBySlug, getExperts, isDemoMode } from '../store';
 import { handleCheckoutRequest, handlePortalRequest, handleWebhookRequest } from './http';
 import {
   categoryCapForListing,
@@ -648,12 +648,23 @@ test('public directory predicate matches getExperts and keeps the seeded profile
   assert.equal(isPublicDirectoryExpert({ status: 'published', is_demo: false, categories: [], tools: [{}] }), false);
   assert.equal(isPublicDirectoryExpert({ status: 'published', is_demo: false, categories: [{}], tools: [] }), true);
   assert.equal(isPublicDirectoryExpert({ status: 'published', is_demo: false, categories: [{}], tools: [{}] }), true);
+  assert.equal(
+    isPublicDirectoryExpert({ status: 'published', is_demo: false, categories: [{}], tools: [{}], slug: 'withn-tech' }),
+    false,
+  );
+  assert.equal(
+    isPublicDirectoryExpert({ status: 'published', is_demo: false, categories: [{}], tools: [{}], slug: 'jake-read' }),
+    true,
+  );
   assert.ok(SEED_EXPERTS.length > 0);
+  assert.equal(SEED_EXPERTS.some((expert) => expert.slug === 'withn-tech'), false);
   assert.ok(SEED_EXPERTS.every((expert) => isPublicDirectoryExpert(expert)));
   if (isDemoMode()) {
     const experts = await getExperts();
     assert.equal(experts.length, SEED_EXPERTS.length);
     assert.ok(experts.every((expert) => isPublicDirectoryExpert(expert)));
+    assert.equal(await getExpertBySlug('withn-tech'), null);
+    assert.ok(await getExpertBySlug('jake-read'));
   }
 });
 

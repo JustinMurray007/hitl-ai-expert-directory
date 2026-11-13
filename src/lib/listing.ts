@@ -70,9 +70,21 @@ export function isMatchEligible(
 export type DirectoryExpertVisibility = {
   status?: string | null;
   is_demo?: boolean | null;
+  slug?: string | null;
   categories?: readonly unknown[] | null;
   tools?: readonly unknown[] | null;
 };
+
+/**
+ * Slugs that used to be their own profile and now belong to another expert.
+ * `withn-tech` was the Withn Practice listing; that profile was merged into
+ * Jake Read (`jake-read`). The old URL is a Cloudflare Pages redirect.
+ */
+const RETIRED_EXPERT_SLUGS = new Set(['withn-tech']);
+
+export function isRetiredExpertSlug(slug: string | null | undefined): boolean {
+  return typeof slug === 'string' && RETIRED_EXPERT_SLUGS.has(slug);
+}
 
 /**
  * Whether `getExperts()` includes this row in the static export.
@@ -80,12 +92,14 @@ export type DirectoryExpertVisibility = {
  * The directory read is published specialists only, with demo rows excluded.
  * A listing has to be in at least one category. Tools are optional: a
  * specialist with category rows and no tool rows still renders. Billing
- * rebuilds use this same predicate.
+ * rebuilds use this same predicate. Retired slugs stay out even if a
+ * Supabase row is still published.
  */
 export function isPublicDirectoryExpert(expert: DirectoryExpertVisibility): boolean {
   return (
     expert.status === 'published' &&
     expert.is_demo === false &&
+    !isRetiredExpertSlug(expert.slug) &&
     Array.isArray(expert.categories) &&
     expert.categories.length > 0
   );

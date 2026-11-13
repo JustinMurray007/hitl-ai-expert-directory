@@ -25,6 +25,8 @@ test('old recommendation URLs 301 to AI solutions by industry', () => {
   has('/recommendations/freight_logistics', '/ai-solutions-by-industry/logistics-freight');
   has('/recommendations/freight_logistics/', '/ai-solutions-by-industry/logistics-freight');
   has('/recommendations/medical_dental', '/ai-solutions-by-industry/healthcare-dental');
+  has('/experts/withn-tech', '/experts/jake-read');
+  has('/experts/withn-tech/', '/experts/jake-read');
 
   const legacy = rules.findIndex((rule) => rule[0] === '/recommendations/freight_logistics');
   const splat = rules.findIndex((rule) => rule[0] === '/recommendations/:slug');

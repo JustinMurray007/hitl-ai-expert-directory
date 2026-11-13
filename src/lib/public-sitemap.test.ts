@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { listPublicPages, sitemapValidationErrors, SITEMAP_GROUPS, toSitemapUrls } from './public-sitemap';
 import { SITE_ORIGIN } from './site-url';
@@ -47,11 +48,16 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
     '/recommendations/healthcare-dental',
     '/recommendations/medical_dental',
     '/tools/anthropic-claude',
+    '/experts/withn-tech',
+    '/experts/withn-tech/',
     '/experts/build-placeholder',
     '/business/build-placeholder',
   ]) {
     assert.equal(paths.has(path), false, path);
   }
+
+  assert.equal(paths.has('/experts/jake-read'), true);
+  assert.equal(pages.some((entry) => entry.path.includes('withn')), false);
 
   const urls = toSitemapUrls(pages);
   assert.equal(urls.length, pages.length);
@@ -69,4 +75,15 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
   );
   assert.ok(pages.some((entry) => entry.group === 'experts'));
   assert.ok(pages.some((entry) => entry.group === 'tools' && entry.path === '/tools/make'));
+});
+
+test('withn-tech redirects permanently to jake-read', () => {
+  const rules = readFileSync(new URL('../../public/_redirects', import.meta.url), 'utf8')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith('#'));
+  assert.ok(rules.includes('/experts/withn-tech /experts/jake-read 301'));
+  assert.ok(rules.includes('/experts/withn-tech/ /experts/jake-read 301'));
+  assert.ok(rules.includes('/ai-tools /tools 301'));
+  assert.ok(rules.includes('/tools/anthropic-claude /tools/claude 301'));
 });

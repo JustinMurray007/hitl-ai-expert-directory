@@ -672,60 +672,6 @@ export const SEED_EXPERTS: Expert[] = [
     ],
   },
 
-  // 12. Withn Team (Jake)
-  {
-    id: 'exp-12',
-    slug: 'withn-tech',
-    full_name: 'Withn Practice',
-    professional_title: 'Pool & Route Service Automation Practice',
-    agency_name: 'Withn',
-    tagline: 'AI voice receptionist & dispatcher with Skimmer, Jobber, and GHL integrations answering route status calls.',
-    bio: 'Withn builds AI voice receptionists, dispatchers, and SMS lead qualification pipelines tailored for route-based service contractors. Their deployment for Ventura County pool service professionals connects directly to Skimmer and Jobber, enabling the AI to answer client "when is my technician arriving?" inquiries directly from live route logs.',
-    avatar_url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=224&h=224&q=70',
-    city: 'San Diego',
-    state_region: 'CA',
-    postal_code: '92101',
-    country: 'United States',
-    timezone: 'America/Los_Angeles (PST)',
-    website_url: 'https://withn.tech/case-studies/pool-service-companies',
-    booking_url: 'mailto:jake@withn.tech',
-    primary_engagement: 'fixed_sprint',
-    starting_budget: '5000_to_15000',
-    status: 'published',
-    is_verified: true,
-    verified_at: '2026-02-05T10:00:00Z',
-    verified_case_study_count: 1,
-    sponsor_rank: 0,
-    is_demo: false,
-    categories: [
-      SEED_CATEGORIES[0], // Operations & Workflow Automation
-      SEED_CATEGORIES[2], // Customer Support & Knowledge Bases
-    ],
-    tools: [
-      SEED_TOOLS[18], // Skimmer
-      SEED_TOOLS[16], // Jobber
-      SEED_TOOLS[15], // GoHighLevel
-      SEED_TOOLS[10], // Twilio
-      SEED_TOOLS[7],  // Vapi
-    ],
-    case_studies: [
-      {
-        id: 'cs-withn-1',
-        expert_id: 'exp-12',
-        title: 'Ventura County Pool Service: Skimmer Integration for Automated Route Status Inquiries',
-        client_industry: 'Pool Cleaning, Chemical Maintenance & Route Services',
-        problem_statement: 'Route managers received 30+ daily phone calls from homeowners asking when their pool tech would arrive, pulling managers away from scheduling and billing.',
-        solution_architecture: 'Vapi voice AI integration reading real-time GPS check-in logs from Skimmer and Jobber, providing homeowners with accurate technician ETAs.',
-        hitl_oversight_mechanism: 'Any equipment repair quote or chemical imbalance warning is immediately flagged and transferred to the lead field technician.',
-        failure_safeguards: 'If route tracking is unavailable or tech is delayed by traffic, the system sends an SMS with the tech\'s direct office phone contact.',
-        outcomes_roi: 'Eliminates 85% of "where is my tech" inbound phone calls; saves 18 dispatcher hours weekly.',
-        demo_video_url: 'https://withn.tech/case-studies/pool-service-companies',
-        reviewer_confirmed: true,
-        is_featured: false,
-      },
-    ],
-  },
-
   // 13. Vic Sun - Channel Automation
   {
     id: 'exp-13',

@@ -28,6 +28,11 @@
 # Seeded tool slug that shares the Claude directory page.
 /tools/anthropic-claude /tools/claude 301
 
+# Withn Practice was merged into Jake Read. Both slash forms are explicit
+# because Pages matches the path before it normalizes a trailing slash.
+/experts/withn-tech /experts/jake-read 301
+/experts/withn-tech/ /experts/jake-read 301
+
 # Former recommendations URLs. Specific legacy aliases above win over these.
 /recommendations /ai-solutions-by-industry 301
 /recommendations/ /ai-solutions-by-industry 301
