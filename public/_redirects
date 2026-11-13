@@ -1,7 +1,7 @@
-# Cloudflare Pages does not match query strings, so ?industry= and ?business=
-# links are redirected in the app (BusinessQueryRedirect).
-# Canonical /business/<slug> and /recommendations/<slug> pages are real files.
-# Only legacy aliases redirect.
+# Cloudflare Pages does not match query strings. A 301 keeps the query string,
+# and BusinessQueryRedirect sends ?industry= / ?business= to the business page.
+# Canonical overview pages are /business/<slug>.
+# /recommendations moved to /ai-solutions-by-industry (rules at the bottom).
 /ai-tools /tools 301
 /ai-tools/ /tools 301
 
@@ -12,12 +12,18 @@
 /business/ecommerce_retail /business/ecommerce-retail 301
 /business/real_estate_property /business/real-estate-property 301
 
-/recommendations/freight_logistics /recommendations/logistics-freight 301
-/recommendations/medical_dental /recommendations/healthcare-dental 301
-/recommendations/home_services_trade /recommendations/home-services-trades 301
-/recommendations/legal_accounting /recommendations/legal-finance-consulting 301
-/recommendations/ecommerce_retail /recommendations/ecommerce-retail 301
-/recommendations/real_estate_property /recommendations/real-estate-property 301
+/recommendations/freight_logistics /ai-solutions-by-industry/logistics-freight 301
+/recommendations/freight_logistics/ /ai-solutions-by-industry/logistics-freight 301
+/recommendations/medical_dental /ai-solutions-by-industry/healthcare-dental 301
+/recommendations/medical_dental/ /ai-solutions-by-industry/healthcare-dental 301
+/recommendations/home_services_trade /ai-solutions-by-industry/home-services-trades 301
+/recommendations/home_services_trade/ /ai-solutions-by-industry/home-services-trades 301
+/recommendations/legal_accounting /ai-solutions-by-industry/legal-finance-consulting 301
+/recommendations/legal_accounting/ /ai-solutions-by-industry/legal-finance-consulting 301
+/recommendations/ecommerce_retail /ai-solutions-by-industry/ecommerce-retail 301
+/recommendations/ecommerce_retail/ /ai-solutions-by-industry/ecommerce-retail 301
+/recommendations/real_estate_property /ai-solutions-by-industry/real-estate-property 301
+/recommendations/real_estate_property/ /ai-solutions-by-industry/real-estate-property 301
 
 # Seeded tool slug that shares the Claude directory page.
 /tools/anthropic-claude /tools/claude 301
@@ -26,3 +32,9 @@
 # because Pages matches the path before it normalizes a trailing slash.
 /experts/withn-tech /experts/jake-read 301
 /experts/withn-tech/ /experts/jake-read 301
+
+# Former recommendations URLs. Specific legacy aliases above win over these.
+/recommendations /ai-solutions-by-industry 301
+/recommendations/ /ai-solutions-by-industry 301
+/recommendations/:slug /ai-solutions-by-industry/:slug 301
+/recommendations/:slug/ /ai-solutions-by-industry/:slug 301

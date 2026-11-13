@@ -79,7 +79,11 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
             ? 'None selected yet.'
             : `${selectedIds.length} selected.`}
         </p>
-        <div data-reveal-stagger className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div
+          role="group"
+          aria-label="Operational bottlenecks or areas to improve"
+          className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
+        >
           {bottlenecks.map((bottleneck) => {
             const isSelected = selectedIds.includes(bottleneck.id);
             return (
@@ -88,10 +92,10 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
                 type="button"
                 aria-pressed={isSelected}
                 onClick={() => setSelectedIds((current) => toggleAreaSelection(current, bottleneck.id))}
-                className={`flex cursor-pointer flex-col justify-between rounded-2xl border p-5 text-left transition-all sm:p-6 ${
+                className={`flex min-h-11 cursor-pointer flex-col justify-between rounded-2xl border p-5 text-left transition-all focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 sm:p-6 ${
                   isSelected
-                    ? 'border-2 border-brand bg-white shadow-md ring-2 ring-brand/20'
-                    : 'border-line bg-white/95 shadow-xs hover:border-brand/50 hover:bg-white hover:shadow-md'
+                    ? 'border-brand bg-white shadow-md ring-2 ring-brand/20'
+                    : 'border-line bg-white shadow-xs hover:border-brand/50 hover:shadow-md'
                 }`}
               >
                 <div>
@@ -116,7 +120,7 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
                 </div>
                 <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-2 text-xs font-bold">
                   <span className={isSelected ? 'text-brand' : 'text-slate-400'}>
-                    {isSelected ? '● Selected' : 'Click to add'}
+                    {isSelected ? '● Selected' : 'Add this area'}
                   </span>
                 </div>
               </button>
@@ -166,7 +170,7 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
                 </Link>
               </div>
 
-              <div data-reveal-stagger className="grid grid-cols-1 gap-5 md:grid-cols-3">
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
                 <div className="flex flex-col justify-between rounded-2xl border-2 border-brand-mid bg-brand-soft p-6 shadow-xs">
                   <div>
                     <div className="mb-3 flex flex-wrap items-center justify-between gap-2">

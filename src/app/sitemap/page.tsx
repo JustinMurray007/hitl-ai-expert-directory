@@ -6,7 +6,7 @@ import { absoluteUrl } from '@/lib/site-url';
 export const metadata: Metadata = {
   title: 'Sitemap | Find Ai Pros',
   description:
-    'Every public page on Find Ai Pros: main pages, business types, recommendations, AI tools, categories, experts, and locations.',
+    'Every public page on Find Ai Pros: main pages, business types, AI solutions by industry, AI tools, categories, experts, and locations.',
   alternates: { canonical: absoluteUrl('/sitemap') },
 };
 
@@ -26,7 +26,7 @@ export default async function HtmlSitemapPage() {
         <p className="text-sm font-medium text-brand">Find Ai Pros</p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">Sitemap</h1>
         <p className="mt-4 text-base leading-relaxed text-muted-strong sm:text-lg">
-          {pages.length} public pages, grouped so you can jump to a business type, a recommendation, a tool, or a specialist.
+          {pages.length} public pages, grouped so you can jump to a business type, an industry solution, a tool, or a specialist.
         </p>
       </div>
 

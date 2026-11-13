@@ -10,8 +10,11 @@ const LEGACY_INDUSTRY_ALIASES: Record<string, string> = {
   real_estate_property: 'real-estate-property',
 };
 
+/** Index of AI solutions grouped by industry. Per-business pages live under this path. */
+export const AI_SOLUTIONS_BY_INDUSTRY_PATH = '/ai-solutions-by-industry';
+
 export function businessPath(slug: string): string {
-  return `/recommendations/${slug}`;
+  return `${AI_SOLUTIONS_BY_INDUSTRY_PATH}/${slug}`;
 }
 
 export function businessOverviewPath(slug: string): string {

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 import { getCategories } from '@/lib/store';
 import {
   Workflow,
@@ -174,10 +175,10 @@ export default async function CategoriesPage() {
             </p>
           </div>
           <Link
-            href="/recommendations"
+            href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
             className="shrink-0 px-8 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-base shadow-sm transition-all"
           >
-            Launch Find Your Business →
+            AI Solutions by Industry →
           </Link>
         </div>
       </section>

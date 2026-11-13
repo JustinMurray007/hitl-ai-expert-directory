@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 import {
   ShieldCheck,
   ArrowRight,
@@ -38,7 +39,7 @@ export default function AboutPage() {
             <span className="text-sm font-medium text-brand">2</span>
             <h2 className="mt-2 text-lg font-medium text-ink">Search by business type</h2>
             <p className="mt-2 text-sm text-muted-strong leading-relaxed">Start from your industry and the work you need done.</p>
-            <Link href="/recommendations" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand">
+            <Link href={AI_SOLUTIONS_BY_INDUSTRY_PATH} className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand">
               Match by category <ArrowRight className="w-4 h-4" />
             </Link>
           </li>

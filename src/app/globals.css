@@ -362,7 +362,9 @@ footer a:not([class*="rounded-"]):not(.brand-link):hover {
   text-decoration-line: underline;
 }
 
-html.js-reveal [data-reveal]:not(.is-in) {
+/* Visibility is an attribute, not a class. React replaces className on
+   client state updates and would otherwise hide a control the moment it is toggled. */
+html.js-reveal [data-reveal]:not([data-revealed]) {
   opacity: 0;
   translate: 0 var(--reveal-distance);
 }
@@ -388,7 +390,7 @@ html.js-reveal [data-reveal]:not(.is-in) {
   transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0s, 0s, 0s, 0s, 0s;
 }
 
-[data-reveal].is-in {
+[data-reveal][data-revealed] {
   opacity: 1;
   translate: 0 0;
 }
@@ -398,9 +400,9 @@ html.js-reveal [data-reveal]:not(.is-in) {
     scroll-behavior: auto;
   }
 
-  html.js-reveal [data-reveal]:not(.is-in),
+  html.js-reveal [data-reveal]:not([data-revealed]),
   [data-reveal],
-  [data-reveal].is-in {
+  [data-reveal][data-revealed] {
     opacity: 1 !important;
     translate: none !important;
     transform: none !important;
