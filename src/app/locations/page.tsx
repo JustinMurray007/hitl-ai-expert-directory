@@ -6,9 +6,9 @@ import { MapPin, ShieldCheck, Sparkles, Building, CheckCircle2 } from 'lucide-re
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Find An Ai Consultant & Company Near You | Find Ai Pros',
+  title: 'Find an AI Consultant Near You: US and Canada',
   description:
-    'Find local AI consultants, automation agencies, and AI developers in your city, state, or zip code. Every listed specialist names an accountable person and gives references we can contact.',
+    'Hire a vetted AI consultant by city. Compare budgets and tools, or get matched in 48 hours. Remote experts can serve your city too.',
   alternates: {
     canonical: 'https://findaipros.com/locations',
   },
@@ -48,7 +48,7 @@ export default async function LocationsMainPage() {
             <span>National Local Directory</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">
-            Find An Ai Consultant &amp; Company Near You
+            Find an AI Consultant Near You: US and Canada
           </h1>
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
             Browse local AI consultants, automation architects, and development agencies across cities, states, and zip codes. Every specialist names human safety checkpoints and references we can contact.

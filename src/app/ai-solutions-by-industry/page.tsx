@@ -6,9 +6,9 @@ import { Sparkles } from 'lucide-react';
 import { Suspense } from 'react';
 
 export const metadata = {
-  title: 'AI Solutions by Industry | Find Ai Pros',
+  title: 'AI Solutions by Industry: Tools and Experts for Your Business',
   description:
-    'AI solutions by industry. Select a business type, then choose the operational areas to improve and see the recommended tools for each one.',
+    'Pick your industry to see the AI solutions that fit your bottlenecks, the tools behind them, and vetted specialists who can build them.',
   alternates: { canonical: absoluteUrl(AI_SOLUTIONS_BY_INDUSTRY_PATH) },
   openGraph: {
     title: 'AI Solutions by Industry | Find Ai Pros',

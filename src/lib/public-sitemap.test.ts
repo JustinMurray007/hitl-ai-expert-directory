@@ -31,6 +31,10 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
     '/sitemap',
     '/construction-lp',
     '/outdoor-lp',
+    '/blog',
+    '/hitl-standard',
+    '/ai-consultant-cost',
+    '/for-ai-experts',
   ]) {
     assert.equal(paths.has(path), true, path);
   }

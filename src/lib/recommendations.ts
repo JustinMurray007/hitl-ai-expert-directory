@@ -52,7 +52,7 @@ export const COMMON_GROWTH_BOTTLENECKS: BottleneckItem[] = [
       systemArchitecture: 'Automated performance tracking connecting Google Ads and Meta Marketing APIs with AI creative generation.',
       hitlSafeguard: 'Hard daily spend caps: any ad campaign launch or budget adjustment >15% requires owner email/SMS confirmation.',
       typicalRoi: 'Lowers customer acquisition cost (CAC) by 25%–38%; eliminates wasted spend on non-performing keywords.',
-      recommendedStack: ['Meta Marketing API', 'Google Ads Scripts', 'Make', 'Claude 3.5 Sonnet'],
+      recommendedStack: ['Meta Marketing API', 'Google Ads Scripts', 'Make', 'Claude'],
       categorySlug: 'ai-advertising-paid-media',
       matchingExpertSlugs: ['vic-sun', 'alan-debs'],
     },
@@ -184,7 +184,7 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         recommendedWorkflow: {
           title: 'Multi-Carrier Invoice Extraction with Slack Quarantine Queue',
           problemSolved: 'Extracts line items, fuels surcharges, and detention fees automatically with instant accounting system synchronization.',
-          systemArchitecture: 'n8n workflow with Claude 3.5 Sonnet JSON extraction, Supabase document hashing, and NetSuite/QuickBooks posting.',
+          systemArchitecture: 'n8n workflow with Claude JSON extraction, Supabase document hashing, and NetSuite/QuickBooks posting.',
           hitlSafeguard: 'Math calculation mismatch > $0.05 or OCR confidence < 92% immediately freezes insertion and posts a PDF preview to a Slack approval channel.',
           typicalRoi: '90% drop in invoice cycle time; prevents tens of thousands in carrier duplicate payments.',
           recommendedStack: ['n8n', 'Anthropic Claude', 'Supabase / PostgreSQL', 'Python'],
@@ -223,7 +223,7 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         recommendedWorkflow: {
           title: 'Executive Inbox Draft Assistant with Never-Auto-Send Security Policy',
           problemSolved: 'Classifies incoming correspondence against client matters and synthesizes ready-to-review draft replies in your inbox.',
-          systemArchitecture: 'Claude 3.5 Sonnet processing email context against internal SOPs, placing drafts into email client.',
+          systemArchitecture: 'Claude processing email context against internal SOPs, placing drafts into email client.',
           hitlSafeguard: 'Strict cryptographic permission: API key possesses draft-only scope, never send permissions. Executive reviews, edits, and clicks Send.',
           typicalRoi: 'Reclaims 2+ hours every day; eliminates communication lag on high-stakes deals.',
           recommendedStack: ['Anthropic Claude', 'Perplexity', 'Cursor', 'Ollama / Local LLM'],
@@ -247,7 +247,7 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         recommendedWorkflow: {
           title: 'Commercial Lease Agreement Abstraction & Rent Roll Sync',
           problemSolved: 'Automatically abstracts rent schedules, options, and expense terms directly into Yardi or AppFolio.',
-          systemArchitecture: 'Claude 3.5 Sonnet structured JSON extraction with Python data normalization and validation rules.',
+          systemArchitecture: 'Claude structured JSON extraction with Python data normalization and validation rules.',
           hitlSafeguard: 'Extracted rent escalation clauses are exported to a staging table where property managers verify renewal commencement dates before database sync.',
           typicalRoi: '75% reduction in lease abstraction overhead; onboards hundreds of new units without administrative hires.',
           recommendedStack: ['n8n', 'Python', 'Anthropic Claude'],
@@ -271,7 +271,7 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         recommendedWorkflow: {
           title: 'Instant Lead Qualification & High-Ticket Follow-Up System',
           problemSolved: 'Enriches inbound leads with company revenue and tech stack data within 60 seconds of form submission.',
-          systemArchitecture: 'Webhook listener triggering Clearbit/LinkedIn enrichment into GPT-4o mini lead scoring table in HubSpot.',
+          systemArchitecture: 'Webhook listener triggering Clearbit/LinkedIn enrichment into an OpenAI model lead scoring table in HubSpot.',
           hitlSafeguard: 'High-scoring enterprise leads instantly trigger a Slack alert to the senior account executive with a 1-click calendar bridge.',
           typicalRoi: 'Average response time for Tier-1 accounts cut from 19 hours to 4 minutes; demo completion up 44%.',
           recommendedStack: ['HubSpot', 'Make', 'OpenAI API'],
@@ -286,7 +286,7 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         recommendedWorkflow: {
           title: 'B2B RFP Proposal Copilot with Compliance Matrix Check',
           problemSolved: 'Matches past winning project deliverables and certifications to new RFP requirements.',
-          systemArchitecture: 'Next.js application with Supabase pgvector and Claude 3.5 Sonnet proposal generation.',
+          systemArchitecture: 'Next.js application with Supabase pgvector and Claude proposal generation.',
           hitlSafeguard: 'Drafted proposal sections remain locked in draft state until designated Compliance Officer signs off on verification matrix.',
           typicalRoi: 'Proposal drafting time cut by 60%, enabling submission of 3x additional competitive bids.',
           recommendedStack: ['Supabase / PostgreSQL', 'TypeScript', 'Anthropic Claude'],
@@ -310,7 +310,7 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         recommendedWorkflow: {
           title: 'Autonomous Ad Creative Iteration & ROAS Pacing Engine',
           problemSolved: 'Generates variations of top-performing ad copy, headlines, and angles with automated budget reallocation.',
-          systemArchitecture: 'Make + Meta Marketing API + Claude 3.5 Sonnet analyzing daily blended ROAS and scaling winning variants.',
+          systemArchitecture: 'Make + Meta Marketing API + Claude analyzing daily blended ROAS and scaling winning variants.',
           hitlSafeguard: 'Daily budget increases over 15% or any creative launch require marketing director sign-off in a dedicated Slack channel.',
           typicalRoi: 'Cuts customer acquisition cost by 28%; generates 30+ validated ad creative variations per week.',
           recommendedStack: ['Make', 'OpenAI API', 'Anthropic Claude', 'Python'],
@@ -373,7 +373,7 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         recommendedWorkflow: {
           title: 'Instant Private Dining Inquiry Estimator & Availability Gate',
           problemSolved: 'Calculates food & beverage minimums, checks private room capacity, and drafts custom proposals in under 5 minutes.',
-          systemArchitecture: 'Tripleseat/OpenTable API connected to Claude 3.5 Sonnet with automated deposit payment links.',
+          systemArchitecture: 'Tripleseat/OpenTable API connected to Claude with automated deposit payment links.',
           hitlSafeguard: 'All custom contracts exceeding $5,000 require General Manager 1-click Slack authorization before sending to client.',
           typicalRoi: 'Private dining bookings increase 40%; response latency drops from 48 hours to under 6 minutes.',
           recommendedStack: ['Make', 'Anthropic Claude', 'Zapier'],
@@ -397,7 +397,7 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
         recommendedWorkflow: {
           title: 'Automated BOM Extraction & Supplier Lead-Time Reconciler',
           problemSolved: 'Parses CAD and Excel BOM sheets, queries vendor inventories, and flags obsolete or long lead-time components.',
-          systemArchitecture: 'Python + Claude 3.5 Sonnet processing vendor catalogs with Supabase pgvector tolerance matching.',
+          systemArchitecture: 'Python + Claude processing vendor catalogs with Supabase pgvector tolerance matching.',
           hitlSafeguard: 'Lead Manufacturing Engineer must verify component substitutions and tolerance ratings before quote is certified.',
           typicalRoi: 'Quoting time slashed from 5 days to 4 hours; eliminates costly production delays due to overlooked lead times.',
           recommendedStack: ['Python', 'Supabase / PostgreSQL', 'Anthropic Claude'],

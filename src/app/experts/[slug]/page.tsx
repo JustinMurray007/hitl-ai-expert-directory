@@ -52,8 +52,9 @@ export async function generateMetadata({ params }: ExpertProfilePageProps): Prom
     };
   }
 
+  const place = [expert.city, expert.state_region].filter(Boolean).join(', ');
   return withCanonical(`/experts/${expert.slug}`, {
-    title: `${expert.full_name} — ${expert.professional_title} | Find Ai Pros`,
+    title: `${expert.full_name}: ${expert.professional_title}${place ? `, ${place}` : ''}`,
     description: expert.tagline,
     robots: expert.is_demo ? { index: false, follow: false } : undefined,
     openGraph: {

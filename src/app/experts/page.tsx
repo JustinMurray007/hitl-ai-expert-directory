@@ -9,8 +9,9 @@ import { isPublicDirectoryExpert } from '@/lib/listing';
 import { ShieldCheck } from 'lucide-react';
 
 export const metadata = withCanonical('/experts', {
-  title: 'Browse AI Experts & Agencies | Find Ai Pros',
-  description: 'Search AI automation consultants, conversational voice engineers, and applied AI developers. Filter by category, tool stack, and budget.',
+  title: 'AI Experts Directory: Vetted AI Consultants & Agencies',
+  description:
+    'Browse vetted AI consultants, voice AI builders, and automation agencies. Filter by category, tools, budget, and city. Each names a human fallback.',
 });
 
 export default async function ExpertsPage() {
@@ -44,10 +45,10 @@ export default async function ExpertsPage() {
           <span>Curated AI Expert Directory</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight">
-          Find AI Automation Experts
+          AI Experts Directory: Vetted AI Consultants and Agencies
         </h1>
         <p className="text-base sm:text-lg text-muted-strong mt-3 max-w-3xl leading-relaxed font-normal">
-          Every expert listed below has agreed to name an accountable person and describe their human fallback. Case studies are not required. Filter by category to see who appears on each category page.
+          The Find AI Pros directory lists vetted AI consultants and automation agencies. Every profile shows a starting budget, tools, categories, location, and the human fallback the expert uses when their AI system is unsure.
         </p>
       </div>
 

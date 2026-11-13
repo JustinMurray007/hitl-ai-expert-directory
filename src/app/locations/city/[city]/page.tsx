@@ -54,8 +54,8 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
     };
   }
 
-  const title = `Find An Ai Consultant & Company Near ${cityName}, ${stateCode} | Find Ai Pros`;
-  const description = `Hire AI automation consultants, conversational voice engineers, and applied AI development companies near ${cityName}, ${stateCode}. Human-in-the-loop safeguards and references we can contact.`;
+  const title = `AI Consultants in ${cityName}, ${stateCode} | Find AI Pros`;
+  const description = `Hire a vetted AI consultant in ${cityName} for voice receptionists, CRM automation, and workflows. Compare budgets and tools, or get matched in 48 hours.`;
 
   return {
     title,
@@ -180,7 +180,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
 
           <div className="max-w-3xl space-y-3">
             <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-[1.15]">
-              Find An Ai Consultant &amp; Company Near {cityName}
+              AI Consultants in {cityName}, {stateCode}
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
               Connect with AI automation specialists, conversational voice engineers, and applied machine learning developers serving {cityName}, {stateCode} and surrounding metro markets.

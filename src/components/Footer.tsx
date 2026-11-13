@@ -88,7 +88,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/about#the-standard" className="hover:text-white transition-colors">
+                <Link href="/hitl-standard" className="hover:text-white transition-colors">
                   The HITL Standard
                 </Link>
               </li>

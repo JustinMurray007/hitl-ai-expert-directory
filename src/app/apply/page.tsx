@@ -9,9 +9,9 @@ import DeferredTally from '@/components/DeferredTally';
 import { getCategories } from '@/lib/store';
 
 export const metadata: Metadata = withCanonical('/apply', {
-  title: 'Apply to Be Listed | Find Ai Pros',
+  title: 'List Your AI Consulting Business Free | Find AI Pros',
   description:
-    'Apply to be listed on Find Ai Pros. A new profile is free for 30 days in one category, no card required, and nothing is charged automatically.',
+    'AI consultants and automation agencies: get listed free for 30 days, no card. Reach business owners searching by industry, need, and city.',
 });
 
 export default async function ApplyPage() {
@@ -24,7 +24,7 @@ export default async function ApplyPage() {
           <span>Free to apply</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight">
-          Apply to Be Listed
+          List Your AI Consulting Business: Free for 30 Days
         </h1>
         <p className="text-base sm:text-lg text-muted mt-3 leading-relaxed font-normal">
           Joining is free. Any new profile is free for the first 30 days in one category, no card required, and nothing is charged automatically. But, to retain your profile for over 30 days and for extra categories or featured locations on the website, please pay the affordable options below.

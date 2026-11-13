@@ -128,6 +128,14 @@ export async function listPublicPages(): Promise<PublicPage[]> {
     page('/construction-lp', 'Construction and remodeling', 'main', 'monthly', 0.6, null, 'src/app/construction-lp/page.tsx'),
     page('/outdoor-lp', 'Outdoor and landscaping', 'main', 'monthly', 0.6, null, 'src/app/outdoor-lp/page.tsx'),
     page('/sitemap', 'Sitemap', 'main', 'weekly', 0.3, null, 'src/app/sitemap/page.tsx'),
+    page('/ai-consultant-cost', 'AI consultant cost', 'main', 'monthly', 0.8, null, 'src/app/ai-consultant-cost/page.tsx'),
+    page('/for-ai-experts', 'For AI experts', 'main', 'monthly', 0.8, null, 'src/app/for-ai-experts/page.tsx'),
+    page('/hitl-standard', 'HITL Standard', 'main', 'monthly', 0.7, null, 'src/app/hitl-standard/page.tsx'),
+    page('/blog', 'Guides', 'main', 'weekly', 0.6, null, 'src/app/blog/page.tsx'),
+    page('/ai-consultant-for-small-business', 'AI consultant for small business', 'main', 'monthly', 0.7, null, 'src/app/ai-consultant-for-small-business/page.tsx'),
+    page('/compare/upwork-vs-find-ai-pros', 'Find AI Pros vs freelance sites', 'main', 'monthly', 0.5, null, 'src/app/compare/upwork-vs-find-ai-pros/page.tsx'),
+    page('/faq', 'FAQ', 'main', 'monthly', 0.5, null, 'src/app/faq/page.tsx'),
+    page('/ai-for-contractors', 'AI for contractors', 'main', 'monthly', 0.7, null, 'src/app/ai-for-contractors/page.tsx'),
   ];
 
   for (const industry of listBusinessTypes()) {

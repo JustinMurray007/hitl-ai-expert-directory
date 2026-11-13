@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import { withCanonical } from '@/lib/seo';
 
-export const metadata = withCanonical('/');
+export const metadata = withCanonical('/', {
+  title: 'Hire Vetted AI Consultants & Automation Pros | Find AI Pros',
+  description:
+    'Find vetted AI consultants and automation experts for your business. Browse by industry, need, or city, or get 3 matched experts in 48 hours.',
+});
 import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 import { getCategories, getFeaturedExperts } from '@/lib/store';
 import ExpertCard from '@/components/ExpertCard';
@@ -109,12 +113,11 @@ export default async function HomePage() {
 
           {/* Symmetrical Heading */}
           <h1 className="mx-auto max-w-5xl text-3xl font-semibold leading-[1.12] tracking-tight text-ink min-[420px]:text-4xl sm:text-5xl lg:text-6xl">
-            Find the <span className="text-brand">Best AI Experts</span> in the World To Elevate Your Business With the Latest in AI
+            Hire Vetted AI Consultants and Automation Experts
           </h1>
 
-          {/* Controlled Line-Length Paragraph */}
           <p className="mt-6 text-base sm:text-xl text-ink-soft max-w-3xl mx-auto leading-relaxed font-normal">
-            Our team has one of the largest databases of AI experts globally and locally for small businesses and corporations to find the best match for their needs.
+            Find AI Pros is a directory of vetted AI consultants and automation agencies for small and mid-sized businesses. Every listed expert names an accountable person and a human fallback for when the AI is unsure. Browse by industry, business need, or city, or pay $49.99 to be introduced to at least 3 matched experts within 48 hours.
           </p>
 
           {/* Primary Action Buttons */}

@@ -57,7 +57,7 @@ const categoryTaxonomyDetails: Record<
   },
   'customer-support-knowledge-base': {
     buyerProblem: 'Answering customer questions from your company manuals, policy documents, and ticket triage.',
-    typicalStack: 'PostgreSQL, Claude 3.5 Sonnet, Zendesk AI, Intercom AI',
+    typicalStack: 'PostgreSQL, Claude, Zendesk AI, Intercom AI',
     commonSafeguards: 'Strict source document verification with staff review before any new policy answers are sent.',
   },
   'marketing-programmatic-content': {
@@ -72,7 +72,7 @@ const categoryTaxonomyDetails: Record<
   },
   'ai-advertising-paid-media': {
     buyerProblem: 'Google & Meta Ads management, automated creative testing, budget optimization, and tracking lead cost.',
-    typicalStack: 'Make, Meta Marketing API, Google Ads Scripts, Claude 3.5 Sonnet, Python',
+    typicalStack: 'Make, Meta Marketing API, Google Ads Scripts, Claude, Python',
     commonSafeguards: 'Hard daily spend limits requiring owner text or email confirmation before any budget increases.',
   },
   'custom-ai-models-integration': {
@@ -90,9 +90,16 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     return { title: 'Category Not Found | Find Ai Pros' };
   }
 
+  if (category.slug === 'sales-lead-qualification') {
+    return withCanonical(`/categories/${category.slug}`, {
+      title: 'Hire an AI Voice Receptionist & Lead Follow-Up Expert',
+      description:
+        'Vetted builders of AI receptionists, missed-call text-back, and speed-to-lead follow-up. See budgets, tools, and how each hands off to your staff.',
+    });
+  }
   return withCanonical(`/categories/${category.slug}`, {
-    title: `${category.name} — AI Specialists | Find Ai Pros`,
-    description: `Hire AI experts in ${category.name}. Every specialist names how a human steps in when the system is unsure.`,
+    title: `Hire a ${category.name} Expert | Find AI Pros`,
+    description: category.description,
   });
 }
 
@@ -160,10 +167,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 Category Hub
               </span>
               <h1 className="text-3xl sm:text-4xl font-semibold text-ink mt-1">
-                {category.name}
+                {category.slug === 'sales-lead-qualification'
+                  ? 'Hire an AI Voice Receptionist and Lead Follow-Up Expert'
+                  : category.name}
               </h1>
               <p className="text-base sm:text-lg text-muted-strong mt-2 max-w-2xl leading-relaxed font-normal">
-                {category.description}
+                {category.slug === 'sales-lead-qualification'
+                  ? 'An AI voice receptionist answers every call, qualifies the caller, books the appointment, and texts back missed calls. The experts in this category build them on tools like Retell, Vapi, Bland, and Twilio, and each one transfers urgent or unclear calls to a live person.'
+                  : category.description}
               </p>
             </div>
           </div>
