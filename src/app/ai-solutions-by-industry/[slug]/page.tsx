@@ -5,7 +5,14 @@ import { ArrowLeft, Sparkles } from 'lucide-react';
 import { getExperts } from '@/lib/store';
 import BusinessRecommender from '@/components/BusinessRecommender';
 import PathRedirect from '@/components/PathRedirect';
-import { businessOverviewPath, businessPath, businessStaticSlugs, businessTypeBySlug, canonicalBusinessSlug } from '@/lib/business-routes';
+import {
+  AI_SOLUTIONS_BY_INDUSTRY_PATH,
+  businessOverviewPath,
+  businessPath,
+  businessStaticSlugs,
+  businessTypeBySlug,
+  canonicalBusinessSlug,
+} from '@/lib/business-routes';
 import { absoluteUrl } from '@/lib/site-url';
 import {
   STATIC_EXPORT_PLACEHOLDER,
@@ -14,7 +21,7 @@ import {
   staticPlaceholderMetadata,
 } from '@/lib/static-params';
 
-interface RecommendationsBusinessPageProps {
+interface AiSolutionsBusinessPageProps {
   params: Promise<{ slug: string }>;
 }
 
@@ -25,25 +32,25 @@ export async function generateStaticParams() {
   );
 }
 
-export async function generateMetadata({ params }: RecommendationsBusinessPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: AiSolutionsBusinessPageProps): Promise<Metadata> {
   const { slug } = await params;
-  if (isStaticExportPlaceholder(slug)) return staticPlaceholderMetadata('Business recommendations');
+  if (isStaticExportPlaceholder(slug)) return staticPlaceholderMetadata('AI solutions by industry');
   const canonical = canonicalBusinessSlug(slug);
   const industry = canonical ? businessTypeBySlug(canonical) : null;
   if (!canonical || !industry) return { title: 'Business type not found | Find Ai Pros' };
   const path = businessPath(canonical);
-  const title = `${industry.industryName} AI Recommendations | Find Ai Pros`;
-  const description = `Operational bottlenecks, AI solutions, and recommended tools for ${industry.industryName}. ${industry.industryDescription}`;
+  const title = `${industry.industryName} AI Solutions | Find Ai Pros`;
+  const description = `AI solutions for ${industry.industryName}. ${industry.industryDescription} Choose the operational areas to improve and see the recommended tools for each one.`;
   return {
     title,
     description,
     alternates: { canonical: absoluteUrl(path) },
     robots: slug === canonical ? undefined : { index: false, follow: true },
-    openGraph: { title, description, type: 'website' },
+    openGraph: { title, description, type: 'website', url: absoluteUrl(path) },
   };
 }
 
-export default async function RecommendationsBusinessPage({ params }: RecommendationsBusinessPageProps) {
+export default async function AiSolutionsBusinessPage({ params }: AiSolutionsBusinessPageProps) {
   const { slug } = await params;
   if (isStaticExportPlaceholder(slug)) notFound();
   const canonical = canonicalBusinessSlug(slug);
@@ -58,9 +65,9 @@ export default async function RecommendationsBusinessPage({ params }: Recommenda
   return (
     <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
-        <Link href="/recommendations" className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand-hover">
+        <Link href={AI_SOLUTIONS_BY_INDUSTRY_PATH} className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand-hover">
           <ArrowLeft className="h-4 w-4" />
-          All business types
+          AI Solutions by Industry
         </Link>
         <Link href={businessOverviewPath(canonical)} className="text-sm font-medium text-brand hover:text-brand-hover">
           Business type overview
@@ -72,10 +79,10 @@ export default async function RecommendationsBusinessPage({ params }: Recommenda
           <span>{industry.industryName}</span>
         </div>
         <h1 className="text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl">
-          AI Recommendations for {industry.industryName}
+          AI Solutions for {industry.industryName}
         </h1>
         <p className="mt-4 text-base font-normal leading-relaxed text-muted-strong sm:text-lg">
-          {industry.industryDescription} Choose one or more operational bottlenecks or areas to improve. Each area stacks its own AI solution and tools.
+          {industry.industryDescription} Choose one or more operational bottlenecks or areas to improve. Each area stacks its own AI solution and tools below.
         </p>
       </div>
       <BusinessRecommender key={industry.industrySlug} allExperts={experts} industry={industry} />

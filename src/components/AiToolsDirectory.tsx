@@ -20,6 +20,7 @@ import {
   BadgePercent,
 } from 'lucide-react';
 import { AI_TOOLS, AI_TOOL_CATEGORIES, AiTool } from '@/lib/ai-tools';
+import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 
 export default function AiToolsDirectory() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -347,7 +348,7 @@ export default function AiToolsDirectory() {
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                     <Link
-                      href="/recommendations"
+                      href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
                       className="py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-brand-soft text-slate-700 hover:text-brand text-xs font-bold transition-colors"
                       title="See recommended workflows using this tool"
                     >
@@ -378,10 +379,10 @@ export default function AiToolsDirectory() {
           </div>
           <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
             <Link
-              href="/recommendations"
+              href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
               className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-sm shadow-sm transition-all text-center"
             >
-              <span>Find Your Business Solution</span>
+              <span>AI Solutions by Industry</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link

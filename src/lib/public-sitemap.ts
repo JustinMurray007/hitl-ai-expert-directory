@@ -1,6 +1,6 @@
 import { getCategories, getExperts } from './store';
 import { getLocationsSummary } from './locations';
-import { businessOverviewPath, businessPath, listBusinessTypes } from './business-routes';
+import { AI_SOLUTIONS_BY_INDUSTRY_PATH, businessOverviewPath, businessPath, listBusinessTypes } from './business-routes';
 import { listPublicTools } from './tool-catalog';
 import { absoluteUrl, SITE_ORIGIN } from './site-url';
 import { isStaticExportPlaceholder, STATIC_EXPORT_PLACEHOLDER } from './static-params';
@@ -13,7 +13,7 @@ export type ChangeFrequency = (typeof CHANGE_FREQUENCIES)[number];
 export const SITEMAP_GROUPS = [
   { id: 'main', title: 'Main pages' },
   { id: 'business', title: 'Business types' },
-  { id: 'recommendations', title: 'Recommendations by business' },
+  { id: 'ai-solutions', title: 'AI Solutions by Industry' },
   { id: 'tools', title: 'AI tools' },
   { id: 'categories', title: 'Categories' },
   { id: 'experts', title: 'Experts' },
@@ -64,8 +64,9 @@ function page(
 /**
  * Every indexable public URL.
  * Omitted on purpose: noindex routes (/apply/thanks, /match/thanks, demo profiles,
- * static-export placeholders), redirects (/ai-tools, legacy industry aliases,
- * /tools/anthropic-claude), robots-disallowed /admin, and non-canonical state
+ * static-export placeholders), redirects (/ai-tools, /recommendations,
+ * legacy industry aliases, /tools/anthropic-claude), robots-disallowed /admin,
+ * and non-canonical state
  * abbreviations that duplicate /locations/state/<full-name>.
  */
 export async function listPublicPages(): Promise<PublicPage[]> {
@@ -78,7 +79,7 @@ export async function listPublicPages(): Promise<PublicPage[]> {
     page('/apply/success', 'Payment received', 'main', 'yearly', 0.2),
     page('/match', 'Concierge match', 'main', 'weekly', 0.8),
     page('/tools', 'AI tools', 'main', 'weekly', 0.8),
-    page('/recommendations', 'Recommendations', 'main', 'weekly', 0.9),
+    page(AI_SOLUTIONS_BY_INDUSTRY_PATH, 'AI Solutions by Industry', 'main', 'weekly', 0.9),
     page('/categories', 'Categories', 'main', 'weekly', 0.9),
     page('/experts', 'Experts', 'main', 'daily', 0.9),
     page('/locations', 'Locations', 'main', 'weekly', 0.8),
@@ -90,7 +91,7 @@ export async function listPublicPages(): Promise<PublicPage[]> {
   for (const industry of listBusinessTypes()) {
     if (isStaticExportPlaceholder(industry.industrySlug)) continue;
     pages.push(page(businessOverviewPath(industry.industrySlug), industry.industryName, 'business', 'weekly', 0.8));
-    pages.push(page(businessPath(industry.industrySlug), industry.industryName, 'recommendations', 'weekly', 0.8));
+    pages.push(page(businessPath(industry.industrySlug), industry.industryName, 'ai-solutions', 'weekly', 0.8));
   }
 
   for (const tool of listPublicTools()) {

@@ -29,6 +29,7 @@ const revealArmScript = `(function(){
   var reduce=false;
   try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
   if(reduce){document.documentElement.classList.remove('js-reveal');return}
+  function show(el){el.setAttribute('data-revealed','')}
   function arm(){
     var grids=document.querySelectorAll('[data-reveal-stagger]');
     for(var g=0;g<grids.length;g++){
@@ -40,14 +41,14 @@ const revealArmScript = `(function(){
     }
     var nodes=document.querySelectorAll('[data-reveal]:not([data-reveal-ready])');
     if(!('IntersectionObserver' in window)){
-      for(var n=0;n<nodes.length;n++){nodes[n].classList.add('is-in');nodes[n].setAttribute('data-reveal-ready','')}
+      for(var n=0;n<nodes.length;n++){show(nodes[n]);nodes[n].setAttribute('data-reveal-ready','')}
       return;
     }
-      if(!window.__hitlRevealIO){
+    if(!window.__hitlRevealIO){
       window.__hitlRevealIO=new IntersectionObserver(function(entries){
         for(var e=0;e<entries.length;e++){
           if(!entries[e].isIntersecting) continue;
-          entries[e].target.classList.add('is-in');
+          show(entries[e].target);
           window.__hitlRevealIO.unobserve(entries[e].target);
         }
       },{threshold:0.12,rootMargin:'0px 0px -4% 0px'});
@@ -58,15 +59,23 @@ const revealArmScript = `(function(){
       var el=nodes[j];
       el.setAttribute('data-reveal-ready','');
       var rect=el.getBoundingClientRect();
-      if(rect.bottom>0 && rect.top<viewH) el.classList.add('is-in');
+      if(rect.bottom>0 && rect.top<viewH) show(el);
       else io.observe(el);
+    }
+    /* React rewrites className when a control's state changes, which used to
+       drop the revealed class and hide the control. data-revealed is not part
+       of className, so it survives. Re-show anything already on screen. */
+    var faded=document.querySelectorAll('[data-reveal]:not([data-revealed])');
+    for(var f=0;f<faded.length;f++){
+      var box=faded[f].getBoundingClientRect();
+      if(box.bottom>0 && box.top<viewH) show(faded[f]);
     }
   }
   window.__armReveal=arm;
   try { arm(); }
   catch (err) {
     var stuck=document.querySelectorAll('[data-reveal]');
-    for (var k=0;k<stuck.length;k++) stuck[k].classList.add('is-in');
+    for (var k=0;k<stuck.length;k++) show(stuck[k]);
   }
 })();`;
 

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from './Logo';
-import { businessPath } from '@/lib/business-routes';
+import { AI_SOLUTIONS_BY_INDUSTRY_PATH, businessPath } from '@/lib/business-routes';
 import {
   ShieldCheck,
   Sparkles,
@@ -197,12 +197,12 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           </div>
 
           <Link
-            href="/recommendations"
+            href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
             onMouseEnter={() => setMegaMenuOpen(false)}
             className="nav-link inline-flex items-center gap-1.5 px-3 rounded-xl text-ink"
           >
             <Sparkles className="w-4 h-4 text-brand" />
-            <span>Find Your Business</span>
+            <span>AI Solutions by Industry</span>
           </Link>
 
           <Link
@@ -319,10 +319,10 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                     By Target Industry
                   </span>
                   <Link
-                    href="/recommendations"
+                    href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
                     className="text-sm font-medium text-brand hover:underline flex items-center gap-1"
                   >
-                    AI Blueprints <ArrowRight className="w-3 h-3" />
+                    AI Solutions by Industry <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
 
@@ -430,12 +430,12 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               <ArrowRight className="w-4 h-4 text-brand" />
             </Link>
             <Link
-              href="/recommendations"
+              href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
               className="menu-link flex items-center justify-between p-3 rounded-xl bg-blue-50 text-base font-bold text-blue-900"
             >
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-blue-600" />
-                <span>Find Your Business</span>
+                <span>AI Solutions by Industry</span>
               </div>
               <span className="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full">Free Tool</span>
             </Link>

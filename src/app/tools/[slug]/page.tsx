@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
-import { businessPath } from '@/lib/business-routes';
+import { AI_SOLUTIONS_BY_INDUSTRY_PATH, businessPath } from '@/lib/business-routes';
 import {
   groupToolFits,
   resolveToolSlug,
@@ -112,7 +112,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
                     {group.businessName}
                   </Link>
                 ) : (
-                  <Link href="/recommendations" className="text-base font-semibold text-brand hover:text-brand-hover">
+                  <Link href={AI_SOLUTIONS_BY_INDUSTRY_PATH} className="text-base font-semibold text-brand hover:text-brand-hover">
                     {group.businessName}
                   </Link>
                 )}

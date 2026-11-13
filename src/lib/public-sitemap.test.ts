@@ -16,10 +16,10 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
     '/apply/success',
     '/match',
     '/tools',
-    '/recommendations',
-    '/recommendations/healthcare-dental',
-    '/recommendations/home-services-trades',
-    '/recommendations/logistics-freight',
+    '/ai-solutions-by-industry',
+    '/ai-solutions-by-industry/healthcare-dental',
+    '/ai-solutions-by-industry/home-services-trades',
+    '/ai-solutions-by-industry/logistics-freight',
     '/business/healthcare-dental',
     '/business/home-services-trades',
     '/business/logistics-freight',
@@ -43,6 +43,8 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
     '/match/thanks',
     '/how-it-works',
     '/business/freight_logistics',
+    '/recommendations',
+    '/recommendations/healthcare-dental',
     '/recommendations/medical_dental',
     '/tools/anthropic-claude',
     '/experts/build-placeholder',
@@ -63,7 +65,7 @@ test('public sitemap lists canonical pages once and skips redirects', async () =
   assert.ok(pages.filter((entry) => entry.group === 'business').length >= 16);
   assert.equal(
     pages.filter((entry) => entry.group === 'business').length,
-    pages.filter((entry) => entry.group === 'recommendations').length,
+    pages.filter((entry) => entry.group === 'ai-solutions').length,
   );
   assert.ok(pages.some((entry) => entry.group === 'experts'));
   assert.ok(pages.some((entry) => entry.group === 'tools' && entry.path === '/tools/make'));

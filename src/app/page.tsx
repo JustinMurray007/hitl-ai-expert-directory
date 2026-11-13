@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 import { getCategories, getFeaturedExperts } from '@/lib/store';
 import ExpertCard from '@/components/ExpertCard';
 import { ConciergeCheckoutNotice, ConciergePayButton, ConciergePrice } from '@/components/ConciergePayButton';
@@ -123,7 +124,7 @@ export default async function HomePage() {
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
-              href="/recommendations"
+              href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
               className="inline-flex w-full items-center justify-center gap-2.5 rounded-full border border-line-strong bg-white px-8 py-4 text-base font-bold text-ink shadow-rest hover:border-brand hover:bg-canvas-muted sm:w-auto"
             >
               <Sparkles className="w-5 h-5 text-brand" />
@@ -134,7 +135,7 @@ export default async function HomePage() {
       </section>
 
       {/* =====================================================================
-          INTERACTIVE AI ROADMAP SPOTLIGHT (Sleek Preview Leading to /recommendations)
+          INTERACTIVE AI ROADMAP SPOTLIGHT (Sleek Preview Leading to /ai-solutions-by-industry)
       ====================================================================== */}
       <section className="py-20 border-b border-line bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -144,10 +145,10 @@ export default async function HomePage() {
               <div className="lg:col-span-7">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-xs font-bold text-brand mb-4 shadow-xs">
                   <Sparkles className="w-4 h-4 text-brand" />
-                  <span>Find Your Business — Tailored AI Solutions</span>
+                  <span>AI Solutions by Industry</span>
                 </div>
                 <h2 className="text-2xl sm:text-4xl font-semibold text-ink tracking-tight leading-tight">
-                  Find Your Business &amp; Recommended AI Workflows
+                  AI Solutions by Industry
                 </h2>
                 <p className="mt-4 text-base text-muted-strong max-w-xl font-normal leading-relaxed">
                   Select your business type and the areas you want to improve. Each business has its own page with an AI solution that may fit, the tools for those areas, and specialists who can build it.
@@ -171,10 +172,10 @@ export default async function HomePage() {
 
                 <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                   <Link
-                    href="/recommendations"
+                    href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
                     className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-base shadow-sm transition-all hover:scale-[1.02]"
                   >
-                    <span>Launch Find Your Business</span>
+                    <span>AI Solutions by Industry</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
@@ -252,7 +253,7 @@ export default async function HomePage() {
                       <Clock className="w-3.5 h-3.5" /> 1–3 week setup
                     </span>
                     <Link
-                      href="/recommendations"
+                      href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
                       className="font-bold text-brand hover:underline flex items-center gap-1"
                     >
                       See Your Industry Solution →

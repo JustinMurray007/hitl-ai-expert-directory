@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 import { ArrowRight } from 'lucide-react';
 import { GithubIcon } from '@/components/Icons';
 import Logo from '@/components/Logo';
@@ -73,8 +74,8 @@ export default function Footer() {
             </h2>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/recommendations" className="hover:text-white transition-colors flex items-center gap-1.5 font-bold text-brand-on-dark">
-                  Find Your Business Solutions <ArrowRight className="w-3.5 h-3.5 text-brand-on-dark" />
+                <Link href={AI_SOLUTIONS_BY_INDUSTRY_PATH} className="hover:text-white transition-colors flex items-center gap-1.5 font-bold text-brand-on-dark">
+                  AI Solutions by Industry <ArrowRight className="w-3.5 h-3.5 text-brand-on-dark" />
                 </Link>
               </li>
               <li>
