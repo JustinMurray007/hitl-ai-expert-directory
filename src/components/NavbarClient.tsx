@@ -372,13 +372,13 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
                     Browse profiles or ask for introductions.
                   </h4>
                   <p className="mt-2 text-sm text-slate-600 leading-relaxed font-normal">
-                    Each profile shows a starting budget, tools, categories, and a city. Concierge Match is $49.99 for at least 3 introductions in 48 hours.
+                    Each profile shows tools, categories, and a city. Concierge Match is $49.99 for at least 3 introductions in 48 hours.
                   </p>
 
                   <div className="mt-4 space-y-2 text-sm text-ink font-normal">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />
-                      <span>Filter by category, tool, and budget</span>
+                      <span>Filter by category, tool, and city</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />

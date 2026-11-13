@@ -10,7 +10,7 @@ import { ConciergeCheckoutNotice, ConciergePayButton, ConciergePrice, CONCIERGE_
 export const metadata = withCanonical('/match', {
   title: 'AI Consultant Matching: 3 Experts in 48 Hours',
   description:
-    'Tell us your process, tools, and budget. We review it privately and introduce at least 3 AI experts within 48 hours. $49.99 one-time.',
+    'Tell us your process and tools. We review it privately and introduce at least 3 AI experts within 48 hours. $49.99 one-time.',
 });
 
 export default function MatchPage() {
@@ -35,10 +35,10 @@ export default function MatchPage() {
           Get Matched With 3 AI Experts in 48 Hours
         </h1>
         <p className="text-base text-muted-strong mt-3 leading-relaxed">
-          Concierge Match costs $49.99 one time. You describe your process, tools, and budget. Within 48 hours Find AI Pros introduces at least 3 AI experts. You are not obligated to hire any of them.
+          Concierge Match costs $49.99 one time. You describe your process and tools. Within 48 hours Find AI Pros introduces at least 3 AI experts. You are not obligated to hire any of them.
         </p>
         <p className="text-base sm:text-lg text-muted mt-3 leading-relaxed font-normal">
-          Tell us about your business process, stack, and budget. We will review your request privately and introduce at least 3 experts that match your needs, within 48 hours.
+          Tell us about your business process and stack. We will review your request privately and introduce at least 3 experts that match your needs, within 48 hours.
         </p>
         <ConciergePrice className="mt-6" />
         <div className="mt-6 flex justify-center">

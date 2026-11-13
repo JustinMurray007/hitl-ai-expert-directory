@@ -19,7 +19,6 @@ export default function MatchFormClient() {
   const paramCategory = searchParams.get('category') || '';
   const paramNeed = searchParams.get('need') || '';
   const paramExpert = searchParams.get('expert') || '';
-  const paramBudget = searchParams.get('budget') || '5000_to_15000';
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -35,9 +34,6 @@ export default function MatchFormClient() {
     return '';
   });
 
-  const [budgetRange, setBudgetRange] = useState<string>(paramBudget);
-
-  // Sync if URL search params change dynamically
   useEffect(() => {
     if (paramCategory && !selectedCats.includes(paramCategory)) {
       setSelectedCats((prev) => (prev.includes(paramCategory) ? prev : [...prev, paramCategory]));
@@ -45,10 +41,7 @@ export default function MatchFormClient() {
     if (paramNeed && !needDescription) {
       setNeedDescription(paramNeed);
     }
-    if (paramBudget && budgetRange !== paramBudget) {
-      setBudgetRange(paramBudget);
-    }
-  }, [paramCategory, paramNeed, paramBudget]);
+  }, [paramCategory, paramNeed, needDescription, selectedCats]);
 
   const toggleCategory = (slug: string) => {
     if (selectedCats.includes(slug)) {
@@ -205,39 +198,19 @@ export default function MatchFormClient() {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <div>
-          <label htmlFor="budget-range" className="block text-sm font-bold text-ink mb-1.5">
-            Approximate Budget Range
-          </label>
-          <select
-            id="budget-range"
-            name="budgetRange"
-            value={budgetRange}
-            onChange={(e) => setBudgetRange(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl bg-canvas-muted border border-line text-base text-ink focus:outline-none focus:border-brand focus:bg-white font-semibold focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2"
-          >
-            <option value="under_2500">Under $2,500 (Small sprint or audit)</option>
-            <option value="2500_to_5000">$2,500 – $5,000 (Standard workflow)</option>
-            <option value="5000_to_15000">$5,000 – $15,000 (Multi-step automation system)</option>
-            <option value="15000_plus">$15,000+ (Enterprise integration)</option>
-          </select>
-        </div>
-
-        <div>
-          <label htmlFor="target-timeline" className="block text-sm font-bold text-ink mb-1.5">
-            Target Timeline <span className="text-rose-500">*</span>
-          </label>
-          <input
-            id="target-timeline"
-            type="text"
-            name="timeline"
-            required
-            defaultValue="Within 2-3 weeks"
-            placeholder="e.g. Immediate / Next 30 days"
-            className="w-full px-4 py-3 rounded-xl bg-canvas-muted border border-line text-base text-ink focus:outline-none focus:border-brand focus:bg-white font-medium focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2"
-          />
-        </div>
+      <div>
+        <label htmlFor="target-timeline" className="block text-sm font-bold text-ink mb-1.5">
+          Target Timeline <span className="text-rose-500">*</span>
+        </label>
+        <input
+          id="target-timeline"
+          type="text"
+          name="timeline"
+          required
+          defaultValue="Within 2-3 weeks"
+          placeholder="e.g. Immediate / Next 30 days"
+          className="w-full px-4 py-3 rounded-xl bg-canvas-muted border border-line text-base text-ink focus:outline-none focus:border-brand focus:bg-white font-medium focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2"
+        />
       </div>
 
       <div>

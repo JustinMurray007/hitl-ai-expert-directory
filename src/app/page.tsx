@@ -314,7 +314,7 @@ export default async function HomePage() {
                 Featured AI Experts
               </h2>
               <p className="text-base text-muted-strong mt-2 max-w-2xl font-normal leading-relaxed">
-                Consultants and agencies in the directory, with starting budgets and the tools they list.
+                Consultants and agencies in the directory, with the tools they list.
               </p>
             </div>
             <Link
@@ -417,13 +417,13 @@ export default async function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold text-ink">Browse or get introductions</h3>
                 <p className="text-sm text-slate-500 mt-2 font-normal leading-relaxed">
-                  Profiles list a starting budget, tools, categories, and a city. You can browse them or pay for a match.
+                  Profiles list tools, categories, and a city. You can browse them or pay for a match.
                 </p>
 
                 <div className="mt-6 space-y-3 text-sm text-ink font-semibold">
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-0.5" />
-                    <span>Filter by category, tool, budget, and city</span>
+                    <span>Filter by category, tool, and city</span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-0.5" />
@@ -455,7 +455,7 @@ export default async function HomePage() {
                 Introduce at least 3 experts for your project.
               </h2>
               <p className="text-base text-muted-strong mt-3 leading-relaxed font-normal">
-                Tell us about your business process, stack, and budget. We will review your request privately and introduce at least 3 experts that match your needs, within 48 hours.
+                Tell us about your business process and stack. We will review your request privately and introduce at least 3 experts that match your needs, within 48 hours.
               </p>
               <ConciergePrice className="mt-5" />
               <div className="mt-8 flex flex-col items-start gap-4">

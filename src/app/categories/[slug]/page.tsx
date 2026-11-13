@@ -95,7 +95,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     return withCanonical(`/categories/${category.slug}`, {
       title: 'Hire an AI Voice Receptionist & Lead Follow-Up Expert',
       description:
-        'Builders of AI receptionists, missed-call text-back, and speed-to-lead follow-up. See budgets, tools, and how each hands off to your staff.',
+        'Builders of AI receptionists, missed-call text-back, and speed-to-lead follow-up. See the tools they use and how each hands off to your staff.',
     });
   }
   return withCanonical(`/categories/${category.slug}`, {

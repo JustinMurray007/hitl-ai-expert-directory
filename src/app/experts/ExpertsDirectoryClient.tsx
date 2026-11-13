@@ -28,7 +28,6 @@ export default function ExpertsDirectoryClient({
   const params = new URLSearchParams(search);
   const category = params.get('category') || '';
   const tool = params.get('tool') || '';
-  const budget = params.get('budget') || 'all';
   const engagement = params.get('engagement') || 'all';
   const query = params.get('q') || '';
 
@@ -40,9 +39,6 @@ export default function ExpertsDirectoryClient({
     }
     if (tool) {
       list = list.filter((e) => (e.tools ?? []).some((t) => t.slug === tool));
-    }
-    if (budget && budget !== 'all') {
-      list = list.filter((e) => e.starting_budget === budget);
     }
     if (engagement && engagement !== 'all') {
       list = list.filter((e) => e.primary_engagement === engagement);
@@ -61,7 +57,7 @@ export default function ExpertsDirectoryClient({
       );
     }
     return list;
-  }, [allExperts, category, tool, budget, engagement, query]);
+  }, [allExperts, category, tool, engagement, query]);
 
   return (
     <>
@@ -72,7 +68,6 @@ export default function ExpertsDirectoryClient({
         tools={tools}
         initialCategory={category}
         initialTool={tool}
-        initialBudget={budget}
         initialEngagement={engagement}
         initialQuery={query}
       />

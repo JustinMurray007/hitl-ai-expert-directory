@@ -104,7 +104,7 @@ export default async function CategoriesPage() {
             Browse AI Specialists by the Job You Need Done
           </h1>
           <p className="mt-4 text-base sm:text-lg text-muted-strong max-w-2xl mx-auto leading-relaxed font-normal">
-            Every category hub groups specialists by the job they do. Profiles list a starting budget and the tools they use.
+            Every category hub groups specialists by the job they do. Profiles list the tools they use.
           </p>
         </div>
       </section>

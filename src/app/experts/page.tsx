@@ -9,7 +9,7 @@ import { expertForPage, isPublicDirectoryExpert } from '@/lib/listing';
 export const metadata = withCanonical('/experts', {
   title: 'AI Experts Directory: Consultants and Agencies',
   description:
-    'Browse AI consultants, voice AI builders, and automation agencies. Filter by category, tools, budget, and city.',
+    'Browse AI consultants, voice AI builders, and automation agencies. Filter by category, tools, and city.',
 });
 
 export default async function ExpertsPage() {
@@ -42,7 +42,7 @@ export default async function ExpertsPage() {
           AI Experts Directory: Consultants and Agencies
         </h1>
         <p className="text-base sm:text-lg text-muted-strong mt-3 max-w-3xl leading-relaxed font-normal">
-          The Find AI Pros directory lists AI consultants and automation agencies. Every profile shows a starting budget, tools, categories, and location.
+          The Find AI Pros directory lists AI consultants and automation agencies. Every profile shows tools, categories, and location.
         </p>
       </div>
 

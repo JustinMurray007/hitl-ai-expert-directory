@@ -17,15 +17,10 @@ import {
 } from '@/lib/locations';
 import ExpertCard from '@/components/ExpertCard';
 import {
-  MapPin,
-  ShieldCheck,
-  Building,
   CheckCircle2,
   ArrowRight,
   Sparkles,
   ChevronRight,
-  HelpCircle,
-  ExternalLink,
 } from 'lucide-react';
 
 interface CityPageProps {
@@ -56,7 +51,7 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
   }
 
   const title = `AI Consultants in ${cityName}, ${stateCode} | Find AI Pros`;
-  const description = `Find an AI consultant in ${cityName} for voice receptionists, CRM automation, and workflows. Compare budgets and tools, or get matched in 48 hours.`;
+  const description = `Find an AI consultant in ${cityName} for voice receptionists, CRM automation, and workflows. Compare tools, or get matched in 48 hours.`;
 
   return {
     title,
@@ -186,10 +181,6 @@ export default async function CityLocationPage({ params }: CityPageProps) {
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="w-4 h-4 text-brand" />
               {cityExperts.length} {cityExperts.length === 1 ? 'Specialist' : 'Specialists'} in {cityName}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-brand" />
-              Profiles list a starting budget
             </span>
             <span className="flex items-center gap-1.5">
               <Sparkles className="w-4 h-4 text-accent" />

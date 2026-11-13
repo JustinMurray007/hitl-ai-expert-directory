@@ -3,7 +3,7 @@ import MatchFormClient from '../MatchFormClient';
 
 export const metadata = {
   title: 'Concierge request | Find Ai Pros',
-  description: 'Payment received. Tell us about your business process, stack, and budget so we can introduce at least 3 experts within 48 hours.',
+  description: 'Payment received. Tell us about your business process and stack so we can introduce at least 3 experts within 48 hours.',
   robots: { index: false, follow: false },
 };
 
@@ -15,7 +15,7 @@ export default function MatchThanksPage() {
           Payment received
         </h1>
         <p className="text-base sm:text-lg text-muted mt-3 leading-relaxed font-normal">
-          Tell us about your business process, stack, and budget. We will review your request privately and introduce at least 3 experts that match your needs, within 48 hours.
+          Tell us about your business process and stack. We will review your request privately and introduce at least 3 experts that match your needs, within 48 hours.
         </p>
       </div>
       <Suspense fallback={<div className="rounded-3xl p-12 border border-line bg-white text-center text-muted">Loading the request form...</div>}>

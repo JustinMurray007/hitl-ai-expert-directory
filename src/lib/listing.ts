@@ -96,10 +96,20 @@ export function isRetiredExpertSlug(slug: string | null | undefined): boolean {
  * Supabase row is still published.
  */
 /** Drop listing-review fields before an expert object is sent to the browser. */
-export type PublicExpert = Omit<Expert, 'case_studies' | 'is_verified' | 'verified_at' | 'verified_case_study_count'>;
+export type PublicExpert = Omit<
+  Expert,
+  'case_studies' | 'is_verified' | 'verified_at' | 'verified_case_study_count' | 'starting_budget'
+>;
 
 export function expertForPage(expert: Expert): PublicExpert {
-  const { case_studies: _caseStudies, is_verified: _verified, verified_at: _verifiedAt, verified_case_study_count: _verifiedCount, ...rest } = expert;
+  const {
+    case_studies: _caseStudies,
+    is_verified: _verified,
+    verified_at: _verifiedAt,
+    verified_case_study_count: _verifiedCount,
+    starting_budget: _startingBudget,
+    ...rest
+  } = expert;
   return rest;
 }
 

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { PublicExpert } from '@/lib/listing';
-import { PlacementBadge, ToolBadge, BudgetBadge, EngagementBadge } from './Badge';
+import { PlacementBadge, ToolBadge, EngagementBadge } from './Badge';
 import { MapPin, ArrowRight, Building } from 'lucide-react';
 import ExpertLocationLinks from './ExpertLocation';
 
@@ -88,10 +88,7 @@ export default function ExpertCard({
           <ExpertLocationLinks expert={expert} />
         ) : (
           /* On standard directory search cards: prices & engagement tier */
-          <div className="flex flex-col gap-1.5">
-            <BudgetBadge tier={expert.starting_budget} />
-            <EngagementBadge model={expert.primary_engagement} />
-          </div>
+          <EngagementBadge model={expert.primary_engagement} />
         )}
 
         <Link

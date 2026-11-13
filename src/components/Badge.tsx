@@ -51,23 +51,6 @@ export function CategoryBadge({ name }: { name: string }) {
   );
 }
 
-export function BudgetBadge({ tier }: { tier: string }) {
-  const map: Record<string, { label: string; color: string }> = {
-    under_2500: { label: '< $2.5k start', color: 'text-muted-strong bg-canvas border-line' },
-    '2500_to_5000': { label: '$2.5k – $5k', color: 'text-ink bg-canvas-muted border-line-strong' },
-    '5000_to_15000': { label: '$5k – $15k', color: 'text-success bg-success-soft border-success-line' },
-    '15000_plus': { label: '$15k+ enterprise', color: 'text-brand-ink bg-brand-soft border-brand-line' },
-  };
-
-  const item = map[tier] || { label: tier, color: 'text-ink-soft bg-canvas border-line' };
-
-  return (
-    <span className={`inline-flex items-center px-3 py-1 rounded-lg text-sm font-bold border ${item.color}`}>
-      {item.label}
-    </span>
-  );
-}
-
 export function EngagementBadge({ model }: { model: string }) {
   const map: Record<string, string> = {
     fixed_sprint: 'Fixed Sprint',

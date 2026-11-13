@@ -229,8 +229,7 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
                       <ExpertLocationLinks expert={expert} />
                     </div>
                   </div>
-                  <div className="flex items-center justify-between gap-3 border-t border-line-soft pt-4">
-                    <p className="text-sm text-muted">Starting budget: {expert.starting_budget.replaceAll('_', ' ')}</p>
+                  <div className="flex items-center justify-end gap-3 border-t border-line-soft pt-4">
                     {showsPublicLinks(expert) && expert.booking_url ? (
                       <a
                         href={expert.booking_url}
@@ -242,7 +241,7 @@ export default function BusinessRecommender({ allExperts, industry }: BusinessRe
                       </a>
                     ) : showsPublicLinks(expert) ? (
                       <Link
-                        href={`/match?expert=${encodeURIComponent(expert.full_name)}&category=${encodeURIComponent(categorySlug)}&budget=${encodeURIComponent(expert.starting_budget)}`}
+                        href={`/match?expert=${encodeURIComponent(expert.full_name)}&category=${encodeURIComponent(categorySlug)}`}
                         className="text-sm font-medium text-brand hover:text-brand-hover"
                       >
                         Request a match

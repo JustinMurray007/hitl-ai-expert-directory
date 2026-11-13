@@ -250,7 +250,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
                 All AI Specialists in {stateName} ({stateExperts.length})
               </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Profiles in {stateName}, with a starting budget and tools on each one.
+                Profiles in {stateName}, with the tools they use on each one.
               </p>
             </div>
           </div>
