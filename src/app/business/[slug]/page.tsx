@@ -39,14 +39,14 @@ export async function generateMetadata({ params }: BusinessPageProps): Promise<M
   if (!canonical || !industry) {
     return { title: 'Business type not found | Find Ai Pros', robots: { index: false, follow: false } };
   }
-  const path = businessOverviewPath(canonical);
+  const path = businessPath(canonical);
   const title = `${industry.industryName} | Find Ai Pros`;
   const description = `AI for ${industry.industryName}. ${industry.industryDescription} See the operational areas, then open the AI solutions for this business.`;
   return {
     title,
     description,
     alternates: { canonical: absoluteUrl(path) },
-    robots: slug === canonical ? undefined : { index: false, follow: true },
+    robots: { index: false, follow: true },
     openGraph: { title, description, type: 'website', url: absoluteUrl(path) },
   };
 }

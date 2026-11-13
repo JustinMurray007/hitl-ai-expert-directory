@@ -1,4 +1,7 @@
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
+import { breadcrumbList, graph, itemList } from '@/lib/schema';
+import { withCanonical } from '@/lib/seo';
 import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 import { getCategories } from '@/lib/store';
 import {
@@ -15,11 +18,11 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 
-export const metadata = {
+export const metadata = withCanonical('/categories', {
   title: 'AI Solutions by Business Need | Find Ai Pros',
   description:
     'Explore AI automation solutions categorized by business need — from 24/7 phone answering and CRM sync to customer support and automated marketing.',
-};
+});
 
 const categoryIcons: Record<string, any> = {
   Workflow: Workflow,
@@ -81,6 +84,19 @@ export default async function CategoriesPage() {
 
   return (
     <div className="min-h-screen bg-canvas pb-24">
+      <JsonLd
+        data={graph(
+          { '@type': 'CollectionPage', name: 'AI solutions by business need', url: 'https://findaipros.com/categories' },
+          itemList(
+            'Category hubs',
+            categories.map((category) => ({ name: category.name, path: `/categories/${category.slug}` })),
+          ),
+          breadcrumbList([
+            { name: 'Home', path: '/' },
+            { name: 'Categories', path: '/categories' },
+          ]),
+        )}
+      />
       {/* Header */}
       <section className="mesh-gradient-hero border-b border-line pt-16 pb-14 text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

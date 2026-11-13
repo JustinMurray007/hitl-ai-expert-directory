@@ -87,20 +87,22 @@ export function verifyAdminToken(token: string): boolean {
 // ----------------------------------------------------------------------------
 // CATEGORIES & TOOLS
 // ----------------------------------------------------------------------------
-export async function getCategories(): Promise<Category[]> {
+async function loadCategoryRows(): Promise<Category[]> {
   if (isSupabaseConfigured && supabase) {
     const { data, error } = await supabase.from('categories').select('*');
     if (!error && data && data.length > 0) {
       return data as Category[];
     }
   }
-  // Compute dynamic counts in demo mode
-  return memStore.categories.map((cat) => {
-    const count = memStore.experts.filter(
-      (e) => e.status === 'published' && e.categories.some((c) => c.slug === cat.slug)
-    ).length;
-    return { ...cat, expert_count: count };
-  });
+  return memStore.categories.map((cat) => ({ ...cat }));
+}
+
+export async function getCategories(): Promise<Category[]> {
+  const [rows, experts] = await Promise.all([loadCategoryRows(), getExperts()]);
+  return rows.map((cat) => ({
+    ...cat,
+    expert_count: experts.filter((expert) => expert.categories.some((item) => item.slug === cat.slug)).length,
+  }));
 }
 
 export async function getCategoryBySlug(slug: string): Promise<Category | null> {

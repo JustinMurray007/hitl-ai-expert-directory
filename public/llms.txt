@@ -1,0 +1,15 @@
+# Find AI Pros
+> Directory of vetted AI consultants and automation agencies for small and mid-sized businesses. Every listed expert names an accountable person and a human fallback (the HITL Standard).
+
+## For business owners
+- [Hire an AI consultant: concierge match](https://findaipros.com/match): $49.99, 3 vetted experts in 48 hours
+- [AI experts directory](https://findaipros.com/experts)
+- [AI solutions by industry](https://findaipros.com/ai-solutions-by-industry)
+- [AI consultant cost guide](https://findaipros.com/ai-consultant-cost)
+- [Find an AI consultant near you](https://findaipros.com/locations)
+
+## For AI experts
+- [List your AI consulting business](https://findaipros.com/apply): free 30 days, then $9.99-$59.99/month, no commission
+
+## Standard
+- [The HITL Standard](https://findaipros.com/hitl-standard)

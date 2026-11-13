@@ -4,6 +4,9 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import RevealRoute from '@/components/RevealRoute';
+import JsonLd from '@/components/JsonLd';
+import { organizationAndWebsite } from '@/lib/schema';
+import { SITE_ORIGIN } from '@/lib/site-url';
 
 const body = Source_Sans_3({
   subsets: ['latin'],
@@ -96,7 +99,7 @@ export const metadata: Metadata = {
     'Make expert',
   ],
   authors: [{ name: 'Find Ai Pros Network' }],
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  metadataBase: new URL(SITE_ORIGIN),
   icons: {
     icon: '/favicon-32x32.png',
     apple: '/apple-touch-icon.png',
@@ -128,6 +131,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <JsonLd data={organizationAndWebsite()} />
         <Navbar />
         <main id="content" className="min-w-0 flex-1">{children}</main>
         <Footer />

@@ -1,4 +1,7 @@
 import Link from 'next/link';
+import { withCanonical } from '@/lib/seo';
+
+export const metadata = withCanonical('/');
 import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 import { getCategories, getFeaturedExperts } from '@/lib/store';
 import ExpertCard from '@/components/ExpertCard';

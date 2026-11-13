@@ -27,8 +27,14 @@ test('old recommendation URLs 301 to AI solutions by industry', () => {
   has('/recommendations/medical_dental', '/ai-solutions-by-industry/healthcare-dental');
   has('/experts/withn-tech', '/experts/jake-read');
   has('/experts/withn-tech/', '/experts/jake-read');
+  has('/business/:slug', '/ai-solutions-by-industry/:slug');
+  has('/business/:slug/', '/ai-solutions-by-industry/:slug');
+  has('/business/freight_logistics', '/ai-solutions-by-industry/logistics-freight');
 
   const legacy = rules.findIndex((rule) => rule[0] === '/recommendations/freight_logistics');
   const splat = rules.findIndex((rule) => rule[0] === '/recommendations/:slug');
   assert.ok(legacy >= 0 && splat > legacy);
+  const businessAlias = rules.findIndex((rule) => rule[0] === '/business/freight_logistics');
+  const businessSplat = rules.findIndex((rule) => rule[0] === '/business/:slug');
+  assert.ok(businessAlias >= 0 && businessSplat > businessAlias);
 });

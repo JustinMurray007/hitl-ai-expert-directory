@@ -1,12 +1,16 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { useMemo } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 import { Expert, Category, Tool } from '@/lib/types';
 import ExpertCard from '@/components/ExpertCard';
 import FilterBar from '@/components/FilterBar';
 import { SearchX } from 'lucide-react';
 import Link from 'next/link';
+
+function subscribeToSearch(onStoreChange: () => void) {
+  window.addEventListener('popstate', onStoreChange);
+  return () => window.removeEventListener('popstate', onStoreChange);
+}
 
 interface ExpertsDirectoryClientProps {
   allExperts: Expert[];
@@ -19,12 +23,13 @@ export default function ExpertsDirectoryClient({
   categories,
   tools,
 }: ExpertsDirectoryClientProps) {
-  const searchParams = useSearchParams();
-  const category = searchParams.get('category') || '';
-  const tool = searchParams.get('tool') || '';
-  const budget = searchParams.get('budget') || 'all';
-  const engagement = searchParams.get('engagement') || 'all';
-  const query = searchParams.get('q') || '';
+  const search = useSyncExternalStore(subscribeToSearch, () => window.location.search, () => '');
+  const params = new URLSearchParams(search);
+  const category = params.get('category') || '';
+  const tool = params.get('tool') || '';
+  const budget = params.get('budget') || 'all';
+  const engagement = params.get('engagement') || 'all';
+  const query = params.get('q') || '';
 
   const filteredExperts = useMemo(() => {
     let list = allExperts.filter((e) => e.status === 'published');
@@ -61,6 +66,7 @@ export default function ExpertsDirectoryClient({
     <>
       {/* Filter Bar */}
       <FilterBar
+        key={search || 'all'}
         categories={categories}
         tools={tools}
         initialCategory={category}

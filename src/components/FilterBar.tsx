@@ -1,7 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import { useState } from 'react';
 import { Category, Tool } from '@/lib/types';
 import { Search, X } from 'lucide-react';
 
@@ -24,9 +23,6 @@ export default function FilterBar({
   initialEngagement = 'all',
   initialQuery = '',
 }: FilterBarProps) {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
-
   const [search, setSearch] = useState(initialQuery);
   const [selectedCat, setSelectedCat] = useState(initialCategory);
   const [selectedTool, setSelectedTool] = useState(initialTool);
@@ -53,9 +49,9 @@ export default function FilterBar({
     if (b && b !== 'all') params.set('budget', b);
     if (eng && eng !== 'all') params.set('engagement', eng);
 
-    startTransition(() => {
-      router.push(`/experts?${params.toString()}`);
-    });
+    const next = params.toString();
+    window.history.pushState(null, '', next ? `/experts?${next}` : '/experts');
+    window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   const handleReset = () => {
@@ -64,9 +60,8 @@ export default function FilterBar({
     setSelectedTool('');
     setSelectedBudget('all');
     setSelectedEngagement('all');
-    startTransition(() => {
-      router.push('/experts');
-    });
+    window.history.pushState(null, '', '/experts');
+    window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   const hasActiveFilters = Boolean(
@@ -96,7 +91,7 @@ export default function FilterBar({
           onClick={() => applyFilters()}
           className="inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full bg-brand px-7 py-3 text-base font-bold text-white shadow-rest hover:bg-brand-hover"
         >
-          {isPending ? 'Filtering...' : 'Apply Filters'}
+          Apply Filters
         </button>
       </div>
 

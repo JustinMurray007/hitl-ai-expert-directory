@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { withCanonical } from '@/lib/seo';
 import {
   ShieldCheck,
   ExternalLink,
@@ -7,11 +8,11 @@ import ApplyPricing from '@/components/ApplyPricing';
 import DeferredTally from '@/components/DeferredTally';
 import { getCategories } from '@/lib/store';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withCanonical('/apply', {
   title: 'Apply to Be Listed | Find Ai Pros',
   description:
     'Apply to be listed on Find Ai Pros. A new profile is free for 30 days in one category, no card required, and nothing is charged automatically.',
-};
+});
 
 export default async function ApplyPage() {
   const categories = await getCategories();
