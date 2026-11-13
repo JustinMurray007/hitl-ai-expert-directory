@@ -426,7 +426,7 @@ export const INDUSTRY_RECOMMENDATIONS: IndustryRecommendation[] = [
           typicalRoi: 'Reduces claims intake overhead by 70%; speeds emergency claim resolution by 4 full business days.',
           recommendedStack: ['Vapi', 'Anthropic Claude', 'Twilio', 'Python'],
           categorySlug: 'customer-support-knowledge-base',
-          matchingExpertSlugs: ['barq-digital-ai', 'withn-tech'],
+          matchingExpertSlugs: ['barq-digital-ai', 'jake-read'],
         },
       },
     ],

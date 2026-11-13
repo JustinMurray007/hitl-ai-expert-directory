@@ -3,6 +3,7 @@ import { getLocationsSummary } from './locations';
 import { businessOverviewPath, businessPath, listBusinessTypes } from './business-routes';
 import { listPublicTools } from './tool-catalog';
 import { absoluteUrl, SITE_ORIGIN } from './site-url';
+import { isRetiredExpertSlug } from './listing';
 import { isStaticExportPlaceholder, STATIC_EXPORT_PLACEHOLDER } from './static-params';
 
 export const SITEMAP_CONTENT_DATE = '2026-11-13';
@@ -65,8 +66,8 @@ function page(
  * Every indexable public URL.
  * Omitted on purpose: noindex routes (/apply/thanks, /match/thanks, demo profiles,
  * static-export placeholders), redirects (/ai-tools, legacy industry aliases,
- * /tools/anthropic-claude), robots-disallowed /admin, and non-canonical state
- * abbreviations that duplicate /locations/state/<full-name>.
+ * /tools/anthropic-claude, /experts/withn-tech), robots-disallowed /admin, and
+ * non-canonical state abbreviations that duplicate /locations/state/<full-name>.
  */
 export async function listPublicPages(): Promise<PublicPage[]> {
   const [categories, experts] = await Promise.all([getCategories(), getExperts()]);
@@ -104,7 +105,7 @@ export async function listPublicPages(): Promise<PublicPage[]> {
   }
 
   for (const expert of experts) {
-    if (expert.is_demo || !expert.slug || isStaticExportPlaceholder(expert.slug)) continue;
+    if (expert.is_demo || !expert.slug || isStaticExportPlaceholder(expert.slug) || isRetiredExpertSlug(expert.slug)) continue;
     pages.push(
       page(
         `/experts/${expert.slug}`,
