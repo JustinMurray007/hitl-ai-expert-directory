@@ -4,9 +4,9 @@ import ToolsDirectory from '@/components/ToolsDirectory';
 import RecommendationToolLinks from '@/components/RecommendationToolLinks';
 
 export const metadata = withCanonical('/tools', {
-  title: 'AI Tools Directory | Find Ai Pros',
+  title: 'AI Tools Directory: What Each Tool Does and Who Builds With It',
   description:
-    'A directory of AI models and tools grouped by category, including frontier models, automation, voice, coding, design, and business operations.',
+    'AI models and tools grouped by use: LLMs, automation, voice, coding, design, CRM. Each page names what it is for.',
 });
 
 export default function ToolsPage() {
@@ -18,7 +18,7 @@ export default function ToolsPage() {
           <span>AI tools, grouped by what they do</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">
-          AI Tools
+          AI Tools for Business, Grouped by What They Do
         </h1>
         <p className="text-base sm:text-lg text-muted-strong mt-4 leading-relaxed font-normal">
           Jump to a category, or filter the list. Each card names what the tool is for and where to start.

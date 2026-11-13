@@ -41,8 +41,8 @@ export async function generateMetadata({ params }: AiSolutionsBusinessPageProps)
   const industry = canonical ? businessTypeBySlug(canonical) : null;
   if (!canonical || !industry) return { title: 'Business type not found | Find Ai Pros' };
   const path = businessPath(canonical);
-  const title = `${industry.industryName} AI Solutions | Find Ai Pros`;
-  const description = `AI solutions for ${industry.industryName}. ${industry.industryDescription} Choose the operational areas to improve and see the recommended tools for each one.`;
+  const title = `AI for ${industry.industryName}: Solutions and Experts`;
+  const description = `How ${industry.industryName} can use AI, the tools behind those jobs, and vetted experts who build them. ${industry.industryDescription}`;
   return {
     title,
     description,

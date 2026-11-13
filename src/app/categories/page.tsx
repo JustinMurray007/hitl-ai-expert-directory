@@ -19,9 +19,9 @@ import {
 } from 'lucide-react';
 
 export const metadata = withCanonical('/categories', {
-  title: 'AI Solutions by Business Need | Find Ai Pros',
+  title: 'AI Experts by Business Need | Find AI Pros',
   description:
-    'Explore AI automation solutions categorized by business need — from 24/7 phone answering and CRM sync to customer support and automated marketing.',
+    'Browse vetted AI specialists by the job you need done, from voice receptionists to workflow automation. Each hub shows who is listed.',
 });
 
 const categoryIcons: Record<string, any> = {
@@ -105,7 +105,7 @@ export default async function CategoriesPage() {
             <span>Business AI Solutions</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight max-w-3xl mx-auto leading-tight">
-            Browse AI Specialists by Business Need
+            Browse AI Specialists by the Job You Need Done
           </h1>
           <p className="mt-4 text-base sm:text-lg text-muted-strong max-w-2xl mx-auto leading-relaxed font-normal">
             Every category hub groups specialists and the human safety checks they commit to.

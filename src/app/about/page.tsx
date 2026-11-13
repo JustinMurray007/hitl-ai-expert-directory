@@ -8,9 +8,9 @@ import {
 } from 'lucide-react';
 
 export const metadata = withCanonical('/about', {
-  title: 'How It Works | Find Ai Pros',
+  title: 'How Find AI Pros Works: Vetted AI Experts, Human Oversight',
   description:
-    'Search our database of AI experts directly, or search by your business type and needs, and choose one or multiple options to get estimates or bids for your projects.',
+    'How we vet AI consultants: a named accountable person, a human fallback for every system, and references we contact. Browse, compare, or get matched.',
 });
 
 export default function AboutPage() {
@@ -22,7 +22,7 @@ export default function AboutPage() {
           <span>How it works</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">
-          How It Works
+          How Find AI Pros Works
         </h1>
         <p className="text-base sm:text-lg text-muted max-w-2xl mx-auto leading-relaxed font-normal">
           Search our database of AI experts directly, or search by your business type and needs, and choose one or multiple options to get estimates or bids for your projects.
