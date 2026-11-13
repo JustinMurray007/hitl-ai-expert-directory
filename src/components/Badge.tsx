@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import type { ListingPlan } from '@/lib/types';
 
 export function PlacementBadge({
@@ -29,12 +30,17 @@ export function SponsorBadge() {
   );
 }
 
-export function ToolBadge({ name }: { name: string }) {
-  return (
-    <span className="inline-flex items-center px-3 py-1 rounded-lg text-sm bg-brand-soft text-brand border border-brand-line font-semibold hover:bg-brand-tint transition-colors">
-      {name}
-    </span>
-  );
+export function ToolBadge({ name, href }: { name: string; href?: string }) {
+  const className =
+    'inline-flex items-center px-3 py-1 rounded-lg text-sm bg-brand-soft text-brand border border-brand-line font-semibold hover:bg-brand-tint transition-colors';
+  if (href) {
+    return (
+      <Link href={href} className={className}>
+        {name}
+      </Link>
+    );
+  }
+  return <span className={className}>{name}</span>;
 }
 
 export function CategoryBadge({ name }: { name: string }) {

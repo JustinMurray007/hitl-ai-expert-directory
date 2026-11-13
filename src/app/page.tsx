@@ -150,7 +150,7 @@ export default async function HomePage() {
                   Find Your Business &amp; Recommended AI Workflows
                 </h2>
                 <p className="mt-4 text-base text-muted-strong max-w-xl font-normal leading-relaxed">
-                  Select your business type and biggest headache. Our interactive guide shows you the exact AI automations, built-in human safety checks, and matches you with specialists who can build it.
+                  Select your business type and the areas you want to improve. Each business has its own page with an AI solution that may fit, the tools for those areas, and specialists who can build it.
                 </p>
 
                 {/* Key Features List */}
@@ -161,7 +161,7 @@ export default async function HomePage() {
                   </div>
                   <div className="flex items-center gap-3 text-sm text-ink font-semibold">
                     <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />
-                    <span>Built-In Human Safety Checks (team alerts, live phone handoffs to staff, owner sign-offs)</span>
+                    <span>Recommended tools for each operational bottleneck, with a page for every tool</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-ink font-semibold">
                     <CheckCircle2 className="w-4 h-4 text-brand shrink-0" />

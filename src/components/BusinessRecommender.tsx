@@ -1,268 +1,122 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Expert } from '@/lib/types';
+import { type IndustryRecommendation } from '@/lib/recommendations';
 import {
-  INDUSTRY_RECOMMENDATIONS,
-  IndustryRecommendation,
-  COMMON_GROWTH_BOTTLENECKS,
-} from '@/lib/recommendations';
+  bottlenecksForBusiness,
+  defaultAreaSelection,
+  groupedAreaRecommendations,
+  toggleAreaSelection,
+} from '@/lib/recommendation-selection';
+import { toolPath } from '@/lib/tool-catalog';
 import { ToolBadge } from '@/components/Badge';
-import { businessPath } from '@/lib/business-routes';
 import { isMatchEligible, showsPublicLinks } from '@/lib/listing';
 import ExpertLocationLinks from '@/components/ExpertLocation';
 import {
-  Activity,
-  Wrench,
-  Truck,
-  Briefcase,
-  Building2,
-  BarChart3,
-  ShoppingBag,
-  Car,
-  UtensilsCrossed,
-  Factory,
-  FileText,
-  GraduationCap,
-  Store,
-  HelpCircle,
-  CheckCircle2,
-  ShieldCheck,
-  Sparkles,
-  ArrowRight,
-  ArrowDown,
-  TrendingUp,
-  Layers,
-  MapPin,
-  Calendar,
   Building,
-  Megaphone,
-  Target,
-  UserCheck,
-} from 'lucide-react';
-
-const iconMap: Record<string, any> = {
-  Activity,
-  Wrench,
-  Truck,
-  Briefcase,
-  Building2,
-  BarChart3,
-  ShoppingBag,
-  Car,
-  UtensilsCrossed,
-  Factory,
-  FileText,
-  GraduationCap,
-  Store,
-  HelpCircle,
-  Sparkles,
+  Calendar,
   CheckCircle2,
-};
+  Layers,
+  Sparkles,
+  TrendingUp,
+  Wrench,
+  ArrowRight,
+} from 'lucide-react';
 
 interface BusinessRecommenderProps {
   allExperts: Expert[];
-  initialIndustrySlug?: string;
+  industry: IndustryRecommendation;
 }
 
-export default function BusinessRecommender({
-  allExperts,
-  initialIndustrySlug,
-}: BusinessRecommenderProps) {
-  const [selectedIndustry] = useState<IndustryRecommendation>(() => {
-    if (initialIndustrySlug) {
-      const match = INDUSTRY_RECOMMENDATIONS.find(
-        (i) =>
-          i.industrySlug === initialIndustrySlug ||
-          i.id === initialIndustrySlug ||
-          i.industrySlug.replace(/-/g, '_') === initialIndustrySlug ||
-          initialIndustrySlug.replace(/-/g, '_') === i.industrySlug.replace(/-/g, '_')
-      );
-      if (match) return match;
-    }
-    return INDUSTRY_RECOMMENDATIONS[0];
-  });
+export default function BusinessRecommender({ allExperts, industry }: BusinessRecommenderProps) {
+  const bottlenecks = bottlenecksForBusiness(industry);
+  const [selectedIds, setSelectedIds] = useState<string[]>(() => defaultAreaSelection(industry));
+  const groups = groupedAreaRecommendations(bottlenecks, selectedIds);
 
-  const [hasSelectedIndustry] = useState<boolean>(() => {
-    return Boolean(initialIndustrySlug);
-  });
-
-  // Combine industry-specific bottlenecks with the 4 common cards: Marketing, Advertising, General Lead/New Customer Growth, Customer Retention
-  const displayBottlenecks = [
-    ...selectedIndustry.commonBottlenecks,
-    ...COMMON_GROWTH_BOTTLENECKS,
-  ];
-
-  const [selectedBottleneckId, setSelectedBottleneckId] = useState<string>(() => {
-    return selectedIndustry.commonBottlenecks[0]?.id || COMMON_GROWTH_BOTTLENECKS[0].id;
-  });
-
-  const activeBottleneck =
-    displayBottlenecks.find((b) => b.id === selectedBottleneckId) ||
-    displayBottlenecks[0];
-
-  const workflow = activeBottleneck?.recommendedWorkflow;
-
-  const handleSelectBottleneck = (id: string) => {
-    setSelectedBottleneckId(id);
-    setTimeout(() => {
-      document.getElementById('step-3')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 60);
-  };
+  useEffect(() => {
+    const arm = (window as Window & { __armReveal?: () => void }).__armReveal;
+    arm?.();
+  }, [selectedIds]);
 
   const eligibleExperts = allExperts.filter((exp) => isMatchEligible(exp));
-
-  // Find matching experts who can still receive a match
-  const matchedExperts = eligibleExperts.filter((exp) => {
-    if (!workflow) return false;
-    return workflow.matchingExpertSlugs.includes(exp.slug);
-  });
-
-  // Fallback if specific slug match is short: match by category
-  const fallbackExperts =
-    matchedExperts.length > 0
-      ? matchedExperts
-      : eligibleExperts.filter((exp) =>
-          exp.categories.some((c) => c.slug === workflow?.categorySlug)
-        ).slice(0, 2);
+  const seenExpertIds = new Set<string>();
+  const matchedSpecialists: { expert: Expert; categorySlug: string }[] = [];
+  for (const group of groups) {
+    const workflow = group.workflow;
+    const direct = eligibleExperts.filter((exp) => workflow.matchingExpertSlugs.includes(exp.slug));
+    const pool =
+      direct.length > 0
+        ? direct
+        : eligibleExperts.filter((exp) => exp.categories.some((category) => category.slug === workflow.categorySlug)).slice(0, 2);
+    for (const expert of pool) {
+      if (seenExpertIds.has(expert.id)) continue;
+      seenExpertIds.add(expert.id);
+      matchedSpecialists.push({ expert, categorySlug: workflow.categorySlug });
+    }
+  }
 
   return (
     <div className="space-y-12">
-      {/* Step 1: Select Industry */}
-      <div>
-        <div className="flex items-center gap-2.5 mb-4">
-          <span className="w-7 h-7 rounded-full bg-brand text-white text-sm font-semibold flex items-center justify-center font-mono shadow-xs">
-            1
-          </span>
-          <h2 className="text-xl sm:text-2xl font-semibold text-ink">
-            Select Your Business Type
-          </h2>
-        </div>
-        <div data-reveal-stagger className="grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-          {INDUSTRY_RECOMMENDATIONS.map((ind) => {
-            const Icon = iconMap[ind.iconName] || Briefcase;
-            const isSelected = selectedIndustry.id === ind.id;
-            return (
-              <Link
-                key={ind.id}
-                href={businessPath(ind.industrySlug)}
-                className={`p-4 sm:p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
-                  isSelected
-                    ? 'bg-brand-soft border-2 border-brand shadow-sm ring-1 ring-brand/30'
-                    : 'bg-white border-line hover:border-brand/50 hover:shadow-md shadow-xs'
-                }`}
-              >
-                <div>
-                  <div
-                    className={`w-11 h-11 rounded-xl flex items-center justify-center mb-3.5 ${
-                      isSelected
-                        ? 'bg-brand text-white'
-                        : 'bg-brand-soft text-brand'
-                    }`}
-                  >
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-semibold text-sm sm:text-base text-ink leading-snug">
-                    {ind.industryName}
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
-                    {ind.industryDescription}
-                  </p>
-                </div>
-                <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
-                  <span className={isSelected ? 'text-brand' : 'text-slate-400'}>
-                    {isSelected ? '● Active Selection' : 'Open this business'}
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Animated Arrow Down Indicator to Step 2 */}
-        {hasSelectedIndustry && (
-          <div className="mt-8 flex justify-center">
-            <button
-              type="button"
-              onClick={() => {
-                document.getElementById('step-2')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white border-2 border-brand text-ink hover:bg-brand-soft shadow-sm transition-all cursor-pointer animate-gentle-bounce group"
-            >
-              <span className="text-sm font-bold text-ink group-hover:text-brand transition-colors">
-                Business Selected — Scroll Down to Step 2
-              </span>
-              <div className="w-6 h-6 rounded-full bg-brand text-white flex items-center justify-center group-hover:scale-110 transition-transform">
-                <ArrowDown className="w-3.5 h-3.5 text-white" />
-              </div>
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* Step 2: Select Operational Pain Point */}
-      <div
-        id="step-2"
-        className="scroll-mt-24 space-y-6 rounded-3xl border border-line bg-canvas-muted p-5 shadow-rest sm:p-8"
-      >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <span className="w-7 h-7 rounded-full bg-brand text-white text-sm font-semibold flex items-center justify-center font-mono shadow-xs">
-              2
+      <div id="areas" className="scroll-mt-24 space-y-6 rounded-3xl border border-line bg-canvas-muted p-5 shadow-rest sm:p-8">
+        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+          <div className="flex min-w-0 items-start gap-2.5 sm:items-center">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand font-mono text-sm font-semibold text-white shadow-xs">
+              1
             </span>
-            <h2 className="text-xl sm:text-2xl font-semibold text-ink">
-              What is Your Biggest Operational Bottleneck?
-            </h2>
+            <h2 className="min-w-0 text-xl font-semibold text-ink sm:text-2xl">Operational Bottlenecks or Areas To Improve</h2>
           </div>
-          <span className="inline-flex items-center gap-1.5 self-start sm:self-auto text-xs font-bold text-brand bg-white px-3 py-1.5 rounded-full border border-line-strong shadow-2xs">
-            Industry: <strong className="font-semibold text-ink">{selectedIndustry.industryName}</strong>
+          <span className="inline-flex items-center gap-1.5 self-start rounded-full border border-line-strong bg-white px-3 py-1.5 text-xs font-bold text-brand shadow-2xs sm:self-auto">
+            Industry: <strong className="font-semibold text-ink">{industry.industryName}</strong>
           </span>
         </div>
-        <p className="text-sm text-muted font-medium">
-          Choose the friction point you want to solve. We will generate the recommended architecture, required staff review checkpoints, and specialists.
+        <p className="text-sm font-medium text-muted">
+          Select every area you want to improve. Tool recommendations stack for each one, grouped under that area.
+        </p>
+        <p aria-live="polite" className="text-sm font-semibold text-brand">
+          {selectedIds.length === 0
+            ? 'None selected yet.'
+            : `${selectedIds.length} selected.`}
         </p>
         <div data-reveal-stagger className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {displayBottlenecks.map((b) => {
-            const isSelected = selectedBottleneckId === b.id;
+          {bottlenecks.map((bottleneck) => {
+            const isSelected = selectedIds.includes(bottleneck.id);
             return (
               <button
-                key={b.id}
+                key={bottleneck.id}
                 type="button"
-                onClick={() => handleSelectBottleneck(b.id)}
-                className={`p-5 sm:p-6 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                aria-pressed={isSelected}
+                onClick={() => setSelectedIds((current) => toggleAreaSelection(current, bottleneck.id))}
+                className={`flex cursor-pointer flex-col justify-between rounded-2xl border p-5 text-left transition-all sm:p-6 ${
                   isSelected
-                    ? 'bg-white border-2 border-brand shadow-md ring-2 ring-brand/20'
-                    : 'bg-white/95 border-line hover:bg-white hover:border-brand/50 hover:shadow-md shadow-xs'
+                    ? 'border-2 border-brand bg-white shadow-md ring-2 ring-brand/20'
+                    : 'border-line bg-white/95 shadow-xs hover:border-brand/50 hover:bg-white hover:shadow-md'
                 }`}
               >
                 <div>
-                  <div className="flex items-start justify-between gap-3 mb-2.5">
-                    {b.badge && (
-                      <span className="text-xs uppercase font-mono font-bold text-brand bg-brand-soft px-2.5 py-0.5 rounded-full border border-brand-line">
-                        {b.badge}
+                  <div className="mb-2.5 flex items-start justify-between gap-3">
+                    {bottleneck.badge ? (
+                      <span className="rounded-full border border-brand-line bg-brand-soft px-2.5 py-0.5 font-mono text-xs font-bold uppercase text-brand">
+                        {bottleneck.badge}
                       </span>
+                    ) : (
+                      <span className="sr-only">Area</span>
                     )}
                     <div
-                      className={`w-6 h-6 rounded-full border flex items-center justify-center shrink-0 ml-auto ${
-                        isSelected
-                          ? 'border-brand bg-brand text-white'
-                          : 'border-line-strong bg-white'
+                      className={`ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-md border ${
+                        isSelected ? 'border-brand bg-brand text-white' : 'border-line-strong bg-white'
                       }`}
                     >
-                      {isSelected && <CheckCircle2 className="w-4 h-4" />}
+                      {isSelected && <CheckCircle2 className="h-4 w-4" />}
                     </div>
                   </div>
-                  <h3 className="font-semibold text-base sm:text-lg text-ink">
-                    {b.label}
-                  </h3>
-                  <p className="text-sm text-muted-strong mt-2 leading-relaxed font-normal">
-                    {b.description}
-                  </p>
+                  <h3 className="text-base font-semibold text-ink sm:text-lg">{bottleneck.label}</h3>
+                  <p className="mt-2 text-sm font-normal leading-relaxed text-muted-strong">{bottleneck.description}</p>
                 </div>
-                <div className="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
+                <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-2 text-xs font-bold">
                   <span className={isSelected ? 'text-brand' : 'text-slate-400'}>
-                    {isSelected ? '● Selected Solution' : 'Click to Select'}
+                    {isSelected ? '● Selected' : 'Click to add'}
                   </span>
                 </div>
               </button>
@@ -271,141 +125,130 @@ export default function BusinessRecommender({
         </div>
       </div>
 
-      {/* Step 3: Generated AI Recommendation Blueprint */}
-      {workflow && (
-        <div id="step-3" className="scroll-mt-24 space-y-4">
-          <div className="flex items-center gap-2.5">
-            <span className="w-7 h-7 rounded-full bg-brand text-white text-sm font-semibold flex items-center justify-center font-mono shadow-xs">
-              3
-            </span>
-            <h2 className="text-xl sm:text-2xl font-semibold text-ink">
-              Your Tailored AI Blueprint &amp; Specialists
-            </h2>
+      <div id="results" className="scroll-mt-24 space-y-6">
+        <div className="flex items-center gap-2.5">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand font-mono text-sm font-semibold text-white shadow-xs">
+            2
+          </span>
+          <h2 className="text-xl font-semibold text-ink sm:text-2xl">Your Tailored AI Blueprint &amp; Specialists</h2>
+        </div>
+
+        {groups.length === 0 ? (
+          <div className="rounded-3xl border border-dashed border-line bg-white p-8 text-center shadow-rest">
+            <Wrench className="mx-auto mb-3 h-6 w-6 text-brand" />
+            <p className="text-base font-medium text-ink">Select one or more areas to see the AI solution and recommended tools.</p>
           </div>
-
-          <div className="rounded-3xl p-6 sm:p-10 border border-brand-tint bg-gradient-to-b from-brand-soft via-white to-brand-soft shadow-sm space-y-8">
-            {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 border-b border-line pb-6">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-3 shadow-xs">
-                <Sparkles className="w-4 h-4 text-brand" />
-                <span>Recommended AI Blueprint • {selectedIndustry.industryName}</span>
-              </div>
-              <h3 className="text-2xl sm:text-4xl font-semibold text-ink tracking-tight">
-                {workflow.title}
-              </h3>
-              <p className="text-base sm:text-lg text-muted-strong mt-2 font-normal leading-relaxed">
-                {workflow.problemSolved}
-              </p>
-            </div>
-
-            <Link
-              href={`/match?category=${workflow.categorySlug}&need=${encodeURIComponent(
-                `Interested in implementing ${workflow.title} for ${selectedIndustry.industryName}`
-              )}`}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-sm sm:text-base shadow-sm transition-all shrink-0 hover:scale-[1.02]"
+        ) : (
+          groups.map((group) => (
+            <article
+              key={group.id}
+              className="space-y-8 rounded-3xl border border-brand-tint bg-gradient-to-b from-brand-soft via-white to-brand-soft p-6 shadow-sm sm:p-10"
             >
-              <Sparkles className="w-4 h-4" />
-              Request Implementation Intro
-            </Link>
-          </div>
-
-          {/* Blueprint Details Grid: Distinct Three-Color Pillar Separation */}
-          <div data-reveal-stagger className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {/* 1. Automated Architecture - Cobalt Blue */}
-            <div className="rounded-2xl bg-brand-soft p-6 border-2 border-brand-mid shadow-xs flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-sm font-semibold text-brand uppercase tracking-wider flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-brand" />
-                    <span>System Architecture</span>
-                  </h4>
-                  <span className="text-sm font-bold text-brand-hover bg-white px-3 py-1 rounded-full border border-brand-line">
-                    Automated
-                  </span>
+              <div className="flex flex-col justify-between gap-5 border-b border-line pb-6 md:flex-row md:items-center">
+                <div>
+                  <div className="mb-3 inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-brand-line bg-brand-soft px-3.5 py-1.5 text-left text-sm font-bold text-brand shadow-xs">
+                    <Sparkles className="h-4 w-4 text-brand" />
+                    <span>
+                      {industry.industryName} · {group.label}
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-semibold tracking-tight text-ink sm:text-4xl">{group.workflow.title}</h3>
+                  <p className="mt-2 text-base font-normal leading-relaxed text-muted-strong sm:text-lg">{group.workflow.problemSolved}</p>
                 </div>
-                <p className="text-base text-brand-ink leading-relaxed font-normal">
-                  {workflow.systemArchitecture}
-                </p>
+                <Link
+                  href={`/match?category=${group.workflow.categorySlug}&need=${encodeURIComponent(
+                    `Interested in implementing ${group.workflow.title} for ${industry.industryName}`,
+                  )}`}
+                  className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand px-8 py-4 text-sm font-bold text-white shadow-sm transition-all hover:scale-[1.02] hover:bg-brand-hover sm:w-auto sm:text-base"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  Request Implementation Intro
+                </Link>
               </div>
-            </div>
 
-            {/* 2. Human Safety Check - Signature Emerald Green */}
-            <div className="rounded-2xl bg-brand-soft p-6 border-2 border-brand shadow-xs flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-sm font-semibold text-brand uppercase tracking-wider flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-brand" />
-                    <span>Human Safety Checkpoint</span>
-                  </h4>
-                  <span className="text-sm font-bold text-brand-ink bg-white px-3 py-1 rounded-full border border-brand-line">
-                    Staff Review
-                  </span>
+              <div data-reveal-stagger className="grid grid-cols-1 gap-5 md:grid-cols-3">
+                <div className="flex flex-col justify-between rounded-2xl border-2 border-brand-mid bg-brand-soft p-6 shadow-xs">
+                  <div>
+                    <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                      <h4 className="flex items-center gap-2 text-sm font-semibold text-brand">
+                        <Layers className="h-4 w-4 shrink-0 text-brand" />
+                        <span>Ai Solution that May Fit</span>
+                      </h4>
+                      <span className="rounded-full border border-brand-line bg-white px-3 py-1 text-sm font-bold text-brand-hover">
+                        Automated
+                      </span>
+                    </div>
+                    <p className="text-base font-normal leading-relaxed text-brand-ink">{group.workflow.systemArchitecture}</p>
+                  </div>
                 </div>
-                <p className="text-base text-brand-ink leading-relaxed font-bold">
-                  {workflow.hitlSafeguard}
-                </p>
-              </div>
-            </div>
 
-            {/* 3. Expected Business Impact - Warm Honey Amber */}
-            <div className="rounded-2xl bg-accent-soft p-6 border-2 border-accent-line shadow-xs flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-sm font-semibold text-accent uppercase tracking-wider flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4 text-accent" />
-                    <span>Expected Business Impact</span>
-                  </h4>
-                  <span className="text-sm font-bold text-accent-ink bg-white px-3 py-1 rounded-full border border-accent-line">
-                    Expected impact
-                  </span>
+                <div className="flex flex-col justify-between rounded-2xl border-2 border-brand bg-brand-soft p-6 shadow-xs">
+                  <div>
+                    <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                      <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-brand">
+                        <Wrench className="h-4 w-4 shrink-0 text-brand" />
+                        <span>Recommended Tools</span>
+                      </h4>
+                      <span className="rounded-full border border-brand-line bg-white px-3 py-1 text-sm font-bold text-brand-ink">
+                        Stack
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {group.tools.map((tool) => (
+                        <ToolBadge key={tool.slug ?? tool.name} name={tool.name} href={tool.slug ? toolPath(tool.slug) : undefined} />
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <p className="text-base text-accent-deep leading-relaxed font-semibold">
-                  {workflow.typicalRoi}
-                </p>
-              </div>
-              <div className="mt-4 pt-4 border-t border-accent-tint">
-                <span className="text-sm font-bold uppercase tracking-wider text-accent-deep block mb-2.5">Recommended Tools:</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {workflow.recommendedStack.map((tool) => (
-                    <ToolBadge key={tool} name={tool} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {/* Matched Experts / Companies Who Can Implement */}
-          <div className="space-y-5 pt-6 border-t border-brand-tint">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="flex flex-col justify-between rounded-2xl border-2 border-accent-line bg-accent-soft p-6 shadow-xs">
+                  <div>
+                    <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                      <h4 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-accent">
+                        <TrendingUp className="h-4 w-4 shrink-0 text-accent" />
+                        <span>Expected Business Impact</span>
+                      </h4>
+                      <span className="rounded-full border border-accent-line bg-white px-3 py-1 text-sm font-bold text-accent-ink">
+                        Expected impact
+                      </span>
+                    </div>
+                    <p className="text-base font-semibold leading-relaxed text-accent-deep">{group.workflow.typicalRoi}</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))
+        )}
+
+        {matchedSpecialists.length > 0 && (
+          <div className="space-y-5 border-t border-brand-tint pt-6">
+            <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
               <div>
-                <h4 className="text-xl sm:text-2xl font-semibold text-ink">
-                  Specialists Ready to Build This for You
-                </h4>
-                <p className="text-sm sm:text-base text-muted-strong font-medium mt-0.5">
-                  These specialists can take a match for this kind of work:
+                <h3 className="text-xl font-semibold text-ink sm:text-2xl">Specialists Ready to Build This for You</h3>
+                <p className="mt-0.5 text-sm font-medium text-muted-strong sm:text-base">
+                  These specialists can take a match for the areas you selected.
                 </p>
               </div>
               <Link
-                href={`/experts?category=${workflow.categorySlug}`}
-                className="text-sm font-bold text-brand hover:text-brand-hover inline-flex items-center gap-1.5 shrink-0"
+                href="/experts"
+                className="inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-brand hover:text-brand-hover"
               >
-                View Category Hub <ArrowRight className="w-4 h-4" />
+                View specialists <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
 
             <div data-reveal-stagger className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              {fallbackExperts.map((exp) => (
+              {matchedSpecialists.map(({ expert, categorySlug }) => (
                 <div
-                  key={exp.id}
+                  key={expert.id}
                   className="hover-lift flex flex-col justify-between rounded-2xl border border-line bg-white p-5 shadow-rest sm:p-6"
                 >
                   <div>
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="w-16 h-16 rounded-xl overflow-hidden bg-canvas-muted border border-line shrink-0">
+                    <div className="mb-4 flex items-start gap-4">
+                      <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-line bg-canvas-muted">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={exp.avatar_url}
+                          src={expert.avatar_url}
                           alt=""
                           width={224}
                           height={224}
@@ -414,62 +257,51 @@ export default function BusinessRecommender({
                           className="h-full w-full object-cover"
                         />
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          <h5 className="font-semibold text-base sm:text-lg text-ink truncate">
-                            <Link href={`/experts/${exp.slug}`} className="hover:text-brand">
-                              {exp.full_name}
-                            </Link>
-                          </h5>
-                        </div>
-                        <p className="text-sm text-brand font-bold truncate mt-0.5">
-                          {exp.professional_title}
-                        </p>
-                        {exp.agency_name && (
-                          <p className="text-sm text-muted flex items-center gap-1.5 mt-1 font-medium">
-                            <Building className="w-3.5 h-3.5" />
-                            {exp.agency_name}
+                      <div className="min-w-0 flex-1">
+                        <h4 className="truncate text-base font-semibold text-ink sm:text-lg">
+                          <Link href={`/experts/${expert.slug}`} className="hover:text-brand">
+                            {expert.full_name}
+                          </Link>
+                        </h4>
+                        <p className="mt-0.5 truncate text-sm font-bold text-brand">{expert.professional_title}</p>
+                        {expert.agency_name && (
+                          <p className="mt-1 flex items-center gap-1.5 text-sm font-medium text-muted">
+                            <Building className="h-3.5 w-3.5" />
+                            {expert.agency_name}
                           </p>
                         )}
                       </div>
                     </div>
-
-                    <p className="text-base text-ink-soft line-clamp-2 leading-relaxed mb-4 font-normal">
-                      {exp.tagline}
-                    </p>
-
+                    <p className="mb-4 line-clamp-2 text-base font-normal leading-relaxed text-ink-soft">{expert.tagline}</p>
                     <div className="mb-4">
-                      <ExpertLocationLinks expert={exp} />
+                      <ExpertLocationLinks expert={expert} />
                     </div>
                   </div>
-
-                  <div className="pt-4 border-t border-line-soft flex items-center justify-between">
-                    <span className="text-sm font-bold text-brand bg-brand-soft px-3 py-1 rounded-full border border-brand-line">
-                      Starting: {exp.starting_budget.replace('_', ' ')}
+                  <div className="flex items-center justify-between border-t border-line-soft pt-4">
+                    <span className="rounded-full border border-brand-line bg-brand-soft px-3 py-1 text-sm font-bold text-brand">
+                      Starting: {expert.starting_budget.replace('_', ' ')}
                     </span>
                     <div className="flex items-center gap-2.5">
                       <Link
-                        href={`/experts/${exp.slug}`}
-                        className="text-sm font-bold text-ink hover:text-brand px-4 py-2 rounded-full border border-line hover:border-brand transition-colors"
+                        href={`/experts/${expert.slug}`}
+                        className="rounded-full border border-line px-4 py-2 text-sm font-bold text-ink transition-colors hover:border-brand hover:text-brand"
                       >
                         View Profile
                       </Link>
-                      {showsPublicLinks(exp) && exp.booking_url ? (
+                      {showsPublicLinks(expert) && expert.booking_url ? (
                         <a
-                          href={exp.booking_url}
+                          href={expert.booking_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-sm font-bold text-white bg-brand hover:bg-brand-hover px-4 py-2 rounded-full shadow-xs transition-colors"
+                          className="inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 text-sm font-bold text-white shadow-xs transition-colors hover:bg-brand-hover"
                         >
-                          <Calendar className="w-4 h-4" />
+                          <Calendar className="h-4 w-4" />
                           Book Call
                         </a>
-                      ) : showsPublicLinks(exp) ? (
+                      ) : showsPublicLinks(expert) ? (
                         <Link
-                          href={`/match?expert=${encodeURIComponent(exp.full_name)}&category=${encodeURIComponent(
-                            workflow?.categorySlug || ''
-                          )}&budget=${encodeURIComponent(exp.starting_budget)}`}
-                          className="inline-flex items-center gap-1.5 text-sm font-bold text-white bg-brand hover:bg-brand-hover px-4 py-2 rounded-full shadow-xs transition-colors"
+                          href={`/match?expert=${encodeURIComponent(expert.full_name)}&category=${encodeURIComponent(categorySlug)}&budget=${encodeURIComponent(expert.starting_budget)}`}
+                          className="inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 text-sm font-bold text-white shadow-xs transition-colors hover:bg-brand-hover"
                         >
                           Request Match
                         </Link>
@@ -480,9 +312,8 @@ export default function BusinessRecommender({
               ))}
             </div>
           </div>
-        </div>
+        )}
       </div>
-    )}
-  </div>
-);
+    </div>
+  );
 }
