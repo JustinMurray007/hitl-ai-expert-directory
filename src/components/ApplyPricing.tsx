@@ -17,7 +17,10 @@ export type PricingCategory = {
   name: string;
 };
 
-type ApplyPlanId = CheckoutPlan | 'free';
+type ApplyPlanId = CheckoutPlan | 'start';
+
+const STARTER_NAME = 'Free to Start (then only $9.99)';
+const STARTER_MONTHLY = '$9.99';
 
 const PLANS: {
   id: ApplyPlanId;
@@ -29,22 +32,16 @@ const PLANS: {
   highlighted?: boolean;
 }[] = [
   {
-    id: 'free',
-    name: 'Free',
-    monthly: '$0',
-    yearly: '$0',
+    id: 'start',
+    name: STARTER_NAME,
+    monthly: STARTER_MONTHLY,
+    yearly: STARTER_MONTHLY,
     yearlyNote: '',
-    points: [FREE_INCLUDED_CATEGORIES === 1 ? 'Listed in 1 category' : `Listed in ${FREE_INCLUDED_CATEGORIES} categories`],
-  },
-  {
-    id: 'basic',
-    name: 'Basic',
-    monthly: '$9.99',
-    yearly: '$79',
-    yearlyNote: '$6.58 / month, billed yearly',
     points: [
-      'Listed in 1 category',
-      'Link to your website',
+      'Free for the first 30 days',
+      'No card required, and nothing is charged automatically',
+      FREE_INCLUDED_CATEGORIES === 1 ? 'Listed in 1 category' : `Listed in ${FREE_INCLUDED_CATEGORIES} categories`,
+      'After 30 days, $9.99/month keeps the listing',
     ],
   },
   {
@@ -56,7 +53,7 @@ const PLANS: {
     highlighted: true,
     points: [
       'Listed in 3 categories',
-      'Everything in Basic, including your website link',
+      'Includes your website link',
     ],
   },
   {
@@ -87,6 +84,11 @@ export default function ApplyPricing({ categories = [] }: { categories?: Pricing
   );
 }
 
+function limitFor(plan: ApplyPlanId, available: number): number {
+  if (plan === 'start') return includedCategoryCount('basic', available);
+  return includedCategoryCount(plan, available);
+}
+
 function ApplyPricingBody({
   categories,
   expertId,
@@ -97,17 +99,17 @@ function ApplyPricingBody({
   referrer: string;
 }) {
   const [period, setPeriod] = useState<BillingPeriod>('monthly');
-  const [selectedPlan, setSelectedPlan] = useState<ApplyPlanId>('free');
+  const [selectedPlan, setSelectedPlan] = useState<ApplyPlanId>('start');
   const [selected, setSelected] = useState<string[]>([]);
   const canCheckout = CHECKOUT_ENABLED && expertId.length > 0;
-  const categoryLimit = selectedPlan === 'free'
-    ? FREE_INCLUDED_CATEGORIES
-    : includedCategoryCount(selectedPlan, categories.length);
+  const categoryLimit = limitFor(selectedPlan, categories.length);
+  const starterLimit = limitFor('start', categories.length);
+  const starterCategories = starterLimit === 1 ? '1 category' : `${starterLimit} categories`;
   const activePlan = PLANS.find((plan) => plan.id === selectedPlan) ?? PLANS[0];
 
   function choosePlan(plan: ApplyPlanId) {
     setSelectedPlan(plan);
-    const limit = plan === 'free' ? FREE_INCLUDED_CATEGORIES : includedCategoryCount(plan, categories.length);
+    const limit = limitFor(plan, categories.length);
     setSelected((current) => current.slice(0, limit));
   }
 
@@ -134,7 +136,7 @@ function ApplyPricingBody({
         </div>
         {!expertId && (
           <p className="text-sm sm:text-base text-muted mt-4 leading-relaxed">
-            Choose a plan, then the categories that plan includes. A free application does not open checkout.
+            Choose a plan, then the categories that plan includes. Starting the 30 days does not open checkout.
           </p>
         )}
       </div>
@@ -164,12 +166,13 @@ function ApplyPricingBody({
         </div>
       </div>
 
-      <div data-reveal-stagger className="mb-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <div data-reveal-stagger className="mb-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {PLANS.map((plan) => {
           const chosen = selectedPlan === plan.id;
-          const included = plan.id === 'free'
-            ? (FREE_INCLUDED_CATEGORIES === 1 ? '1 category' : `${FREE_INCLUDED_CATEGORIES} categories`)
+          const included = plan.id === 'start'
+            ? (limitFor('start', categories.length) === 1 ? '1 category' : `${limitFor('start', categories.length)} categories`)
             : includedCategoryPhrase(plan.id, categories.length);
+          const starter = plan.id === 'start';
           return (
             <article
               key={plan.id}
@@ -180,16 +183,16 @@ function ApplyPricingBody({
               <h3 className="text-2xl font-semibold text-ink">{plan.name}</h3>
               <div className="mt-4 flex items-baseline gap-1">
                 <span className="text-4xl font-semibold tracking-tight text-ink">
-                  {plan.id === 'free' ? '$0' : period === 'monthly' ? plan.monthly : plan.yearly}
+                  {starter ? STARTER_MONTHLY : period === 'monthly' ? plan.monthly : plan.yearly}
                 </span>
-                {plan.id !== 'free' && (
-                  <span className="text-muted font-semibold">
-                    {period === 'monthly' ? '/ month' : '/ year'}
-                  </span>
-                )}
+                <span className="text-muted font-semibold">
+                  {starter ? '/ month after 30 days' : period === 'monthly' ? '/ month' : '/ year'}
+                </span>
               </div>
               <p className="text-sm text-muted min-h-[1.25rem] mt-1">
-                {plan.id !== 'free' && period === 'yearly' ? plan.yearlyNote : ''}
+                {starter
+                  ? 'Free for the first 30 days. No card required.'
+                  : period === 'yearly' ? plan.yearlyNote : ''}
               </p>
               <p className="mt-3 text-sm font-semibold text-ink leading-relaxed">
                 This plan includes {included}.
@@ -225,7 +228,7 @@ function ApplyPricingBody({
           Each category has its own page, and people can filter and search the directory by category. The more categories you&apos;re in, the more of those pages and filters you show up in.
         </p>
         <p className="text-muted mt-2 leading-relaxed">
-          The plan you selected sets how many categories you can choose. Free and Basic include 1, the $29.99 plan includes 3, and the $59.99 plan includes every category.
+          The plan you selected sets how many categories you can choose. {STARTER_NAME} includes {starterCategories}, the $29.99 plan includes 3, and the $59.99 plan includes every category.
         </p>
         {categories.length > 0 ? (
           <fieldset className="mt-4">
@@ -258,12 +261,12 @@ function ApplyPricingBody({
         ) : (
           <p className="mt-4 text-sm text-muted">Categories are not available right now. Refresh and try again.</p>
         )}
-        {activePlan.id !== 'free' && canCheckout && selected.length === 0 && (
+        {activePlan.id !== 'start' && canCheckout && selected.length === 0 && (
           <p className="mt-3 text-sm font-semibold text-ink">Choose at least one category before checkout.</p>
         )}
       </aside>
 
-      {activePlan.id !== 'free' && canCheckout ? (
+      {activePlan.id !== 'start' && canCheckout ? (
         <form action="/api/stripe/checkout" method="POST" className="mt-5">
           <input type="hidden" name="plan" value={activePlan.id} />
           <input type="hidden" name="interval" value={period === 'yearly' ? 'year' : 'month'} />
@@ -288,8 +291,28 @@ function ApplyPricingBody({
             href={APPLICATION_HREF}
             className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white shadow-sm sm:text-base"
           >
-            {activePlan.id === 'free' ? 'Apply free' : 'Apply free first'}
+            Continue to the application
           </a>
+          {activePlan.id === 'start' && canCheckout && (
+            <form action="/api/stripe/checkout" method="POST" className="mt-4">
+              <input type="hidden" name="plan" value="basic" />
+              <input type="hidden" name="interval" value="month" />
+              <input type="hidden" name="category_slugs" value={selected.join(',')} />
+              <input type="hidden" name="extra_category_quantity" value="0" />
+              <input type="hidden" name="expert_id" value={expertId} />
+              <input type="hidden" name="referrer_expert_id" value={referrer} />
+              <button
+                type="submit"
+                disabled={selected.length === 0}
+                className="inline-flex items-center justify-center rounded-full border border-brand bg-white px-6 py-3.5 text-sm font-bold text-brand disabled:cursor-not-allowed disabled:opacity-50 sm:text-base"
+              >
+                Keep the listing at {STARTER_MONTHLY}/month
+              </button>
+              <p className="mt-3 text-xs text-muted leading-relaxed">
+                Starting does not open checkout. After the 30 days, this $9.99 checkout is what keeps the listing. Nothing is charged until you pay.
+              </p>
+            </form>
+          )}
         </div>
       )}
 
@@ -348,7 +371,7 @@ function ApplyPricingBody({
           <summary className="cursor-pointer font-bold text-ink">What happens after 30 days?</summary>
           <p className="mt-2 text-sm sm:text-base text-muted leading-relaxed">
             Nothing is charged automatically. You get a reminder email at day 15, and another on day 30 if you have not picked a plan.
-            If you are on Basic, the $29.99 plan, or the $59.99 plan, that plan continues, and your website and social links stay visible.
+            If you keep the listing at $9.99 a month, or you are on the $29.99 plan or the $59.99 plan, that plan continues, and your website and social links stay visible.
             If you have not picked a plan, your listing stays on the site as a limited profile: your name and category stay public.
             Your website link, social links, contact and lead routing, and match eligibility come off until you start a plan.
             The listing is not hidden. The same limited profile applies when a paid subscription ends.
@@ -357,7 +380,7 @@ function ApplyPricingBody({
         <details className="border-t border-line py-4">
           <summary className="cursor-pointer font-bold text-ink">If I pay during the 30 free days, when does the plan start?</summary>
           <p className="mt-2 text-sm sm:text-base text-muted leading-relaxed">
-            The paid plan starts immediately. No card is collected at signup, and the free 30 days are not a Stripe trial. Choosing a plan opens Stripe Checkout. You are only charged when you pay.
+            The paid plan starts immediately. No card is collected at signup, and the free 30 days are not a Stripe trial. Starting the 30 days does not open checkout. The $9.99 checkout keeps the listing after that, and the $29.99 and $59.99 plans open checkout when you choose them. You are only charged when you pay.
           </p>
         </details>
         <details className="border-t border-line py-4">

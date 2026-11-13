@@ -20,7 +20,7 @@ export default async function ApplyPage() {
           List Your AI Consulting Business: Free for 30 Days
         </h1>
         <p className="text-base sm:text-lg text-muted mt-3 leading-relaxed font-normal">
-          Joining is free. Any new profile is free for the first 30 days in one category, no card required, and nothing is charged automatically. But, to retain your profile for over 30 days and for extra categories or homepage placement, please pay the affordable options below.
+          A new profile is free for the first 30 days in one category. No card is required, and nothing is charged automatically. After that, $9.99 a month keeps the listing. The $29.99 and $59.99 plans are the other options below.
         </p>
       </div>
 
