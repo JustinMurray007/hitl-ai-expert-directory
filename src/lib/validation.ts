@@ -65,8 +65,8 @@ export const expertApplicationSchema = z.object({
   primaryEngagement: engagementModelEnum,
   startingBudget: budgetTierEnum,
 
-  // Free applications use the free-listing cap (1). Paid plans enforce their
-  // own cap at checkout: Basic 1, Featured 3, Premium every category, plus extras.
+  // Free applications use the free-listing cap. Checkout rejects anything past
+  // the selected plan's included count: Free 1, Basic 1, the $29.99 plan 3, the $59.99 plan every category.
   categories: z
     .array(z.string())
     .min(1, 'Please select at least 1 primary category')

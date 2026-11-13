@@ -916,6 +916,60 @@ test('checkout route rejects unknown categories and ignores a client extra quant
   assert.deepEqual(await rejected.json(), { error: 'invalid_category' });
 });
 
+test('a free plan never calls Stripe, and checkout rejects a selection past the plan cap', async () => {
+  const env = { STRIPE_SECRET_KEY: 'rk_test_dummy', NEXT_PUBLIC_SITE_URL: 'https://findaipros.com' };
+  let stripeCalled = false;
+  const stripe = new Proxy({}, {
+    get() {
+      stripeCalled = true;
+      throw new Error('stripe called');
+    },
+  }) as unknown as Stripe;
+
+  const free = await handleCheckoutRequest(
+    new Request('https://findaipros.com/api/stripe/checkout', {
+      method: 'POST',
+      body: JSON.stringify({
+        plan: 'free',
+        interval: 'month',
+        category_slugs: 'operations-workflow-automation',
+      }),
+    }),
+    env,
+    stripe,
+  );
+  assert.equal(free.status, 400);
+  assert.deepEqual(await free.json(), { error: 'free_plan_no_checkout' });
+
+  const freeForm = await handleCheckoutRequest(
+    new Request('https://findaipros.com/api/stripe/checkout', {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ plan: 'free', category_slugs: 'operations-workflow-automation' }),
+    }),
+    env,
+    stripe,
+  );
+  assert.equal(freeForm.status, 303);
+  assert.equal(stripeCalled, false);
+
+  const overCap = await handleCheckoutRequest(
+    new Request('https://findaipros.com/api/stripe/checkout', {
+      method: 'POST',
+      body: JSON.stringify({
+        plan: 'basic',
+        interval: 'month',
+        category_slugs: 'operations-workflow-automation,sales-lead-qualification',
+      }),
+    }),
+    env,
+    stripe,
+  );
+  assert.equal(overCap.status, 400);
+  assert.deepEqual(await overCap.json(), { error: 'too_many_categories' });
+  assert.equal(stripeCalled, false);
+});
+
 test('downgrade and cancel trim stored categories to the new cap', async () => {
   const slugs = [
     'operations-workflow-automation',

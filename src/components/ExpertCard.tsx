@@ -50,10 +50,11 @@ export default function ExpertCard({
           </div>
         </div>
 
-        {/* Tagline */}
-        <p className="text-base text-ink-soft line-clamp-2 leading-relaxed mb-4 font-normal">
-          {expert.tagline}
-        </p>
+        {!compact && (
+          <p className="text-base text-ink-soft line-clamp-2 leading-relaxed mb-4 font-normal">
+            {expert.tagline}
+          </p>
+        )}
 
         {/* Tools tags: only shown on standard directory pages, omitted on compact cards */}
         {!compact && (

@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { CheckCircle2 } from 'lucide-react';
 import { isExpertId } from '@/lib/billing/pay-link';
 import type { BillingPeriod, CheckoutPlan } from '@/lib/stripe-links';
-import { extraCategoryQuantity, includedCategoryPhrase } from '@/lib/billing/category-cap';
+import { FREE_INCLUDED_CATEGORIES, includedCategoryCount, includedCategoryPhrase } from '@/lib/billing/category-cap';
 import JsonLd from '@/components/JsonLd';
 import { faqPage, graph } from '@/lib/schema';
 
@@ -17,8 +17,10 @@ export type PricingCategory = {
   name: string;
 };
 
+type ApplyPlanId = CheckoutPlan | 'free';
+
 const PLANS: {
-  id: CheckoutPlan;
+  id: ApplyPlanId;
   name: string;
   monthly: string;
   yearly: string;
@@ -26,6 +28,14 @@ const PLANS: {
   points: string[];
   highlighted?: boolean;
 }[] = [
+  {
+    id: 'free',
+    name: 'Free',
+    monthly: '$0',
+    yearly: '$0',
+    yearlyNote: '',
+    points: [FREE_INCLUDED_CATEGORIES === 1 ? 'Listed in 1 category' : `Listed in ${FREE_INCLUDED_CATEGORIES} categories`],
+  },
   {
     id: 'basic',
     name: 'Basic',
@@ -69,12 +79,6 @@ function ApplyPricingFromQuery({ categories }: { categories: PricingCategory[] }
   return <ApplyPricingBody categories={categories} expertId={expertId} referrer={params.get('ref') || ''} />;
 }
 
-function extraPriceLabel(period: BillingPeriod, quantity: number): string {
-  const each = period === 'monthly' ? '$9.99/month' : '$79/year';
-  const noun = quantity === 1 ? 'category' : 'categories';
-  return `${quantity} extra ${noun} at ${each} each`;
-}
-
 export default function ApplyPricing({ categories = [] }: { categories?: PricingCategory[] }) {
   return (
     <Suspense fallback={<ApplyPricingBody categories={categories} expertId="" referrer="" />}>
@@ -93,13 +97,26 @@ function ApplyPricingBody({
   referrer: string;
 }) {
   const [period, setPeriod] = useState<BillingPeriod>('monthly');
+  const [selectedPlan, setSelectedPlan] = useState<ApplyPlanId>('free');
   const [selected, setSelected] = useState<string[]>([]);
   const canCheckout = CHECKOUT_ENABLED && expertId.length > 0;
+  const categoryLimit = selectedPlan === 'free'
+    ? FREE_INCLUDED_CATEGORIES
+    : includedCategoryCount(selectedPlan, categories.length);
+  const activePlan = PLANS.find((plan) => plan.id === selectedPlan) ?? PLANS[0];
+
+  function choosePlan(plan: ApplyPlanId) {
+    setSelectedPlan(plan);
+    const limit = plan === 'free' ? FREE_INCLUDED_CATEGORIES : includedCategoryCount(plan, categories.length);
+    setSelected((current) => current.slice(0, limit));
+  }
 
   function toggleCategory(slug: string) {
-    setSelected((current) => (
-      current.includes(slug) ? current.filter((item) => item !== slug) : [...current, slug]
-    ));
+    setSelected((current) => {
+      if (current.includes(slug)) return current.filter((item) => item !== slug);
+      if (current.length >= categoryLimit) return current;
+      return [...current, slug];
+    });
   }
 
   return (
@@ -117,7 +134,7 @@ function ApplyPricingBody({
         </div>
         {!expertId && (
           <p className="text-sm sm:text-base text-muted mt-4 leading-relaxed">
-            Apply first, at no charge. You can choose a paid plan after the application is saved.
+            Choose a plan, then the categories that plan includes. A free application does not open checkout.
           </p>
         )}
       </div>
@@ -147,18 +164,73 @@ function ApplyPricingBody({
         </div>
       </div>
 
+      <div data-reveal-stagger className="mb-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+        {PLANS.map((plan) => {
+          const chosen = selectedPlan === plan.id;
+          const included = plan.id === 'free'
+            ? (FREE_INCLUDED_CATEGORIES === 1 ? '1 category' : `${FREE_INCLUDED_CATEGORIES} categories`)
+            : includedCategoryPhrase(plan.id, categories.length);
+          return (
+            <article
+              key={plan.id}
+              className={`flex flex-col rounded-3xl bg-white p-6 sm:p-7 ${
+                chosen ? 'border-2 border-brand shadow-md' : 'border border-line shadow-xs'
+              }`}
+            >
+              <h3 className="text-2xl font-semibold text-ink">{plan.name}</h3>
+              <div className="mt-4 flex items-baseline gap-1">
+                <span className="text-4xl font-semibold tracking-tight text-ink">
+                  {plan.id === 'free' ? '$0' : period === 'monthly' ? plan.monthly : plan.yearly}
+                </span>
+                {plan.id !== 'free' && (
+                  <span className="text-muted font-semibold">
+                    {period === 'monthly' ? '/ month' : '/ year'}
+                  </span>
+                )}
+              </div>
+              <p className="text-sm text-muted min-h-[1.25rem] mt-1">
+                {plan.id !== 'free' && period === 'yearly' ? plan.yearlyNote : ''}
+              </p>
+              <p className="mt-3 text-sm font-semibold text-ink leading-relaxed">
+                This plan includes {included}.
+              </p>
+              <ul className="mt-4 space-y-3 text-sm sm:text-base text-ink-soft flex-1">
+                {plan.points.map((point) => (
+                  <li key={point} className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-1" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                type="button"
+                aria-pressed={chosen}
+                onClick={() => choosePlan(plan.id)}
+                className={`mt-6 w-full inline-flex items-center justify-center px-5 py-3.5 rounded-full font-bold text-sm sm:text-base transition-colors ${
+                  chosen
+                    ? 'bg-brand text-white shadow-sm'
+                    : 'bg-white text-brand border border-brand hover:bg-brand-soft'
+                }`}
+              >
+                {chosen ? 'Selected' : `Choose ${plan.name}`}
+              </button>
+            </article>
+          );
+        })}
+      </div>
+
       <aside className="mb-5 rounded-3xl p-6 sm:p-7 bg-white border border-line shadow-xs">
         <h3 className="text-xl font-semibold text-ink">Choose your categories</h3>
         <p className="text-muted mt-2 leading-relaxed">
           Each category has its own page, and people can filter and search the directory by category. The more categories you&apos;re in, the more of those pages and filters you show up in.
         </p>
         <p className="text-muted mt-2 leading-relaxed">
-          Extra categories are <strong className="text-ink">$9.99/month</strong> or <strong className="text-ink">$79/year</strong> each, on top of your plan. Basic includes 1 category, the $29.99 plan includes 3, and the $59.99 plan includes every category. You are only charged for categories past the ones your plan includes.
+          The plan you selected sets how many categories you can choose. Free and Basic include 1, the $29.99 plan includes 3, and the $59.99 plan includes every category.
         </p>
         {categories.length > 0 ? (
           <fieldset className="mt-4">
             <legend className="text-sm font-semibold text-ink">
-              Categories to appear in
+              Categories to appear in ({selected.length} of {categoryLimit})
             </legend>
             <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
               {categories.map((category) => {
@@ -174,6 +246,7 @@ function ApplyPricingBody({
                       type="checkbox"
                       className="mt-1 accent-brand"
                       checked={checked}
+                      disabled={!checked && selected.length >= categoryLimit}
                       onChange={() => toggleCategory(category.slug)}
                     />
                     <span className="text-sm font-bold text-ink">{category.name}</span>
@@ -185,92 +258,40 @@ function ApplyPricingBody({
         ) : (
           <p className="mt-4 text-sm text-muted">Categories are not available right now. Refresh and try again.</p>
         )}
-        {canCheckout && selected.length === 0 && (
+        {activePlan.id !== 'free' && canCheckout && selected.length === 0 && (
           <p className="mt-3 text-sm font-semibold text-ink">Choose at least one category before checkout.</p>
         )}
       </aside>
 
-      <div data-reveal-stagger className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {PLANS.map((plan) => {
-          const included = includedCategoryPhrase(plan.id, categories.length);
-          const extra = extraCategoryQuantity(selected.length, plan.id, Math.max(categories.length, selected.length));
-          const planLabel = plan.name;
-          const buttonLabel = canCheckout || expertId ? `Get started — ${planLabel}` : 'Apply free first';
-          const buttonClass = `w-full inline-flex items-center justify-center px-5 py-3.5 rounded-full font-bold text-sm sm:text-base transition-colors ${
-            plan.highlighted
-              ? 'bg-brand hover:bg-brand-hover text-white shadow-sm'
-              : 'bg-white hover:bg-brand-soft text-brand border border-brand'
-          }`;
-          return (
-            <article
-              key={plan.id}
-              className={`hover-lift flex flex-col rounded-3xl bg-white p-6 sm:p-7 ${
-                plan.highlighted
-                  ? 'border-2 border-brand shadow-md'
-                  : 'border border-line shadow-xs'
-              }`}
-            >
-              <h3 className="text-2xl font-semibold text-ink">{plan.name}</h3>
-              <div className="mt-4 flex items-baseline gap-1">
-                <span className="text-4xl font-semibold tracking-tight text-ink">
-                  {period === 'monthly' ? plan.monthly : plan.yearly}
-                </span>
-                <span className="text-muted font-semibold">
-                  {period === 'monthly' ? '/ month' : '/ year'}
-                </span>
-              </div>
-              <p className="text-sm text-muted min-h-[1.25rem] mt-1">
-                {period === 'yearly' ? plan.yearlyNote : ''}
-              </p>
-              <p className="mt-3 text-sm font-semibold text-ink leading-relaxed">
-                Your plan includes {included}. Choose which ones you want to appear in.
-              </p>
-              <ul className="mt-4 space-y-3 text-sm sm:text-base text-ink-soft flex-1">
-                {plan.points.map((point) => (
-                  <li key={point} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-brand shrink-0 mt-1" />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-4 text-sm text-muted leading-relaxed min-h-[2.5rem]">
-                {extra > 0
-                  ? `Adds ${extraPriceLabel(period, extra)}.`
-                  : plan.id === 'premium'
-                    ? 'No extra category charge on this plan.'
-                    : 'No extra category charge for this selection.'}
-              </p>
-              {canCheckout ? (
-                <form action="/api/stripe/checkout" method="POST" className="mt-6">
-                  <input type="hidden" name="plan" value={plan.id} />
-                  <input type="hidden" name="interval" value={period === 'yearly' ? 'year' : 'month'} />
-                  <input type="hidden" name="category_slugs" value={selected.join(',')} />
-                  <input type="hidden" name="extra_category_quantity" value={extra} />
-                  <input type="hidden" name="expert_id" value={expertId} />
-                  <input type="hidden" name="referrer_expert_id" value={referrer} />
-                  <button
-                    type="submit"
-                    disabled={selected.length === 0}
-                    className={`${buttonClass} disabled:opacity-50 disabled:cursor-not-allowed`}
-                  >
-                    {buttonLabel}
-                  </button>
-                </form>
-              ) : (
-                <a
-                  href={APPLICATION_HREF}
-                  className={`mt-6 ${buttonClass}`}
-                >
-                  {buttonLabel}
-                </a>
-              )}
-              <p className="mt-3 text-xs text-muted text-center leading-relaxed">
-                You are only charged when you choose this plan. New profiles are free for 30 days, no card required.
-              </p>
-            </article>
-          );
-        })}
-      </div>
+      {activePlan.id !== 'free' && canCheckout ? (
+        <form action="/api/stripe/checkout" method="POST" className="mt-5">
+          <input type="hidden" name="plan" value={activePlan.id} />
+          <input type="hidden" name="interval" value={period === 'yearly' ? 'year' : 'month'} />
+          <input type="hidden" name="category_slugs" value={selected.join(',')} />
+          <input type="hidden" name="extra_category_quantity" value="0" />
+          <input type="hidden" name="expert_id" value={expertId} />
+          <input type="hidden" name="referrer_expert_id" value={referrer} />
+          <button
+            type="submit"
+            disabled={selected.length === 0}
+            className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white shadow-sm disabled:cursor-not-allowed disabled:opacity-50 sm:text-base"
+          >
+            Get started — {activePlan.name}
+          </button>
+          <p className="mt-3 text-xs text-muted leading-relaxed">
+            You are only charged when you choose this plan. New profiles are free for 30 days, no card required.
+          </p>
+        </form>
+      ) : (
+        <div className="mt-5">
+          <a
+            href={APPLICATION_HREF}
+            className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white shadow-sm sm:text-base"
+          >
+            {activePlan.id === 'free' ? 'Apply free' : 'Apply free first'}
+          </a>
+        </div>
+      )}
 
       <div className="mt-5 rounded-3xl p-6 sm:p-8 bg-white border border-line shadow-xs">
         <h3 className="text-xl font-semibold text-ink">How listings work</h3>
@@ -289,9 +310,6 @@ function ApplyPricingBody({
           </li>
           <li>
             <strong>The $29.99 and $59.99 plans are paid placements.</strong> They change where you appear. Profiles are not labeled with a placement tag.
-          </li>
-          <li>
-            A specialist who breaks the standard can be suspended or removed, including on a paid placement.
           </li>
         </ul>
       </div>
