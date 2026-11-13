@@ -1,14 +1,13 @@
 import Link from 'next/link';
 import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 import { ArrowRight } from 'lucide-react';
-import { GithubIcon } from '@/components/Icons';
 import Logo from '@/components/Logo';
 
 export default function Footer() {
   return (
     <footer data-reveal className="w-full bg-inverse text-inverse-muted pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-inverse-line">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 pb-12 border-b border-inverse-line">
           {/* Col 1: Brand & Positioning */}
           <div className="space-y-4">
             <Link href="/" className="brand-link flex items-center gap-3 group">
@@ -120,47 +119,10 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
-          {/* Col 4: Technical & Admin */}
-          <div>
-            <h2 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
-              Governance &amp; Admin
-            </h2>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link
-                  href="/admin"
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-inverse-raised text-brand-on-dark hover:text-white hover:bg-inverse-hover font-bold text-xs border border-inverse-line transition-all"
-                >
-                  <span className="w-2 h-2 rounded-full bg-brand-on-dark" />
-                  Admin Review Queue
-                </Link>
-              </li>
-              <li>
-                <span className="text-inverse-muted">PostgreSQL Schema (Supabase RLS)</span>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/JustinMurray007/hitl-ai-expert-directory"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors flex items-center gap-2"
-                >
-                  <GithubIcon className="w-4 h-4" />
-                  GitHub Repository
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
 
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-sm text-inverse-muted gap-4">
+        <div className="pt-8 text-sm text-inverse-muted">
           <p>© 2026 Find Ai Pros. Real human oversight in every deployed system.</p>
-          <div className="flex items-center gap-6">
-            <span>Next.js 15 App Router</span>
-            <span>Tailwind CSS</span>
-            <span>Supabase RLS</span>
-          </div>
         </div>
       </div>
     </footer>

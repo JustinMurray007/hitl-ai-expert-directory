@@ -96,10 +96,10 @@ export default function MatchFormClient() {
             Browse Directory
           </Link>
           <Link
-            href="/admin"
+            href="/"
             className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white text-sm sm:text-base font-bold shadow-xs transition-colors text-center"
           >
-            View in Admin Queue
+            Back to home
           </Link>
         </div>
       </div>
