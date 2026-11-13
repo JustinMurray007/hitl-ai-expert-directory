@@ -1,4 +1,3 @@
-import { Cpu } from 'lucide-react';
 import { withCanonical } from '@/lib/seo';
 import ToolsDirectory from '@/components/ToolsDirectory';
 import RecommendationToolLinks from '@/components/RecommendationToolLinks';
@@ -13,10 +12,6 @@ export default function ToolsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <div className="mb-4 inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-brand-line bg-brand-soft px-4 py-2 text-center text-sm font-medium text-brand">
-          <Cpu className="w-5 h-5 text-brand" />
-          <span>AI tools, grouped by what they do</span>
-        </div>
         <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">
           AI Tools for Business, Grouped by What They Do
         </h1>

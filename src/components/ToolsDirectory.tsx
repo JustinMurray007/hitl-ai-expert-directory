@@ -11,17 +11,12 @@ function ToolCard({ tool }: { tool: AiTool }) {
   return (
     <article className="hover-lift flex flex-col justify-between rounded-2xl border border-line bg-white p-5 sm:p-6 shadow-rest hover:border-brand">
       <div>
-        <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-xs font-medium uppercase tracking-wide text-slate-500">{tool.company}</span>
-          <span className="text-xs font-medium bg-brand-soft text-brand px-2.5 py-0.5 rounded-full border border-brand-line">
-            {tool.categoryLabel}
-          </span>
-        </div>
         <h3 className="text-xl font-semibold text-ink leading-tight">
           <Link href={`/tools/${tool.id}`} className="hover:text-brand">
             {tool.name}
           </Link>
         </h3>
+        <p className="mt-2 text-sm text-muted">{tool.company}. {tool.categoryLabel}.</p>
         <p className="text-sm text-muted-strong leading-relaxed mt-3">{tool.description}</p>
         <p className="text-sm text-ink mt-3">
           <span className="font-medium">Best for: </span>

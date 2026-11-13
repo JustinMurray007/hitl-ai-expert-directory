@@ -271,21 +271,11 @@ export default function AiToolsDirectory() {
                 className="bg-white rounded-2xl border border-line hover:border-brand hover:shadow-lg transition-all p-6 flex flex-col justify-between group"
               >
                 <div>
-                  {/* Top Bar: Company & Category */}
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
-                      {tool.company}
-                    </span>
-                    <span className="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full border border-slate-200">
-                      {tool.categoryLabel}
-                    </span>
-                  </div>
-
-                  {/* Title & Website Link */}
                   <div className="flex items-start justify-between gap-3 mb-2.5">
                     <h3 className="text-xl font-semibold text-ink group-hover:text-brand transition-colors leading-tight">
                       {tool.name}
                     </h3>
+                    <p className="mt-1 text-sm text-muted">{tool.company}. {tool.categoryLabel}.</p>
                     <a
                       href={tool.websiteUrl}
                       target="_blank"
@@ -366,10 +356,6 @@ export default function AiToolsDirectory() {
       <div className="rounded-3xl p-8 sm:p-12 border border-brand-line bg-gradient-to-br from-brand-soft via-white to-brand-soft shadow-sm">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8 space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-xs font-bold text-brand shadow-xs">
-              <ShieldCheck className="w-4 h-4 text-brand" />
-              <span>From a tool to a workflow</span>
-            </div>
             <h3 className="text-2xl sm:text-3xl font-semibold text-ink tracking-tight">
               A tool page names what the software does. A specialist still has to install it.
             </h3>
@@ -377,19 +363,16 @@ export default function AiToolsDirectory() {
               Use the industry pages to see which tools show up for a business type, then open a profile or ask for a match.
             </p>
           </div>
-          <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
+          <div className="lg:col-span-4 flex flex-col items-start gap-3">
             <Link
               href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-sm shadow-sm transition-all text-center"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-brand hover:bg-brand-hover text-white font-bold text-sm"
             >
               <span>AI Solutions by Industry</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link
-              href="/match"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-ink border border-slate-200 font-bold text-sm transition-all text-center"
-            >
-              <span>Get Matched With a Specialist</span>
+            <Link href="/match" className="text-sm font-medium text-brand hover:text-brand-hover">
+              Get matched with a specialist
             </Link>
           </div>
         </div>

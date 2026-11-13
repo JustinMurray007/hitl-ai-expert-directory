@@ -6,8 +6,6 @@ import { getLocationsSummary } from '@/lib/locations';
 import { breadcrumbList, graph, itemList } from '@/lib/schema';
 import { withCanonical } from '@/lib/seo';
 import { expertForPage, isPublicDirectoryExpert } from '@/lib/listing';
-import { ShieldCheck } from 'lucide-react';
-
 export const metadata = withCanonical('/experts', {
   title: 'AI Experts Directory: Consultants and Agencies',
   description:
@@ -40,10 +38,6 @@ export default async function ExpertsPage() {
       />
       {/* Header */}
       <div className="mb-8">
-        <div className="mb-3 inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-brand-line bg-brand-soft px-3.5 py-1.5 text-sm font-bold text-brand shadow-rest">
-          <ShieldCheck className="w-4 h-4" />
-          <span>Curated AI Expert Directory</span>
-        </div>
         <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight">
           AI Experts Directory: Consultants and Agencies
         </h1>

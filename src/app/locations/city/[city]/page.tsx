@@ -171,14 +171,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
         </nav>
 
         {/* Hero Banner */}
-        <div className="rounded-3xl bg-gradient-to-br from-brand-soft via-white to-brand-soft border border-line p-8 sm:p-12 shadow-xs space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-brand-line text-xs sm:text-sm font-bold text-brand shadow-2xs">
-            <MapPin className="w-4 h-4 text-brand" />
-            <span>
-              {cityName}, {stateCode} • Local AI Directory
-            </span>
-          </div>
-
+        <div className="rounded-3xl border border-line bg-white p-8 sm:p-12 space-y-6">
           <div className="max-w-3xl space-y-3">
             <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-[1.15]">
               AI Consultants in {cityName}, {stateCode}
@@ -207,8 +200,8 @@ export default async function CityLocationPage({ params }: CityPageProps) {
           {/* Zip Codes Pill Row */}
           {zips.length > 0 && (
             <div className="pt-2 flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-bold text-slate-500 uppercase font-mono tracking-wider">
-                Served Zip Codes:
+              <span className="text-sm font-medium text-muted">
+                Served zip codes
               </span>
               {zips.map((z) => (
                 <Link
@@ -270,11 +263,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
         )}
 
         {/* Local AI Buyer FAQ & Guidance */}
-        <section className="rounded-3xl bg-white border border-line p-8 sm:p-10 shadow-xs space-y-6">
-          <div className="flex items-center gap-2.5 text-brand font-bold text-sm uppercase tracking-wider font-mono">
-            <HelpCircle className="w-4 h-4" />
-            <span>Local Implementation Guide</span>
-          </div>
+        <section className="rounded-3xl bg-white border border-line p-8 sm:p-10 space-y-6">
           <h2 className="text-2xl sm:text-3xl font-semibold text-ink">
             Hiring an AI Consultant Near {cityName}, {stateCode}
           </h2>

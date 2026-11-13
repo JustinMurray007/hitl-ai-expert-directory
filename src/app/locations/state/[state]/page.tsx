@@ -156,12 +156,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
         </nav>
 
         {/* Hero Banner */}
-        <div className="rounded-3xl bg-gradient-to-br from-brand-soft via-white to-brand-soft border border-line p-8 sm:p-12 shadow-xs space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-brand-line text-xs sm:text-sm font-bold text-brand shadow-2xs">
-            <Building className="w-4 h-4 text-brand" />
-            <span>State Hub • {stateName} ({stateCode})</span>
-          </div>
-
+        <div className="rounded-3xl border border-line bg-white p-8 sm:p-12 space-y-6">
           <div className="max-w-3xl space-y-3">
             <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-[1.15]">
               Find An Ai Consultant &amp; Company in {stateName}

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import PathRedirect from '@/components/PathRedirect';
 import {
   AI_SOLUTIONS_BY_INDUSTRY_PATH,
@@ -73,10 +73,6 @@ export default async function BusinessTypePage({ params }: BusinessPageProps) {
         All business types
       </Link>
       <div className="mx-auto max-w-3xl">
-        <div className="mb-4 inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-brand-line bg-brand-soft px-4 py-2 text-sm font-medium text-brand">
-          <Sparkles className="h-5 w-5 text-brand" />
-          <span>Business type</span>
-        </div>
         <h1 className="text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl">{industry.industryName}</h1>
         <p className="mt-4 text-base leading-relaxed text-muted-strong sm:text-lg">{industry.industryDescription}</p>
         <Link
@@ -97,12 +93,7 @@ export default async function BusinessTypePage({ params }: BusinessPageProps) {
         </p>
         <ul className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           {areas.map((area) => (
-            <li key={area.id} className="rounded-2xl border border-line bg-white p-5 shadow-rest sm:p-6">
-              {area.badge && (
-                <span className="mb-2 inline-flex rounded-full border border-brand-line bg-brand-soft px-2.5 py-0.5 text-xs font-medium text-brand">
-                  {area.badge}
-                </span>
-              )}
+            <li key={area.id} className="rounded-2xl border border-line bg-white p-5 sm:p-6">
               <h3 className="text-lg font-semibold text-ink">{area.label}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-strong">{area.description}</p>
             </li>

@@ -22,17 +22,14 @@ export default function RecommendationToolLinks() {
             className="hover-lift flex flex-col justify-between rounded-2xl border border-line bg-white p-5 shadow-rest hover:border-brand sm:p-6"
           >
             <div>
-              <div className="mb-3 flex items-center justify-between gap-2">
-                <span className="text-xs font-medium uppercase tracking-wide text-slate-500">{tool.company || tool.category}</span>
-                <span className="rounded-full border border-brand-line bg-brand-soft px-2.5 py-0.5 text-xs font-medium text-brand">
-                  {tool.category}
-                </span>
-              </div>
               <h3 className="text-xl font-semibold leading-tight text-ink">
                 <Link href={toolPath(tool.slug)} className="hover:text-brand">
                   {tool.name}
                 </Link>
               </h3>
+              <p className="mt-2 text-sm text-muted">
+                {tool.company && tool.company !== tool.category ? `${tool.company}. ${tool.category}.` : `${tool.category}.`}
+              </p>
               <p className="mt-3 text-sm leading-relaxed text-muted-strong">{tool.description}</p>
               {tool.bestFor && (
                 <p className="mt-3 text-sm text-ink">

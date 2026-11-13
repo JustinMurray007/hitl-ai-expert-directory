@@ -164,10 +164,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <Icon className="w-8 h-8 text-brand" />
             </div>
             <div>
-              <span className="text-sm uppercase font-mono tracking-wider text-brand font-bold">
-                Category Hub
-              </span>
-              <h1 className="text-3xl sm:text-4xl font-semibold text-ink mt-1">
+              <h1 className="text-3xl sm:text-4xl font-semibold text-ink">
                 {category.slug === 'sales-lead-qualification'
                   ? 'Hire an AI Voice Receptionist and Lead Follow-Up Expert'
                   : category.name}
@@ -192,9 +189,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         {/* Taxonomy Metadata Strip */}
         <div className="mt-8 pt-6 border-t border-line-soft grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-5 rounded-2xl bg-canvas-muted border border-line">
-            <h2 className="font-semibold text-ink mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
-              <CheckCircle2 className="w-4 h-4 text-brand" />
-              Core Buyer Problem
+            <h2 className="mb-2 text-base font-semibold text-ink">
+              Core buyer problem
             </h2>
             <p className="text-muted-strong text-base leading-relaxed font-normal">
               {taxonomyInfo.buyerProblem}
@@ -202,9 +198,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
 
           <div className="p-5 rounded-2xl bg-brand-soft border border-brand-line">
-            <h2 className="font-semibold text-brand mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
-              <Layers className="w-4 h-4 text-brand" />
-              Typical Tech Stack
+            <h2 className="mb-2 text-base font-semibold text-ink">
+              Typical tech stack
             </h2>
             <p className="text-brand-ink text-base leading-relaxed font-mono font-medium">
               {taxonomyInfo.typicalStack}
@@ -212,8 +207,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
 
           <div className="p-5 rounded-2xl bg-accent-soft border border-accent-line">
-            <h2 className="font-semibold text-accent-ink mb-2 flex items-center gap-2 text-sm uppercase tracking-wider">
-              <span className="w-2.5 h-2.5 rounded-full bg-accent" />
+            <h2 className="mb-2 text-base font-semibold text-ink">
               Common handoff
             </h2>
             <p className="text-accent-deep text-base leading-relaxed font-normal">

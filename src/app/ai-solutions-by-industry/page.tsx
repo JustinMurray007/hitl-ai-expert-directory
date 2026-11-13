@@ -2,7 +2,6 @@ import BusinessTypePicker from '@/components/BusinessTypePicker';
 import BusinessQueryRedirect from '@/components/BusinessQueryRedirect';
 import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
 import { absoluteUrl } from '@/lib/site-url';
-import { Sparkles } from 'lucide-react';
 import { Suspense } from 'react';
 
 export const metadata = {
@@ -22,10 +21,6 @@ export default function AiSolutionsByIndustryPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <div className="mb-4 inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-brand-line bg-brand-soft px-4 py-2 text-center text-sm font-bold text-brand shadow-rest">
-          <Sparkles className="w-5 h-5 text-brand" />
-          <span>Tools and workflows for your business</span>
-        </div>
         <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">
           AI Solutions by Industry
         </h1>

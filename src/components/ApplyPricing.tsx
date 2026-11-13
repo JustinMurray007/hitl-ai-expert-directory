@@ -20,7 +20,6 @@ export type PricingCategory = {
 const PLANS: {
   id: CheckoutPlan;
   name: string;
-  ribbon: string;
   monthly: string;
   yearly: string;
   yearlyNote: string;
@@ -30,7 +29,6 @@ const PLANS: {
   {
     id: 'basic',
     name: 'Basic',
-    ribbon: 'One category',
     monthly: '$9.99',
     yearly: '$79',
     yearlyNote: '$6.58 / month, billed yearly',
@@ -42,7 +40,6 @@ const PLANS: {
   {
     id: 'featured',
     name: 'Featured',
-    ribbon: '3 categories · labeled Featured',
     monthly: '$29.99',
     yearly: '$299.99',
     yearlyNote: '$25.00 / month, billed yearly',
@@ -56,7 +53,6 @@ const PLANS: {
   {
     id: 'premium',
     name: 'Premium Featured',
-    ribbon: 'Homepage · every category',
     monthly: '$59.99',
     yearly: '$599.99',
     yearlyNote: '$50.00 / month, billed yearly',
@@ -216,10 +212,7 @@ function ApplyPricingBody({
                   : 'border border-line shadow-xs'
               }`}
             >
-              <p className="text-xs font-mono uppercase tracking-wider text-brand font-bold">
-                {plan.ribbon}
-              </p>
-              <h3 className="text-2xl font-semibold text-ink mt-2">{plan.name}</h3>
+              <h3 className="text-2xl font-semibold text-ink">{plan.name}</h3>
               <div className="mt-4 flex items-baseline gap-1">
                 <span className="text-4xl font-semibold tracking-tight text-ink">
                   {period === 'monthly' ? plan.monthly : plan.yearly}

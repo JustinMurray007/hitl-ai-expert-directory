@@ -38,13 +38,6 @@ export default function OutdoorLandingPage() {
       ====================================================================== */}
       <section className="relative pt-16 pb-20 overflow-hidden bg-gradient-to-b from-brand-soft via-white to-canvas border-b border-line">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          {/* Industry Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-6 shadow-xs">
-            <Trees className="w-4 h-4 text-brand" />
-            <span>Built for Landscaping, Hardscaping, Pool Builders &amp; Outdoor Living Pros</span>
-          </div>
-
-          {/* Main Headline */}
           <h1 className="mx-auto max-w-4xl text-3xl font-semibold leading-[1.12] tracking-tight text-ink min-[420px]:text-4xl sm:text-5xl lg:text-6xl">
             Capture Every <span className="text-brand">$30K–$150K Outdoor Living &amp; Pool Lead</span> While You&apos;re On-Site.
           </h1>
@@ -63,11 +56,8 @@ export default function OutdoorLandingPage() {
               Get Your Outdoor Contractor AI Blueprint
               <ArrowRight className="w-5 h-5" />
             </a>
-            <Link
-              href="/experts"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white hover:bg-canvas-muted text-ink font-bold text-base border border-line-strong shadow-xs transition-all hover:border-brand"
-            >
-              Browse Outdoor Living Specialists
+            <Link href="/experts" className="text-base font-medium text-brand hover:text-brand-hover">
+              Browse outdoor living specialists
             </Link>
           </div>
 
@@ -112,10 +102,7 @@ export default function OutdoorLandingPage() {
       <section data-reveal className="py-20 border-b border-line bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
-              The Reality of Outdoor Contracting
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-semibold text-ink mt-2 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
               Why Outdoor Contractors Lose Their Most Profitable Jobs
             </h2>
             <p className="text-base text-muted-strong mt-3 font-normal leading-relaxed max-w-2xl mx-auto">
@@ -178,10 +165,7 @@ export default function OutdoorLandingPage() {
       <section data-reveal className="py-20 border-b border-line bg-canvas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
-              Purpose-Built for Outdoor Trades
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-semibold text-ink mt-2 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
               What Our Outdoor Contractor AI Specialists Build
             </h2>
             <p className="text-base text-muted-strong mt-3 font-normal leading-relaxed max-w-2xl mx-auto">
@@ -263,10 +247,7 @@ export default function OutdoorLandingPage() {
       <section data-reveal className="py-20 border-b border-line bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
-              Specialists Who Understand Your Trade
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-semibold text-ink mt-2 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
               Real Builds for Pool, Patio &amp; Landscaping Contractors
             </h2>
             <p className="text-base text-muted-strong mt-3 font-normal leading-relaxed max-w-2xl mx-auto">
@@ -278,10 +259,7 @@ export default function OutdoorLandingPage() {
             {/* Case Study 1: Alan Debs */}
             <div className="rounded-3xl p-7 bg-canvas border border-line shadow-xs flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold font-mono uppercase text-brand">Pools &amp; Outdoor Living</span>
-                  <span className="text-xs text-slate-500 font-semibold">Phoenix, AZ</span>
-                </div>
+                <p className="mb-4 text-sm text-muted">Phoenix, AZ</p>
                 <h3 className="text-xl font-semibold text-ink">Alan Debs Consulting</h3>
                 <p className="text-xs text-brand font-bold mt-0.5">Alan Debs (Former Pool Renovation Operator)</p>
                 <p className="text-sm text-muted-strong mt-3 leading-relaxed">
@@ -304,10 +282,7 @@ export default function OutdoorLandingPage() {
             {/* Case Study 2: Read Laboratories */}
             <div className="rounded-3xl p-7 bg-canvas border border-line shadow-xs flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold font-mono uppercase text-brand">Landscaping Systems</span>
-                  <span className="text-xs text-slate-500 font-semibold">Westlake Village, CA</span>
-                </div>
+                <p className="mb-4 text-sm text-muted">Westlake Village, CA</p>
                 <h3 className="text-xl font-semibold text-ink">Read Laboratories</h3>
                 <p className="text-xs text-brand font-bold mt-0.5">Jake Read</p>
                 <p className="text-sm text-muted-strong mt-3 leading-relaxed">
@@ -330,10 +305,7 @@ export default function OutdoorLandingPage() {
             {/* Case Study 3: Annexal */}
             <div className="rounded-3xl p-7 bg-canvas border border-line shadow-xs flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold font-mono uppercase text-brand">Pool Builders &amp; Spas</span>
-                  <span className="text-xs text-slate-500 font-semibold">Chicago, IL</span>
-                </div>
+                <p className="mb-4 text-sm text-muted">Chicago, IL</p>
                 <h3 className="text-xl font-semibold text-ink">Annexal</h3>
                 <p className="text-xs text-brand font-bold mt-0.5">Nikhil Gautam</p>
                 <p className="text-sm text-muted-strong mt-3 leading-relaxed">
@@ -362,10 +334,6 @@ export default function OutdoorLandingPage() {
       <section id="intake-form" data-reveal className="py-20 bg-gradient-to-b from-canvas via-white to-brand-soft border-b border-line">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-bold text-brand mb-3">
-              <Sparkles className="w-4 h-4" />
-              <span>Get Your Outdoor AI Blueprint</span>
-            </div>
             <h2 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight">
               Tell Us About Your Outdoor Trade
             </h2>
@@ -413,10 +381,7 @@ export default function OutdoorLandingPage() {
       <section data-reveal className="py-20 border-b border-line bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-xs uppercase font-mono tracking-wider text-brand font-bold">
-              Frequently Asked Questions
-            </span>
-            <h2 className="text-3xl font-semibold text-ink mt-2 tracking-tight">
+            <h2 className="text-3xl font-semibold text-ink tracking-tight">
               Questions from Outdoor Living Contractors
             </h2>
             <JsonLd

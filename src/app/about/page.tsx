@@ -1,10 +1,7 @@
 import Link from 'next/link';
 import { withCanonical } from '@/lib/seo';
 import { AI_SOLUTIONS_BY_INDUSTRY_PATH } from '@/lib/business-routes';
-import {
-  ShieldCheck,
-  ArrowRight,
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const metadata = withCanonical('/about', {
   title: 'How Find AI Pros Works',
@@ -16,10 +13,6 @@ export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
       <section id="how-it-works" className="text-center space-y-8">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-medium text-brand">
-          <ShieldCheck className="w-4 h-4" />
-          <span>How it works</span>
-        </div>
         <h1 className="text-3xl sm:text-5xl font-semibold text-ink tracking-tight leading-tight">
           How Find AI Pros Works
         </h1>
@@ -57,10 +50,7 @@ export default function AboutPage() {
       {/* Listing plans */}
       <section data-reveal className="space-y-6 rounded-3xl border border-line bg-white p-6 shadow-rest sm:p-10">
         <div className="border-b border-line-soft pb-4">
-          <span className="text-sm uppercase font-mono tracking-wider text-brand font-bold">
-            Listing plans
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-ink mt-1.5">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-ink">
             Placement is what you pay for.
           </h2>
           <p className="text-sm sm:text-base text-muted mt-1.5 leading-relaxed font-normal">

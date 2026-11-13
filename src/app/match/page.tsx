@@ -5,7 +5,6 @@ import { graph } from '@/lib/schema';
 import { withCanonical } from '@/lib/seo';
 import { absoluteUrl } from '@/lib/site-url';
 import MatchFormClient from './MatchFormClient';
-import { Sparkles } from 'lucide-react';
 import { ConciergeCheckoutNotice, ConciergePayButton, ConciergePrice, CONCIERGE_CHECKOUT_ENABLED } from '@/components/ConciergePayButton';
 
 export const metadata = withCanonical('/match', {
@@ -32,10 +31,6 @@ export default function MatchPage() {
         })}
       />
       <div className="text-center max-w-xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-brand-soft border border-brand-line text-sm font-medium text-brand mb-3">
-          <Sparkles className="w-4 h-4" />
-          <span>Concierge Match</span>
-        </div>
         <h1 className="text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
           Get Matched With 3 AI Experts in 48 Hours
         </h1>

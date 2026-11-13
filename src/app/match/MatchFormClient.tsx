@@ -124,9 +124,6 @@ export default function MatchFormClient() {
               Specialist Inquired: <strong className="font-bold text-brand-ink">{paramExpert}</strong>. We will coordinate this introduction if they are eligible for a match.
             </span>
           </div>
-          <span className="text-xs bg-white text-brand font-mono font-bold px-3 py-1 rounded-full border border-brand-line self-start sm:self-auto">
-            Direct Match
-          </span>
         </div>
       )}
 
@@ -138,9 +135,6 @@ export default function MatchFormClient() {
               Pre-filled from Selected AI Blueprint. You can edit or add details below.
             </span>
           </div>
-          <span className="text-xs bg-white text-brand font-mono font-bold px-3 py-1 rounded-full border border-brand-line self-start sm:self-auto">
-            Blueprint Match
-          </span>
         </div>
       )}
 

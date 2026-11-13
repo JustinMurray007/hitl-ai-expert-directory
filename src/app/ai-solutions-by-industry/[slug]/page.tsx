@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, Sparkles } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { getExperts } from '@/lib/store';
 import { expertForPage } from '@/lib/listing';
 import BusinessRecommender from '@/components/BusinessRecommender';
@@ -98,10 +98,6 @@ export default async function AiSolutionsBusinessPage({ params }: AiSolutionsBus
         </Link>
       </div>
       <div className="mx-auto mb-12 max-w-3xl text-center">
-        <div className="mb-4 inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-brand-line bg-brand-soft px-4 py-2 text-center text-sm font-medium text-brand">
-          <Sparkles className="h-5 w-5 text-brand" />
-          <span>{industry.industryName}</span>
-        </div>
         <h1 className="text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl">
           AI Solutions for {industry.industryName}
         </h1>

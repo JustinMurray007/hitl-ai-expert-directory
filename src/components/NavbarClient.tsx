@@ -275,8 +275,8 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               {/* Column 1: Solution Domains (5 cols) */}
               <div className="col-span-5 pr-4 border-r border-slate-100">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm font-mono font-medium tracking-wider uppercase text-slate-500">
-                    By Solution Area
+                  <span className="text-sm font-medium text-muted">
+                    By solution area
                   </span>
                   <Link
                     href="/categories"
@@ -315,8 +315,8 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               {/* Column 2: Industry Verticals (4 cols) */}
               <div className="col-span-4 pr-4 border-r border-slate-100">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm font-mono font-medium tracking-wider uppercase text-slate-500">
-                    By Target Industry
+                  <span className="text-sm font-medium text-muted">
+                    By industry
                   </span>
                   <Link
                     href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
@@ -368,10 +368,6 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               {/* Column 3: HITL Guarantee Card (3 cols) */}
               <div className="col-span-3 flex flex-col justify-between">
                 <div className="rounded-2xl p-6 bg-gradient-to-br from-brand-soft/90 via-white to-brand-soft border border-brand-line shadow-xs">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand text-white text-xs font-bold mb-3 shadow-xs">
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>Two ways to look</span>
-                  </div>
                   <h4 className="text-lg font-medium text-ink leading-snug">
                     Browse profiles or ask for introductions.
                   </h4>
@@ -479,8 +475,8 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
 
           {/* Solutions List */}
           <div>
-            <div className="text-sm font-mono font-medium uppercase tracking-wider text-slate-500 mb-3">
-              Explore by Solution
+            <div className="mb-3 text-sm font-medium text-muted">
+              Explore by solution
             </div>
             <div className="grid grid-cols-1 gap-2">
               {solutionCategories.map((item) => {
@@ -502,7 +498,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
           </div>
 
           <div>
-            <div className="text-sm font-mono font-medium uppercase tracking-wider text-slate-500 mb-3">
+            <div className="mb-3 text-sm font-medium text-muted">
               Explore by industry
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
