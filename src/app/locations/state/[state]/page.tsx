@@ -17,7 +17,6 @@ import {
 import ExpertCard from '@/components/ExpertCard';
 import {
   Building,
-  MapPin,
   ShieldCheck,
   CheckCircle2,
   ChevronRight,
@@ -80,7 +79,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
     notFound();
   }
   const allExperts = await getExperts();
-  const { experts: stateExperts, stateCode, stateName, cities, zips } = getExpertsByState(
+  const { experts: stateExperts, stateCode, stateName, cities } = getExpertsByState(
     state,
     allExperts
   );
@@ -191,7 +190,7 @@ export default async function StateLocationPage({ params }: StatePageProps) {
                 Browse by City in {stateName}
               </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Select your city to see who is listed, on-site availability, and neighborhood zip codes.
+                Select your city to see who is listed and whether they work on-site.
               </p>
             </div>
           </div>
@@ -220,27 +219,6 @@ export default async function StateLocationPage({ params }: StatePageProps) {
             ))}
           </div>
         </section>
-
-        {/* Zip Codes in State */}
-        {zips.length > 0 && (
-          <section className="rounded-3xl bg-canvas border border-line p-8 space-y-4">
-            <h3 className="text-lg font-semibold text-ink flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-accent" />
-              <span>Served Zip Codes in {stateName}</span>
-            </h3>
-            <div className="flex flex-wrap gap-2 pt-2">
-              {zips.map((z) => (
-                <Link
-                  key={z}
-                  href={`/locations/zip/${z.toLowerCase()}`}
-                  className="px-3 py-1.5 rounded-xl bg-white border border-line-strong hover:border-accent text-xs font-mono font-bold text-accent hover:bg-accent-soft transition-colors shadow-2xs"
-                >
-                  {z}
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
 
         {/* Specialists in this state */}
         <section className="space-y-6">

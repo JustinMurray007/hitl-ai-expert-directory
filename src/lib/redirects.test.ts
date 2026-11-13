@@ -29,6 +29,10 @@ test('old recommendation URLs 301 to AI solutions by industry', () => {
   has('/experts/withn-tech/', '/experts/jake-read');
   has('/hitl-standard', '/about');
   has('/hitl-standard/', '/about');
+  has('/locations/zip', '/experts');
+  has('/locations/zip/', '/experts');
+  has('/locations/zip/:zip', '/experts');
+  has('/locations/zip/:zip/', '/experts');
   has('/business/:slug', '/ai-solutions-by-industry/:slug');
   has('/business/:slug/', '/ai-solutions-by-industry/:slug');
   has('/business/freight_logistics', '/ai-solutions-by-industry/logistics-freight');

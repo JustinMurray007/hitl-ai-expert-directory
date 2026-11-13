@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { getCategories, getExperts } from './store';
-import { getExpertsByCity, getExpertsByState, getExpertsByZip, getLocationsSummary } from './locations';
+import { getExpertsByCity, getExpertsByState, getLocationsSummary } from './locations';
 import { AI_SOLUTIONS_BY_INDUSTRY_PATH, businessPath, listBusinessTypes } from './business-routes';
 import { listPublicTools } from './tool-catalog';
 import { absoluteUrl, SITE_ORIGIN } from './site-url';
@@ -109,12 +109,12 @@ function page(
  * Omitted on purpose: noindex routes (/apply/success, /apply/thanks, /match/thanks,
  * demo profiles, static-export placeholders), redirects (/business, /ai-tools,
  * /recommendations, legacy industry aliases, /tools/anthropic-claude,
- * /experts/withn-tech), robots-disallowed /admin, and non-canonical state
+ * /experts/withn-tech, /locations/zip), robots-disallowed /admin, and non-canonical state
  * abbreviations that duplicate /locations/state/<full-name>.
  */
 export async function listPublicPages(): Promise<PublicPage[]> {
   const [categories, experts] = await Promise.all([getCategories(), getExperts()]);
-  const { states, cities, zips } = getLocationsSummary(experts);
+  const { states, cities } = getLocationsSummary(experts);
   const directoryDate = newestExpertDate(experts);
   const pages: PublicPage[] = [
     page('/', 'Home', 'main', 'daily', 1, directoryDate, 'src/app/page.tsx'),
@@ -187,12 +187,6 @@ export async function listPublicPages(): Promise<PublicPage[]> {
     const inCity = getExpertsByCity(city.slug, experts).experts;
     pages.push(page(`/locations/city/${city.slug}`, `${city.name}, ${city.stateCode}`, 'locations', 'weekly', 0.6, newestExpertDate(inCity), 'src/app/locations/city/[city]/page.tsx'));
   }
-  for (const zip of zips) {
-    if (!zip.slug || isStaticExportPlaceholder(zip.slug)) continue;
-    const inZip = getExpertsByZip(zip.slug, experts).experts;
-    pages.push(page(`/locations/zip/${zip.slug}`, `${zip.zip} · ${zip.cityName}`, 'locations', 'monthly', 0.5, newestExpertDate(inZip), 'src/app/locations/zip/[zip]/page.tsx'));
-  }
-
   const seen = new Set<string>();
   const unique: PublicPage[] = [];
   for (const entry of pages) {

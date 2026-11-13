@@ -49,6 +49,12 @@
 /hitl-standard /about 301
 /hitl-standard/ /about 301
 
+# Zip-code browse pages. City and state hubs stay.
+/locations/zip /experts 301
+/locations/zip/ /experts 301
+/locations/zip/:zip /experts 301
+/locations/zip/:zip/ /experts 301
+
 # Duplicate business-type pages. Specific legacy aliases above win over the splat.
 /business /ai-solutions-by-industry 301
 /business/ /ai-solutions-by-industry 301

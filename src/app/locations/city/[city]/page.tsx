@@ -74,7 +74,7 @@ export default async function CityLocationPage({ params }: CityPageProps) {
     notFound();
   }
   const allExperts = await getExperts();
-  const { experts: cityExperts, cityName, stateCode, stateName, stateSlug, zips } = getExpertsByCity(
+  const { experts: cityExperts, cityName, stateCode, stateName, stateSlug } = getExpertsByCity(
     city,
     allExperts
   );
@@ -188,23 +188,6 @@ export default async function CityLocationPage({ params }: CityPageProps) {
             </span>
           </div>
 
-          {/* Zip Codes Pill Row */}
-          {zips.length > 0 && (
-            <div className="pt-2 flex items-center gap-2 flex-wrap">
-              <span className="text-sm font-medium text-muted">
-                Served zip codes
-              </span>
-              {zips.map((z) => (
-                <Link
-                  key={z}
-                  href={`/locations/zip/${z.toLowerCase()}`}
-                  className="inline-flex min-h-11 items-center rounded-md border border-line-strong bg-white px-3 py-2 font-mono text-sm font-bold text-brand hover:border-brand hover:bg-brand-soft"
-                >
-                  {z}
-                </Link>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Specialists Grid */}

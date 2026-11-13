@@ -17,14 +17,14 @@ export const metadata: Metadata = {
 
 export default async function LocationsMainPage() {
   const experts = await getExperts();
-  const { states, cities, zips } = getLocationsSummary(experts);
+  const { states, cities } = getLocationsSummary(experts);
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'Find An Ai Consultant & Company Near You',
     description:
-      'Directory of local AI consultants, automation agencies, and applied engineers across cities, states, and zip codes.',
+      'Directory of local AI consultants, automation agencies, and applied engineers across cities and states.',
     itemListElement: cities.slice(0, 15).map((city, index) => ({
       '@type': 'ListItem',
       position: index + 1,
@@ -48,7 +48,7 @@ export default async function LocationsMainPage() {
             Find an AI Consultant Near You: US and Canada
           </h1>
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-            Browse AI consultants, automation agencies, and developers across cities, states, and zip codes. Remote experts can also serve your city.
+            Browse AI consultants, automation agencies, and developers across cities and states. Remote experts can also serve your city.
           </p>
 
           {/* Quick Metrics */}
@@ -68,11 +68,9 @@ export default async function LocationsMainPage() {
           </div>
         </div>
 
-        {/* Interactive Directory (Search, Cities, States, Zips, and Cards) */}
         <LocationsDirectoryClient
           states={states}
           cities={cities}
-          zips={zips}
           experts={experts.map(expertForPage)}
         />
       </div>

@@ -20,7 +20,6 @@ export default function robots(): MetadataRoute.Robots {
           `/experts/${STATIC_EXPORT_PLACEHOLDER}`,
           `/locations/city/${STATIC_EXPORT_PLACEHOLDER}`,
           `/locations/state/${STATIC_EXPORT_PLACEHOLDER}`,
-          `/locations/zip/${STATIC_EXPORT_PLACEHOLDER}`,
           `/business/${STATIC_EXPORT_PLACEHOLDER}`,
           `${AI_SOLUTIONS_BY_INDUSTRY_PATH}/${STATIC_EXPORT_PLACEHOLDER}`,
           `/tools/${STATIC_EXPORT_PLACEHOLDER}`,
