@@ -11,7 +11,8 @@ export interface AiTool {
     | 'code-dev'
     | 'creative-media'
     | 'business-ops'
-    | 'cloud-infrastructure';
+    | 'cloud-infrastructure'
+    | 'web-hosting';
   categoryLabel: string;
   description: string;
   bestFor: string;
@@ -170,6 +171,7 @@ export const AI_TOOL_CATEGORIES = [
   { id: 'code-dev', label: 'Coding & Developer Tools' },
   { id: 'creative-media', label: 'Image, Video & Design' },
   { id: 'business-ops', label: 'Operations, CRM & Meetings' },
+  { id: 'web-hosting', label: 'Web Hosting' },
 ] as const;
 
 export const AI_TOOLS: AiTool[] = [
@@ -254,6 +256,20 @@ export const AI_TOOLS: AiTool[] = [
     isPopular: true,
     tags: ['Real-time Data', 'xAI', 'Live X Feeds', 'Image Gen', 'Reasoning'],
     features: ['Direct live access to real-time posts', 'Flux image generation integration', 'Unfiltered conversational options', 'Frontier Grok-2/3 reasoning architecture'],
+  },
+  {
+    id: 'venice',
+    name: 'Venice',
+    company: 'Venice',
+    websiteUrl: 'https://venice.ai/chat?ref=L0Yusq',
+    category: 'frontier-llm',
+    categoryLabel: 'Frontier LLMs & Reasoning',
+    description: 'Venice is a private, uncensored AI chat and generative AI platform.',
+    bestFor: 'People who want a private AI chat and generative AI.',
+    pricing: '',
+    sponsored: true,
+    tags: ['AI chat', 'Generative AI', 'Private'],
+    features: ['Private AI chat', 'Generative AI'],
   },
   {
     id: 'perplexity',
@@ -720,5 +736,21 @@ export const AI_TOOLS: AiTool[] = [
     isPopular: true,
     tags: ['Grounded AI', 'Audio Overviews', 'PDF Research', 'Zero Hallucination', 'Google'],
     features: ['Strict source grounding to eliminate hallucinations', 'Deep-dive 2-host Audio Overview podcasts', 'Instant FAQ, study guide, and briefing doc generation', 'Upload up to 50 sources per notebook (500k words each)'],
+  },
+
+  // --- Web Hosting ---
+  {
+    id: 'hostinger',
+    name: 'Hostinger',
+    company: 'Hostinger',
+    websiteUrl: 'https://www.hostinger.com?REFERRALCODE=JT1JUSTINJWA',
+    category: 'web-hosting',
+    categoryLabel: 'Web Hosting',
+    description: 'Hostinger is a web hosting provider for hosting, domains, and a website builder.',
+    bestFor: 'People who want web hosting, a domain, or a website builder.',
+    pricing: '',
+    sponsored: true,
+    tags: ['Web hosting', 'Domains', 'Website builder'],
+    features: ['Web hosting', 'Domains', 'Website builder'],
   },
 ];
