@@ -18,10 +18,12 @@ function ToolCard({ tool }: { tool: AiTool }) {
         </h3>
         <p className="mt-2 text-sm text-muted">{tool.company}. {tool.categoryLabel}.</p>
         <p className="text-sm text-muted-strong leading-relaxed mt-3">{tool.description}</p>
-        <p className="text-sm text-ink mt-3">
-          <span className="font-medium">Best for: </span>
-          {tool.bestFor}
-        </p>
+        {tool.bestFor ? (
+          <p className="text-sm text-ink mt-3">
+            <span className="font-medium">Best for: </span>
+            {tool.bestFor}
+          </p>
+        ) : null}
       </div>
       <div className="pt-4 mt-5 border-t border-line flex items-center justify-between gap-3">
         {tool.pricing ? <span className="text-sm text-slate-600">{tool.pricing}</span> : <span />}
