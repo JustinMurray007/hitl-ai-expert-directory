@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Work_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -8,22 +8,38 @@ import JsonLd from '@/components/JsonLd';
 import { organizationAndWebsite } from '@/lib/schema';
 import { SITE_ORIGIN } from '@/lib/site-url';
 
-const inter = Inter({
-  subsets: ['latin'],
+const inter = localFont({
+  src: './fonts/inter/Inter-Bold.woff2',
+  weight: '700',
+  style: 'normal',
   display: 'swap',
-  weight: ['700'],
   variable: '--font-inter',
   preload: true,
-  adjustFontFallback: true,
+  adjustFontFallback: 'Arial',
 });
 
-const workSans = Work_Sans({
-  subsets: ['latin'],
+const workSans = localFont({
+  src: [
+    {
+      path: './fonts/work-sans/WorkSans-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/work-sans/WorkSans-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: './fonts/work-sans/WorkSans-SemiBold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+  ],
   display: 'swap',
-  weight: ['400', '500', '600'],
   variable: '--font-work',
   preload: true,
-  adjustFontFallback: true,
+  adjustFontFallback: 'Arial',
 });
 
 const revealClassScript = `try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-reveal')}catch(e){}`;
