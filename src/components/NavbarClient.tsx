@@ -192,7 +192,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               aria-expanded={megaMenuOpen}
               aria-controls="desktop-mega-menu"
             >
-              <span>Find Ai Expert</span>
+              <span>Hire Expert</span>
               <ChevronDown
                 className={`w-4 h-4 transition-transform duration-200 ${
                   megaMenuOpen ? 'rotate-180 text-brand' : 'text-slate-400'
@@ -206,7 +206,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             onMouseEnter={() => setMegaMenuOpen(false)}
             className={`nav-link inline-flex items-center px-3 rounded-xl text-ink ${industryActive ? activeNav : ''}`}
           >
-            <span>AI Solutions by Industry</span>
+            <span>Search by Industry</span>
           </Link>
 
           <Link
@@ -222,7 +222,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
             onMouseEnter={() => setMegaMenuOpen(false)}
             className={`nav-link inline-flex items-center px-3 rounded-xl ${howActive ? activeNav : ''}`}
           >
-            How It Works
+            About
           </Link>
 
           <Link
@@ -433,7 +433,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               href={AI_SOLUTIONS_BY_INDUSTRY_PATH}
               className="menu-link flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-blue-50 text-base font-bold text-blue-900"
             >
-              <span className="min-w-0">AI Solutions by Industry</span>
+              <span className="min-w-0">Search by Industry</span>
               <span className="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full">Free Tool</span>
             </Link>
             <Link
@@ -454,7 +454,7 @@ export default function NavbarClient({ demoActive }: NavbarClientProps) {
               href="/about#how-it-works"
               className="menu-link flex items-center p-3 text-base font-medium text-slate-700 hover:text-ink"
             >
-              How It Works
+              About
             </Link>
             <Link
               href="/categories"

@@ -68,7 +68,7 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <Link href={AI_SOLUTIONS_BY_INDUSTRY_PATH} className="hover:text-white transition-colors flex items-center gap-1.5 font-bold text-brand-on-dark">
-                  AI Solutions by Industry <ArrowRight className="w-3.5 h-3.5 text-brand-on-dark" />
+                  Search by Industry <ArrowRight className="w-3.5 h-3.5 text-brand-on-dark" />
                 </Link>
               </li>
               <li>
@@ -83,7 +83,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
-                  How it works
+                  About
                 </Link>
               </li>
               <li>
